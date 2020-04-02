@@ -5,27 +5,35 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AirlineDetailsComponent} from './Airline/airline-details/airline-details.component';
 import { AirlinePanelComponent} from './Airline/airline-panel/airline-panel.component';
-import { MainComponentComponent } from './Shared/MainComponent/main-component/main-component.component';
-import { AirlineMainComponentComponent } from './Airline/airline-main-component/airline-main-component.component';
-import { AirlineHolderComponentComponent } from './Airline/airline-holder-component/airline-holder-component.component';
-import { AirlineFilterComponentComponent } from './Airline/airline-filter-component/airline-filter-component.component';
-import { AirlineSearchComponentComponent } from './Airline/airline-search-component/airline-search-component.component';
+import { MainComponent } from './Shared/MainComponent/main/main.component';
+import { AirlineMainComponent} from './Airline/airline-main/airline-main.component';
+import { AirlineHolderComponent } from './Airline/airline-holder/airline-holder.component';
+import { AirlineFilterComponent} from './Airline/airline-filter/airline-filter.component';
+import { AirlineSearchComponent } from './Airline/airline-search/airline-search.component';
+import { Routes, RouterModule } from '@angular/router';
+
+const appRoutes : Routes = [
+  {path : 'Airlines', component: AirlineMainComponent}
+]
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     AirlineDetailsComponent,
-    MainComponentComponent,
-    AirlineMainComponentComponent,
-    AirlineHolderComponentComponent,
-    AirlineFilterComponentComponent,
-    AirlineSearchComponentComponent
+    MainComponent,
+    AirlineMainComponent,
+    AirlineHolderComponent,
+    AirlineFilterComponent,
+    AirlineSearchComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forRoot(appRoutes, {enableTracing : true})
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [MainComponent]
 })
 export class AppModule { }
