@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AirlineCompany } from 'src/app/Shared/Model/Airlines/AirlineCompany.model';
 
 @Component({
   selector: 'app-airline-holder',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AirlineHolderComponent implements OnInit {
 
+  private companies : Array<AirlineCompany>;
   constructor() { }
 
   ngOnInit(): void {
