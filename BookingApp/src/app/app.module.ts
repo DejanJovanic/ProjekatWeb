@@ -12,12 +12,11 @@ import { AirlineFilterComponent} from './Airline/airline-filter/airline-filter.c
 import { AirlineSearchComponent } from './Airline/airline-search/airline-search.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AirlineGetterService } from './Airline/Services/AirlineGetter/airline-getter.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const appRoutes : Routes = [
   {path : 'Airlines', component: AirlineMainComponent}
 ]
-
-
 
 @NgModule({
   declarations: [
@@ -31,11 +30,12 @@ const appRoutes : Routes = [
     AirlinePanelComponent
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes, {enableTracing : true})
   ],
-  providers: [ AirlineGetterService],
+  providers: [],
   bootstrap: [MainComponent]
 })
 export class AppModule { }

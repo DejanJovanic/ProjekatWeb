@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { AirlineCompany } from 'src/app/Shared/Model/Airlines/AirlineCompany.model';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-airline-details',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AirlineDetailsComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  item : AirlineCompany
+  constructor(public activeModal : NgbActiveModal) { }
 
   ngOnInit(): void {
   }
