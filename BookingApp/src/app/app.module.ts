@@ -11,6 +11,7 @@ import { AirlineHolderComponent } from './Airline/airline-holder/airline-holder.
 import { AirlineFilterComponent} from './Airline/airline-filter/airline-filter.component';
 import { AirlineSearchComponent } from './Airline/airline-search/airline-search.component';
 import { Routes, RouterModule } from '@angular/router';
+import { AirlineGetterService } from './Airline/Services/AirlineGetter/airline-getter.service';
 
 const appRoutes : Routes = [
   {path : 'Airlines', component: AirlineMainComponent}
@@ -26,14 +27,15 @@ const appRoutes : Routes = [
     AirlineMainComponent,
     AirlineHolderComponent,
     AirlineFilterComponent,
-    AirlineSearchComponent
+    AirlineSearchComponent,
+    AirlinePanelComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes, {enableTracing : true})
   ],
-  providers: [],
+  providers: [ AirlineGetterService],
   bootstrap: [MainComponent]
 })
 export class AppModule { }

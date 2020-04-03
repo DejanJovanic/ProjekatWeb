@@ -1,1 +1,7 @@
-<div ></div> 
+<div class = "row">
+    <div *ngFor="let item of companies" class="col-md-4 mb-5">
+        <div class="col-md-12">
+            <app-airline-panel [item]=item></app-airline-panel>
+        </div>
+    </div>
+</div>
