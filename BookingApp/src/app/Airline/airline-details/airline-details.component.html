@@ -1,4 +1,46 @@
 <div class="modal-header">
-    <div>{{item.name}}</div>
-    <div>{{item.description}}</div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="h-5">{{item.name}}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="h-3">{{item.address}}</div>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <p>{{item.description}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table">
+            <tr *ngFor="let airline of item.airlines">
+                <td>
+                    {{airline.startName}}
+                </td>
+                <td>
+                    {{airline.destinationName}}
+                </td>
+                <td>
+                    {{airline.buisnessClassPrice}}
+                </td>
+                <td>
+                    {{airline.middleClassPrice}}
+                </td>
+                <td>
+                    {{airline.economyClassPrice}}
+                </td>
+            </tr>
+        </table>
+    </div>
+    
 </div>

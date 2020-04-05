@@ -18,7 +18,8 @@ export class AirlinePanelComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  Open(){
+  
+  @HostListener("click") Open(){
    const modalRef = this.modalService.open(AirlineDetailsComponent);
    modalRef.componentInstance.item = this.item;
   }
