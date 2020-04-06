@@ -1,1 +1,9 @@
-<p>airline-filter-component works!</p>
+<div class="card">
+    <div class="card-header btn btn-link" id="flight-filter" (click)="isCollapsed = !isCollapsed" 
+    [attr.aria-expanded] = "!isCollapsed" aria-controls="flight-filter-content" style="cursor: pointer;">
+        Filter
+    </div>
+    <div [ngbCollapse]="isCollapsed" id="flight-filter-content" class="card-body">
+        dsadsadsa
+    </div>
+</div>

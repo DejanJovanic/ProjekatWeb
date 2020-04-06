@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AirlineFilterComponent implements OnInit {
 
+  isCollapsed = true;
   constructor() { }
 
   ngOnInit(): void {
