@@ -13,10 +13,10 @@ import { AirlineSearchComponent } from './Airline/airline-search/airline-search.
 import { Routes, RouterModule } from '@angular/router';
 import { AirlineGetterService } from './Airline/Services/AirlineGetter/airline-getter.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NavBarUnregisteredComponent } from './Shared/NavBars/nav-bar-unregistered/nav-bar-unregistered.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlightPanelComponent } from './Airline/flight-panel/flight-panel.component';
 
-const appRoutes : Routes = [
-  {path : 'Airlines', component: AirlineMainComponent}
-]
 
 @NgModule({
   declarations: [
@@ -27,13 +27,17 @@ const appRoutes : Routes = [
     AirlineHolderComponent,
     AirlineFilterComponent,
     AirlineSearchComponent,
-    AirlinePanelComponent
+    AirlinePanelComponent,
+    NavBarUnregisteredComponent,
+    FlightPanelComponent
+
   ],
   imports: [
     NgbModule,
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes, {enableTracing : true})
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [MainComponent]

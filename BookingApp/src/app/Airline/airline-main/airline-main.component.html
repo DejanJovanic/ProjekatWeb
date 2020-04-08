@@ -1,2 +1,16 @@
+<div class = "row">
+    <div class="col-sm-12">
+        <app-airline-search></app-airline-search>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <app-airline-filter (filter)="onFlightFilter($event)"></app-airline-filter>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <app-airline-holder [filter] = "filterSubject.asObservable()"></app-airline-holder>
+    </div>
+</div>
 
-    <app-airline-holder></app-airline-holder>
