@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AirlineCompany} from "../../../Shared/Model/Airlines/AirlineCompany.model"
 import { range } from 'rxjs';
 import { Airline } from 'src/app/Shared/Model/Airlines/Airline.model';
+import { Flight } from 'src/app/Shared/Model/Airlines/Flight.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +17,12 @@ export class AirlineGetterService {
       company.description = "Great company-" + i;
       company.address = "address-" + i;
       company.grade = i;
+      let flight = new Flight(company);
+      flight.price = i + 100;
+      flight.startDate = new Date();
+      flight.finishDate = new Date();
+      flight.finishDate.setMonth((flight.finishDate.getMonth() + i) % 12);
+      company.flights.push(flight);
       let airline1 = new Airline();
       airline1.startName = "aaa" + i;
       airline1.destinationName = "bbb" + i;

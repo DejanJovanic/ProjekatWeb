@@ -1,3 +1,5 @@
+import { AirlineCompany } from './AirlineCompany.model';
+
 export class Flight{
     startDate : Date;
     finishDate : Date;
@@ -6,8 +8,10 @@ export class Flight{
     numberOfStops : Number;
     stopsLocations : Array<String>;
     price : Number;
+    airline : AirlineCompany
 
-    constructor(){
+    constructor(airline : AirlineCompany){
+        this.airline = airline;
         this.stopsLocations = new Array<String>();
     }
 }

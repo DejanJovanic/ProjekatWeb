@@ -4,6 +4,16 @@
         Filter
     </div>
     <div [ngbCollapse]="isCollapsed" id="flight-filter-content" class="card-body">
-        dsadsadsa
+        <form (submit)="onSubmit()" [formGroup]="filterForm" novalidate>
+            <div class="form-group row">
+                <label for="price" class="col-sm-2 col-form-label">price</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="price" name="price" id="price" formControlName="price">
+                </div>  
+            </div> 
+            <button class="btn btn-primary" type="submit">
+                Save
+            </button>
+        </form>   
     </div>
 </div>

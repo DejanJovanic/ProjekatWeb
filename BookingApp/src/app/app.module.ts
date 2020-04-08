@@ -14,6 +14,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AirlineGetterService } from './Airline/Services/AirlineGetter/airline-getter.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavBarUnregisteredComponent } from './Shared/NavBars/nav-bar-unregistered/nav-bar-unregistered.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlightPanelComponent } from './Airline/flight-panel/flight-panel.component';
 
 
 @NgModule({
@@ -26,13 +28,16 @@ import { NavBarUnregisteredComponent } from './Shared/NavBars/nav-bar-unregister
     AirlineFilterComponent,
     AirlineSearchComponent,
     AirlinePanelComponent,
-    NavBarUnregisteredComponent
+    NavBarUnregisteredComponent,
+    FlightPanelComponent
 
   ],
   imports: [
     NgbModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [MainComponent]

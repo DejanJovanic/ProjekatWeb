@@ -5,12 +5,12 @@
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <app-airline-filter></app-airline-filter>
+        <app-airline-filter (filter)="onFlightFilter($event)"></app-airline-filter>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <app-airline-holder></app-airline-holder>
+        <app-airline-holder [filter] = "filterSubject.asObservable()"></app-airline-holder>
     </div>
 </div>
 
