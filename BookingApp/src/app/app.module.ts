@@ -16,6 +16,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavBarUnregisteredComponent } from './Shared/NavBars/nav-bar-unregistered/nav-bar-unregistered.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlightPanelComponent } from './Airline/flight-panel/flight-panel.component';
+import { AirlineCacheService } from './Airline/Services/AirlineCache/airline-cache.service';
+import { FrameComponent } from './Shared/frame/frame.component';
 
 
 @NgModule({
@@ -29,8 +31,8 @@ import { FlightPanelComponent } from './Airline/flight-panel/flight-panel.compon
     AirlineSearchComponent,
     AirlinePanelComponent,
     NavBarUnregisteredComponent,
-    FlightPanelComponent
-
+    FlightPanelComponent,
+    FrameComponent
   ],
   imports: [
     NgbModule,
@@ -39,7 +41,7 @@ import { FlightPanelComponent } from './Airline/flight-panel/flight-panel.compon
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
-  bootstrap: [MainComponent]
+  providers: [AirlineCacheService],
+  bootstrap: [FrameComponent]
 })
 export class AppModule { }

@@ -16,7 +16,14 @@ export class AirlineFilterComponent implements OnInit {
   constructor(private builder : FormBuilder) { }
 
   ngOnInit(): void {
-    this.filterForm = this.builder.group({price:['', Validators.required]});
+    this.filterForm = this.builder.group(
+      {
+        priceFrom:['',Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/)],
+        priceTo : ['',Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/)],
+        startDate:[''],
+        finishDate:[''],
+        flightDuration:['']
+      });
   }
 
   filterItems(items : Array<AirlineCompany>){
@@ -25,6 +32,10 @@ export class AirlineFilterComponent implements OnInit {
   onSubmit(){
     let params = new FlightFilterParams();
     params.price = parseFloat(this.filterForm.value.price);
+    if(this.filterForm.value.startDate != null){
+      params.startDate = new Date(this.filterForm.value.startDate.year,this.filterForm.value.startDate.month,
+        this.filterForm.value.startDate.day);
+    }
     this.filter.emit(params);
   }
 }

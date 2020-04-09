@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
 
   public links;
-  constructor(private router : Router) { }
+  constructor(private router : Router,private activeRoute : ActivatedRoute) { }
 
   ngOnInit(): void {
      this.links = [
-      {title : "Flights" , route : "/Airlines"}
+      {title : "Flights" , route : "Airlines"}
     ];
-    this.router.navigate(['/Airlines'])
+    this.router.navigate(['Airlines'],{ relativeTo : this.activeRoute});
   }
 
 }

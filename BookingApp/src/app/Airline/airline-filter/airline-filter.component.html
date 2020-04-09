@@ -4,14 +4,24 @@
         Filter
     </div>
     <div [ngbCollapse]="isCollapsed" id="flight-filter-content" class="card-body">
-        <form (submit)="onSubmit()" [formGroup]="filterForm" novalidate>
+        <form (submit)="onSubmit()" [formGroup]="filterForm" novalidate >
             <div class="form-group row">
-                <label for="price" class="col-sm-2 col-form-label">price</label>
+                <label for="priceFrom" class="col-sm-2 col-form-label">price</label>
                 <div class="col-sm-10">
-                    <input class="form-control" type="price" name="price" id="price" formControlName="price">
+                    <input class="form-control" type="text" name="priceFrom" id="priceFrom" formControlName="priceFrom"/>
                 </div>  
             </div> 
-            <button class="btn btn-primary" type="submit">
+            <div class="form-group row">
+                <label for="startDate" class="col-sm-2 col-form-label">Start Date</label>
+                <div class="col-sm-10">
+                    <ngb-datepicker formControlName="startDate" #d></ngb-datepicker>
+                </div>
+                <label for="flightDuration" class="col-sm-2 col-form-label">Flight Duration</label>
+                <div class="col-sm-10">
+                    <ngb-timepicker formControlName="flightDuration" #d></ngb-timepicker>
+                </div>
+            </div>
+            <button class="btn btn-primary" [disabled]="filterForm.invalid" type="submit">
                 Save
             </button>
         </form>   
