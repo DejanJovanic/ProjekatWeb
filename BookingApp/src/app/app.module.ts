@@ -18,6 +18,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlightPanelComponent } from './Airline/flight-panel/flight-panel.component';
 import { AirlineCacheService } from './Airline/Services/AirlineCache/airline-cache.service';
 import { FrameComponent } from './Shared/frame/frame.component';
+import { SeatReservationComponent } from './Airline/seat-reservation/seat-reservation.component';
+import { AirlineNetworkService } from './Airline/Services/AirlineNetwork/airline-network.service';
+import { AirlineDatabaseService } from './Shared/Model/Airlines/Database/airline-database.service';
+import { SeatAssignmentComponent } from './Airline/seat-assignment/seat-assignment.component';
 
 
 @NgModule({
@@ -32,7 +36,9 @@ import { FrameComponent } from './Shared/frame/frame.component';
     AirlinePanelComponent,
     NavBarUnregisteredComponent,
     FlightPanelComponent,
-    FrameComponent
+    FrameComponent,
+    SeatReservationComponent,
+    SeatAssignmentComponent
   ],
   imports: [
     NgbModule,
@@ -41,7 +47,7 @@ import { FrameComponent } from './Shared/frame/frame.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AirlineCacheService],
+  providers: [AirlineCacheService, AirlineNetworkService, AirlineDatabaseService],
   bootstrap: [FrameComponent]
 })
 export class AppModule { }

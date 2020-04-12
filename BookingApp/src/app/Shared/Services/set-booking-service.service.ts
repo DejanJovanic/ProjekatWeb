@@ -18,7 +18,7 @@ export class SetBookingServiceService implements SetFlightReservationService, Se
   }
 
   public SetCarReservation(reservation : CarReservation) : void{
-    this.currentReservation.flight = reservation;
+    this.currentReservation.car = reservation;
   }
 
   public SendCurrentReservation(): void{

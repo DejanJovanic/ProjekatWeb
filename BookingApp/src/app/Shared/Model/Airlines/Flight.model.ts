@@ -1,6 +1,7 @@
 import { AirlineCompany } from './AirlineCompany.model';
 
 export class Flight{
+    id : number;
     startLocation : string;
     startDate : Date;
     finishLocation : string;

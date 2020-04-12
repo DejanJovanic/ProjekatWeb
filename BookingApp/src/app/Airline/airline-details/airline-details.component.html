@@ -23,21 +23,9 @@
     </div>
     <div class="row">
         <table class="table">
-            <tr *ngFor="let airline of item.airlines">
+            <tr *ngFor="let airline of item.destinations">
                 <td>
-                    {{airline.startName}}
-                </td>
-                <td>
-                    {{airline.destinationName}}
-                </td>
-                <td>
-                    {{airline.buisnessClassPrice}}
-                </td>
-                <td>
-                    {{airline.middleClassPrice}}
-                </td>
-                <td>
-                    {{airline.economyClassPrice}}
+                    {{airline}}
                 </td>
             </tr>
         </table>

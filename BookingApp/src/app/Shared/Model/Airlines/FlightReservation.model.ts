@@ -1,3 +1,9 @@
+import { Ticket } from './Ticket.model';
+
 export class FlightReservation {
-    //Podaci vezani za rezervaciju leta
+    public tickets : Ticket[]
+
+    constructor(){
+        this.tickets = [];
+    }
 }
