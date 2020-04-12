@@ -21,7 +21,7 @@ import { FrameComponent } from './Shared/frame/frame.component';
 import { SeatReservationComponent } from './Airline/seat-reservation/seat-reservation.component';
 import { AirlineNetworkService } from './Airline/Services/AirlineNetwork/airline-network.service';
 import { AirlineDatabaseService } from './Shared/Model/Airlines/Database/airline-database.service';
-import { SeatAssignmentComponent } from './Airline/seat-assignment/seat-assignment.component';
+import { FlightReservationService } from './Airline/Services/FlightReservation/flight-reservation.service';
 
 
 @NgModule({
@@ -37,8 +37,7 @@ import { SeatAssignmentComponent } from './Airline/seat-assignment/seat-assignme
     NavBarUnregisteredComponent,
     FlightPanelComponent,
     FrameComponent,
-    SeatReservationComponent,
-    SeatAssignmentComponent
+    SeatReservationComponent
   ],
   imports: [
     NgbModule,
@@ -47,7 +46,7 @@ import { SeatAssignmentComponent } from './Airline/seat-assignment/seat-assignme
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AirlineCacheService, AirlineNetworkService, AirlineDatabaseService],
+  providers: [AirlineCacheService, AirlineNetworkService, AirlineDatabaseService, FlightReservationService],
   bootstrap: [FrameComponent]
 })
 export class AppModule { }
