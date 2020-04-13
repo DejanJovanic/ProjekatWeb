@@ -1,5 +1,8 @@
-<div class = "row" *ngFor="let item of flights">
-    <div  class="col-md-12">
-        <app-flight-panel [flight]=item></app-flight-panel>
+<div class="container">
+    <div class = "row" *ngFor="let item of flights">
+        <div  class="col-md-12">
+            <app-flight-panel [flight]=item></app-flight-panel>
+        </div>
     </div>
 </div>
+

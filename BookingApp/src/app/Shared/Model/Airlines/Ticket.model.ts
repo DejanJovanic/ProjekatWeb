@@ -7,6 +7,5 @@ export class Ticket{
     details : UserFlightDetails
 
     constructor(){
-        this.details = new UserFlightDetails();
     }
 }

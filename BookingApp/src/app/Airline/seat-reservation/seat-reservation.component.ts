@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FlightDetails } from 'src/app/Shared/Model/Airlines/FlightDetails.model';
 import { FlightDetailsService } from '../Services/FlightDetails/flight-details.service';
 import { Subscription } from 'rxjs';
@@ -20,7 +20,8 @@ export class SeatReservationComponent implements OnInit {
   public seats : SeatDisplay[]
   private details : FlightDetails
   private obs : Subscription;
-  constructor(private route : ActivatedRoute,private service : FlightDetailsService,private reservationService : FlightReservationService) {
+  constructor(private route : ActivatedRoute,private service : FlightDetailsService,
+    private reservationService : FlightReservationService, private router : Router) {
     this.reservation = new FlightReservation()
    }
 
@@ -53,6 +54,8 @@ export class SeatReservationComponent implements OnInit {
   onButtonClicked(){
     if(this.reservation != null && this.reservation.tickets.length > 0){
       this.reservationService.reservation = this.reservation;
+      this.router.navigate(['\seatAssignment']);
+
     }
   }
 

@@ -22,7 +22,9 @@ import { SeatReservationComponent } from './Airline/seat-reservation/seat-reserv
 import { AirlineNetworkService } from './Airline/Services/AirlineNetwork/airline-network.service';
 import { AirlineDatabaseService } from './Shared/Model/Airlines/Database/airline-database.service';
 import { FlightReservationService } from './Airline/Services/FlightReservation/flight-reservation.service';
-
+import { SeatAssignmentComponent } from './Airline/seat-assignment/seat-assignment.component';
+import { FlightUserDetailsComponent } from './Airline/flight-user-details/flight-user-details.component';
+import { AirlineConfirmationComponent } from './Airline/airline-confirmation/airline-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,10 @@ import { FlightReservationService } from './Airline/Services/FlightReservation/f
     NavBarUnregisteredComponent,
     FlightPanelComponent,
     FrameComponent,
-    SeatReservationComponent
+    SeatReservationComponent,
+    SeatAssignmentComponent,
+    FlightUserDetailsComponent,
+    AirlineConfirmationComponent
   ],
   imports: [
     NgbModule,

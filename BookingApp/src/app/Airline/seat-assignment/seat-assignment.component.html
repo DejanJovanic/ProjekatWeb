@@ -1,1 +1,24 @@
-<p>seat-assignment works!</p>
+<div class="container">
+    <div class="row" *ngFor="let item of reservation.tickets">
+        <div class="col-sm-5">
+            Seat at row: {{item.row}} , column : {{item.column}} , index : {{item.seatIndex}} 
+        </div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-3"*ngIf="!item.details; else clearData" >
+            <button (click)="EnterData(item.seatIndex)" class="btn btn-primary">Enter data</button>
+        </div>
+        <ng-template #clearData>
+            <div class="col-sm-3">
+                <button (click)="ClearData(item.seatIndex)" class="btn btn-danger">Clear data</button>
+            </div>
+        </ng-template>
+    </div>
+    <div class="row"> 
+        <div class="col-sm-12">
+            <button class="btn btn-primary" [routerLink]="['/reservationConfirm']" routerLinkActive="active" [disabled]="!isOk">Next</button>
+        </div>
+    </div>
+</div>
+
+
