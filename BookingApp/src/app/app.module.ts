@@ -26,6 +26,7 @@ import { SeatAssignmentComponent } from './Airline/seat-assignment/seat-assignme
 import { FlightUserDetailsComponent } from './Airline/flight-user-details/flight-user-details.component';
 import { AirlineConfirmationComponent } from './Airline/airline-confirmation/airline-confirmation.component';
 import { LoginComponent } from './Users/login/login.component';
+import { RegisterComponent } from './Users/register/register.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { LoginComponent } from './Users/login/login.component';
     SeatAssignmentComponent,
     FlightUserDetailsComponent,
     AirlineConfirmationComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     NgbModule,
