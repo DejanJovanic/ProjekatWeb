@@ -25,6 +25,7 @@ import { FlightReservationService } from './Airline/Services/FlightReservation/f
 import { SeatAssignmentComponent } from './Airline/seat-assignment/seat-assignment.component';
 import { FlightUserDetailsComponent } from './Airline/flight-user-details/flight-user-details.component';
 import { AirlineConfirmationComponent } from './Airline/airline-confirmation/airline-confirmation.component';
+import { LoginComponent } from './Users/login/login.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { AirlineConfirmationComponent } from './Airline/airline-confirmation/air
     SeatReservationComponent,
     SeatAssignmentComponent,
     FlightUserDetailsComponent,
-    AirlineConfirmationComponent
+    AirlineConfirmationComponent,
+    LoginComponent
   ],
   imports: [
     NgbModule,
