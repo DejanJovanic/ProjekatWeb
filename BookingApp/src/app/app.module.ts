@@ -27,6 +27,8 @@ import { FlightUserDetailsComponent } from './Airline/flight-user-details/flight
 import { AirlineConfirmationComponent } from './Airline/airline-confirmation/airline-confirmation.component';
 import { LoginComponent } from './Users/login/login.component';
 import { RegisterComponent } from './Users/register/register.component';
+import { TicketPreviewComponent } from './Airline/ticket-preview/ticket-preview.component';
+import { FlightReservationConfirmationComponent } from './Airline/flight-reservation-confirmation/flight-reservation-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { RegisterComponent } from './Users/register/register.component';
     FlightUserDetailsComponent,
     AirlineConfirmationComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    TicketPreviewComponent,
+    FlightReservationConfirmationComponent
   ],
   imports: [
     NgbModule,

@@ -11,11 +11,12 @@ import { SeatStatus } from '../SeatStatus.model';
 export class FlightDatabase extends Flight{
     flightClass : FlightClass;
     airplane : Airplane;
-    user : User
+    soldTickets : Ticket[]
     details : FlightDetails;
 
     constructor(public airline : AirlineCompany){
         super(airline);  
+        this.soldTickets = [];
         this.details = new FlightDetails(this.airplane);
         this.details.seats.rowNum = 5;
         this.details.seats.colNum = 10;

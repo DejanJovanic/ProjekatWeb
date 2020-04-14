@@ -8,6 +8,7 @@ import { SeatStatus } from 'src/app/Shared/Model/Airlines/SeatStatus.model';
 import { FlightReservation } from 'src/app/Shared/Model/Airlines/FlightReservation.model';
 import { Ticket } from 'src/app/Shared/Model/Airlines/Ticket.model';
 import { FlightReservationService } from '../Services/FlightReservation/flight-reservation.service';
+import { AirlineCacheService } from '../Services/AirlineCache/airline-cache.service';
 
 @Component({
   selector: 'app-seat-reservation',
@@ -21,8 +22,9 @@ export class SeatReservationComponent implements OnInit {
   private details : FlightDetails
   private obs : Subscription;
   constructor(private route : ActivatedRoute,private service : FlightDetailsService,
-    private reservationService : FlightReservationService, private router : Router) {
-    this.reservation = new FlightReservation()
+    private reservationService : FlightReservationService, private router : Router
+    ,private cache : AirlineCacheService) {
+    this.reservation = new FlightReservation(this.cache.flights.find(item => item.id == this.route.snapshot.params.id))
    }
 
   ngOnInit(): void {

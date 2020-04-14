@@ -1,0 +1,116 @@
+<div class="card">
+    <div class="card-header">
+        <h4>
+            Flight Reservation
+        </h4>
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="label">
+                                Name: 
+                            </label>
+                        </div>
+                        <div class="col-sm-4" *ngIf="ticket.details">
+                            <span>
+                                {{ticket.details.name}}
+                            </span>
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="label">
+                                Row: 
+                            </label>
+                        </div>
+                        <div class="col-sm-4">
+                            <span>
+                                {{ticket.row}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="label">
+                                Last Name: 
+                            </label>
+                        </div>
+                        <div class="col-sm-4" *ngIf="ticket.details">
+                            <span>
+                                {{ticket.details.lastName}}
+                            </span>
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="label">
+                                Column: 
+                            </label>
+                        </div>
+                        <div class="col-sm-4">
+                            <span>
+                                {{ticket.column}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="label">
+                                Passport number: 
+                            </label>
+                        </div>
+                        <div class="col-sm-4" *ngIf="ticket.details">
+                            <span>
+                                {{ticket.details.passportNum}}
+                            </span>
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="label">
+                                Seat Index: 
+                            </label>
+                        </div>
+                        <div class="col-sm-4">
+                            <span>
+                                {{ticket.seatIndex}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4" *ngIf="!isAssignment">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h4 class="h4">
+                                Price:
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span>
+                                {{ticket.price}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </div>
+    <div class="card-footer">
+        <div class="container" *ngIf="isAssignment; else assignment">
+            <div class="row">
+                <div class="col-sm-12"*ngIf="!ticket.details; else clearData" >
+                    <button (click)="EnterData()" class="btn btn-primary">Enter data</button>
+                </div>
+                <ng-template #clearData>
+                    <div class="col-sm-12">
+                        <button (click)="ClearData()" class="btn btn-danger">Clear data</button>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+        <ng-template #assignment>
+            <div class="container">
+
+            </div>
+        </ng-template>      
+    </div>
+</div>    
