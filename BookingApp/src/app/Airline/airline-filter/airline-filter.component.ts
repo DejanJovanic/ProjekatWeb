@@ -31,7 +31,7 @@ export class AirlineFilterComponent implements OnInit {
   }
   onSubmit(){
     let params = new FlightFilterParams();
-    params.price = parseFloat(this.filterForm.value.price);
+    params.price = parseFloat(this.filterForm.value.priceFrom);
     if(this.filterForm.value.startDate != null){
       params.startDate = new Date(this.filterForm.value.startDate.year,this.filterForm.value.startDate.month,
         this.filterForm.value.startDate.day);

@@ -29,6 +29,7 @@ import { LoginComponent } from './Users/login/login.component';
 import { RegisterComponent } from './Users/register/register.component';
 import { TicketPreviewComponent } from './Airline/ticket-preview/ticket-preview.component';
 import { FlightReservationConfirmationComponent } from './Airline/flight-reservation-confirmation/flight-reservation-confirmation.component';
+import { FlightFilterService } from './Airline/Services/FlightFilter/flight-filter.service';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import { FlightReservationConfirmationComponent } from './Airline/flight-reserva
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AirlineCacheService, AirlineNetworkService, AirlineDatabaseService, FlightReservationService],
+  providers: [AirlineCacheService, AirlineNetworkService, AirlineDatabaseService, FlightReservationService,AirlineGetterService,FlightFilterService],
   bootstrap: [FrameComponent]
 })
 export class AppModule { }

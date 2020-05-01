@@ -9,6 +9,7 @@ import { FlightReservation } from 'src/app/Shared/Model/Airlines/FlightReservati
 import { Ticket } from 'src/app/Shared/Model/Airlines/Ticket.model';
 import { FlightReservationService } from '../Services/FlightReservation/flight-reservation.service';
 import { AirlineCacheService } from '../Services/AirlineCache/airline-cache.service';
+import { Flight } from 'src/app/Shared/Model/Airlines/Flight.model';
 
 @Component({
   selector: 'app-seat-reservation',
@@ -21,17 +22,32 @@ export class SeatReservationComponent implements OnInit {
   public seats : SeatDisplay[]
   private details : FlightDetails
   private obs : Subscription;
-  constructor(private route : ActivatedRoute,private service : FlightDetailsService,
+  constructor(private route : ActivatedRoute,
     private reservationService : FlightReservationService, private router : Router
     ,private cache : AirlineCacheService) {
-    this.reservation = new FlightReservation(this.cache.flights.find(item => item.id == this.route.snapshot.params.id))
-   }
+    let flights = this.cache.airlines.getValue().map(i =>{
+      let flights = new Array<Flight>();
+        for(let flight of i.flights){
+          flights.push(flight);
+        }
+      return flights;
+    })
+    let temp = []
+    for(let a of flights){
+      for(let b of a){
+        temp.push(b);
+      }
+    }
 
+    let flight = temp.find(item => item.id == this.route.snapshot.params.id)
+  
+    this.reservation = new FlightReservation(flight)
+  }
   ngOnInit(): void {
-    this.obs = this.service.getDetails(this.route.snapshot.params.id).subscribe(i => {
-      this.details = i;
-      this.seats = this.setDisplay(i);
-    });
+    this.route.data.subscribe((data : {details : FlightDetails}) =>{
+      this.details = data.details;
+      this.seats = this.setDisplay(this.details);
+    })
   }
 
   public itemClicked(row : number,column : number){

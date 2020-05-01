@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AirlineCompany } from 'src/app/Shared/Model/Airlines/AirlineCompany.model';
 import { Flight } from 'src/app/Shared/Model/Airlines/Flight.model';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
@@ -8,11 +9,8 @@ import { Flight } from 'src/app/Shared/Model/Airlines/Flight.model';
 })
 export class AirlineCacheService {
 
-  public airlines : Array<AirlineCompany>;
-  public flights : Array<Flight>;
+  public airlines : BehaviorSubject<AirlineCompany[]>;
   constructor() { 
-    this.airlines = new Array<AirlineCompany>();
-    this.flights = new Array<Flight>();
-  
+    this.airlines = new BehaviorSubject<AirlineCompany[]>(null);
   }
 }
