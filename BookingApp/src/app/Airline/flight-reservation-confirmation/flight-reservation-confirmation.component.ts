@@ -27,7 +27,7 @@ export class FlightReservationConfirmationComponent implements OnInit {
     this.bookingService.SendCurrentReservation();
     this.service.reservation = null;
     this.router.navigate(['']);
-
+    sessionStorage.removeItem("choosenFriends")
   }
 
 }

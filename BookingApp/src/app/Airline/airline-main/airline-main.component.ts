@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 
 
 
+
 @Component({
   selector: 'app-airline-main',
   templateUrl: './airline-main.component.html',
@@ -19,6 +20,7 @@ export class AirlineMainComponent implements OnInit {
   }
 
   onFlightFilter(event : FlightFilterParams){
+    sessionStorage.flightFilter = JSON.stringify(event);
     this.filterSubject.next(event);
   }
 }

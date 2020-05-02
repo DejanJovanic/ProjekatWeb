@@ -1,0 +1,27 @@
+<div class="modal-body">
+    <div class="container">
+        <div class="row" *ngFor="let friend of friends | async">
+            <div class="card" >
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <h4>
+                                        Username:
+                                    </h4>
+                                </div>
+                                <div class="col-sm-4">
+                                    <h4>
+                                        {{friend.username}}
+                                    </h4>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button class="btn btn-primary" (click)="onFriendClick(friend.username)">Select</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

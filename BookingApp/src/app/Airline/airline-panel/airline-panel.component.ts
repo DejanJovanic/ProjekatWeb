@@ -3,6 +3,7 @@ import { AirlineCompany } from 'src/app/Shared/Model/Airlines/AirlineCompany.mod
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AirlineDetailsComponent } from '../airline-details/airline-details.component';
 
+
 @Component({
   selector: 'app-airline-panel',
   templateUrl: './airline-panel.component.html',
@@ -21,6 +22,7 @@ export class AirlinePanelComponent implements OnInit {
   
   @HostListener("click") Open(){
    const modalRef = this.modalService.open(AirlineDetailsComponent);
+
    modalRef.componentInstance.item = this.item;
   }
 }

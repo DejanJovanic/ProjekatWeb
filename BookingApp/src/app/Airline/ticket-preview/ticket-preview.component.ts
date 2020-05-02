@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserFlightDetailsModal } from 'src/app/Shared/Model/Airlines/UserFlightDetailsModal.model';
 import { FlightUserDetailsComponent } from '../flight-user-details/flight-user-details.component';
 import { UserFlightDetails } from 'src/app/Shared/Model/Common/UserFlightDetails.model';
+import { FriendChooseModalComponent } from '../friend-choose-modal/friend-choose-modal.component';
 
 @Component({
   selector: 'app-ticket-preview',
@@ -12,6 +13,7 @@ import { UserFlightDetails } from 'src/app/Shared/Model/Common/UserFlightDetails
 })
 export class TicketPreviewComponent implements OnInit {
 
+  username : string
   @Input()
   public ticket : Ticket;
 
@@ -32,6 +34,16 @@ export class TicketPreviewComponent implements OnInit {
 
   ClearData(){
     this.ticket.details = null;
+    if(this.username != ""){
+      let temp = JSON.parse(sessionStorage["choosenFriends"]);
+      let index = temp.indexOf(this.username)
+      if(index != -1){
+        temp.splice(index,1)
+        sessionStorage["choosenFriends"] = JSON.stringify(temp);
+        this.username = "";
+      }
+
+    }
     this.dataCleared.emit(this.ticket.seatIndex);
   }
   EnterData(){
@@ -45,6 +57,20 @@ export class TicketPreviewComponent implements OnInit {
       this.ticket.details = temp;
       this.dataAdded.emit(item);
     })
+  }
+  
+  ChooseFriend(){
+    const modalRef = this.modalService.open(FriendChooseModalComponent);
+    modalRef.componentInstance.returnValue.subscribe(item =>{
+      let temp = new UserFlightDetails();
+      temp.name = item.name;
+      temp.lastName = item.lastName;
+      temp.passportNum = item.passportNum;
+      this.ticket.details = temp;
+      this.username = item.username;
+      this.dataAdded.emit(item);
+    })
+
   }
 
 }

@@ -14,7 +14,7 @@
                 <div class="col-sm-3">
                     {{flight.price}}
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3" *ngIf="role ===  'User'">
                     <button class="btn btn-primary" [routerLink]="['/seats/',flight.id]" routerLinkActive="router-link-active">Set Reservation</button>
                 </div>
             </div>

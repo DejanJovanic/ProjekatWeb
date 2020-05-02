@@ -8,6 +8,7 @@ import { LoginComponent } from './Users/login/login.component';
 import { RegisterComponent } from './Users/register/register.component';
 import { FlightReservationConfirmationComponent } from './Airline/flight-reservation-confirmation/flight-reservation-confirmation.component';
 import { SeatResolveService } from './Airline/Services/SeatResolve/seat-resolve.service';
+import { FriensResolverService } from './Users/Services/FriendsResolver/friens-resolver.service';
 
 const routes: Routes = [
   {path:'',redirectTo: 'main', pathMatch : 'full'},
@@ -15,7 +16,7 @@ const routes: Routes = [
     {path : 'Airlines', component: AirlineMainComponent}
   ]},
   {path:'seats/:id', component: SeatReservationComponent, resolve:{details : SeatResolveService}},
-  {path:'seatAssignment', component: SeatAssignmentComponent},
+  {path:'seatAssignment', component: SeatAssignmentComponent, resolve:{friends : FriensResolverService}},
   {path: 'flightReservationConfirm', component: FlightReservationConfirmationComponent},
   {path: 'Login', component: LoginComponent},
   {path: 'Register', component: RegisterComponent}

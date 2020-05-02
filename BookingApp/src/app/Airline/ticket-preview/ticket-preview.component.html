@@ -99,6 +99,7 @@
             <div class="row">
                 <div class="col-sm-12"*ngIf="!ticket.details; else clearData" >
                     <button (click)="EnterData()" class="btn btn-primary">Enter data</button>
+                    <button (click)="ChooseFriend()" class="btn btn-primary">Choose Friend</button>
                 </div>
                 <ng-template #clearData>
                     <div class="col-sm-12">

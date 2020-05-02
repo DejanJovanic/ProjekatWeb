@@ -30,6 +30,9 @@ import { RegisterComponent } from './Users/register/register.component';
 import { TicketPreviewComponent } from './Airline/ticket-preview/ticket-preview.component';
 import { FlightReservationConfirmationComponent } from './Airline/flight-reservation-confirmation/flight-reservation-confirmation.component';
 import { FlightFilterService } from './Airline/Services/FlightFilter/flight-filter.service';
+import { UserCacheService } from './Users/Services/UserCache/user-cache.service';
+import {CookieService} from 'ngx-cookie-service';
+import { FriendChooseModalComponent } from './Airline/friend-choose-modal/friend-choose-modal.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,8 @@ import { FlightFilterService } from './Airline/Services/FlightFilter/flight-filt
     LoginComponent,
     RegisterComponent,
     TicketPreviewComponent,
-    FlightReservationConfirmationComponent
+    FlightReservationConfirmationComponent,
+    FriendChooseModalComponent
   ],
   imports: [
     NgbModule,
@@ -60,7 +64,7 @@ import { FlightFilterService } from './Airline/Services/FlightFilter/flight-filt
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AirlineCacheService, AirlineNetworkService, AirlineDatabaseService, FlightReservationService,AirlineGetterService,FlightFilterService],
+  providers: [CookieService,AirlineCacheService, AirlineNetworkService, AirlineDatabaseService, FlightReservationService,AirlineGetterService,FlightFilterService,UserCacheService],
   bootstrap: [FrameComponent]
 })
 export class AppModule { }

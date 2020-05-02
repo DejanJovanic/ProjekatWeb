@@ -12,10 +12,26 @@ export class MainComponent implements OnInit {
   constructor(private router : Router,private activeRoute : ActivatedRoute) { }
 
   ngOnInit(): void {
-     this.links = [
-      {title : "Flights" , route : "Airlines"}
-    ];
-    this.router.navigate(['Airlines'],{ relativeTo : this.activeRoute});
+    if(sessionStorage["Role"] == null)
+    {
+      this.links = [
+        {title : "Flights" , route : "Airlines"}
+        
+      ];
+      this.router.navigate(['Airlines'],{ relativeTo : this.activeRoute});
+    }
+    else{
+      switch(sessionStorage["Role"]){
+        case "User":
+          this.links = [
+            {title : "Flights" , route : "Airlines"}
+            
+          ];
+          this.router.navigate(['Airlines'],{ relativeTo : this.activeRoute});
+          break;
+      }
+    }
+   
   }
 
 }
