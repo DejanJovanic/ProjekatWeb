@@ -5,8 +5,7 @@ export class FlightReservation {
     public flight : Flight;
     public tickets : Ticket[]
 
-    constructor(flight : Flight){
-        this.flight = flight;
+    constructor(){
         this.tickets = [];
     }
 }

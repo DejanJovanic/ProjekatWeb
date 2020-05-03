@@ -25,23 +25,9 @@ export class SeatReservationComponent implements OnInit {
   constructor(private route : ActivatedRoute,
     private reservationService : FlightReservationService, private router : Router
     ,private cache : AirlineCacheService) {
-    let flights = this.cache.airlines.getValue().map(i =>{
-      let flights = new Array<Flight>();
-        for(let flight of i.flights){
-          flights.push(flight);
-        }
-      return flights;
-    })
-    let temp = []
-    for(let a of flights){
-      for(let b of a){
-        temp.push(b);
-      }
-    }
 
-    let flight = temp.find(item => item.id == this.route.snapshot.params.id)
   
-    this.reservation = new FlightReservation(flight)
+    this.reservation = new FlightReservation()
   }
   ngOnInit(): void {
     this.route.data.subscribe((data : {details : FlightDetails}) =>{
@@ -71,8 +57,10 @@ export class SeatReservationComponent implements OnInit {
 
   onButtonClicked(){
     if(this.reservation != null && this.reservation.tickets.length > 0){
+      this.reservation.flight = null;
       this.reservationService.reservation = this.reservation;
-      this.router.navigate(['\seatAssignment']);
+      sessionStorage["currentReservation"] = JSON.stringify(this.reservation);
+      this.router.navigate(['/seatAssignment',this.route.snapshot.params.id]);
 
     }
   }

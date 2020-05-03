@@ -98,8 +98,17 @@
         <div class="container" *ngIf="isAssignment; else assignment">
             <div class="row">
                 <div class="col-sm-12"*ngIf="!ticket.details; else clearData" >
-                    <button (click)="EnterData()" class="btn btn-primary">Enter data</button>
-                    <button (click)="ChooseFriend()" class="btn btn-primary">Choose Friend</button>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <button (click)="EnterData()" class="btn btn-primary">Enter data</button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button (click)="ChooseFriend()" class="btn btn-primary">Choose Friend</button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button (click)="ChooseMe()" class="btn btn-primary" *ngIf="!currentUserSelected.isSelected">Choose Me</button>
+                        </div>
+                    </div>         
                 </div>
                 <ng-template #clearData>
                     <div class="col-sm-12">

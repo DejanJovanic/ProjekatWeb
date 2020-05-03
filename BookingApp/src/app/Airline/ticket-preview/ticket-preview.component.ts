@@ -5,6 +5,7 @@ import { UserFlightDetailsModal } from 'src/app/Shared/Model/Airlines/UserFlight
 import { FlightUserDetailsComponent } from '../flight-user-details/flight-user-details.component';
 import { UserFlightDetails } from 'src/app/Shared/Model/Common/UserFlightDetails.model';
 import { FriendChooseModalComponent } from '../friend-choose-modal/friend-choose-modal.component';
+import { UserCacheService } from 'src/app/Users/Services/UserCache/user-cache.service';
 
 @Component({
   selector: 'app-ticket-preview',
@@ -13,18 +14,20 @@ import { FriendChooseModalComponent } from '../friend-choose-modal/friend-choose
 })
 export class TicketPreviewComponent implements OnInit {
 
-  username : string
   @Input()
   public ticket : Ticket;
 
   @Input()
   public isAssignment : boolean;
+
+  @Input()
+  public currentUserSelected : {isSelected : boolean};
   @Output()
   public dataAdded : EventEmitter<UserFlightDetailsModal>
 
   @Output()
   public dataCleared : EventEmitter<number>;
-  constructor(private modalService : NgbModal) {
+  constructor(private modalService : NgbModal,private cache : UserCacheService) {
     this.dataAdded = new EventEmitter();
     this.dataCleared = new EventEmitter();
    }
@@ -32,18 +35,37 @@ export class TicketPreviewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ChooseMe(){
+    if(this.cache.currentUser != null){
+      this.currentUserSelected.isSelected = true;
+      this.ticket.details = new UserFlightDetails();
+      this.ticket.details.name = this.cache.currentUser.name;
+      this.ticket.details.lastName = this.cache.currentUser.lastName;
+      this.ticket.details.passportNum = this.cache.currentUser.passportNo;
+      this.ticket.details.username = this.cache.currentUser.username;
+    }
+  }
   ClearData(){
-    this.ticket.details = null;
-    if(this.username != ""){
-      let temp = JSON.parse(sessionStorage["choosenFriends"]);
-      let index = temp.indexOf(this.username)
-      if(index != -1){
-        temp.splice(index,1)
-        sessionStorage["choosenFriends"] = JSON.stringify(temp);
-        this.username = "";
+
+    if(this.ticket.details.username != undefined){
+      if(sessionStorage["choosenFriends"] != null){
+        let temp = JSON.parse(sessionStorage["choosenFriends"]);
+        let index = temp.indexOf(this.ticket.details.username)
+        if(index != -1){
+          temp.splice(index,1)
+          sessionStorage["choosenFriends"] = JSON.stringify(temp);
+      }      
+      else{
+        this.currentUserSelected.isSelected = false
+      }
+
+      }
+      else{
+        this.currentUserSelected.isSelected = false
       }
 
     }
+    this.ticket.details = null;
     this.dataCleared.emit(this.ticket.seatIndex);
   }
   EnterData(){
@@ -67,7 +89,7 @@ export class TicketPreviewComponent implements OnInit {
       temp.lastName = item.lastName;
       temp.passportNum = item.passportNum;
       this.ticket.details = temp;
-      this.username = item.username;
+      this.ticket.details.username = item.username;
       this.dataAdded.emit(item);
     })
 

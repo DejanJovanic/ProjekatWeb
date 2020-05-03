@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     this.service.Login(this.loginForm.value.username,this.loginForm.value.password).subscribe(i =>{
       if(i != null){
+        sessionStorage["username"] = this.loginForm.value.username;
         this.router.navigate(['/main']);
       }
     })

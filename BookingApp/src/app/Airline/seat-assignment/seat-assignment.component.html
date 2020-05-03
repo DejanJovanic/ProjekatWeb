@@ -1,12 +1,12 @@
 <div class="container">
     <div class="row" *ngFor="let item of reservation.tickets">
         <div class="col-sm-9">
-          <app-ticket-preview [isAssignment]="true" [ticket]="item"></app-ticket-preview>
+          <app-ticket-preview [isAssignment]="true" [currentUserSelected]="currentUserSelected" [ticket]="item"></app-ticket-preview>
         </div>
     </div>
     <div class="row"> 
         <div class="col-sm-12">
-            <button class="btn btn-primary" [routerLink]="['/flightReservationConfirm']" routerLinkActive="active" [disabled]="!IsOk()">Next</button>
+            <button class="btn btn-primary" (click)="OnClick()" [disabled]="!IsOk()">Next</button>
         </div>
     </div>
 </div>
