@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { AirlineCompany } from 'src/app/Shared/Model/Airlines/AirlineCompany.model';
 import { AirlineGetterService } from '../Services/AirlineGetter/airline-getter.service';
 import { range, Observable, Subscription } from 'rxjs';
@@ -10,6 +10,7 @@ import { FlightSearchService } from '../Services/FlightSearch/flight-search.serv
 
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-airline-holder',
   templateUrl: './airline-holder.component.html',
   styleUrls: ['./airline-holder.component.css'],

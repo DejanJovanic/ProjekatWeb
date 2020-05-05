@@ -11,11 +11,13 @@ import { SeatResolveService } from './Airline/Services/SeatResolve/seat-resolve.
 import { FriensResolverService } from './Users/Services/FriendsResolver/friens-resolver.service';
 import { ReservationResolverService } from './Airline/Services/ReservationResolver/reservation-resolver.service';
 import { FlightResolverService } from './Airline/Services/FlightResolver/flight-resolver.service';
+import { FriendsMainComponent } from './Users/Friends/friends-main/friends-main.component';
 
 const routes: Routes = [
   {path:'',redirectTo: 'main', pathMatch : 'full'},
   {path : 'main', component : MainComponent, children:[
-    {path : 'Airlines', component: AirlineMainComponent}
+    {path : 'Airlines', component: AirlineMainComponent},
+    {path : 'Friends', component: FriendsMainComponent, resolve:{friends : FriensResolverService}}
   ]},
   {path:'seats/:id', component: SeatReservationComponent, resolve:{details : SeatResolveService}},
   {path:'seatAssignment/:id', component: SeatAssignmentComponent, resolve:{reservation : ReservationResolverService,friends : FriensResolverService}},

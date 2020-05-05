@@ -33,6 +33,10 @@ import { FlightFilterService } from './Airline/Services/FlightFilter/flight-filt
 import { UserCacheService } from './Users/Services/UserCache/user-cache.service';
 import {CookieService} from 'ngx-cookie-service';
 import { FriendChooseModalComponent } from './Airline/friend-choose-modal/friend-choose-modal.component';
+import { FriendsMainComponent } from './Users/Friends/friends-main/friends-main.component';
+import { FriendsHolderComponent } from './Users/Friends/friends-holder/friends-holder.component';
+import { FriendsPanelComponent } from './Users/Friends/friends-panel/friends-panel.component';
+import { FriendsPendingRequestComponent } from './Users/Friends/friends-pending-request/friends-pending-request.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +59,11 @@ import { FriendChooseModalComponent } from './Airline/friend-choose-modal/friend
     RegisterComponent,
     TicketPreviewComponent,
     FlightReservationConfirmationComponent,
-    FriendChooseModalComponent
+    FriendChooseModalComponent,
+    FriendsMainComponent,
+    FriendsHolderComponent,
+    FriendsPanelComponent,
+    FriendsPendingRequestComponent
   ],
   imports: [
     NgbModule,

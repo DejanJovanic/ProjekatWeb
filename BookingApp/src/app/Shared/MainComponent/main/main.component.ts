@@ -24,8 +24,8 @@ export class MainComponent implements OnInit {
       switch(sessionStorage["Role"]){
         case "User":
           this.links = [
-            {title : "Flights" , route : "Airlines"}
-            
+            {title : "Flights" , route : "Airlines"},
+            {title : "Friends" , route : "Friends"}
           ];
           this.router.navigate(['Airlines'],{ relativeTo : this.activeRoute});
           break;

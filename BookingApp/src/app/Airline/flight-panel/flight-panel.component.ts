@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Flight } from 'src/app/Shared/Model/Airlines/Flight.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AirlineDetailsComponent } from '../airline-details/airline-details.component';
+import { map } from 'rxjs/operators';
+
 
 
 @Component({
@@ -11,11 +13,9 @@ import { AirlineDetailsComponent } from '../airline-details/airline-details.comp
 })
 export class FlightPanelComponent implements OnInit {
 
-  role : string;
   @Input() flight: Flight;
 
   constructor(private modalService : NgbModal) {
-    this.role = sessionStorage["Role"];
    }
 
   OpenModal(){

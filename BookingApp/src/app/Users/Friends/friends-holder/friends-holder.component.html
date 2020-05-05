@@ -1,0 +1,7 @@
+<div class="container">
+    <div class="row" >
+        <div class="col-sm-4" *ngFor="let friend of friends | async">
+            <app-friends-panel [user]="friend"></app-friends-panel>
+        </div>
+    </div>
+</div>
