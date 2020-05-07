@@ -29,6 +29,12 @@ export class MainComponent implements OnInit {
           ];
           this.router.navigate(['Airlines'],{ relativeTo : this.activeRoute});
           break;
+        case "AirlineAdmin":
+          this.links = [
+            {title : "Fligts", route : "AirlineAdmin"}
+          ];
+          this.router.navigate(['AirlineAdmin'],{ relativeTo : this.activeRoute});
+          break;
       }
     }
    

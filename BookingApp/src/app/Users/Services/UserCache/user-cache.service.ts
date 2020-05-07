@@ -12,11 +12,11 @@ export class UserCacheService {
 
   public currentUser : User
   public friends : BehaviorSubject<User[]>
-  constructor(private network : UserNetworkService) {
+  constructor() {
     this.friends = new BehaviorSubject(null);
    }
 
-   public GetFriends() : Observable<User[]>{
+ /*   public GetFriends() : Observable<User[]>{
      if(this.friends.getValue() != null){
        return this.friends.asObservable();
      }
@@ -26,6 +26,6 @@ export class UserCacheService {
        }));
      }
 
-   }
+   } */
 
 }

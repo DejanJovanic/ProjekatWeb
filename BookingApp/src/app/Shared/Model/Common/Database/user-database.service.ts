@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../User.model';
+import { AirlineAdmin } from '../AirlineAdmin.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class UserDatabaseService {
  public users : User[]
   constructor() { 
     this.users = []
-    for(let i = 0; i < 10; i++){
+    for(let i = 0; i < 5; i++){
       let temp = new User();
       temp.username = "user" + i;
       temp.name = "name" + i;
@@ -20,6 +21,17 @@ export class UserDatabaseService {
       if(i > 0){
         temp.friends.push(this.users[i - 1]);
       }
+    }
+    for(let i = 0; i < 5; i++){
+      let temp = new AirlineAdmin();
+      temp.username = "airlineAdmin" + i;
+      temp.name = "name" + i;
+      temp.lastName = "lastName" + i;
+      temp.passportNo = "" + i;
+      temp.systemRole = "AirlineAdmin";
+      temp.airlineID = i;
+      this.users.push(temp);
+
     }
   }
 }

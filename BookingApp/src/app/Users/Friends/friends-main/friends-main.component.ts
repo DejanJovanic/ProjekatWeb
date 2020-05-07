@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FriendAddModalComponent } from '../friend-add-modal/friend-add-modal.component';
 
 @Component({
   selector: 'app-friends-main',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FriendsMainComponent implements OnInit {
 
-  constructor() { }
+  constructor(private modalService : NgbModal) { }
 
   ngOnInit(): void {
+    
+  }
+
+  AddFriends(){
+    const modalRef = this.modalService.open(FriendAddModalComponent);
   }
 
 }
