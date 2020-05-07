@@ -13,6 +13,7 @@ import { FlightResolverService } from './Airline/Resolvers/FlightResolver/flight
 import { LoginComponent } from './Users/login/login.component';
 import { RegisterComponent } from './Users/register/register.component';
 import { FriendsMainComponent } from './Users/Friends/friends-main/friends-main.component';
+import { AddFlightComponent } from './Airline/AirlineAdmin/add-flight/add-flight.component';
 
 const routes: Routes = [
   {path:'',redirectTo: 'main', pathMatch : 'full'},
@@ -21,6 +22,7 @@ const routes: Routes = [
     {path : 'Friends', component: FriendsMainComponent, resolve:{friends : FriensResolverService}},
     {path : 'AirlineAdmin', component : AirlineAdminMainComponent}
   ]},
+  {path: 'AddFlight', component: AddFlightComponent},
   {path:'seats/:id', component: SeatReservationComponent, resolve:{details : SeatResolveService}},
   {path:'seatAssignment/:id', component: SeatAssignmentComponent, resolve:{reservation : ReservationResolverService,friends : FriensResolverService}},
   {path: 'flightReservationConfirm/:id', component: FlightReservationConfirmationComponent, resolve:{reservation : ReservationResolverService,friends : FriensResolverService,flights : FlightResolverService}},

@@ -1,0 +1,84 @@
+<div class="container">
+    <form (submit)="Submit()" [formGroup]="flightForm" novalidate>
+        <div class="row">
+            <div class="col-sm-3">
+                Start:
+            </div>
+            <div class="col-sm-3">
+                <select formControlName="startLocation">
+                    <option *ngFor="let item of destinations">{{item}}</option>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                Stop:
+            </div>
+            <div class="col-sm-3">
+                <select formControlName="finishLocation">
+                    <option *ngFor="let item of destinations">{{item}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                Start date:
+            </div> 
+            <div class="col-sm-3">
+                <ngb-datepicker  formControlName="startDate" #d></ngb-datepicker>
+            </div>
+            <div class="col-sm-3">
+                Finish date:
+            </div>
+            <div class="col-sm-3">
+                <ngb-datepicker  formControlName="finishDate" #d></ngb-datepicker>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                Start time:
+            </div>
+            <div class="col-sm-3">
+                <ngb-timepicker formControlName="startTime" #d></ngb-timepicker>
+            </div>
+            <div class="col-sm-3">
+                Finish time:
+            </div>
+            <div class="col-sm-3">
+                <ngb-timepicker formControlName="finishTime" #d></ngb-timepicker>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                Is round trip:
+            </div>
+            <div class="col-sm-2">
+                <input type="checkbox" formControlName="isRoundTrip"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                Travel distance(km):
+            </div>
+            <div class="col-sm-5">
+                <input type="text" formControlName="travelDistance"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                Price:
+            </div>
+            <div class="col-sm-5">
+                <input type="text" formControlName="price"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <button class="btn btn-primary" type="button" (click)="SetStops()">Set Stops</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

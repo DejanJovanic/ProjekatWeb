@@ -31,6 +31,9 @@ import { AirlineSearchComponent } from './Airline/AirlineRegistered/airline-sear
 import { FlightPanelComponent } from './Airline/AirlineShared/flight-panel/flight-panel.component';
 import { SeatReservationComponent } from './Airline/SeatReservation/seat-reservation/seat-reservation.component';
 import { SeatAssignmentComponent } from './Airline/SeatReservation/seat-assignment/seat-assignment.component';
+import { FlightFormComponent } from './Airline/AirlineAdmin/flight-form/flight-form.component';
+import { StopsModalComponent } from './Airline/AirlineAdmin/stops-modal/stops-modal.component';
+import { AddFlightComponent } from './Airline/AirlineAdmin/add-flight/add-flight.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,10 @@ import { SeatAssignmentComponent } from './Airline/SeatReservation/seat-assignme
     FriendsPendingRequestComponent,
     UserSearchComponent,
     FriendAddModalComponent,
-    AirlineAdminMainComponent
+    AirlineAdminMainComponent,
+    FlightFormComponent,
+    StopsModalComponent,
+    AddFlightComponent
   ],
   imports: [
     NgbModule,

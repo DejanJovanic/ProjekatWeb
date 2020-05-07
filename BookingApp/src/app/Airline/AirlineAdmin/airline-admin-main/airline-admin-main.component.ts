@@ -4,6 +4,8 @@ import { FlightFilterParams } from 'src/app/Shared/Model/Airlines/FlightFilterPa
 import { AirlineAdminDataService } from '../Services/AirlineAdminServices/AirlineAdminData/airline-admin-data.service';
 import { UserCacheService } from 'src/app/Users/Services/UserCache/user-cache.service';
 import { AirlineAdmin } from 'src/app/Shared/Model/Common/AirlineAdmin.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddFlightComponent } from '../add-flight/add-flight.component';
 
 @Component({
   selector: 'app-airline-admin-main',
@@ -25,4 +27,6 @@ export class AirlineAdminMainComponent implements OnInit {
     sessionStorage.flightFilter = JSON.stringify(event);
     this.filterSubject.next(event);
   }
+
+
 }

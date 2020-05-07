@@ -6,11 +6,12 @@ export class Flight{
     startDate : Date;
     finishLocation : string;
     finishDate : Date;
-    travelTime : number;
+    travelTime : Date;
     travelDistance : number;
     numberOfStops : number;
     stopsLocations : Array<String>;
     price : number;
+    isRoundTrip : boolean;
     airline : AirlineCompany
 
     constructor(airline : AirlineCompany){

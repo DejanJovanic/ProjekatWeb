@@ -22,7 +22,9 @@ export class AirlineFilterComponent implements OnInit {
         priceTo : ['',Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/)],
         startDate:[''],
         finishDate:[''],
-        flightDuration:['']
+        flightDuration:[''],
+        
+
       });
   }
 
