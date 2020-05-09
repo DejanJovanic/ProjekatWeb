@@ -1,5 +1,10 @@
-.big-banner{
-    background-image: url("../../../assets/RegistrationBackground.jpg");
+.bg-img{
+    min-height: 100vh;
+    width: 100%;
+    background: url('../../../assets/RegistrationBackground.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
 }
 
@@ -10,7 +15,7 @@
     
 .card{
     height: 550px;
-    margin-top: auto;
+    margin-top: 100px;
     margin-bottom: auto;
     width: 400px;
     background-color: rgba(0,0,0,0.5) !important;
