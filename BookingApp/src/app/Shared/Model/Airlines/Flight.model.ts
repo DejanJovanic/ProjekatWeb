@@ -6,7 +6,7 @@ export class Flight{
     startDate : Date;
     finishLocation : string;
     finishDate : Date;
-    travelTime : Date;
+    travelTime : string;
     travelDistance : number;
     numberOfStops : number;
     stopsLocations : Array<String>;

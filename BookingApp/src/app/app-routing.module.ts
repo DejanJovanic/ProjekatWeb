@@ -14,13 +14,15 @@ import { LoginComponent } from './Users/login/login.component';
 import { RegisterComponent } from './Users/register/register.component';
 import { FriendsMainComponent } from './Users/Friends/friends-main/friends-main.component';
 import { AddFlightComponent } from './Airline/AirlineAdmin/add-flight/add-flight.component';
+import { AirplanesComponent } from './Airline/AirlineAdmin/airplanes/airplanes.component';
 
 const routes: Routes = [
   {path:'',redirectTo: 'main', pathMatch : 'full'},
   {path : 'main', component : MainComponent, children:[
     {path : 'Airlines', component: AirlineMainComponent},
     {path : 'Friends', component: FriendsMainComponent, resolve:{friends : FriensResolverService}},
-    {path : 'AirlineAdmin', component : AirlineAdminMainComponent}
+    {path : 'AirlineAdmin', component : AirlineAdminMainComponent},
+    {path : 'Airplanes', component: AirplanesComponent}
   ]},
   {path: 'AddFlight', component: AddFlightComponent},
   {path:'seats/:id', component: SeatReservationComponent, resolve:{details : SeatResolveService}},

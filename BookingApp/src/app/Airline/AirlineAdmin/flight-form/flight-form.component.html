@@ -6,7 +6,7 @@
             </div>
             <div class="col-sm-3">
                 <select formControlName="startLocation">
-                    <option *ngFor="let item of destinations">{{item}}</option>
+                    <option *ngFor="let item of destinations1" [ngValue] = "item">{{item}}</option>
                 </select>
             </div>
             <div class="col-sm-3">
@@ -14,7 +14,7 @@
             </div>
             <div class="col-sm-3">
                 <select formControlName="finishLocation">
-                    <option *ngFor="let item of destinations">{{item}}</option>
+                    <option *ngFor="let item of destinations2" [ngValue] = "item">{{item}}</option>
                 </select>
             </div>
         </div>

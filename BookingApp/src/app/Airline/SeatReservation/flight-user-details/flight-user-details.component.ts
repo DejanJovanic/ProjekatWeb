@@ -23,8 +23,8 @@ export class FlightUserDetailsComponent implements OnInit {
     this.details = new UserFlightDetailsModal();
     this.details.index = this.index;
     this.form = this.builder.group({
-      name:['',[Validators.required,Validators.pattern(/^[a-zA-Z-]+$/)]],
-      lastName:['',[Validators.required,Validators.pattern(/^[a-zA-Z-]+$/)]],
+      name:['',[Validators.required,Validators.pattern(/^[a-zA-Z- ]+$/)]],
+      lastName:['',[Validators.required,Validators.pattern(/^[a-zA-Z- ]+$/)]],
       passportNum:['',[Validators.required,Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/)]]
     })
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FlightFilterParams } from 'src/app/Shared/Model/Airlines/FlightFilterParams.model';
-import { AirlineAdminDataService } from '../Services/AirlineAdminServices/AirlineAdminData/airline-admin-data.service';
+import { AirlineAdminDataService } from '../Services/AirlineAdminData/airline-admin-data.service';
 import { UserCacheService } from 'src/app/Users/Services/UserCache/user-cache.service';
 import { AirlineAdmin } from 'src/app/Shared/Model/Common/AirlineAdmin.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';

@@ -34,6 +34,9 @@ import { SeatAssignmentComponent } from './Airline/SeatReservation/seat-assignme
 import { FlightFormComponent } from './Airline/AirlineAdmin/flight-form/flight-form.component';
 import { StopsModalComponent } from './Airline/AirlineAdmin/stops-modal/stops-modal.component';
 import { AddFlightComponent } from './Airline/AirlineAdmin/add-flight/add-flight.component';
+import { AirplanesComponent } from './Airline/AirlineAdmin/airplanes/airplanes.component';
+import { AddAirplaneModalComponent } from './Airline/AirlineAdmin/add-airplane-modal/add-airplane-modal.component';
+import { AirplanePanelComponent } from './Airline/AirlineAdmin/airplane-panel/airplane-panel.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +68,10 @@ import { AddFlightComponent } from './Airline/AirlineAdmin/add-flight/add-flight
     AirlineAdminMainComponent,
     FlightFormComponent,
     StopsModalComponent,
-    AddFlightComponent
+    AddFlightComponent,
+    AirplanesComponent,
+    AddAirplaneModalComponent,
+    AirplanePanelComponent
   ],
   imports: [
     NgbModule,

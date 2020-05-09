@@ -1,0 +1,80 @@
+<form [formGroup]="form" (submit)="OnSubmit()">
+    <div class="modal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>
+                        Name:
+                    </label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" formControlName="name"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>
+                        Economy class rows:
+                    </label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" formControlName="economyRows"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>
+                        Economy class columns:
+                    </label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" formControlName="economyCols"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>
+                        Business class rows:
+                    </label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" formControlName="businessRows"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>
+                        Business class columns:
+                    </label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" formControlName="businessCols"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>
+                        First class rows:
+                    </label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" formControlName="firstRows"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>
+                        First class columns:
+                    </label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" formControlName="firstCols"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit">Add airplane</button>
+    </div>  
+</form>
+
