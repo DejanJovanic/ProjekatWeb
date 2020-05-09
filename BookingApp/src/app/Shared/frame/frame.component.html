@@ -1,9 +1,23 @@
 
+    <nav class="box transform transform-active fright">
+      <div id="navBar" class="fleft">
+            <div class="fright">
+                <ul>
+                    <li>
+                        
+                        <a   [routerLink]="['/Register']" routerLinkActive="router-link-active"><img  src="../../assets/signup.png"/> Register </a>   
+                    </li>
+                    <li>
+                        
+                        <a [routerLink]="['/Login']" routerLinkActive="router-link-active"> <img  src="../../assets/login.png" />Login </a>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-<nav style="background-color: transparent">
-   
-    <button id = "btnLogin" class="btn btn-primary"  [routerLink]="['/Login']" routerLinkActive="router-link-active"> Login </button>
-    <button id = "btnRegister" class="btn btn-primary"  [routerLink]="['/Register']" routerLinkActive="router-link-active"> Register </button>
-</nav>
+ 
+
 
 <router-outlet></router-outlet>
