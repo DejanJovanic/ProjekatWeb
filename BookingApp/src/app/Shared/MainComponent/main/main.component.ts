@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserCacheService } from 'src/app/Users/Services/UserCache/user-cache.service';
+import { AirlineCacheService } from 'src/app/Airline/AirlineShared/Services/AirlineCache/airline-cache.service';
 
 @Component({
   selector: 'app-main',
@@ -9,8 +11,24 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class MainComponent implements OnInit {
 
   public links;
-  constructor(private router : Router,private activeRoute : ActivatedRoute) { }
-
+  public username : string;
+  public loggedIn : boolean
+  constructor(private router : Router,private activeRoute : ActivatedRoute
+    ,private user : UserCacheService,private airlines : AirlineCacheService) {
+    if(sessionStorage["Role"] != null){
+      this.loggedIn = true;
+      this.username = sessionStorage["username"];
+    }
+   }
+   Logout(){
+     sessionStorage.clear();
+     //this.loggedIn = false;
+     this.router.navigateByUrl('/Login', {skipLocationChange: true})
+     .then(() => this.router.navigate(['/main/Airlines']));
+    this.user.currentUser = null;
+    this.user.friends.next(null);
+    this.airlines.airlines.next(null); 
+   }
   ngOnInit(): void {
     if(sessionStorage["Role"] == null)
     {

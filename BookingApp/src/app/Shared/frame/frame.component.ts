@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FrameComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router) {
+    /* router.events.subscribe( e =>{
+      if(e instanceof NavigationStart){
+        if(e.url.includes('/main/')){
+          this.showNav = true;
+        }
+        else{
+          this.showNav = false;
+        }
+      }
+    }) */
+   }
 
   ngOnInit(): void {
   }

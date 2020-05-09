@@ -1,5 +1,4 @@
 import { Flight } from '../Flight.model';
-import { FlightClass } from '../FlightClass.model';
 import { Airplane } from '../Airplane.model';
 import { Ticket } from '../Ticket.model';
 import { User } from '../../Common/User.model';
@@ -9,7 +8,7 @@ import { Seats } from '../Seats.model';
 import { SeatStatus } from '../SeatStatus.model';
 
 export class FlightDatabase extends Flight{
-    flightClass : FlightClass;
+
     airplane : Airplane;
     soldTickets : Ticket[]
     details : FlightDetails;

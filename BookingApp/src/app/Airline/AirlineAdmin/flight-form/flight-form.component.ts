@@ -5,6 +5,7 @@ import { AirlineCacheService } from '../../AirlineShared/Services/AirlineCache/a
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StopsModalComponent } from '../stops-modal/stops-modal.component';
 import * as moment from 'moment'
+import { Airplane } from 'src/app/Shared/Model/Airlines/Airplane.model';
 
 @Component({
   selector: 'app-flight-form',
@@ -37,8 +38,10 @@ export class FlightFormComponent implements OnInit {
   destinations1 : string[]
   destinations2 : string[]
   destinationOptions : string[] = []
+  airplanes : Airplane[]
   constructor(private builder : FormBuilder,private cache : AirlineCacheService,
     private modalService : NgbModal) {
+    this.airplanes = cache.airlines.getValue()[0].airplanes
     this.destinations1 = cache.airlines.getValue()[0].destinations;
     this.destinations2 = cache.airlines.getValue()[0].destinations;
    }
@@ -53,7 +56,8 @@ export class FlightFormComponent implements OnInit {
       finishTime : [this.flight ? this.flight.startDate : {hour : 2,minute : 20},Validators.required],
       price : [this.flight ? this.flight.price : '',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
       travelDistance : [this.flight ? this.flight.travelDistance : '',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
-      isRoundTrip : [this.flight ? this.flight.isRoundTrip : false]
+      isRoundTrip : [this.flight ? this.flight.isRoundTrip : false],
+      airplane : [this.flight ? this.flight.airline.id : this.airplanes[0].id]
     }, {validators : [this.startFinishLocationsValidator,this.startFinishDatesValidator]})
   }
 

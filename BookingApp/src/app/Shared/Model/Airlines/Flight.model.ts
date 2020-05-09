@@ -1,4 +1,5 @@
 import { AirlineCompany } from './AirlineCompany.model';
+import { FlightClass } from './FlightClass.model';
 
 export class Flight{
     id : number;
@@ -12,6 +13,7 @@ export class Flight{
     stopsLocations : Array<String>;
     price : number;
     isRoundTrip : boolean;
+    flightClass : FlightClass;
     airline : AirlineCompany
 
     constructor(airline : AirlineCompany){

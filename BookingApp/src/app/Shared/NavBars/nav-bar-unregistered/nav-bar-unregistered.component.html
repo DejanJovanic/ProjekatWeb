@@ -2,7 +2,7 @@
     <div class="card-body">
         <ul ngbNav  class="nav-pills">
             <li ngbNavItem *ngFor="let link of links">
-                <a ngbNavLink [routerLink]="link.route" routerLinkActive="active">
+                <a ngbNavLink [routerLink]="link.route" routerLinkActive="active" >
                     {{link.title}}
                 </a> 
             </li>
