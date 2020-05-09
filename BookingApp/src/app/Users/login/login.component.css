@@ -1,5 +1,8 @@
+.big-banner{
+    background-image: url('../../../assets/LoginBackground.jpg');
+background-size: cover;
 
-
+}
 .container{
 height: 100%;
 align-content: center;
