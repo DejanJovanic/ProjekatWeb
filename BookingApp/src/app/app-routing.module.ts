@@ -15,6 +15,8 @@ import { RegisterComponent } from './Users/register/register.component';
 import { FriendsMainComponent } from './Users/Friends/friends-main/friends-main.component';
 import { AddFlightComponent } from './Airline/AirlineAdmin/add-flight/add-flight.component';
 import { AirplanesComponent } from './Airline/AirlineAdmin/airplanes/airplanes.component';
+import { AirlineAdminCompanyPreviewComponent } from './Airline/AirlineAdmin/airline-admin-company-preview/airline-admin-company-preview.component';
+import { CompanyEditComponent } from './Airline/AirlineAdmin/company-edit/company-edit.component';
 
 const routes: Routes = [
   {path:'',redirectTo: 'main', pathMatch : 'full'},
@@ -22,14 +24,16 @@ const routes: Routes = [
     {path : 'Airlines', component: AirlineMainComponent},
     {path : 'Friends', component: FriendsMainComponent, resolve:{friends : FriensResolverService}},
     {path : 'AirlineAdmin', component : AirlineAdminMainComponent},
-    {path : 'Airplanes', component: AirplanesComponent}
+    {path : 'Airplanes', component: AirplanesComponent},
+    {path : 'CompanyPreview', component: AirlineAdminCompanyPreviewComponent}
   ]},
   {path: 'AddFlight', component: AddFlightComponent},
   {path:'seats/:id', component: SeatReservationComponent, resolve:{details : SeatResolveService}},
   {path:'seatAssignment/:id', component: SeatAssignmentComponent, resolve:{reservation : ReservationResolverService,friends : FriensResolverService}},
   {path: 'flightReservationConfirm/:id', component: FlightReservationConfirmationComponent, resolve:{reservation : ReservationResolverService,friends : FriensResolverService,flights : FlightResolverService}},
   {path: 'Login', component: LoginComponent},
-  {path: 'Register', component: RegisterComponent}
+  {path: 'Register', component: RegisterComponent},
+  {path: 'CompanyEdit', component: CompanyEditComponent}
 ];
 
 @NgModule({

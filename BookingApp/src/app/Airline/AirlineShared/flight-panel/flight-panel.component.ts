@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Flight } from 'src/app/Shared/Model/Airlines/Flight.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AirlineDetailsComponent } from '../airline-details/airline-details.component';
-import { map } from 'rxjs/operators';
+import { AirlineDetailsModalComponent } from '../airline-details-modal/airline-details-modal.component';
 
 
 
@@ -21,7 +20,7 @@ export class FlightPanelComponent implements OnInit {
    }
 
   OpenModal(){
-    const modalRef = this.modalService.open(AirlineDetailsComponent);
+    const modalRef = this.modalService.open(AirlineDetailsModalComponent);
     modalRef.componentInstance.item = this.flight.airline;
   }
 

@@ -37,6 +37,10 @@ import { AddFlightComponent } from './Airline/AirlineAdmin/add-flight/add-flight
 import { AirplanesComponent } from './Airline/AirlineAdmin/airplanes/airplanes.component';
 import { AddAirplaneModalComponent } from './Airline/AirlineAdmin/add-airplane-modal/add-airplane-modal.component';
 import { AirplanePanelComponent } from './Airline/AirlineAdmin/airplane-panel/airplane-panel.component';
+import { AirlineDetailsModalComponent } from './Airline/AirlineShared/airline-details-modal/airline-details-modal.component';
+import { AirlineAdminCompanyPreviewComponent } from './Airline/AirlineAdmin/airline-admin-company-preview/airline-admin-company-preview.component';
+import { CompanyEditComponent } from './Airline/AirlineAdmin/company-edit/company-edit.component';
+import { AddressPipe } from './Airline/AirlineShared/Pipes/Address/address.pipe';
 
 @NgModule({
   declarations: [
@@ -71,7 +75,11 @@ import { AirplanePanelComponent } from './Airline/AirlineAdmin/airplane-panel/ai
     AddFlightComponent,
     AirplanesComponent,
     AddAirplaneModalComponent,
-    AirplanePanelComponent
+    AirplanePanelComponent,
+    AirlineDetailsModalComponent,
+    AirlineAdminCompanyPreviewComponent,
+    CompanyEditComponent,
+    AddressPipe
   ],
   imports: [
     NgbModule,
