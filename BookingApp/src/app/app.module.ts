@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,6 +38,7 @@ import { AddFlightComponent } from './Airline/AirlineAdmin/add-flight/add-flight
 import { AirplanesComponent } from './Airline/AirlineAdmin/airplanes/airplanes.component';
 import { AddAirplaneModalComponent } from './Airline/AirlineAdmin/add-airplane-modal/add-airplane-modal.component';
 import { AirplanePanelComponent } from './Airline/AirlineAdmin/airplane-panel/airplane-panel.component';
+import { RentACarEnterprisesComponent } from './RentACar/RentACarEnterpriseList/rent-acar-enterprises/rent-acar-enterprises.component';
 
 @NgModule({
   declarations: [
@@ -71,14 +73,16 @@ import { AirplanePanelComponent } from './Airline/AirlineAdmin/airplane-panel/ai
     AddFlightComponent,
     AirplanesComponent,
     AddAirplaneModalComponent,
-    AirplanePanelComponent
+    AirplanePanelComponent,
+    RentACarEnterprisesComponent
   ],
   imports: [
     NgbModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MDBBootstrapModule
   ],
   providers: [CookieService],
   bootstrap: [FrameComponent]

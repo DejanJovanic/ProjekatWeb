@@ -6,6 +6,10 @@ nav {
   opacity: 0.9;
 }
 
+#rentAcar{
+  float:left;
+}
+
 #navBar {
   position: fixed;
   width: 90%;

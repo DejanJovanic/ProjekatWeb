@@ -15,6 +15,7 @@ import { RegisterComponent } from './Users/register/register.component';
 import { FriendsMainComponent } from './Users/Friends/friends-main/friends-main.component';
 import { AddFlightComponent } from './Airline/AirlineAdmin/add-flight/add-flight.component';
 import { AirplanesComponent } from './Airline/AirlineAdmin/airplanes/airplanes.component';
+import { RentACarEnterprisesComponent } from './RentACar/RentACarEnterpriseList/rent-acar-enterprises/rent-acar-enterprises.component'
 
 const routes: Routes = [
   {path:'',redirectTo: 'main', pathMatch : 'full'},
@@ -29,7 +30,8 @@ const routes: Routes = [
   {path:'seatAssignment/:id', component: SeatAssignmentComponent, resolve:{reservation : ReservationResolverService,friends : FriensResolverService}},
   {path: 'flightReservationConfirm/:id', component: FlightReservationConfirmationComponent, resolve:{reservation : ReservationResolverService,friends : FriensResolverService,flights : FlightResolverService}},
   {path: 'Login', component: LoginComponent},
-  {path: 'Register', component: RegisterComponent}
+  {path: 'Register', component: RegisterComponent},
+  {path: 'RentACarEnterprises', component: RentACarEnterprisesComponent}
 ];
 
 @NgModule({
