@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AirlineCompanyDatabase } from './AirlineCompanyDatabase.model';
 import { FlightDatabase } from './FlightDatabase.model';
+import { AirlineAddress } from '../AirlineAddress.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,12 @@ export class AirlineDatabaseService {
       company.id = i;
       company.name = "Company-" + i;
       company.description = "Great company-" + i;
-      company.address = "address-" + i;
+      company.address = new AirlineAddress();
+      company.address.city = "city" + i
+      company.address.country = "country" + i
+      company.address.street = "street" + i
+      company.address.streetNo = i
+      company.address.zipCode = "" + i + (i+1) + (i+2)
       company.grade = i;
       let flight = new FlightDatabase(company);
       flight.id = i;

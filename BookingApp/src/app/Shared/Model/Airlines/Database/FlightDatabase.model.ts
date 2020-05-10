@@ -16,7 +16,7 @@ export class FlightDatabase extends Flight{
     constructor(public airline : AirlineCompany){
         super(airline);  
         this.soldTickets = [];
-        this.details = new FlightDetails(this.airplane);
+        this.details = new FlightDetails();
         this.details.seats.rowNum = 5;
         this.details.seats.colNum = 10;
         for(let i : number = 0; i < 5; i++){

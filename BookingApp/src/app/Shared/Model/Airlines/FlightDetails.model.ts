@@ -5,8 +5,7 @@ export class FlightDetails{
     airplane : Airplane;
     seats : Seats;
 
-    constructor(airplane : Airplane){
-        this.airplane = airplane;
+    constructor(){
         this.seats = new Seats();
     }
 }

@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StopsModalComponent } from '../stops-modal/stops-modal.component';
 import * as moment from 'moment'
 import { Airplane } from 'src/app/Shared/Model/Airlines/Airplane.model';
+import { FlightClass } from 'src/app/Shared/Model/Airlines/FlightClass.model';
 
 @Component({
   selector: 'app-flight-form',
@@ -39,26 +40,54 @@ export class FlightFormComponent implements OnInit {
   destinations2 : string[]
   destinationOptions : string[] = []
   airplanes : Airplane[]
+  classes : string[] = []
+  isRoundTrip : boolean;
+
   constructor(private builder : FormBuilder,private cache : AirlineCacheService,
     private modalService : NgbModal) {
     this.airplanes = cache.airlines.getValue()[0].airplanes
     this.destinations1 = cache.airlines.getValue()[0].destinations;
     this.destinations2 = cache.airlines.getValue()[0].destinations;
+    this.classes = Object.keys(FlightClass).filter(i => isNaN(Number(i)))
+
    }
 
   ngOnInit(): void {
+    this.isRoundTrip = this.flight ? this.flight.isRoundTrip : false
     this.flightForm = this.builder.group({
       startLocation : [this.flight ? this.flight.startLocation : this.destinations1[0],Validators.required],
       finishLocation : [this.flight ? this.flight.finishLocation : this.destinations2[1],Validators.required],
+      isRoundTrip : [this.isRoundTrip],
       startDate : [this.flight ? this.flight.startDate : '',Validators.required],
       finishDate : [this.flight ? this.flight.finishDate : '',Validators.required],
       startTime : [this.flight ? this.flight.startDate : {hour : 2,minute : 20},Validators.required],
       finishTime : [this.flight ? this.flight.startDate : {hour : 2,minute : 20},Validators.required],
+      startDateBack : [ this.flight ? this.flight.startDate : '',Validators.required],
+      finishDateBack : [this.flight ? this.flight.finishDate : '',Validators.required],
+      startTimeBack : [this.flight ? this.flight.startDate : {hour : 2,minute : 20},Validators.required],
+      finishTimeBack : [this.flight ? this.flight.startDate : {hour : 2,minute : 20},Validators.required],
       price : [this.flight ? this.flight.price : '',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
       travelDistance : [this.flight ? this.flight.travelDistance : '',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
-      isRoundTrip : [this.flight ? this.flight.isRoundTrip : false],
-      airplane : [this.flight ? this.flight.airline.id : this.airplanes[0].id]
+      airplane : [this.flight ? this.flight.airline.id : this.airplanes[0].id],
+      class : [this.flight ? FlightClass[this.flight.flightClass] : this.classes[0]]
     }, {validators : [this.startFinishLocationsValidator,this.startFinishDatesValidator]})
+
+    this.flightForm.get('isRoundTrip').valueChanges.subscribe(i =>{
+      if(!i){
+        this.flightForm.get('startDateBack').disable()
+        this.flightForm.get('finishDateBack').disable()
+        this.flightForm.get('startTimeBack').disable()
+        this.flightForm.get('finishTimeBack').disable()
+        
+      }
+      else{
+        this.flightForm.get('startDateBack').enable()
+        this.flightForm.get('finishDateBack').enable()
+        this.flightForm.get('startTimeBack').enable()
+        this.flightForm.get('finishTimeBack').enable()
+      }
+    })
+    this.flightForm.get('isRoundTrip').setValue(this.isRoundTrip);
   }
 
   SetStops(){
@@ -88,6 +117,8 @@ export class FlightFormComponent implements OnInit {
         temp.travelDistance = this.flightForm.value.travelDistance;
         temp.isRoundTrip = this.flightForm.value.isRoundTrip;
         temp.price = this.flightForm.value.price;
+        temp.airplaneID = this.flightForm.value.airplane;
+        temp.flightClass = FlightClass[this.flightForm.value.class as keyof typeof FlightClass]
         this.flightEvent.emit(temp);
       }
     }
