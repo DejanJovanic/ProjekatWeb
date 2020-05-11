@@ -16,6 +16,7 @@ import { FriendsMainComponent } from './Users/Friends/friends-main/friends-main.
 import { AddFlightComponent } from './Airline/AirlineAdmin/add-flight/add-flight.component';
 import { AirplanesComponent } from './Airline/AirlineAdmin/airplanes/airplanes.component';
 import { RentACarEnterprisesComponent } from './RentACar/RentACarEnterpriseList/rent-acar-enterprises/rent-acar-enterprises.component'
+import { RentACarEnterpriseProfileComponent } from './RentACar/RentACarEnterpriseProfile/rent-acar-enterprise-profile/rent-acar-enterprise-profile.component'
 import { AirlineAdminCompanyPreviewComponent } from './Airline/AirlineAdmin/airline-admin-company-preview/airline-admin-company-preview.component';
 import { CompanyEditComponent } from './Airline/AirlineAdmin/company-edit/company-edit.component';
 
@@ -35,6 +36,7 @@ const routes: Routes = [
   {path: 'Login', component: LoginComponent},
   {path: 'Register', component: RegisterComponent},
   {path: 'RentACarEnterprises', component: RentACarEnterprisesComponent},
+  {path: 'EnterpriseProfile/:id', component: RentACarEnterpriseProfileComponent},
   {path: 'CompanyEdit', component: CompanyEditComponent}
 ];
 

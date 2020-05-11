@@ -1,16 +1,17 @@
 
 <div class="bg-img">
-  <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+ 
+  <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" [animation]="'fade'">
     <mdb-carousel-item class="item" *ngFor="let item of slides; let i = index">
           <div class="row">
             <div class="col-md-4" *ngFor="let enterprise of item; let enterpriseIndex = index">
               <mdb-card class="my-1">
-                <mdb-card-img [src]="enterprise.EnterpriseImage" alt="Enterprise image cap"></mdb-card-img>
+                <mdb-card-img [src]="enterprise.EnterpriseImage" [routerLink]="['/EnterpriseProfile/', enterprise.EnterpriseId]" routerLinkActive="router-link-active"></mdb-card-img>
                 <mdb-card-body>
                   <mdb-card-title>
                     <h4>{{ enterprise.EnterpriseName }}</h4>
                   </mdb-card-title>
-                  <a href="#" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Details</a>
+                  
                 </mdb-card-body>
               </mdb-card>
             </div>

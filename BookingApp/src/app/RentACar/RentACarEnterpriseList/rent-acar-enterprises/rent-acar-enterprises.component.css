@@ -8,14 +8,18 @@
     background-size: cover;
 }
 
-
 .item{
     margin-top:150px;
 }
  h4{
     color: white;
+    text-align: center;
 }
-
+.my-1:hover {
+    padding-top: 1vw;
+    border-radius: 10px;
+    cursor: pointer;
+  }
 .my-1{
     margin-left:50px;
     height: 320px;

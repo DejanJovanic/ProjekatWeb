@@ -37,6 +37,7 @@ export class RentACarEnterpriseServiceService {
    
   private RentACarEnterprises: RentACarEnterprise[] = [
     new RentACarEnterprise(
+      0,
       "Enterprise Rent a Car",
       "Aerodrom Beograd 59, Belgrade 11180",
       "OUR RESPONSE. OUR RESPONSIBILITY. Why we’re open and what we’re doing to better protect customers and employees.",
@@ -45,6 +46,7 @@ export class RentACarEnterpriseServiceService {
       this.RentACars.slice(0, 1) 
     ),
     new RentACarEnterprise(
+      1,
       "Hertz",
       "79 Oliver Tambo Road, Bloemfontein Central, Bloemfontein, 9301, South Africa",
       "For those who want the ultimate car rental experience.",
@@ -53,6 +55,7 @@ export class RentACarEnterpriseServiceService {
       this.RentACars.slice(0, 1) 
     ),
     new RentACarEnterprise(
+      2,
       "National",
       "Chora Naxou, Naxos 84300, GR",
       "A faster, more convenient experience every time you rent a vehicle.",
@@ -61,6 +64,7 @@ export class RentACarEnterpriseServiceService {
       this.RentACars.slice(0, 1) 
     ),
     new RentACarEnterprise(
+      3,
       "Alamo",
       "8400 Airport Blvd Mobile, AL 36608 US",
       "Drive away with more money in your pockets and more time on your itinerary.",
@@ -70,6 +74,7 @@ export class RentACarEnterpriseServiceService {
     ),
 
     new RentACarEnterprise(
+      4,
       "Budget",
       "Parsippany-Troy Hills, New Jersey, United States",
       "Book with CONFIDENCE. Whereever you need to go, we've got you.",
@@ -79,6 +84,7 @@ export class RentACarEnterpriseServiceService {
     ),
 
     new RentACarEnterprise(
+      5,
       "Avis",
       "Aerodrom Beograd 59, Belgrade 11180",
       "Avis is here for you. Experience Avis with our car rental offers just for you.",

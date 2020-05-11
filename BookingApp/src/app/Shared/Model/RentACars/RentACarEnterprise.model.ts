@@ -3,6 +3,7 @@ import { Car } from "./Car.model";
 
 export class RentACarEnterprise{
     constructor(
+        public EnterpriseId: number,
         public EnterpriseName: string,
         public EnterpriseAddress: string,
         public EnterpriseDescription: string,
