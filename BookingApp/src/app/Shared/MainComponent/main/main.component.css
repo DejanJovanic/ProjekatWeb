@@ -42,6 +42,25 @@ nav ul li a {
   font-family: "Roboto", sans-serif;
   color: #ffffff;
 }
+nav ul li a:hover, .invisButton:hover {
+  padding-top: 0.7vw;
+  border-radius: 10px;
+}
+
+#userName:hover{
+  padding-top: 0.7vw;
+  border-radius: 10px;
+  cursor:hand;
+}
+#userName{
+  text-decoration: none;
+  display: block;
+  padding: 0.8vw;
+  cursor:hand;
+  font-size: 1.1vw;
+  font-family: "Roboto", sans-serif;
+  color: #ffffff;
+}
 
 .transform-active {
 background-color: rgb(3, 118, 185);
@@ -52,7 +71,10 @@ width: 96%;
 .invisButton{
   border: 0;
   background-color: transparent;
-  font-size: 1em;
+  text-decoration: none;
+  display: block;
+  padding: 0.8vw;
+  font-size: 1.1vw;
   font-family: "Roboto", sans-serif;
   color: #ffffff;
 }
