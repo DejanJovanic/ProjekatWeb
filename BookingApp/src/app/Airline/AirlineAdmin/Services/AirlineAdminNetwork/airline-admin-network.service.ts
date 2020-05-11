@@ -64,4 +64,22 @@ export class AirlineAdminNetworkService {
       }
     })
   }
+
+  public EditAirlineCompany(company : AirlineCompany) : Observable<AirlineCompany>{
+    return new Observable(subscriber =>{
+      let temp = this.db.companies.find(i => company.id == i.id);
+      if(temp){
+        temp.name = company.name;
+        temp.description = company.description;
+        temp.destinations = company.destinations;
+        temp.address = company.address;
+        subscriber.next(temp);
+        subscriber.complete();
+      }
+      else{
+        subscriber.next(null);
+        subscriber.complete();
+      }
+    })
+  }
 }
