@@ -44,6 +44,7 @@ import { AirlineAdminCompanyPreviewComponent } from './Airline/AirlineAdmin/airl
 import { CompanyEditComponent } from './Airline/AirlineAdmin/company-edit/company-edit.component';
 import { AddressPipe } from './Airline/AirlineShared/Pipes/Address/address.pipe';
 import { RentACarEnterpriseProfileComponent } from './RentACar/RentACarEnterpriseProfile/rent-acar-enterprise-profile/rent-acar-enterprise-profile.component';
+import { RentACarEnterpriseAllCarsComponent } from './RentACar/RentACarEnterpriseCars/rent-acar-enterprise-all-cars/rent-acar-enterprise-all-cars.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { RentACarEnterpriseProfileComponent } from './RentACar/RentACarEnterpris
     AirlineAdminCompanyPreviewComponent,
     CompanyEditComponent,
     AddressPipe,
-    RentACarEnterpriseProfileComponent
+    RentACarEnterpriseProfileComponent,
+    RentACarEnterpriseAllCarsComponent
   ],
   imports: [
     NgbModule,
