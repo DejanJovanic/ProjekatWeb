@@ -10,13 +10,34 @@ import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnter
 export class RentACarEnterpriseProfileComponent implements OnInit {
   Enterprise: RentACarEnterprise;
   id: number;
+  EnterpriseRatingArr=[];
+  animeArr=[];
+  counter;
+  isHalf = false;
   constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.id = +params["id"];
       this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
+      this.updateStars();
+      this.getArrayValues(0);
     });
+  }
+  updateStars() {
+    this.isHalf = this.Enterprise.EnterpriseRating %1 !== 0? true : false;
+    for(let i=0; i<this.Enterprise.EnterpriseRating;i++){
+      this.EnterpriseRatingArr.push(i)
+    }
+   
+  }
+ getArrayValues(index) {
+    setInterval(() => {
+      if(index == this.EnterpriseRatingArr.length)
+        return;
+      this.animeArr.push(this.EnterpriseRatingArr[index]);
+      index++;
+    }, 50);
   }
 
 }

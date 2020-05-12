@@ -87,7 +87,7 @@ import { EditDestinationsModalComponent } from './Airline/AirlineAdmin/edit-dest
     CompanyEditComponent,
     AddressPipe,
     RentACarEnterpriseProfileComponent,
-    RentACarEnterpriseAllCarsComponent
+    RentACarEnterpriseAllCarsComponent,
     EditDestinationsModalComponent
   ],
   imports: [
