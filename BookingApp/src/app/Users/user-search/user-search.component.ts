@@ -23,9 +23,9 @@ export class UserSearchComponent implements OnInit {
 
   public onSubmit(){
     this.searchEvent.emit({
-      username : this.searchForm.value.username,
-      name : this.searchForm.value.name,
-      lastName : this.searchForm.value.lastName,
+      username : this.searchForm.value.username.trim(),
+      name : this.searchForm.value.name.trim(),
+      lastName : this.searchForm.value.lastName.trim(),
     })
   }
 

@@ -1,24 +1,38 @@
 <div class="modal-body">
     <div class="container">
-        <div class="row">
-            <form class="form-inline" (submit)="AddDestination()">
+        <form  (submit)="AddDestination()">
+            <div class="form-row">
+                <div class="col-sm-5">
+                    <label for="selectedItem">
+                        Select new stop:
+                    </label>
+                </div>
+            </div>
+            <div class="form-row form-group">
                 <div class="col-sm-7">
-                    <select class="form-control" name="selectedItem" [(ngModel)]="selectedItem">
+                    <select class="form-control" id="selectedItem" name="selectedItem" [(ngModel)]="selectedItem">
                         <option *ngFor="let item of availablePlaces">{{item}}</option>
                     </select>
                 </div>
                 <div class="col-sm-3">
-                    <button type="submit" class="btn btn-primary manage">Add</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
                 </div>
-            </form>
-            
-        </div>
-        <div class="row" *ngFor="let item of selectedPlaces;let i = index">
-            <div class="col-sm-7">
-                {{item}}
             </div>
-            <div class="col-sm-4">
-                <button (click)="RemoveItem(i)" class="btn btn-primary">Remove</button>
+        </form>      
+        <div class="row" *ngFor="let item of selectedPlaces;let i = index">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <p class="text-center">{{item}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <button (click)="RemoveItem(i)" class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

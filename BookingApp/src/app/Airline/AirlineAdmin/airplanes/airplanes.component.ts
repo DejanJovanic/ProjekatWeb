@@ -21,7 +21,7 @@ export class AirplanesComponent implements OnInit {
   }
 
   AddAirplane(){
-    let ref = this.modal.open(AddAirplaneModalComponent)
+    let ref = this.modal.open(AddAirplaneModalComponent,{size : 'lg'})
     ref.componentInstance.CreatedAirplane.subscribe(item =>{
       this.service.SetAirplane(item).subscribe(i =>{});
     })

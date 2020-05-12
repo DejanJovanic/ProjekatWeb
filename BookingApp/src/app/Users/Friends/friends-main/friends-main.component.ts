@@ -16,7 +16,7 @@ export class FriendsMainComponent implements OnInit {
   }
 
   AddFriends(){
-    const modalRef = this.modalService.open(FriendAddModalComponent);
+    const modalRef = this.modalService.open(FriendAddModalComponent,{size : 'lg'});
   }
 
 }

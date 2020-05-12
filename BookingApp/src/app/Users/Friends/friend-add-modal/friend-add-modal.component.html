@@ -1,39 +1,38 @@
 <div class="modal-body">
     <app-user-search (searchEvent)="onSearch($event)"></app-user-search>
-    <div class="row" *ngFor="let item of searchItems | async">
-        <div class="col-sm-12">
-            <div class="row">
-                <div class="col-sm-3">
-                    <label>
-                        Username:
-                    </label>
-                   
-                </div>
-                <div class="col-sm-3">
-                    <label>
-                        Name:
-                    </label>
-                </div>
-                <div class="col-sm-3">
-                    <label>
-                        Last name:
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    {{item.username}}
-                </div>
-                <div class="col-sm-3">
-                    {{item.name}}
-                </div>
-                <div class="col-sm-3">
-                    {{item.lastName}}
-                </div>
-                <div class="col-sm-3">
-                    <button type="button" class="btn btn-primary" (click)="SendRequest(item.username)">Send friend request</button>
-                </div>
-            </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-3">
+            <p>Username:</p>
+        </div>
+        <div class="col-sm-3">
+            <p>Name:</p>
+        </div>
+        <div class="col-sm-3">
+            <p>Last name:</p>
         </div>
     </div>
+    <hr>
+    <ng-container  *ngFor="let item of searchItems | async">
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p>{{item.username}}</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p>{{item.name}}</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p>{{item.lastName}}</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="button" class="btn btn-primary btm-sm" (click)="SendRequest(item.username)">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>       
+    </ng-container>
 </div>
+
