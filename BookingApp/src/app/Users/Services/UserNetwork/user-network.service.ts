@@ -41,16 +41,21 @@ export class UserNetworkService {
 
   public SearchForFriends(params : {username : string, name: string, lastName : string}) : Observable<{username : string, name: string, lastName : string}[]>{
     return of(this.db.users.filter(i =>{
+      let count = 0
       let isOk = true;
       if(params.username != undefined && params.username != ''){
         if(i.username.toLowerCase() != params.username.toLowerCase()) isOk = false;
       }
+      else count += 1
       if(params.name != undefined && params.name != ''){
         if(i.name.toLowerCase() != params.name.toLowerCase()) isOk = false;
       }
+      else count += 1
       if(params.lastName != undefined && params.lastName != ''){
         if(i.lastName.toLowerCase() != params.lastName.toLowerCase()) isOk = false;
       }
+      else count += 1
+      if(count == 3) return false
       return isOk;
     }))
   }

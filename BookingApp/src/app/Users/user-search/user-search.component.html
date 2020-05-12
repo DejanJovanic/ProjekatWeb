@@ -1,32 +1,27 @@
 <div class="container">
-    <div class="row">
-        <div class="col-sm-4">
-            Username:
-        </div>
-        <div class="col-sm-4">
-            Name:
-        </div>
-        <div class="col-sm-4">
-            Last name:
-        </div>
-    </div>
-    <div class="row">
-        <form (submit)="onSubmit()" [formGroup]="searchForm">
-            <div class="col-sm-4">
-                <input type="text" formControlName="username"/>
+    <form (submit)="onSubmit()" [formGroup]="searchForm">
+        <div class="form-group form-row">
+            <label for="username" class="col-sm-3 col-form-label">Username : </label>
+            <div class="col-sm-9">
+                <input type="text" id="username" class="form-control" formControlName="username"/>
             </div>
-            <div class="col-sm-4">
-                <input type="text" formControlName="name"/>
+        </div>
+        <div class="form-group form-row">
+            <label for="name" class="col-sm-3 col-form-label">Name : </label>
+            <div class="col-sm-9">
+                <input type="text" id="name" class="form-control" formControlName="name"/>
             </div>
-            <div class="col-sm-4">
-                <input type="text" formControlName="lastName"/>
+        </div>
+        <div class="form-group form-row">
+            <label for="lastName" class="col-sm-3 col-form-label">Last name : </label>
+            <div class="col-sm-9">
+                <input type="text" id="lastName" class="form-control" formControlName="lastName"/>
             </div>
-            <div class="col-sm-3">
+        </div>
+        <div class="form-row">
+            <div class="col-sm-4">
                 <button class="btn btn-primary" type="submit">Search</button>
             </div>
-        </form>
-    </div>
-    <div class="row">
-     
-    </div>
+        </div>
+    </form>
 </div>

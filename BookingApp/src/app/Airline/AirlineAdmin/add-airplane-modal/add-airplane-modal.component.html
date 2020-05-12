@@ -1,78 +1,163 @@
+<div class="modal-header">
+    <h2>
+        Add airplane
+    </h2>
+</div>
 <form [formGroup]="form" (submit)="OnSubmit()">
     <div class="modal-body">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-3">
-                    <label>
-                        Name:
-                    </label>
-                </div>
-                <div class="col-sm-7">
-                    <input type="text" formControlName="name"/>
+            <br>
+            <div class="form-row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="name"> Name: </label>               
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <input type="text" id="name" class="form-control" formControlName="name"/>
+                        </div>
+                    </div>
+                </div>              
+            </div>
+            <br>
+            <div class="form-row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="form-check">
+                                <input id="economyClass" class="form-check-input" type="checkbox" formControlName="economyClass"/>
+                                <label for="economyClass" class="form-check-label"> Economy class </label> 
+                            </div>   
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6 form-group">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <label for="economyRows">
+                                                Economy class rows:
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <input type="text" id="economyRows" class="form-control" formControlName="economyRows"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 form-group">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <label for="economyCols">
+                                                Economy class columns:
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <input type="text" id="economyCols" class="form-control" formControlName="economyCols"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <label>
-                        Economy class rows:
-                    </label>
-                </div>
-                <div class="col-sm-7">
-                    <input type="text" formControlName="economyRows"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <label>
-                        Economy class columns:
-                    </label>
-                </div>
-                <div class="col-sm-7">
-                    <input type="text" formControlName="economyCols"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <label>
-                        Business class rows:
-                    </label>
-                </div>
-                <div class="col-sm-7">
-                    <input type="text" formControlName="businessRows"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <label>
-                        Business class columns:
-                    </label>
-                </div>
-                <div class="col-sm-7">
-                    <input type="text" formControlName="businessCols"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <label>
-                        First class rows:
-                    </label>
-                </div>
-                <div class="col-sm-7">
-                    <input type="text" formControlName="firstRows"/>
+            <br>
+            <div class="form-row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="form-check">
+                                <input id="businessClass" class="form-check-input" type="checkbox" formControlName="businessClass"/>
+                                <label for="businessClass" class="form-check-label"> Business class </label> 
+                            </div>   
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6 form-group">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <label for="businessRows">
+                                                Business class rows:
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <input type="text" id="businessRows" class="form-control" formControlName="businessRows"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 form-group">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <label for="businessCols">
+                                                Business class columns:
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <input type="text" id="businessCols" class="form-control" formControlName="businessCols"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <label>
-                        First class columns:
-                    </label>
-                </div>
-                <div class="col-sm-7">
-                    <input type="text" formControlName="firstCols"/>
+            <br>
+            <div class="form-row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="form-check">
+                                <input id="firstClass" class="form-check-input" type="checkbox" formControlName="firstClass"/>
+                                <label for="firstClass" class="form-check-label"> First class </label> 
+                            </div>   
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6 form-group">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <label for="firstRows">
+                                                First class rows:
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <input type="text" id="firstRows" class="form-control" formControlName="firstRows"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 form-group">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <label for="firstCols">
+                                                First class columns:
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <input type="text" id="firstCols" class="form-control" formControlName="firstCols"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div>  
+    </div>     
     <div class="modal-footer">
         <button class="btn btn-primary" type="submit">Add airplane</button>
     </div>  

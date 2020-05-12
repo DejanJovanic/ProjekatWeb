@@ -1,9 +1,10 @@
 <div class="container">
-    <div class = "row" *ngFor="let item of flights | async">
-        <div  class="col-md-12">
-            <br>
-            <app-flight-panel [flight]=item></app-flight-panel>
-        </div>
+   
+    <div class="card-deck">
+        <br>
+        <ng-container *ngFor="let item of flights | async">
+            <app-flight-panel  [flight]=item></app-flight-panel>
+        </ng-container>
     </div>
 </div>
 
