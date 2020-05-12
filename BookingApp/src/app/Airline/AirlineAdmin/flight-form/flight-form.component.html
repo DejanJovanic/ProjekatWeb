@@ -3,43 +3,58 @@
         <div class="form-row">
             <div class="col-sm-6 form-group">
                 <div class="row">
-                    <label class="col-sm-2" for="startLocation">
-                        Start:
-                    </label>
+                    <div class="col-sm-5">
+                        <label for="startLocation">
+                            Start:
+                        </label>
+                    </div>
+
                 </div>
                 <div class="row">
-                    <select id="startLocation" class="col-sm-4 form-control" formControlName="startLocation">
-                        <option *ngFor="let item of destinations1" [ngValue] = "item">{{item}}</option>
-                    </select>
+                    <div class="col-sm-4">
+                        <select id="startLocation" class="form-control" formControlName="startLocation">
+                            <option *ngFor="let item of destinations1" [ngValue] = "item">{{item}}</option>
+                        </select>
+                    </div>
+              
                 </div>
             </div>
             <div class="col-sm-6 form-group">
                 <div class="row">
-                    <label class="col-sm-2" for="finishLocation">
-                        Stop:
-                    </label>
+                    <div class="col-sm-5">
+                        <label for="finishLocation">
+                            Stop:
+                        </label>
+                    </div>
                 </div>
                 <div class="row">
-                    <select id="finishLocation" class="col-sm-4 form-control"  formControlName="finishLocation">
-                        <option *ngFor="let item of destinations2" [ngValue] = "item">{{item}}</option>
-                    </select>
+                    <div class="col-sm-4">
+                        <select id="finishLocation" class="form-control"  formControlName="finishLocation">
+                            <option *ngFor="let item of destinations2" [ngValue] = "item">{{item}}</option>
+                        </select>
+                    </div>
+
                 </div>
             </div>
         </div>
 
         <div class="form-row">
-            <div class="form-check">
-                <input id="isRoundTrip" class="form-check-input" type="checkbox" formControlName="isRoundTrip"/>
-                <label for="isRoundTrip" class="form-check-label"> Round trip </label>             
+            <div class="col-sm-5">
+                <div class="form-check">
+                    <input id="isRoundTrip" class="form-check-input" type="checkbox" formControlName="isRoundTrip"/>
+                    <label for="isRoundTrip" class="form-check-label"> Round trip </label> 
+                </div>   
             </div>
         </div>
 
         <div class="form-row">
             <div class="col-sm-6 form-group">
                 <div class="row">
-                    <label for="startDate" class="col-sm-3">
-                        Start date:
-                    </label> 
+                    <div class="col-sm-5">
+                        <label for="startDate">
+                            Start date:
+                        </label> 
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
@@ -49,9 +64,12 @@
             </div>
             <div class="col-sm-6 form-group">
                 <div class="row">
-                    <label for="finishDate" class="col-sm-3">
-                        Finish date:
-                    </label>
+                    <div class="col-sm-5">
+                        <label for="finishDate">
+                            Finish date:
+                        </label>
+                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
@@ -63,9 +81,11 @@
        <div class="form-row">
            <div class="col-sm-6 form-group">
                 <div class="row">
-                    <label for="startTime" class="col-sm-3">
-                        Start time:
-                    </label>
+                    <div class="col-sm-5">
+                        <label for="startTime">
+                            Start time:
+                        </label>
+                    </div>   
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
@@ -75,9 +95,11 @@
            </div>
            <div class="col-sm-6 form-group">
                 <div class="row">
-                    <label for="finishTime" class="col-sm-3">
-                        Finish time:
-                    </label>
+                    <div class="col-sm-5">
+                        <label for="finishTime">
+                            Finish time:
+                        </label>
+                    </div>
                 </div>
                 <div class="row">                    
                     <div class="col-sm-3">
@@ -90,9 +112,12 @@
        <div class="form-row" *ngIf="isRoundTrip">
         <div class="col-sm-6 form-group">
             <div class="row">
-                <label for="startDateBack" class="col-sm-5">
-                    Start date back:
-                </label> 
+                <div class="col-sm-5">
+                    <label for="startDateBack">
+                        Start date back:
+                    </label> 
+                </div>
+
             </div>
             <div class="row">
                 <div class="col-sm-3">
@@ -102,9 +127,11 @@
         </div>
         <div class="col-sm-6 form-group">
             <div class="row">
-                <label for="finishDateBack" class="col-sm-5">
-                    Finish date back:
-                </label>
+                <div class="col-sm-5">
+                    <label for="finishDateBack">
+                        Finish date back:
+                    </label>
+                </div>
             </div>
             <div class="row">
                 <div class="col-sm-3">
@@ -116,9 +143,11 @@
        <div class="form-row" *ngIf="isRoundTrip">
         <div class="col-sm-6 form-group">
              <div class="row">
-                 <label for="startTimeBack" class="col-sm-5">
-                     Start time back:
-                 </label>
+                <div class="col-sm-5">
+                    <label for="startTimeBack">
+                        Start time back:
+                    </label>
+                </div>
              </div>
              <div class="row">
                  <div class="col-sm-3">
@@ -128,9 +157,11 @@
         </div>
         <div class="col-sm-6 form-group">
              <div class="row">
-                 <label for="finishTimeBack" class="col-sm-5">
-                     Finish time back:
-                 </label>
+                 <div class="col-sm-5">
+                    <label for="finishTimeBack">
+                        Finish time back:
+                    </label>
+                 </div>
              </div>
              <div class="row">                    
                  <div class="col-sm-3">
@@ -140,62 +171,82 @@
          </div>
     </div>
     
+    <div class="form-row">
+        <div class="col-sm-6 form-group">
+            <div class="row">
+                <div class="col-sm-5">
+                    <label for="travelDistance">
+                        Travel distance(km):
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <input type="text" id="travelDistance" class="form-control" formControlName="travelDistance"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 form-group">
+            <div class="row">
+                <div class="col-sm-5">
+                    <label for="price">
+                        Price:
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <input type="text" id="price" class="form-control"  formControlName="price"/>
+                </div>
+            </div>
+        </div>
+    </div>
 
-      
-        <div class="row">
-            <div class="col-sm-6">
-               
+    <div class="form-row">
+        <div class="col-sm-6 form-group">
+            <div class="row">
+                <div class="col-sm-5">
+                    <label for="airplane">
+                        Airplane:
+                    </label>
+                </div>
+
             </div>
-            <div class="col-sm-2">
-               
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                Travel distance(km):
-            </div>
-            <div class="col-sm-5">
-                <input type="text" formControlName="travelDistance"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                Price:
-            </div>
-            <div class="col-sm-5">
-                <input type="text" formControlName="price"/>
+            <div class="row">
+                <div class="col-sm-3">
+                    <select id="airplane" class="form-control" formControlName="airplane">
+                        <option [ngValue]="item.id" *ngFor="let item of airplanes">
+                            {{item.name}}
+                        </option>
+                    </select>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-4">
-                Airplane:
+        <div class="col-sm-6 form-group">
+            <div class="row">
+                <div class="col-sm-5">
+                    <label for="class">
+                        Flight class:
+                    </label>
+                </div>
             </div>
-            <div class="col-sm-5">
-                <select formControlName="airplane">
-                    <option [ngValue]="item.id" *ngFor="let item of airplanes">
-                        {{item.name}}
-                    </option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                Class:
-            </div>
-            <div class="col-sm-5">
-                <select formControlName="class">
-                    <option [ngValue]="item" *ngFor="let item of classes">
-                        {{item}}
-                    </option>
-                </select>
+            <div class="row">
+                <div class="col-sm-3">
+                    <select id="class" class="form-control" formControlName="class">
+                        <option [ngValue]="item" *ngFor="let item of classes">
+                            {{item}}
+                        </option>
+                    </select>
+                </div>
             </div>
         </div>
-        <div class="row">
+    </div>
+        <div class="form-row">
             <div class="col-sm-4">
                 <button class="btn btn-primary" type="button" (click)="SetStops()">Set Stops</button>
             </div>
         </div>
-        <div class="row">
+        <div class="form-row">
             <div class="col-sm-3">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
