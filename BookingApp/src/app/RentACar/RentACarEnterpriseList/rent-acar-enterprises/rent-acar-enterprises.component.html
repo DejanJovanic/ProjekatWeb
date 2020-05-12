@@ -5,7 +5,7 @@
     <mdb-carousel-item class="item" *ngFor="let item of slides; let i = index">
           <div class="row">
             <div class="col-md-4" *ngFor="let enterprise of item; let enterpriseIndex = index">
-              <mdb-card class="my-1">
+              <mdb-card title="Click for more details"class="my-1">
                 <mdb-card-img [src]="enterprise.EnterpriseImage" [routerLink]="['/EnterpriseProfile/', enterprise.EnterpriseId]" routerLinkActive="router-link-active"></mdb-card-img>
                 <mdb-card-body>
                   <mdb-card-title>

@@ -32,6 +32,18 @@ export class RentACarEnterpriseServiceService {
       700,
       4.9,
       "https://www.cstatic-images.com/car-pictures/xl/usd00bmc931a021001.png"
+    ),
+    new Car(
+      "BMW",
+      "BMW x5",
+      2015,
+      "Jeep",
+      "Diesel",
+      "Automatic",
+      5,
+      700,
+      4.9,
+      "https://www.cstatic-images.com/car-pictures/xl/usd00bmc931a021001.png"
     )
   ];
    
@@ -43,7 +55,7 @@ export class RentACarEnterpriseServiceService {
       "OUR RESPONSE. OUR RESPONSIBILITY. Why we’re open and what we’re doing to better protect customers and employees.",
       5,
       "../../assets/EnterpriseCarRental.jpg",
-      this.RentACars.slice(0, 1) 
+      this.RentACars.slice(0, 3) 
     ),
     new RentACarEnterprise(
       1,
@@ -52,7 +64,7 @@ export class RentACarEnterpriseServiceService {
       "For those who want the ultimate car rental experience.",
       4.9,
       "../../assets/HertzCarRental.jpg",
-      this.RentACars.slice(0, 1) 
+      this.RentACars.slice(0, 3) 
     ),
     new RentACarEnterprise(
       2,
@@ -61,7 +73,7 @@ export class RentACarEnterpriseServiceService {
       "A faster, more convenient experience every time you rent a vehicle.",
       4.5,
       "../../assets/NationalCarRental.jpg",
-      this.RentACars.slice(0, 1) 
+      this.RentACars.slice(0, 3) 
     ),
     new RentACarEnterprise(
       3,
@@ -70,7 +82,7 @@ export class RentACarEnterpriseServiceService {
       "Drive away with more money in your pockets and more time on your itinerary.",
       4,
       "../../assets/AlamoCarRental.jpg",
-      this.RentACars.slice(0, 1) 
+      this.RentACars.slice(0, 3) 
     ),
 
     new RentACarEnterprise(
@@ -80,7 +92,7 @@ export class RentACarEnterpriseServiceService {
       "Book with CONFIDENCE. Whereever you need to go, we've got you.",
       4.2,
       "../../assets/BudgetCarRental.jpg",
-      this.RentACars.slice(0, 1) 
+      this.RentACars.slice(0, 3) 
     ),
 
     new RentACarEnterprise(
@@ -90,7 +102,7 @@ export class RentACarEnterpriseServiceService {
       "Avis is here for you. Experience Avis with our car rental offers just for you.",
       4.4,
       "../../assets/AvisCarRental.jpg",
-      this.RentACars.slice(0, 1) 
+      this.RentACars.slice(0, 3) 
     )
   ];
   constructor() { }

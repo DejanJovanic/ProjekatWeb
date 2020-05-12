@@ -1,0 +1,22 @@
+
+<div class="bg-img">
+ 
+    <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" [animation]="'fade'">
+      <mdb-carousel-item class="item" *ngFor="let item of slides; let i = index">
+            <div class="row">
+              <div class="col-md-4" *ngFor="let car of item; let carIndex = index">
+                <mdb-card title="Click for more details"class="my-1">
+                  <mdb-card-img [src]="car.CarImage"></mdb-card-img>
+                  <mdb-card-body>
+                    <mdb-card-title>
+                      <h4>{{ car.CarBrand }}</h4>
+                      
+                    </mdb-card-title>
+                    
+                  </mdb-card-body>
+                </mdb-card>
+              </div>
+            </div>
+      </mdb-carousel-item>
+    </mdb-carousel>
+  </div>
