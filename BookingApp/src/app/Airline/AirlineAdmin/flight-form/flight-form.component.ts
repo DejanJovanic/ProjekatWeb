@@ -73,6 +73,7 @@ export class FlightFormComponent implements OnInit {
     }, {validators : [this.startFinishLocationsValidator,this.startFinishDatesValidator]})
 
     this.flightForm.get('isRoundTrip').valueChanges.subscribe(i =>{
+      this.isRoundTrip = i;
       if(!i){
         this.flightForm.get('startDateBack').disable()
         this.flightForm.get('finishDateBack').disable()
@@ -87,7 +88,7 @@ export class FlightFormComponent implements OnInit {
         this.flightForm.get('finishTimeBack').enable()
       }
     })
-    this.flightForm.get('isRoundTrip').setValue(this.isRoundTrip);
+    //this.flightForm.get('isRoundTrip').setValue(this.isRoundTrip);
   }
 
   SetStops(){

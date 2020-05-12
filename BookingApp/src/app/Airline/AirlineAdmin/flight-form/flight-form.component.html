@@ -1,85 +1,153 @@
 <div class="container">
     <form (submit)="Submit()" [formGroup]="flightForm" novalidate>
-        <div class="row">
-            <div class="col-sm-3">
-                Start:
+        <div class="form-row">
+            <div class="col-sm-6 form-group">
+                <div class="row">
+                    <label class="col-sm-2" for="startLocation">
+                        Start:
+                    </label>
+                </div>
+                <div class="row">
+                    <select id="startLocation" class="col-sm-4 form-control" formControlName="startLocation">
+                        <option *ngFor="let item of destinations1" [ngValue] = "item">{{item}}</option>
+                    </select>
+                </div>
             </div>
-            <div class="col-sm-3">
-                <select formControlName="startLocation">
-                    <option *ngFor="let item of destinations1" [ngValue] = "item">{{item}}</option>
-                </select>
-            </div>
-            <div class="col-sm-3">
-                Stop:
-            </div>
-            <div class="col-sm-3">
-                <select formControlName="finishLocation">
-                    <option *ngFor="let item of destinations2" [ngValue] = "item">{{item}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3">
-                Start date:
-            </div> 
-            <div class="col-sm-3">
-                <ngb-datepicker  formControlName="startDate" #d></ngb-datepicker>
-            </div>
-            <div class="col-sm-3">
-                Finish date:
-            </div>
-            <div class="col-sm-3">
-                <ngb-datepicker  formControlName="finishDate" #d></ngb-datepicker>
+            <div class="col-sm-6 form-group">
+                <div class="row">
+                    <label class="col-sm-2" for="finishLocation">
+                        Stop:
+                    </label>
+                </div>
+                <div class="row">
+                    <select id="finishLocation" class="col-sm-4 form-control"  formControlName="finishLocation">
+                        <option *ngFor="let item of destinations2" [ngValue] = "item">{{item}}</option>
+                    </select>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-3">
-                Start time:
-            </div>
-            <div class="col-sm-3">
-                <ngb-timepicker formControlName="startTime" #d></ngb-timepicker>
-            </div>
-            <div class="col-sm-3">
-                Finish time:
-            </div>
-            <div class="col-sm-3">
-                <ngb-timepicker formControlName="finishTime" #d></ngb-timepicker>
+
+        <div class="form-row">
+            <div class="form-check">
+                <input id="isRoundTrip" class="form-check-input" type="checkbox" formControlName="isRoundTrip"/>
+                <label for="isRoundTrip" class="form-check-label"> Round trip </label>             
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-3">
-                Start date back:
-            </div> 
-            <div class="col-sm-3">
-                <ngb-datepicker  formControlName="startDateBack" #d></ngb-datepicker>
+
+        <div class="form-row">
+            <div class="col-sm-6 form-group">
+                <div class="row">
+                    <label for="startDate" class="col-sm-3">
+                        Start date:
+                    </label> 
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <ngb-datepicker id="startDate"  formControlName="startDate" #d></ngb-datepicker>
+                    </div>  
+                </div>          
             </div>
-            <div class="col-sm-3">
-                Finish date back:
-            </div>
-            <div class="col-sm-3">
-                <ngb-datepicker  formControlName="finishDateBack" #d></ngb-datepicker>
+            <div class="col-sm-6 form-group">
+                <div class="row">
+                    <label for="finishDate" class="col-sm-3">
+                        Finish date:
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <ngb-datepicker id="finishDate"  formControlName="finishDate" #d></ngb-datepicker>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-3">
-                Start time back:
+       <div class="form-row">
+           <div class="col-sm-6 form-group">
+                <div class="row">
+                    <label for="startTime" class="col-sm-3">
+                        Start time:
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <ngb-timepicker id="startTime" formControlName="startTime" #d></ngb-timepicker>
+                    </div>
+                </div>
+           </div>
+           <div class="col-sm-6 form-group">
+                <div class="row">
+                    <label for="finishTime" class="col-sm-3">
+                        Finish time:
+                    </label>
+                </div>
+                <div class="row">                    
+                    <div class="col-sm-3">
+                        <ngb-timepicker id="finishTime" formControlName="finishTime" #d></ngb-timepicker>
+                    </div>
+                </div>  
             </div>
-            <div class="col-sm-3">
-                <ngb-timepicker formControlName="startTimeBack" #d></ngb-timepicker>
+       </div>
+
+       <div class="form-row" *ngIf="isRoundTrip">
+        <div class="col-sm-6 form-group">
+            <div class="row">
+                <label for="startDateBack" class="col-sm-5">
+                    Start date back:
+                </label> 
             </div>
-            <div class="col-sm-3">
-                Finish time back:
+            <div class="row">
+                <div class="col-sm-3">
+                    <ngb-datepicker id="startDateBack"  formControlName="startDateBack" #d></ngb-datepicker>
+                </div>  
+            </div>          
+        </div>
+        <div class="col-sm-6 form-group">
+            <div class="row">
+                <label for="finishDateBack" class="col-sm-5">
+                    Finish date back:
+                </label>
             </div>
-            <div class="col-sm-3">
-                <ngb-timepicker formControlName="finishTimeBack" #d></ngb-timepicker>
+            <div class="row">
+                <div class="col-sm-3">
+                    <ngb-datepicker id="finishDateBack"  formControlName="finishDateBack" #d></ngb-datepicker>
+                </div>
             </div>
         </div>
+    </div>
+       <div class="form-row" *ngIf="isRoundTrip">
+        <div class="col-sm-6 form-group">
+             <div class="row">
+                 <label for="startTimeBack" class="col-sm-5">
+                     Start time back:
+                 </label>
+             </div>
+             <div class="row">
+                 <div class="col-sm-3">
+                     <ngb-timepicker id="startTimeBack" formControlName="startTimeBack" #d></ngb-timepicker>
+                 </div>
+             </div>
+        </div>
+        <div class="col-sm-6 form-group">
+             <div class="row">
+                 <label for="finishTimeBack" class="col-sm-5">
+                     Finish time back:
+                 </label>
+             </div>
+             <div class="row">                    
+                 <div class="col-sm-3">
+                     <ngb-timepicker id="finishTimeBack" formControlName="finishTimeBack" #d></ngb-timepicker>
+                 </div>
+             </div>  
+         </div>
+    </div>
+    
+
+      
         <div class="row">
             <div class="col-sm-6">
-                Is round trip:
+               
             </div>
             <div class="col-sm-2">
-                <input type="checkbox" formControlName="isRoundTrip"/>
+               
             </div>
         </div>
         <div class="row">
