@@ -8,20 +8,54 @@
     background-size: cover;
 }
 
-.item{
-    margin-top:200px;
+input, select, textarea{
+    color: #fcfcfc;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.3vw;
 }
+
+textarea:focus, input:focus {
+    color: #fcfcfc;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.3vw;
+}
+
+::placeholder { 
+    color: #fcfcfc;
+    opacity: 1; 
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.card{
+    
+    background-color: rgba(15, 14, 14, 0.678) !important;
+    width: 135mm; 
+    padding: 5mm;
+}
+.d-flex{
+    margin-top:200px;
+    
+}
+
  h4{
     color: white;
     text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.1vw;
 }
+
 .my-1:hover {
     padding-top: 1vw;
     border-radius: 10px;
     cursor: pointer;
   }
 .my-1{
-    margin-left:50px;
+    margin:auto;
     height: 320px;
     width: 400px;
     background-color: rgba(15, 14, 14, 0.678) !important;

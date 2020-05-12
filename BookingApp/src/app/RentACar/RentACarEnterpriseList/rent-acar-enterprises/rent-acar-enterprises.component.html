@@ -1,6 +1,36 @@
-
 <div class="bg-img">
- 
+  <div class="container">
+      <div class="card" >
+        <form [formGroup]="searchEnterpriseForm">
+          <div class="row">
+            
+              <div class="col">
+                <div class="md-form mt-0">
+                  <input type="text" class="form-control" formControlName="enterpriseName" placeholder="Enter enterprise name">
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="md-form mt-0">
+                  <input type="text" class="form-control" formControlName="branchLocation" placeholder="Enter branch location">
+                </div>
+              </div>
+
+          </div>
+          <div class="row">
+              <div class="col">
+                <button type="button" class="btn btn-outline-primary btn-rounded waves-effect" (click)="searchCompanies()"><i class="fas fa-search mr-1"></i>Search</button>
+              </div>
+
+              <div class="col">
+                <button type="button" class="btn btn-outline-primary btn-rounded waves-effect" (click)="showAllCompanies()"><i class="fas fa-car mr-1"></i>Show all enterprises</button>
+              </div>
+          </div>
+            
+        </form>
+    </div>
+  </div>
+
   <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" [animation]="'fade'">
     <mdb-carousel-item class="d-flex justify-content-center" *ngFor="let item of slides; let i = index">
         

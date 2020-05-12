@@ -91,6 +91,7 @@ import { EditDestinationsModalComponent } from './Airline/AirlineAdmin/edit-dest
     EditDestinationsModalComponent
   ],
   imports: [
+    
     NgbModule,
     BrowserModule,
     AppRoutingModule,
