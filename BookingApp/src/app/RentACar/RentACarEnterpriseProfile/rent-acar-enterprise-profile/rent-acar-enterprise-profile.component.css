@@ -10033,6 +10033,66 @@ hr.light {
     color: #f4623a;
   }
 }
+.fav {
+  background-position: left;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  display: inline-block;
+  
+
+}
+  .fav :hover {
+    background-position: right;
+  }
+.fav-star {
+  background-image: url("../../../../assets/RatingStar.png");
+  height: 45px;
+  width: 64px; 
+ background-position: right;
+  animation: zoetrope 1s steps(55)  1;
+}
+.fav-star-default {
+  background-image: url("../../../../assets/RatingStar.png");
+  height: 45px;
+  width: 64px; 
+   background-position: left;  
+}
+
+@keyframes zoetrope {
+  from { background-position: left;  }
+  to   { background-position: right; }
+}
+
+
+.item{
+    position:absolute;
+  top:auto;
+  left:auto;
+  display: flex;
+}
+
+.halfstar1 {
+    position: absolute;
+    top: -6px;
+    right: 15px;
+    width: 34px; 
+    font-size: 40px;   
+    color: rgb(202, 202, 202);
+    overflow: hidden;
+    z-index:1;
+}
+
+.halfstar2 {
+    position: absolute;
+    top: -6px;
+    right: 32px;
+    width: 17px; 
+    font-size: 40px;   
+    color: rgb(252, 173, 3);
+    overflow: hidden;
+    z-index:2;
+}
+
 
 header.masthead {
   padding-top: 10rem;

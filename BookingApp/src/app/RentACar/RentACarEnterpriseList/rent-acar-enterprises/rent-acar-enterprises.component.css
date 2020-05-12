@@ -8,8 +8,9 @@
     background-size: cover;
 }
 
-.item{
+.d-flex{
     margin-top:200px;
+    
 }
  h4{
     color: white;
@@ -21,7 +22,7 @@
     cursor: pointer;
   }
 .my-1{
-    margin-left:50px;
+    margin:auto;
     height: 320px;
     width: 400px;
     background-color: rgba(15, 14, 14, 0.678) !important;

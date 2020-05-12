@@ -1,6 +1,6 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container">
-                <a class="navbar-brand">{{Enterprise.EnterpriseName}}</a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <a class="navbar-brand">{{Enterprise.EnterpriseName}}</a>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
                         <li class="nav-item"><a class="nav-link" [routerLink]="['/EnterpriseCars/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Take a look at our cars</a></li>
@@ -22,11 +22,29 @@
                         <hr class="divider my-4" />
                     </div>
                     <div class="col-lg-8 align-self-baseline">
-                        <p class="text-white-75 font-weight-light mb-5">{{Enterprise.EnterpriseDescription}}</p>
+                        <p class="text-white-75 font-weight-bold mb-5">{{Enterprise.EnterpriseDescription}}</p>
+                        <p class="text-white-75 font-weight-bold mb-5">Our dear clients appreciated the work of our company with</p>
+                        <div class="d-flex justify-content-center">
+                            <div class="item">
+                                <div *ngFor="let i of [0,1,2,3,4]">
+                                    <div class="fav fav-star-default "></div>
+                                </div>
+                            </div>
+                          <div class="item">
+                                <div *ngFor="let i of animeArr;last as isLast">
+                                    <div class="fav fav-star is-animating" [ngClass]= "{'isHalf': isHalf}"></div>
+                              <div class="halfstar1" *ngIf="isHalf">&#x2605;</div>
+                              <div class="halfstar2" *ngIf="isHalf">&#x2605;</div>
+                                </div>
+                            </div>
+                        </div>
+                           
                     </div>
                 </div>
             </div>
         </header>
+
+        
 
         
    
