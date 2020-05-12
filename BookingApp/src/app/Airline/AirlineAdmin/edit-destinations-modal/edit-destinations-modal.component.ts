@@ -21,6 +21,10 @@ export class EditDestinationsModalComponent implements OnInit {
     })
   }
 
+  RemoveDestination(destination : string){
+    this.destinations.splice(this.destinations.indexOf(destination),1);
+  }
+
   OnSubmit(){
     if(this.form.valid){
       this.destinations.push(this.form.value.destination);

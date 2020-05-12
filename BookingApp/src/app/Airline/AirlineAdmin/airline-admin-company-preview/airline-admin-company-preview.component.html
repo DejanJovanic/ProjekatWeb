@@ -1,13 +1,14 @@
 <div class="container">
     <div class="row">
-        <div class="col-sm-4">
-            <button class="btn btn-primary"  [routerLink]="['/CompanyEdit']" routerLinkActive="router-link-active" >Edit details</button>
-        </div>
-    </div>
-    <div class="row">
         <br>
         <div class="col-sm-12">
             <app-airline-details [item]="company"></app-airline-details>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-4">
+            <button class="btn btn-primary"  [routerLink]="['/CompanyEdit']" routerLinkActive="router-link-active" >Edit details</button>
         </div>
     </div>
 </div>
