@@ -3,28 +3,50 @@
       <div class="card" >
         <form [formGroup]="searchEnterpriseForm">
           <div class="row">
-            
               <div class="col">
-                <div class="md-form mt-0">
-                  <input type="text" class="form-control" formControlName="enterpriseName" placeholder="Enter enterprise name">
-                </div>
+                  <input type="text" class="form-control" formControlName="enterpriseName" placeholder="Enterprise name">
               </div>
 
               <div class="col">
-                <div class="md-form mt-0">
-                  <input type="text" class="form-control" formControlName="branchLocation" placeholder="Enter branch location">
-                </div>
+                  <input type="text" class="form-control" formControlName="branchLocation" placeholder="Branch location">
               </div>
+          </div>
+        <br/>
+          <div class="row">
+            <div class="col">
+              <div class="input-group form-group">
+                      <input class="form-control" [minDate]="minDate" placeholder="Date from"
+                      formControlName="modelFrom" ngbDatepicker #dateFrom="ngbDatepicker" >
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-primary calendar" (click)="dateFrom.toggle()" type="button"><i class="fas fa-calendar "></i></button>
+                      </div>
+                   </div>
+                 
+            </div>
+
+            <div class="col">
+              <div class="input-group form-group">
+                    <input [minDate]="minDate" class="form-control" placeholder="Date to"
+                    formControlName="modelTo" ngbDatepicker #dateTo="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-primary calendar" (click)="dateTo.toggle()" type="button"><i class="fas fa-calendar"></i></button>
+                    </div>
+                  </div>
+               
+            </div>
 
           </div>
+          <br/>
           <div class="row">
-              <div class="col">
-                <button type="button" class="btn btn-outline-primary btn-rounded waves-effect" (click)="searchCompanies()"><i class="fas fa-search mr-1"></i>Search</button>
-              </div>
+            
+            <div class="col">
+              <button type="button" class="btn btn-outline-primary btn-rounded waves-effect" (click)="showAllCompanies()"><i class="fas fa-car mr-1"></i>Show all enterprises</button>
+            </div>
 
               <div class="col">
-                <button type="button" class="btn btn-outline-primary btn-rounded waves-effect" (click)="showAllCompanies()"><i class="fas fa-car mr-1"></i>Show all enterprises</button>
+                <button type="button" id="searchButton" class="btn btn-outline-primary btn-rounded waves-effect" (click)="searchCompanies()"><i class="fas fa-search mr-1"></i>Search</button>
               </div>
+
           </div>
             
         </form>

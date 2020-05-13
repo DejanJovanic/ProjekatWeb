@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RentACarEnterprise } from "../../../Shared/Model/RentACars/RentACarEnterprise.model";
 import { RentACarEnterpriseServiceService } from "../../../Shared/Services/rent-acar-enterprise-service.service"
 import { FormGroup, FormControl } from '@angular/forms';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-rent-acar-enterprises',
@@ -12,25 +13,36 @@ export class RentACarEnterprisesComponent implements OnInit {
   searchEnterpriseForm = new FormGroup({
     enterpriseName: new FormControl(''),
     branchLocation: new FormControl(''),
-   
+    modelFrom: new FormControl(''),
+    modelTo: new FormControl('')
     
   });
+ 
   RentACarEnterprises: RentACarEnterprise[] = [];
   RentACarSearchedEnterprises: RentACarEnterprise[] =[];
- 
+  minDate = undefined;
   slides: any = [[]];
+
   constructor(private RentACarEnterprise: RentACarEnterpriseServiceService) { 
-    
+    const current = new Date();
+    this.minDate = {
+    year: current.getFullYear(),
+    month: current.getMonth() + 1,
+    day: current.getDate()
+  };
     this.RentACarEnterprises = RentACarEnterprise.getRentACarEnterprises();
 
   }
   
   searchCompanies(){
 
+    var dateFrom = this.searchEnterpriseForm.value.modelFrom;
+    var dateTo = this.searchEnterpriseForm.value.modelTo;
     var enterpriseN = this.searchEnterpriseForm.value.enterpriseName;
     var branchL = this.searchEnterpriseForm.value.branchLocation;
-    console.log(enterpriseN);
-    console.log(branchL);
+    
+    //console.log(dateFrom);
+    //console.log(dateTo);
     for(let i: number = 0; (i < this.RentACarEnterprises.length); i++){
       //console.log(company);
       if(this.RentACarEnterprises[i].EnterpriseName == enterpriseN || enterpriseN == "" || this.RentACarEnterprises[i].EnterpriseName.toLowerCase().includes(enterpriseN) || this.RentACarEnterprises[i].EnterpriseName.includes(enterpriseN))

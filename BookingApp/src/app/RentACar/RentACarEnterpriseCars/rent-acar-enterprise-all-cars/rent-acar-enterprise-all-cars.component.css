@@ -8,33 +8,52 @@
     background-size: cover;
 }
 
+
+textarea:focus, input:focus, select:focus{
+    color: #fcfcfc;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.3vw;
+}
+input{
+    background-color: rgba(15, 14, 14, 0.678) !important;
+}
+
+select{
+    background-color: rgba(15, 14, 14, 0.678) !important;
+}
+
+option {  
+    
+    color: #fcfcfc;
+    background-color:  rgba(15, 14, 14, 0.678) !important;
+}
+
 input, select, textarea{
     color: #fcfcfc;
     font-family: "Roboto", sans-serif;
     font-size: 1.3vw;
 }
-
-textarea:focus, input:focus {
+label{
     color: #fcfcfc;
     font-family: "Roboto", sans-serif;
     font-size: 1.3vw;
 }
-
-::placeholder { 
+input::placeholder { 
     color: #fcfcfc;
-    opacity: 1; 
+    
 }
-
 .container {
     display: flex;
     justify-content: center;
     
 }
-
+#searchButton{
+    float:right;
+}
 .card{
     
     background-color: rgba(15, 14, 14, 0.678) !important;
-    width: 135mm; 
+    width: 300mm; 
     padding: 5mm;
 }
 .d-flex{

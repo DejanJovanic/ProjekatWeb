@@ -21,6 +21,11 @@ textarea:focus, input:focus {
     font-size: 1.3vw;
 }
 
+input{
+    background-color: rgba(15, 14, 14, 0.678) !important;
+}
+
+
 ::placeholder { 
     color: #fcfcfc;
     opacity: 1; 
@@ -31,11 +36,13 @@ textarea:focus, input:focus {
     justify-content: center;
     
 }
-
+#searchButton{
+    float:right;
+}
 .card{
     
     background-color: rgba(15, 14, 14, 0.678) !important;
-    width: 135mm; 
+    width: 200mm; 
     padding: 5mm;
 }
 
