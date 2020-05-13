@@ -7,75 +7,52 @@
     <div class="card-body">
         <div class="container">
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-9">
                     <div class="row">
+                       
                         <div class="col-sm-2">
-                            <label class="label">
-                                Name: 
-                            </label>
-                        </div>
-                        <div class="col-sm-4" *ngIf="ticket.details">
-                            <span>
-                                {{ticket.details.name}}
-                            </span>
-                        </div>
-                        <div class="col-sm-2">
-                            <label class="label">
-                                Row: 
-                            </label>
+                            <p> Row: </p>
                         </div>
                         <div class="col-sm-4">
-                            <span>
-                                {{ticket.row}}
-                            </span>
+                            <p> {{ticket.row}}  </p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p> Name: </p>    
+                        </div>
+                        <div class="col-sm-4" *ngIf="ticket.details">
+                            <p> {{ticket.details.name}} </p>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row">      
                         <div class="col-sm-2">
-                            <label class="label">
-                                Last Name: 
-                            </label>
-                        </div>
-                        <div class="col-sm-4" *ngIf="ticket.details">
-                            <span>
-                                {{ticket.details.lastName}}
-                            </span>
-                        </div>
-                        <div class="col-sm-2">
-                            <label class="label">
-                                Column: 
-                            </label>
+                            <p> Column: </p>      
                         </div>
                         <div class="col-sm-4">
-                            <span>
-                                {{ticket.column}}
-                            </span>
+                            <p> {{ticket.column}} </p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p>  Last Name: </p>      
+                        </div>
+                        <div class="col-sm-4" *ngIf="ticket.details">
+                            <p> {{ticket.details.lastName}} </p>  
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row">     
                         <div class="col-sm-2">
-                            <label class="label">
-                                Passport number: 
-                            </label>
-                        </div>
-                        <div class="col-sm-4" *ngIf="ticket.details">
-                            <span>
-                                {{ticket.details.passportNum}}
-                            </span>
-                        </div>
-                        <div class="col-sm-2">
-                            <label class="label">
-                                Seat Index: 
-                            </label>
+                            <p>  Seat Index: </p>   
                         </div>
                         <div class="col-sm-4">
-                            <span>
-                                {{ticket.seatIndex}}
-                            </span>
+                            <p> {{ticket.seatIndex}} </p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p> Passport number: </p> 
+                        </div>
+                        <div class="col-sm-4" *ngIf="ticket.details">
+                            <p> {{ticket.details.passportNum}}  </p>         
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4" *ngIf="!isAssignment">
+                <div class="col-sm-3" *ngIf="!isAssignment">
                     <div class="row">
                         <div class="col-sm-12">
                             <h4 class="h4">
@@ -85,9 +62,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <span>
-                                {{ticket.price}}
-                            </span>
+                            <p> {{ticket.price}} </p>      
                         </div>
                     </div>
                 </div>

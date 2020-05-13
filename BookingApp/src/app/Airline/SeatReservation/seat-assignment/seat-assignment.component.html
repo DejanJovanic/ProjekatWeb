@@ -1,9 +1,16 @@
 <div class="container">
+    <h2>
+        Seat assignment
+    </h2>
+    <hr>
+    <br>
     <div class="row" *ngFor="let item of reservation.tickets">
-        <div class="col-sm-9">
+        <br>
+        <div class="col-sm-12">
           <app-ticket-preview [isAssignment]="true" [currentUserSelected]="currentUserSelected" [ticket]="item"></app-ticket-preview>
         </div>
     </div>
+    <br>
     <div class="row"> 
         <div class="col-sm-12">
             <button class="btn btn-primary" (click)="OnClick()" [disabled]="!IsOk()">Next</button>
