@@ -1,12 +1,35 @@
 import { Injectable } from '@angular/core';
 import { RentACarEnterprise } from "../Model/RentACars/RentACarEnterprise.model";
 import { Car } from "../Model/RentACars/Car.model";
+import { Branch } from '../Model/RentACars/Branch.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RentACarEnterpriseServiceService {
+  private Branches: Branch[] = [
+    new Branch(
+      "Filijala 1",
+      "Adresa 1",
+      "Srbija",
+      "Beograd"
 
+    ),
+    new Branch(
+      "Filijala 1",
+      "Adresa 1",
+      "Francuska",
+      "Pariz"
+
+    ),
+    new Branch(
+      "Filijala 1",
+      "Adresa 1",
+      "Nemacka",
+      "Berlin"
+
+    )
+  ]
   private RentACars: Car[] = [
     
     new Car(
@@ -55,7 +78,8 @@ export class RentACarEnterpriseServiceService {
       "OUR RESPONSE. OUR RESPONSIBILITY. Why we’re open and what we’re doing to better protect customers and employees.",
       2,
       "../../assets/EnterpriseCarRental.jpg",
-      this.RentACars.slice(0, 3) 
+      this.RentACars.slice(0, 3),
+      this.Branches.slice(0, 3)
     ),
     new RentACarEnterprise(
       1,
@@ -64,7 +88,8 @@ export class RentACarEnterpriseServiceService {
       "For those who want the ultimate car rental experience.",
       5,
       "../../assets/HertzCarRental.jpg",
-      this.RentACars.slice(0, 3) 
+      this.RentACars.slice(0, 3) ,
+      this.Branches.slice(0, 3)
     ),
     new RentACarEnterprise(
       2,
@@ -73,7 +98,8 @@ export class RentACarEnterpriseServiceService {
       "A faster, more convenient experience every time you rent a vehicle.",
       5,
       "../../assets/NationalCarRental.jpg",
-      this.RentACars.slice(0, 3) 
+      this.RentACars.slice(0, 3),
+      this.Branches.slice(0, 3) 
     ),
     new RentACarEnterprise(
       3,
@@ -82,7 +108,8 @@ export class RentACarEnterpriseServiceService {
       "Drive away with more money in your pockets and more time on your itinerary.",
       4,
       "../../assets/AlamoCarRental.jpg",
-      this.RentACars.slice(0, 3) 
+      this.RentACars.slice(0, 3),
+      this.Branches.slice(0, 3) 
     ),
 
     new RentACarEnterprise(
@@ -92,7 +119,8 @@ export class RentACarEnterpriseServiceService {
       "Book with CONFIDENCE. Whereever you need to go, we've got you.",
       3.5,
       "../../assets/BudgetCarRental.jpg",
-      this.RentACars.slice(0, 3) 
+      this.RentACars.slice(0, 3),
+      this.Branches.slice(0, 3) 
     ),
 
     new RentACarEnterprise(
@@ -102,7 +130,8 @@ export class RentACarEnterpriseServiceService {
       "Avis is here for you. Experience Avis with our car rental offers just for you.",
       1.5,
       "../../assets/AvisCarRental.jpg",
-      this.RentACars.slice(0, 3) 
+      this.RentACars.slice(0, 3) ,
+      this.Branches.slice(0, 3)
     )
   ];
   constructor() { }
