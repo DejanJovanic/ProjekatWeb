@@ -17,9 +17,9 @@
               <div class="input-group form-group">
                       <input class="form-control" [minDate]="minDate" placeholder="Date from"
                       formControlName="modelFrom" ngbDatepicker #dateFrom="ngbDatepicker" >
-                      <div class="input-group-append">
+                     
                         <button class="btn btn-outline-primary calendar" (click)="dateFrom.toggle()" type="button"><i class="fas fa-calendar "></i></button>
-                      </div>
+                   
                    </div>
                  
             </div>
@@ -28,9 +28,9 @@
               <div class="input-group form-group">
                     <input [minDate]="minDate" class="form-control" placeholder="Date to"
                     formControlName="modelTo" ngbDatepicker #dateTo="ngbDatepicker">
-                    <div class="input-group-append">
+                   
                       <button class="btn btn-outline-primary calendar" (click)="dateTo.toggle()" type="button"><i class="fas fa-calendar"></i></button>
-                    </div>
+                    
                   </div>
                
             </div>

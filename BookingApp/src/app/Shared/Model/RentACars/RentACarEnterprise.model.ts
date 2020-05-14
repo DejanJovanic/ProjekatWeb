@@ -1,6 +1,7 @@
 //Podaci vezani za Rent a Car kompaniju
 import { Car } from "./Car.model";
 import { Branch } from "./Branch.model"
+import { SpecialOffer } from './SpecialOffer.model';
 
 export class RentACarEnterprise{
     constructor(
@@ -11,6 +12,7 @@ export class RentACarEnterprise{
         public EnterpriseRating: number,
         public EnterpriseImage: string,
         public EnterpriseCars: Car[],
-        public EnterpriseBranchs: Branch[]
+        public EnterpriseBranchs: Branch[],
+        public EnterpriseOffers: SpecialOffer[]
     ) {}
 }

@@ -39,7 +39,7 @@ label{
     font-size: 1.3vw;
 }
 input::placeholder { 
-    color: #fcfcfc;
+    color: #fcfcfc70;
     
 }
 .container {
@@ -57,7 +57,7 @@ input::placeholder {
     padding: 5mm;
 }
 .d-flex{
-    margin-top:200px;
+    margin-top:100px;
     
 }
 

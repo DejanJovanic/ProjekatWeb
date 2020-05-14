@@ -2,13 +2,53 @@ import { Injectable } from '@angular/core';
 import { RentACarEnterprise } from "../Model/RentACars/RentACarEnterprise.model";
 import { Car } from "../Model/RentACars/Car.model";
 import { Branch } from '../Model/RentACars/Branch.model';
+import { SpecialOffer } from '../Model/RentACars/SpecialOffer.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RentACarEnterpriseServiceService {
+
+  private SpecialOffers: SpecialOffer[] = [
+   new SpecialOffer( 
+    0, //   
+    "Free package",
+    ["We apologize, but with this package you only get a car"],
+    0),
+
+    new SpecialOffer( 
+    1,
+    "Basic package",
+    ["Fuel tank", "Child seat"],
+    10),
+
+    new SpecialOffer( 
+    2,
+    "Advanced package",
+    ["Fuel tank", "Child seat", "Winter tires", "Summer tires"],
+    20),
+
+    new SpecialOffer( 
+    3,
+    "Professional package",
+    ["Fuel tank", "Child seat", "Winter tires", "Summer tires", "Deep wash", "Polishing wheels"],
+    30),
+
+    new SpecialOffer( 
+    4,  
+    "Expert package",
+    ["Fuel tank", "Child seat", "Winter tires", "Summer tires", "Deep wash", "Polishing wheels", "Travel insurance", "GPS"],
+    40),
+
+    new SpecialOffer( 
+    5,
+    "Legend package",
+    ["Fuel tank", "Child seat", "Winter tires", "Summer tires", "Deep wash", "Polishing wheels", "Travel insurance", "GPS", "Aluminium wheels",  "Tinted glass"],
+    50)
+  ]
   private Branches: Branch[] = [
     new Branch(
+      0,
       "Filijala 1",
       "Adresa 1",
       "Srbija",
@@ -16,6 +56,7 @@ export class RentACarEnterpriseServiceService {
 
     ),
     new Branch(
+      1,
       "Filijala 1",
       "Adresa 1",
       "Francuska",
@@ -23,6 +64,7 @@ export class RentACarEnterpriseServiceService {
 
     ),
     new Branch(
+      2,
       "Filijala 1",
       "Adresa 1",
       "Nemacka",
@@ -33,6 +75,7 @@ export class RentACarEnterpriseServiceService {
   private RentACars: Car[] = [
     
     new Car(
+      0,
       "Ferari",
       "Ferari",
       2020,
@@ -45,8 +88,9 @@ export class RentACarEnterpriseServiceService {
       "https://www.automagazin.rs/slike/vesti/20190530080049_photo_1.jpg"
     ),
     new Car(
+      1,
       "BMW",
-      "BMW x5",
+      "x5",
       2015,
       "Jeep",
       "Diesel",
@@ -57,8 +101,9 @@ export class RentACarEnterpriseServiceService {
       "https://www.cstatic-images.com/car-pictures/xl/usd00bmc931a021001.png"
     ),
     new Car(
+      2,
       "BMW",
-      "BMW x5",
+      "x5",
       2015,
       "Jeep",
       "Diesel",
@@ -79,7 +124,8 @@ export class RentACarEnterpriseServiceService {
       2,
       "../../assets/EnterpriseCarRental.jpg",
       this.RentACars.slice(0, 3),
-      this.Branches.slice(0, 3)
+      this.Branches.slice(0, 3),
+      this.SpecialOffers.slice(0, 3)
     ),
     new RentACarEnterprise(
       1,
@@ -89,7 +135,8 @@ export class RentACarEnterpriseServiceService {
       5,
       "../../assets/HertzCarRental.jpg",
       this.RentACars.slice(0, 3) ,
-      this.Branches.slice(0, 3)
+      this.Branches.slice(0, 3),
+      this.SpecialOffers.slice(3, 6)
     ),
     new RentACarEnterprise(
       2,
@@ -99,7 +146,8 @@ export class RentACarEnterpriseServiceService {
       5,
       "../../assets/NationalCarRental.jpg",
       this.RentACars.slice(0, 3),
-      this.Branches.slice(0, 3) 
+      this.Branches.slice(0, 3),
+      this.SpecialOffers.slice(0, 6)
     ),
     new RentACarEnterprise(
       3,
@@ -109,7 +157,8 @@ export class RentACarEnterpriseServiceService {
       4,
       "../../assets/AlamoCarRental.jpg",
       this.RentACars.slice(0, 3),
-      this.Branches.slice(0, 3) 
+      this.Branches.slice(0, 3),
+      this.SpecialOffers.slice(1, 6)
     ),
 
     new RentACarEnterprise(
@@ -120,7 +169,8 @@ export class RentACarEnterpriseServiceService {
       3.5,
       "../../assets/BudgetCarRental.jpg",
       this.RentACars.slice(0, 3),
-      this.Branches.slice(0, 3) 
+      this.Branches.slice(0, 3),
+      this.SpecialOffers.slice(2, 6)
     ),
 
     new RentACarEnterprise(
@@ -131,7 +181,8 @@ export class RentACarEnterpriseServiceService {
       1.5,
       "../../assets/AvisCarRental.jpg",
       this.RentACars.slice(0, 3) ,
-      this.Branches.slice(0, 3)
+      this.Branches.slice(0, 3),
+      this.SpecialOffers.slice(3, 6)
     )
   ];
   constructor() { }

@@ -6,23 +6,15 @@
         <div class="row">
 
           <div class="col">
-            <label for="carBrands">Choose a car brand</label>
-              <select class="form-control" formControlName="carBrand" id="carBrands">
-                <option value=""> - </option>
-                <option value="bmw">BMW</option>
-                <option value="audi">Audi</option>
-                <option value="mercedes">Mercedes</option>
-             </select>
+            <label for="carBrands">Car brand</label>
+              <input type="text" class="form-control" formControlName="carBrand" id="carBrands" placeholder="Car brand">
+                
           </div>
 
           <div class="col">
-            <label for="carModels">Choose a car model</label>
-              <select class="form-control" formControlName="carModel" id="carModels">
-                <option value=""> - </option>
-                <option value="x5">X5</option>
-                <option value="q7">Q7</option>
-                <option value="amg">AMG</option>
-             </select>
+            <label for="carModels">Choose model</label>
+              <input type="text" class="form-control" formControlName="carModel" id="carModels" placeholder="Car model">
+                
           </div>
         </div>
         <br/>
@@ -62,28 +54,38 @@
 
           <div class="col">
             <label for="carSeats">Number of seats</label>
-            <input type="number" class="form-control" formControlName= "carNumberOfSeats" id="carSeats" name="carSeats" min="1" max="7">
+            <select class="form-control" formControlName="carNumberOfSeats" id="carSeats">
+              <option value=""> - </option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="3">5</option>
+              <option value="3">7</option>
+           </select>
                 
           </div>
         </div>
         <br/>
         <div class="row">
             <div class="col">
-                <input type="number" class="form-control" formControlName="carYearOfProductionFrom" placeholder="From year of production">
+              <label for="carYearFrom">Year of production from</label>
+                <input id="carYearFrom" type="number" class="form-control" formControlName="carYearOfProductionFrom" placeholder="Year of production from">
             </div>
 
             <div class="col">
-                <input type="number" class="form-control" formControlName="carYearOfProductionTo" placeholder="To year of production">
+              <label for="carYearTo">Year of production to</label>
+                <input id="carYearTo" type="number" class="form-control" formControlName="carYearOfProductionTo" placeholder="Year of production to">
             </div>
         </div>
       <br/>
       <div class="row">
         <div class="col">
-            <input type="number" class="form-control" formControlName="carPriceFrom" placeholder="Price from">
+          <label for="priceFrom">Price from</label>
+            <input id="priceFrom"type="number" class="form-control" formControlName="carPriceFrom" placeholder="Price from">
         </div>
 
         <div class="col">
-            <input type="number" class="form-control" formControlName="carPriceTo" placeholder="Price to">
+          <label for="priceTo">Price to</label>
+            <input id="priceTo" type="number" class="form-control" formControlName="carPriceTo" placeholder="Price to">
         </div>
       </div>
 
@@ -109,7 +111,7 @@
       <mdb-carousel-item class="d-flex justify-content-center"  *ngFor="let item of slides; let i = index">
             
               <div class="col-md-4" *ngFor="let car of item; let carIndex = index">
-                <mdb-card title="Click for more details"class="my-1">
+                <mdb-card (click) = "openCarDetailsModal(carIndex)" title="Click for more details"class="my-1">
                   <mdb-card-img [src]="car.CarImage"></mdb-card-img>
                   <mdb-card-body>
                     <mdb-card-title>

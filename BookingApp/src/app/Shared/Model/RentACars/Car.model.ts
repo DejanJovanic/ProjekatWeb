@@ -2,6 +2,7 @@
 
 export class Car{
     constructor(
+        public CarId: number,
         public CarBrand: string,
         public CarModel: string,
         public CarYearOfProduction: number,

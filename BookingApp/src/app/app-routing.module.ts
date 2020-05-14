@@ -18,6 +18,7 @@ import { AirplanesComponent } from './Airline/AirlineAdmin/airplanes/airplanes.c
 import { RentACarEnterprisesComponent } from './RentACar/RentACarEnterpriseList/rent-acar-enterprises/rent-acar-enterprises.component'
 import { RentACarEnterpriseProfileComponent } from './RentACar/RentACarEnterpriseProfile/rent-acar-enterprise-profile/rent-acar-enterprise-profile.component'
 import { RentACarEnterpriseAllCarsComponent } from './RentACar/RentACarEnterpriseCars/rent-acar-enterprise-all-cars/rent-acar-enterprise-all-cars.component'
+import { RentACarEnterpriseSpecialServiceComponent } from './RentACar/RentACarEnterpriseSpecialOffer/rent-acar-enterprise-special-service/rent-acar-enterprise-special-service.component'
 import { AirlineAdminCompanyPreviewComponent } from './Airline/AirlineAdmin/airline-admin-company-preview/airline-admin-company-preview.component';
 import { CompanyEditComponent } from './Airline/AirlineAdmin/company-edit/company-edit.component';
 
@@ -39,6 +40,7 @@ const routes: Routes = [
   {path: 'RentACarEnterprises', component: RentACarEnterprisesComponent},
   {path: 'EnterpriseProfile/:id', component: RentACarEnterpriseProfileComponent},
   {path: 'EnterpriseCars/:id', component: RentACarEnterpriseAllCarsComponent},
+  {path: 'EnterpriseSpecialOffers/:id', component: RentACarEnterpriseSpecialServiceComponent},
   {path: 'CompanyEdit', component: CompanyEditComponent}
 ];
 
