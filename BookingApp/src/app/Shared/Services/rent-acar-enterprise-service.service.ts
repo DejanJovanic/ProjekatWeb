@@ -51,25 +51,19 @@ export class RentACarEnterpriseServiceService {
     new Branch(
       0,
       "Filijala 1",
-      "Adresa 1",
-      "Srbija",
-      "Beograd"
+      new RentACarEnterpriseAddress("Serbia", "Beograd", "Aerodrom Beograd", 59, 11180)
 
     ),
     new Branch(
       1,
       "Filijala 1",
-      "Adresa 1",
-      "Francuska",
-      "Pariz"
+      new RentACarEnterpriseAddress("Serbia", "Beograd", "Aerodrom Beograd", 59, 11180)
 
     ),
     new Branch(
       2,
       "Filijala 1",
-      "Adresa 1",
-      "Nemacka",
-      "Berlin"
+      new RentACarEnterpriseAddress("Serbia", "Beograd", "Aerodrom Beograd", 59, 11180)
 
     )
   ]

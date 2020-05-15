@@ -21,6 +21,7 @@ import { RentACarEnterpriseAllCarsComponent } from './RentACar/RentACarEnterpris
 import { RentACarEnterpriseSpecialServiceComponent } from './RentACar/RentACarEnterpriseSpecialOffer/rent-acar-enterprise-special-service/rent-acar-enterprise-special-service.component'
 import { AirlineAdminCompanyPreviewComponent } from './Airline/AirlineAdmin/airline-admin-company-preview/airline-admin-company-preview.component';
 import { CompanyEditComponent } from './Airline/AirlineAdmin/company-edit/company-edit.component';
+import { RentACarEnterpriseLocationOnMapComponent } from './RentACar/RentACarEnterpriseLocation/rent-acar-enterprise-location-on-map/rent-acar-enterprise-location-on-map.component';
 
 const routes: Routes = [
   {path:'',redirectTo: 'main', pathMatch : 'full'},
@@ -41,6 +42,7 @@ const routes: Routes = [
   {path: 'EnterpriseProfile/:id', component: RentACarEnterpriseProfileComponent},
   {path: 'EnterpriseCars/:id', component: RentACarEnterpriseAllCarsComponent},
   {path: 'EnterpriseSpecialOffers/:id', component: RentACarEnterpriseSpecialServiceComponent},
+  {path: 'EnterpriseLocation/:id', component: RentACarEnterpriseLocationOnMapComponent},
   {path: 'CompanyEdit', component: CompanyEditComponent}
 ];
 

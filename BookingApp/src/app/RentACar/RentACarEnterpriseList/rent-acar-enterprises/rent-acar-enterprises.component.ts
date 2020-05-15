@@ -55,7 +55,7 @@ export class RentACarEnterprisesComponent implements OnInit {
         else{
           var found = 0;
           for(let j: number = 0; (j < this.RentACarEnterprises[i].EnterpriseBranchs.length); j++){
-            if(this.RentACarEnterprises[i].EnterpriseBranchs[j].BranchCity == branchL){
+            if(this.RentACarEnterprises[i].EnterpriseBranchs[j].BranchAddress.City == branchL){
               found++;
               break; 
             }
