@@ -17,8 +17,7 @@ export class RentACarEnterpriseLocationOnMapComponent implements OnInit {
 
   constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute) { 
     this.platform = new H.service.Platform({
-      "app_id": "EN0ay4qsFZfJrIR5xbZm",
-      "app_code": "YqkUCyFGBCRJJrepqBzaCTRxzyl-S5I_sNIdR_ec5jA"
+      'apikey': '_e_CFfK2-tpCb_Yn48j1u9lqkFVBhEOp2Uf2l_0owqE'
   });
   }
 
@@ -29,7 +28,7 @@ export class RentACarEnterpriseLocationOnMapComponent implements OnInit {
     let defaultLayers = this.platform.createDefaultLayers();
     let map = new H.Map(
         this.mapElement.nativeElement,
-        defaultLayers.normal.map,
+        defaultLayers.vector.normal.map,
         {
             zoom: 10,
             center: { lat: 37.7397, lng: -121.4252 }
