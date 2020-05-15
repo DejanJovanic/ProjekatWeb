@@ -3,8 +3,9 @@
                 <a class="navbar-brand">{{Enterprise.EnterpriseName}}</a>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link" [routerLink]="['/EnterpriseCars/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Take a look at our cars</a></li>
-                        <li class="nav-item"><a class="nav-link" [routerLink]="['/EnterpriseSpecialOffers/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Take a look at our special offers</a></li>
+                        <li class="nav-item"><a class="nav-link" [routerLink]="['/EnterpriseCars/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Our cars</a></li>
+                        <li class="nav-item"><a class="nav-link" [routerLink]="['/EnterpriseSpecialOffers/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Our special offers</a></li>
+                        <li class="nav-item"><a class="nav-link">Sales</a></li>
                         <li class="nav-item"><a class="nav-link">Branchs</a></li>
                         <li class="nav-item"><a class="nav-link">Location</a></li>
                     </ul>
@@ -23,6 +24,7 @@
                     <div class="col-lg-8 align-self-baseline">
                         <p class="text-white-75 font-weight-bold mb-5">{{Enterprise.EnterpriseDescription}}</p>
                         <p class="text-white-75 font-weight-bold mb-5">Our dear clients appreciated the work of our company with</p>
+
                         <div class="d-flex align-self-baseline justify-content-center">
                             <div class="item">
                                 <div *ngFor="let i of [0,1,2,3,4]">
