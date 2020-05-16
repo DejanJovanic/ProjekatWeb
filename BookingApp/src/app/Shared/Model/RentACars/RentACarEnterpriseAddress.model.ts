@@ -2,7 +2,7 @@
 
 export class RentACarEnterpriseAddress{
     constructor(
-
+    public AddressId: number,
     public Country : string,
     public City : string,
     public Street : string,

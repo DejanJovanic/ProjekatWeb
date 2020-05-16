@@ -1,4 +1,4 @@
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container">
                 <a class="navbar-brand">{{Enterprise.EnterpriseName}}</a>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -6,8 +6,8 @@
                         <li class="nav-item"><a class="nav-link" [routerLink]="['/EnterpriseCars/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Our cars</a></li>
                         <li class="nav-item"><a class="nav-link" [routerLink]="['/EnterpriseSpecialOffers/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Our special offers</a></li>
                         <li class="nav-item"><a class="nav-link">Sales</a></li>
-                        <li class="nav-item"><a class="nav-link">Branchs</a></li>
-                        <li class="nav-item"><a class="nav-link" [routerLink]="['/EnterpriseLocation/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Location</a></li>
+                        <li class="nav-item"><a class="nav-link" [routerLink]="['/EnterpriseBranches/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Branches</a></li>
+                        <li class="nav-item"><a class="nav-link" [routerLink]="['/EnterpriseLocation/', Enterprise.EnterpriseAddress.AddressId]" routerLinkActive="router-link-active">Location</a></li>
                     </ul>
                 </div>
             </div>

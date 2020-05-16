@@ -10,9 +10,53 @@ import { RentACarEnterpriseAddress } from '../Model/RentACars/RentACarEnterprise
 })
 export class RentACarEnterpriseServiceService {
 
+  private RentACarAddress: RentACarEnterpriseAddress[] = [
+  
+    new RentACarEnterpriseAddress(0, "Bosnia & Herzegovina", "Tuzla", "Aleja Alije Izetbegovića", 3, 75000),
+    new RentACarEnterpriseAddress(1, "Serbia", "Belgrade", "Đorđa Stanojevića", 14, 11070),
+    new RentACarEnterpriseAddress(2, "United Arab Emirates", "Dubai", "Al TwarAl Twar", 3, 0),
+    new RentACarEnterpriseAddress(3, "United States", "Alamo", "US-83 BUS", 143, 78537),
+    new RentACarEnterpriseAddress(4, "United States", "Weslaco", "2401 E Expressway", 83, 78599),
+    new RentACarEnterpriseAddress(5, "United States", "McAllen", "S Bicentennial Blvd", 2500, 78503),
+ 
+
+   //Enterprise filijale
+    new RentACarEnterpriseAddress(6, "Serbia", "Belgrade", "Aerodrom Beograd", 59, 11180),
+    new RentACarEnterpriseAddress(7, "France", "Amiens", "Rue Saint-Fuscien", 29, 80000),
+    new RentACarEnterpriseAddress(8, "Germany", "München", "Terminalstraße Mitte Mietwagenzentrum", 0, 85356),
+
+
+    //Hertz filijale (London, Moskva, Tuzla)
+    new RentACarEnterpriseAddress(9, "United Kingdom", "Chester", "Sealand Rd", 0, 19013),
+    new RentACarEnterpriseAddress(10, "Russia", "Samara", "Ulitsa Osipenko", 3, 443110),
+    new RentACarEnterpriseAddress(11, "Austria", "Salzburg", "Innsbrucker Bundesstraße", 95, 5020),
+    //////////////////////////////////////////////
+
+    //National filijale (Bec, Prag, Budimpesta)
+    new RentACarEnterpriseAddress(12, "Köln", "Frankfurt am Main", "Kennedystrasse Mietwagenzentr", 59, 51147),
+    new RentACarEnterpriseAddress(13, "Zaventem", "Belgium", "National Airport Arrival Hall - Box/Bus", 88, 1930),
+    new RentACarEnterpriseAddress(14, "France", "Caen", "Aeroport De Caen Carpiquet", 0, 14000 ),
+    /////////////////////////////////////////////
+
+    //Alamo filijale (Madrid, Barselona, Valencia)
+    new RentACarEnterpriseAddress(15, "Netherlands", "Amsterdam", "Harry Banninkstraat", 129, 1011),
+    new RentACarEnterpriseAddress(16, "Spain", "Sevilla", "Aeropuerto De San Pablo", 0, 41001),
+    new RentACarEnterpriseAddress(17, "Spain", "Ourense", "Estacion De Tren", 0, 32001),
+
+    //Budget filijale (Kijev, Sao Paulo, Buenos ajres)
+    new RentACarEnterpriseAddress(18, "Romania", "Timișoara", "Airport Street Ghiroda, Timisoara Airport", 0, 307200),
+    new RentACarEnterpriseAddress(19, "Croatia", "Kaštel Kambelovac", "Cesta Dr. Franje Tuđmana", 96, 21214),
+    new RentACarEnterpriseAddress(20, "Slovenia", "Ljubljana", "Miklošičeva cesta", 3, 1000),
+
+    //Avis filijale (Nju jork, Cikago, Toronto)
+    new RentACarEnterpriseAddress(21, "Switzerland", "Biel", "Zollhaus Automobiel Sarl, Solothurnstrasse", 79, 2504),
+    new RentACarEnterpriseAddress(22, "Italy", "Napoli NA", "Aeroporto Di", 0, 80144),
+    new RentACarEnterpriseAddress(23, "Italy", "Sanremo", "Via XX Settembre", 17, 18038),
+    
+  ]
   private SpecialOffers: SpecialOffer[] = [
    new SpecialOffer( 
-    0, //   
+    0, 
     "Free package",
     ["We apologize, but with this package you only get a car"],
     0),
@@ -50,21 +94,126 @@ export class RentACarEnterpriseServiceService {
   private Branches: Branch[] = [
     new Branch(
       0,
-      "Filijala 1",
-      new RentACarEnterpriseAddress("Serbia", "Beograd", "Aerodrom Beograd", 59, 11180)
+      "Enterprise Belgrade, Serbia",
+      this.RentACarAddress[0],
+      "../../assets/EnterpriseCarRental.jpg"
 
     ),
     new Branch(
       1,
-      "Filijala 1",
-      new RentACarEnterpriseAddress("Serbia", "Beograd", "Aerodrom Beograd", 59, 11180)
-
+      "Enterprise Pariz, France",
+      this.RentACarAddress[1],
+      "../../assets/EnterpriseCarRental.jpg"
     ),
     new Branch(
       2,
-      "Filijala 1",
-      new RentACarEnterpriseAddress("Serbia", "Beograd", "Aerodrom Beograd", 59, 11180)
+      "Enterprise München, Germany",
+      this.RentACarAddress[2],
+      "../../assets/EnterpriseCarRental.jpg"
+    ),
+    new Branch(
+      3,
+      "Hertz Chester, United Kingdom",
+      this.RentACarAddress[3],
+      "../../assets/HertzCarRental.jpg"
 
+    ),
+    new Branch(
+      4,
+      "Hertz Samara, Russia",
+      this.RentACarAddress[4],
+      "../../assets/HertzCarRental.jpg"
+
+    ),
+    new Branch(
+      5,
+      "Hertz Salzburg, Austria",
+      this.RentACarAddress[5],
+      "../../assets/HertzCarRental.jpg"
+
+    ),
+    new Branch(
+      6,
+      "National Köln, Germany",
+      this.RentACarAddress[6],
+      "../../assets/NationalCarRental.jpg"
+
+    ),
+    new Branch(
+      7,
+      "National Zaventem, Belgium",
+      this.RentACarAddress[7],
+      "../../assets/NationalCarRental.jpg"
+
+    ),
+    new Branch(
+      8,
+      "National Caen, France",
+      this.RentACarAddress[8],
+      "../../assets/NationalCarRental.jpg"
+
+    ),
+    new Branch(
+      9,
+      "Alamo Amsterdam, Netherlands",
+      this.RentACarAddress[9],
+      "../../assets/AlamoCarRental.jpg"
+
+    ),
+    new Branch(
+      10,
+      "Alamo Sevilla, Spain",
+      this.RentACarAddress[10],
+      "../../assets/AlamoCarRental.jpg"
+
+    ),
+    new Branch(
+      11,
+      "Alamo Ourense, Spain",
+      this.RentACarAddress[11],
+      "../../assets/AlamoCarRental.jpg"
+
+    ),
+    new Branch(
+      12,
+      "Budget Timișoara, Romania",
+      this.RentACarAddress[12],
+      "../../assets/BudgetCarRental.jpg"
+
+    ),
+    new Branch(
+      13,
+      "Budget Kaštel Kambelovac, Croatia",
+      this.RentACarAddress[13],
+      "../../assets/BudgetCarRental.jpg"
+
+    ),
+    new Branch(
+      14,
+      "Budget Ljubljana, Slovenia",
+      this.RentACarAddress[14],
+      "../../assets/BudgetCarRental.jpg"
+
+    ),
+    new Branch(
+      15,
+      "Avis Biel, Switzerland",
+      this.RentACarAddress[15],
+      "../../assets/AvisCarRental.jpg"
+
+    ),
+    new Branch(
+      16,
+      "Avis Napoli, Italy",
+      this.RentACarAddress[16],
+      "../../assets/AvisCarRental.jpg"
+
+    ),
+    new Branch(
+      17,
+      "Avis Sanremo, Italy",
+      this.RentACarAddress[17],
+      "../../assets/AvisCarRental.jpg"
     )
   ]
   private RentACars: Car[] = [
@@ -114,7 +263,7 @@ export class RentACarEnterpriseServiceService {
     new RentACarEnterprise(
       0,
       "Enterprise",
-      new RentACarEnterpriseAddress("Serbia", "Beograd", "Aerodrom Beograd", 59, 11180),
+      this.RentACarAddress[0],
       "OUR RESPONSE. OUR RESPONSIBILITY. Why we’re open and what we’re doing to better protect customers and employees.",
       2,
       "../../assets/EnterpriseCarRental.jpg",
@@ -125,63 +274,63 @@ export class RentACarEnterpriseServiceService {
     new RentACarEnterprise(
       1,
       "Hertz",
-      new RentACarEnterpriseAddress("South Africa", "Bloemfontein", "Oliver Tambo Road, Bloemfontein Central", 79, 9301),
+      this.RentACarAddress[1],
     
       "For those who want the ultimate car rental experience.",
       5,
       "../../assets/HertzCarRental.jpg",
       this.RentACars.slice(0, 3) ,
-      this.Branches.slice(0, 3),
+      this.Branches.slice(3, 6),
       this.SpecialOffers.slice(3, 6)
     ),
     new RentACarEnterprise(
       2,
       "National",
-      new RentACarEnterpriseAddress("GR", "Naxos", "Chora Naxou", 79, 84300),
+      this.RentACarAddress[2],
      
       "A faster, more convenient experience every time you rent a vehicle.",
       5,
       "../../assets/NationalCarRental.jpg",
       this.RentACars.slice(0, 3),
-      this.Branches.slice(0, 3),
+      this.Branches.slice(6, 9),
       this.SpecialOffers.slice(0, 6)
     ),
     new RentACarEnterprise(
       3,
       "Alamo",
-      new RentACarEnterpriseAddress("United States", "AL 36608 US", "Airport Blvd Mobile", 8400, 36608),
+      this.RentACarAddress[3],
       
       "Drive away with more money in your pockets and more time on your itinerary.",
       4,
       "../../assets/AlamoCarRental.jpg",
       this.RentACars.slice(0, 3),
-      this.Branches.slice(0, 3),
+      this.Branches.slice(9, 12),
       this.SpecialOffers.slice(1, 6)
     ),
 
     new RentACarEnterprise(
       4,
       "Budget",
-      new RentACarEnterpriseAddress("United States", "New Jersey", "Parsippany-Troy Hills", 8400, 36608),
+      this.RentACarAddress[4],
    
       "Book with CONFIDENCE. Whereever you need to go, we've got you.",
       3.5,
       "../../assets/BudgetCarRental.jpg",
       this.RentACars.slice(0, 3),
-      this.Branches.slice(0, 3),
+      this.Branches.slice(12, 15),
       this.SpecialOffers.slice(2, 6)
     ),
 
     new RentACarEnterprise(
       5,
       "Avis",
-      new RentACarEnterpriseAddress("Serbia", "Belgrade", "Aerodrom Beograd", 59, 11180),
+      this.RentACarAddress[5],
      
       "Avis is here for you. Experience Avis with our car rental offers just for you.",
       1.5,
       "../../assets/AvisCarRental.jpg",
       this.RentACars.slice(0, 3) ,
-      this.Branches.slice(0, 3),
+      this.Branches.slice(15, 18),
       this.SpecialOffers.slice(3, 6)
     )
   ];
@@ -201,5 +350,9 @@ export class RentACarEnterpriseServiceService {
 
   getOneCar = index => {
     return this.RentACars[index];
+  };
+
+  getAddress = index => {
+    return this.RentACarAddress[index];
   };
 }

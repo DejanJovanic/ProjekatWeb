@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
+import { RentACarEnterpriseAddress } from 'src/app/Shared/Model/RentACars/RentACarEnterpriseAddress.model';
 
 declare var H: any;
 @Component({
@@ -10,6 +11,8 @@ declare var H: any;
 })
 export class RentACarEnterpriseLocationOnMapComponent implements OnInit {
 
+  id: number
+  Address: RentACarEnterpriseAddress
   private platform: any;
 
     @ViewChild("map")
@@ -22,6 +25,12 @@ export class RentACarEnterpriseLocationOnMapComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params: Params) => {
+      this.id = +params["address"];
+      this.Address = this.EnterpriseService.getAddress(this.id);
+      
+      
+    });
   }
 
   public ngAfterViewInit() {

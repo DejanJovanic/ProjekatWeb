@@ -49,6 +49,7 @@ import { EditDestinationsModalComponent } from './Airline/AirlineAdmin/edit-dest
 import { RentACarDetailsModalComponent } from './RentACar/RentACarCarDetailsModal/rent-acar-details-modal/rent-acar-details-modal.component';
 import { RentACarEnterpriseSpecialServiceComponent } from './RentACar/RentACarEnterpriseSpecialOffer/rent-acar-enterprise-special-service/rent-acar-enterprise-special-service.component';
 import { RentACarEnterpriseLocationOnMapComponent } from './RentACar/RentACarEnterpriseLocation/rent-acar-enterprise-location-on-map/rent-acar-enterprise-location-on-map.component';
+import { RentACarBranchesComponent } from './RentACar/RentACarListOfBranches/rent-acar-branches/rent-acar-branches.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { RentACarEnterpriseLocationOnMapComponent } from './RentACar/RentACarEnt
     EditDestinationsModalComponent,
     RentACarDetailsModalComponent,
     RentACarEnterpriseSpecialServiceComponent,
-    RentACarEnterpriseLocationOnMapComponent
+    RentACarEnterpriseLocationOnMapComponent,
+    RentACarBranchesComponent
   ],
   imports: [
     
