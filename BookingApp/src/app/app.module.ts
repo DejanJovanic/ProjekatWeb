@@ -50,6 +50,9 @@ import { RentACarDetailsModalComponent } from './RentACar/RentACarCarDetailsModa
 import { RentACarEnterpriseSpecialServiceComponent } from './RentACar/RentACarEnterpriseSpecialOffer/rent-acar-enterprise-special-service/rent-acar-enterprise-special-service.component';
 import { RentACarEnterpriseLocationOnMapComponent } from './RentACar/RentACarEnterpriseLocation/rent-acar-enterprise-location-on-map/rent-acar-enterprise-location-on-map.component';
 import { RentACarBranchesComponent } from './RentACar/RentACarListOfBranches/rent-acar-branches/rent-acar-branches.component';
+import { SeatsComponent } from './Airline/SeatReservation/seats/seats.component';
+import { EditFastReservationSeatsComponent } from './Airline/AirlineAdmin/edit-fast-reservation-seats/edit-fast-reservation-seats.component';
+import { RemoveSeatComponent } from './Airline/AirlineAdmin/remove-seat/remove-seat.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +99,10 @@ import { RentACarBranchesComponent } from './RentACar/RentACarListOfBranches/ren
     RentACarDetailsModalComponent,
     RentACarEnterpriseSpecialServiceComponent,
     RentACarEnterpriseLocationOnMapComponent,
-    RentACarBranchesComponent
+    RentACarBranchesComponent,
+    SeatsComponent,
+    EditFastReservationSeatsComponent,
+    RemoveSeatComponent
   ],
   imports: [
     

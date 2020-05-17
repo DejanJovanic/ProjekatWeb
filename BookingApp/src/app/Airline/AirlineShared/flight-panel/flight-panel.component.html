@@ -17,6 +17,9 @@
                 <div class="col-sm-3" *ngIf="role ===  'User'">
                     <button class="btn btn-primary" [routerLink]="['/seats/',flight.id]" routerLinkActive="router-link-active">Set Reservation</button>
                 </div>
+                <div class="col-sm-3" *ngIf="role == 'AirlineAdmin'">
+                    <button class="btn btn-primary" [routerLink]="['/EditFastReservationSeats/',flight.id]" routerLinkActive="router-link-active">Fast</button>
+                </div>
             </div>
         </div>     
     </div>
