@@ -50,6 +50,15 @@ input::placeholder {
 #searchButton{
     float:right;
 }
+
+#resetButton{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
 .card{
     
     background-color: rgba(15, 14, 14, 0.678) !important;

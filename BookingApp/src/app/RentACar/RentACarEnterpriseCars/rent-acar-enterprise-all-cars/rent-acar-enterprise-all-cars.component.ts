@@ -50,74 +50,75 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
     var carType = this.searchCarsForm.value.carType; 
     var carTransmission = this.searchCarsForm.value.carTransmission; 
     var carFuel = this.searchCarsForm.value.carFuel; 
-    var carNumberOfSeats = parseInt(this.searchCarsForm.value.carNumberOfSeats); 
-    var carYearOfProductionFrom = parseInt(this.searchCarsForm.value.carYearOfProductionFrom); 
-    var carYearOfProductionTo = parseInt(this.searchCarsForm.value.carYearOfProductionTo); 
-    var carPriceFrom = parseInt(this.searchCarsForm.value.carPriceFrom); 
-    var carPriceTo = parseInt(this.searchCarsForm.value.carPriceTo);
-    //console.log(carPriceTo);
-    console.log(carBrand);
+    var carNumberOfSeats = this.searchCarsForm.value.carNumberOfSeats; 
+    var carYearOfProductionFrom = this.searchCarsForm.value.carYearOfProductionFrom; 
+    var carYearOfProductionTo = this.searchCarsForm.value.carYearOfProductionTo; 
+    var carPriceFrom = this.searchCarsForm.value.carPriceFrom; 
+    var carPriceTo = this.searchCarsForm.value.carPriceTo;
+    
+    if(carBrand == "" && carModel == "" && carType == "" && carTransmission == "" && carFuel == "" && carNumberOfSeats == "" && carYearOfProductionFrom == "" && carYearOfProductionTo == "" && carPriceFrom == "" && carPriceTo == ""){
+      this.slides = this.chunk(this.Enterprise.EnterpriseCars, 3);
+      return;
+    }
     for(let i: number = 0; (i < this.Enterprise.EnterpriseCars.length); i++){
       
-      if (carPriceFrom != NaN){
-          if(carPriceFrom > this.Enterprise.EnterpriseCars[i].CarPrice){
-            console.log(carBrand);
+      if (carPriceFrom != ""){
+          if(parseInt(carPriceFrom) > this.Enterprise.EnterpriseCars[i].CarPrice){
+            
               continue;
           }
       }
       
-      if(carPriceTo != NaN){
-          if(carPriceTo < this.Enterprise.EnterpriseCars[i].CarPrice){
-            console.log(carBrand);
+      if(carPriceTo != ""){
+          if(parseInt(carPriceTo) < this.Enterprise.EnterpriseCars[i].CarPrice){
+            
               continue;
           }
       }
 
-      if (carYearOfProductionFrom != NaN){
-        if(carYearOfProductionFrom > this.Enterprise.EnterpriseCars[i].CarYearOfProduction){
-          console.log(carBrand);
+      if (carYearOfProductionFrom != ""){
+        if(parseInt(carYearOfProductionFrom) > this.Enterprise.EnterpriseCars[i].CarYearOfProduction){
+         
           continue;
         }
       }
 
-      if(carYearOfProductionTo != NaN){
-        if(carYearOfProductionTo < this.Enterprise.EnterpriseCars[i].CarYearOfProduction){
-          console.log(carBrand);
+      if(carYearOfProductionTo != ""){
+        if(parseInt(carYearOfProductionTo) < this.Enterprise.EnterpriseCars[i].CarYearOfProduction){
+        
           continue;
         }
       }
 
-      if(carNumberOfSeats != NaN){
-        if(carNumberOfSeats != this.Enterprise.EnterpriseCars[i].CarNumberOfSeats){
-          console.log(carBrand);
+      if(carNumberOfSeats != ""){
+        if(parseInt(carNumberOfSeats) != this.Enterprise.EnterpriseCars[i].CarNumberOfSeats){
+     
           continue;
         }
       }
 
       if(carFuel != ""){
         if(carFuel.toLowerCase()  != this.Enterprise.EnterpriseCars[i].CarFuelType.toLowerCase() ){
-          console.log(carBrand);
+         
           continue;
         }
       }
 
       if(carTransmission != ""){
         if(carTransmission.toLowerCase()  != this.Enterprise.EnterpriseCars[i].CarTransmissionType.toLowerCase() ){
-          console.log(carBrand);
+         
           continue;
         }
       }
 
       if(carType != ""){
         if(carType.toLowerCase()  != this.Enterprise.EnterpriseCars[i].CarType.toLowerCase() ){
-          console.log(carBrand);
+          
           continue;
         }
       }
 
       if(carBrand != ""){
-        console.log(carBrand);
-
         if(carBrand.toLowerCase() != this.Enterprise.EnterpriseCars[i].CarBrand.toLowerCase() ){
           continue;
         }
@@ -131,9 +132,7 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
 
       this.RentACarSearchedCars.push(this.Enterprise.EnterpriseCars[i]);  
     }
-    for(let i: number = 0; (i < this.RentACarSearchedCars.length); i++){
-      console.log(this.RentACarSearchedCars[i].CarBrand);
-    }
+    
     this.slides = this.chunk(this.RentACarSearchedCars, 3);
     this.RentACarSearchedCars = [];
   }
