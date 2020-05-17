@@ -8,6 +8,7 @@ import { Flight } from 'src/app/Shared/Model/Airlines/Flight.model';
 import { UserCacheService } from 'src/app/Users/Services/UserCache/user-cache.service';
 import { Airplane } from 'src/app/Shared/Model/Airlines/Airplane.model';
 import { AirlineCacheService } from 'src/app/Airline/AirlineShared/Services/AirlineCache/airline-cache.service';
+import { SeatStatus } from 'src/app/Shared/Model/Airlines/SeatStatus.model';
 
 @Injectable({
   providedIn: 'root'
@@ -81,5 +82,9 @@ export class AirlineAdminNetworkService {
         subscriber.complete();
       }
     })
+  }
+
+  public EditFastReservationSeats(flightID : number, seats : {row : number,column : number, index : number}[]) : Observable<boolean>{
+    return of(true);
   }
 }
