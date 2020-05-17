@@ -111,7 +111,7 @@
       <mdb-carousel-item class="d-flex justify-content-center"  *ngFor="let item of slides; let i = index">
             
               <div class="col-md-4" *ngFor="let car of item; let carIndex = index">
-                <mdb-card (click) = "openCarDetailsModal(carIndex)" title="Click for more details"class="my-1">
+                <mdb-card (click) = "openCarDetailsModal(car.CarId)" title="Click for more details"class="my-1">
                   <mdb-card-img [src]="car.CarImage"></mdb-card-img>
                   <mdb-card-body>
                     <mdb-card-title>

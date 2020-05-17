@@ -8,6 +8,11 @@
     background-size: cover;
 }
 
+p{
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.1vw;
+}
 .card{
     background-color: rgba(15, 14, 14, 0.678) !important;
     width: 300mm; 

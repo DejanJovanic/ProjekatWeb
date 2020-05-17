@@ -42,7 +42,7 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
   
   openCarDetailsModal(index: number){
     const modalRef = this.modalService.open(RentACarDetailsModalComponent);
-    modalRef.componentInstance.item = this.Enterprise.EnterpriseCars[index];
+    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(index);
   }
   searchCars(){
     var carBrand = this.searchCarsForm.value.carBrand;

@@ -95,107 +95,107 @@ export class RentACarEnterpriseServiceService {
     new Branch(
       0,
       "Enterprise Belgrade, Serbia",
-      this.RentACarAddress[0]
+      this.RentACarAddress[6]
 
     ),
     new Branch(
       1,
       "Enterprise Pariz, France",
-      this.RentACarAddress[1]
+      this.RentACarAddress[7]
     ),
     new Branch(
       2,
       "Enterprise München, Germany",
-      this.RentACarAddress[2]
+      this.RentACarAddress[8]
     ),
     new Branch(
       3,
       "Hertz Chester, United Kingdom",
-      this.RentACarAddress[3]
+      this.RentACarAddress[9]
 
     ),
     new Branch(
       4,
       "Hertz Samara, Russia",
-      this.RentACarAddress[4]
+      this.RentACarAddress[10]
 
     ),
     new Branch(
       5,
       "Hertz Salzburg, Austria",
-      this.RentACarAddress[5]
+      this.RentACarAddress[11]
 
     ),
     new Branch(
       6,
       "National Köln, Germany",
-      this.RentACarAddress[6]
+      this.RentACarAddress[12]
 
     ),
     new Branch(
       7,
       "National Zaventem, Belgium",
-      this.RentACarAddress[7]
+      this.RentACarAddress[13]
 
     ),
     new Branch(
       8,
       "National Caen, France",
-      this.RentACarAddress[8]
+      this.RentACarAddress[14]
 
     ),
     new Branch(
       9,
       "Alamo Amsterdam, Netherlands",
-      this.RentACarAddress[9]
+      this.RentACarAddress[15]
 
     ),
     new Branch(
       10,
       "Alamo Sevilla, Spain",
-      this.RentACarAddress[10]
+      this.RentACarAddress[16]
 
     ),
     new Branch(
       11,
       "Alamo Ourense, Spain",
-      this.RentACarAddress[11]
+      this.RentACarAddress[17]
 
     ),
     new Branch(
       12,
       "Budget Timișoara, Romania",
-      this.RentACarAddress[12]
+      this.RentACarAddress[18]
 
     ),
     new Branch(
       13,
       "Budget Kaštel Kambelovac, Croatia",
-      this.RentACarAddress[13]
+      this.RentACarAddress[19]
 
     ),
     new Branch(
       14,
       "Budget Ljubljana, Slovenia",
-      this.RentACarAddress[14]
+      this.RentACarAddress[20]
 
     ),
     new Branch(
       15,
       "Avis Biel, Switzerland",
-      this.RentACarAddress[15]
+      this.RentACarAddress[21]
 
     ),
     new Branch(
       16,
       "Avis Napoli, Italy",
-      this.RentACarAddress[16]
+      this.RentACarAddress[22]
 
     ),
     new Branch(
       17,
       "Avis Sanremo, Italy",
-      this.RentACarAddress[17]
+      this.RentACarAddress[23]
     )
   ]
   private RentACars: Car[] = [
@@ -323,7 +323,12 @@ export class RentACarEnterpriseServiceService {
   };
 
   getRentACarEnterprise(index: number) {
-    return this.RentACarEnterprises[index];
+
+    for(let i: number=0; i < this.RentACarEnterprises.length; i++){
+      if(this.RentACarEnterprises[i].EnterpriseId == index){
+        return this.RentACarEnterprises[i];
+      }
+    }
   }
 
   getRentACars = () => {
@@ -331,10 +336,22 @@ export class RentACarEnterpriseServiceService {
   };
 
   getOneCar = index => {
-    return this.RentACars[index];
+
+    for(let i: number=0; i < this.RentACars.length; i++){
+      if(this.RentACars[i].CarId == index){
+        return this.RentACars[i];
+      }
+    }
+    
+    
   };
 
   getAddress = index => {
-    return this.RentACarAddress[index];
+    for(let i: number=0; i < this.RentACarAddress.length; i++){
+      if(this.RentACarAddress[i].AddressId == index){
+        return this.RentACarAddress[i];
+      }
+    }
+   
   };
 }

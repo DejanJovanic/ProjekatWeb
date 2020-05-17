@@ -57,8 +57,8 @@
     <mdb-carousel-item class="d-flex justify-content-center" *ngFor="let item of slides; let i = index">
         
             <div class="col-md-4" *ngFor="let enterprise of item; let enterpriseIndex = index">
-              <mdb-card title="Click for more details"class="my-1">
-                <mdb-card-img [src]="enterprise.EnterpriseImage" [routerLink]="['/EnterpriseProfile/', enterprise.EnterpriseId]" routerLinkActive="router-link-active"></mdb-card-img>
+              <mdb-card title="Click for more details" [routerLink]="['/EnterpriseProfile/', enterprise.EnterpriseId]" routerLinkActive="router-link-active" class="my-1">
+                <mdb-card-img [src]="enterprise.EnterpriseImage" ></mdb-card-img>
                 <mdb-card-body>
                   <mdb-card-title>
                     <h4>{{ enterprise.EnterpriseName }}</h4>
