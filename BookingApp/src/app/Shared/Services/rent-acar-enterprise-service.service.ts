@@ -57,39 +57,61 @@ export class RentACarEnterpriseServiceService {
   private SpecialOffers: SpecialOffer[] = [
    new SpecialOffer( 
     0, 
-    "Free package",
-    ["We apologize, but with this package you only get a car"],
-    0),
+    "GPS",
+    8),
 
     new SpecialOffer( 
     1,
-    "Basic package",
-    ["Fuel tank", "Child seat"],
+    "Fuel Tank",
     10),
 
     new SpecialOffer( 
     2,
-    "Advanced package",
-    ["Fuel tank", "Child seat", "Winter tires", "Summer tires"],
-    20),
+    "Child seat",
+    4),
+    
+    new SpecialOffer(
+      3,
+      "Winter tires",
+      5
+    ),
+
+    new SpecialOffer(
+      4,
+      "Summer tires",
+      5
+    ),
+
+    new SpecialOffer(
+      5,
+      "Deep wash",
+      2
+    ),
+
+    new SpecialOffer(
+      6,
+      "Polishing wheels",
+      3
+    ),
+    new SpecialOffer( 
+    7,
+    "Travel insurance",
+    10),
 
     new SpecialOffer( 
-    3,
-    "Professional package",
-    ["Fuel tank", "Child seat", "Winter tires", "Summer tires", "Deep wash", "Polishing wheels"],
-    30),
+      8,
+      "Travel insurance",
+      10),
 
     new SpecialOffer( 
-    4,  
-    "Expert package",
-    ["Fuel tank", "Child seat", "Winter tires", "Summer tires", "Deep wash", "Polishing wheels", "Travel insurance", "GPS"],
-    40),
+    9,  
+    "Aluminium wheels",
+    15),
 
     new SpecialOffer( 
-    5,
-    "Legend package",
-    ["Fuel tank", "Child seat", "Winter tires", "Summer tires", "Deep wash", "Polishing wheels", "Travel insurance", "GPS", "Aluminium wheels",  "Tinted glass"],
-    50)
+    10,
+    "Tinted glass",
+    20)
   ]
   private Branches: Branch[] = [
     new Branch(
@@ -202,6 +224,7 @@ export class RentACarEnterpriseServiceService {
     
     new Car(
       0,
+      ["20-05-2020", "30-05-2020"],
       "Audi",
       "R8",
       2020,
@@ -215,6 +238,7 @@ export class RentACarEnterpriseServiceService {
     ),
     new Car(
       1,
+      ["21-06-2020", "29-05-2020"],
       "Mercedes",
       "G class",
       2015,
@@ -228,6 +252,7 @@ export class RentACarEnterpriseServiceService {
     ),
     new Car(
       2,
+      ["18-05-2020", "12-06-2020"],
       "BMW",
       "x5",
       2015,
@@ -251,7 +276,7 @@ export class RentACarEnterpriseServiceService {
       "../../assets/EnterpriseCarRental.jpg",
       this.RentACars.slice(0, 3),
       this.Branches.slice(0, 3),
-      this.SpecialOffers.slice(0, 3)
+      this.SpecialOffers.slice(0, 10)
     ),
     new RentACarEnterprise(
       1,
@@ -263,7 +288,7 @@ export class RentACarEnterpriseServiceService {
       "../../assets/HertzCarRental.jpg",
       this.RentACars.slice(0, 3) ,
       this.Branches.slice(3, 6),
-      this.SpecialOffers.slice(3, 6)
+      this.SpecialOffers.slice(2, 10)
     ),
     new RentACarEnterprise(
       2,
@@ -287,7 +312,7 @@ export class RentACarEnterpriseServiceService {
       "../../assets/AlamoCarRental.jpg",
       this.RentACars.slice(0, 3),
       this.Branches.slice(9, 12),
-      this.SpecialOffers.slice(1, 6)
+      this.SpecialOffers.slice(1, 8)
     ),
 
     new RentACarEnterprise(
@@ -300,7 +325,7 @@ export class RentACarEnterpriseServiceService {
       "../../assets/BudgetCarRental.jpg",
       this.RentACars.slice(0, 3),
       this.Branches.slice(12, 15),
-      this.SpecialOffers.slice(2, 6)
+      this.SpecialOffers.slice(4, 10)
     ),
 
     new RentACarEnterprise(
@@ -313,7 +338,7 @@ export class RentACarEnterpriseServiceService {
       "../../assets/AvisCarRental.jpg",
       this.RentACars.slice(0, 3) ,
       this.Branches.slice(15, 18),
-      this.SpecialOffers.slice(3, 6)
+      this.SpecialOffers.slice(1, 10)
     )
   ];
   constructor() { }

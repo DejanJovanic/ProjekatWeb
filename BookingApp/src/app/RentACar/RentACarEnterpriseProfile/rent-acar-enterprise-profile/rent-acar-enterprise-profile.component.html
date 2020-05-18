@@ -4,8 +4,9 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
                         <li class="nav-item"><a title="Click to see our cars" class="nav-link" [routerLink]="['/EnterpriseCars/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Our cars</a></li>
+                        <li *ngIf="role ===  'User'" class="nav-item"><a title="Click to rent a car" class="nav-link" [routerLink]="['/EnterpriseRentACar/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Rent a car</a></li>
                         <li class="nav-item"><a title="Click to see our special offers" class="nav-link" [routerLink]="['/EnterpriseSpecialOffers/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Our special offers</a></li>
-                        <li class="nav-item"><a title="Click to see our discounts for cars" class="nav-link">Discounts</a></li>
+                        <li *ngIf="role ===  'User'"  class="nav-item"><a title="Click to see our discounts for cars" class="nav-link">Discounts</a></li>
                         <li class="nav-item"><a class="nav-link" [routerLink]="['/EnterpriseBranches/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Branches</a></li>
                         <li class="nav-item"><a  title="Click to see our location on map" class="nav-link" [routerLink]="['/EnterpriseLocation/', Enterprise.EnterpriseAddress.AddressId]" routerLinkActive="router-link-active">Location</a></li>
                     </ul>

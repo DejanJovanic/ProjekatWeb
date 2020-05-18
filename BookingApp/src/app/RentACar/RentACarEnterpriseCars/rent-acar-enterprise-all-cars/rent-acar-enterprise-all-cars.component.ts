@@ -29,7 +29,8 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
   Enterprise: RentACarEnterprise;
   id: number;
   RentACarSearchedCars: Car[] = [];
-  
+  role: string;
+
   slides: any = [[]];
   chunk(arr, chunkSize) {
     let R = [];
@@ -38,7 +39,9 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
     }
     return R;
   }
-  constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal) { }
+  constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal) { 
+    this.role = sessionStorage["Role"]
+  }
   
   openCarDetailsModal(index: number){
     const modalRef = this.modalService.open(RentACarDetailsModalComponent);
@@ -55,11 +58,7 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
     var carYearOfProductionTo = this.searchCarsForm.value.carYearOfProductionTo; 
     var carPriceFrom = this.searchCarsForm.value.carPriceFrom; 
     var carPriceTo = this.searchCarsForm.value.carPriceTo;
-    
-    if(carBrand == "" && carModel == "" && carType == "" && carTransmission == "" && carFuel == "" && carNumberOfSeats == "" && carYearOfProductionFrom == "" && carYearOfProductionTo == "" && carPriceFrom == "" && carPriceTo == ""){
-      this.slides = this.chunk(this.Enterprise.EnterpriseCars, 3);
-      return;
-    }
+   
     for(let i: number = 0; (i < this.Enterprise.EnterpriseCars.length); i++){
       
       if (carPriceFrom != ""){

@@ -12,7 +12,7 @@
           </div>
 
           <div class="col">
-            <label for="carModels">Choose model</label>
+            <label for="carModels">Car model</label>
               <input type="text" class="form-control" formControlName="carModel" id="carModels" placeholder="Car model">
                 
           </div>
@@ -68,24 +68,24 @@
         <div class="row">
             <div class="col">
               <label for="carYearFrom">Year of production from</label>
-                <input id="carYearFrom" type="number" class="form-control" formControlName="carYearOfProductionFrom" placeholder="Year of production from">
+                <input id="carYearFrom" type="number" class="form-control" formControlName="carYearOfProductionFrom" min="1990" max = "2020" placeholder="Year of production from">
             </div>
 
             <div class="col">
               <label for="carYearTo">Year of production to</label>
-                <input id="carYearTo" type="number" class="form-control" formControlName="carYearOfProductionTo" placeholder="Year of production to">
+                <input id="carYearTo" type="number" class="form-control" formControlName="carYearOfProductionTo" min="1991" max = "2020" placeholder="Year of production to">
             </div>
         </div>
       <br/>
       <div class="row">
         <div class="col">
           <label for="priceFrom">Price from</label>
-            <input id="priceFrom"type="number" class="form-control" formControlName="carPriceFrom" placeholder="Price from">
+            <input id="priceFrom"type="number" class="form-control" formControlName="carPriceFrom"  min="0" placeholder="Price from">
         </div>
 
         <div class="col">
           <label for="priceTo">Price to</label>
-            <input id="priceTo" type="number" class="form-control" formControlName="carPriceTo" placeholder="Price to">
+            <input id="priceTo" type="number" class="form-control" formControlName="carPriceTo" min="0" placeholder="Price to">
         </div>
       </div>
 
@@ -97,6 +97,7 @@
           <div class="col">
             <button type="button" class="btn btn-outline-primary btn-rounded " (click)="showAllCars()"><i class="fas fa-car mr-1"></i>Show all cars</button>
           </div>
+          
           
             <div class="col">
               <button type="button" id="searchButton" class="btn btn-outline-primary btn-rounded " (click)="searchCars()"><i class="fas fa-search mr-1"></i>Search</button>

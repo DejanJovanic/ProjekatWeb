@@ -17,6 +17,7 @@ import { FrameComponent } from './Shared/frame/frame.component';
 import { LoginComponent } from './Users/login/login.component';
 import { RegisterComponent } from './Users/register/register.component';
 import {CookieService} from 'ngx-cookie-service';
+import { DatePipe } from '@angular/common'
 import { FriendsMainComponent } from './Users/Friends/friends-main/friends-main.component';
 import { FriendsHolderComponent } from './Users/Friends/friends-holder/friends-holder.component';
 import { FriendsPanelComponent } from './Users/Friends/friends-panel/friends-panel.component';
@@ -53,6 +54,7 @@ import { RentACarBranchesComponent } from './RentACar/RentACarListOfBranches/ren
 import { SeatsComponent } from './Airline/SeatReservation/seats/seats.component';
 import { EditFastReservationSeatsComponent } from './Airline/AirlineAdmin/edit-fast-reservation-seats/edit-fast-reservation-seats.component';
 import { RemoveSeatComponent } from './Airline/AirlineAdmin/remove-seat/remove-seat.component';
+import { RentACarReservationComponent } from './RentACar/RentACarSetReservation/rent-acar-reservation/rent-acar-reservation.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +104,8 @@ import { RemoveSeatComponent } from './Airline/AirlineAdmin/remove-seat/remove-s
     RentACarBranchesComponent,
     SeatsComponent,
     EditFastReservationSeatsComponent,
-    RemoveSeatComponent
+    RemoveSeatComponent,
+    RentACarReservationComponent
   ],
   imports: [
     
@@ -113,7 +116,8 @@ import { RemoveSeatComponent } from './Airline/AirlineAdmin/remove-seat/remove-s
     ReactiveFormsModule,
     MDBBootstrapModule
   ],
-  providers: [CookieService],
+  providers: [CookieService, DatePipe],
+ 
   bootstrap: [FrameComponent]
 })
 export class AppModule { }

@@ -1,0 +1,113 @@
+
+<div class="bg-img">
+    <div class="container">
+      <div class="card" >
+        <form  [formGroup]="searchCarsForm">
+          <div class="row">
+  
+            <div class="col">
+              <label for="placeFrom">The place where you pick up the car</label>
+                <input type="text" id="place"class="form-control" formControlName="carPlacePickUp" id="placeFrom" placeholder="The place where you pick up the car">
+                  
+            </div>
+            
+            <div class="col">
+              <label for="placeTo">The place where you return the car</label>
+                <input type="text" class="form-control" formControlName="carPlaceReturn" id="placeTo" placeholder="The place where you return the car">
+                  
+            </div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col">
+                <label for="dateFrom">Date from when you need the vehicle</label>
+                <div class="input-group form-group">
+                        <input id="dateFrom" class="form-control" [minDate]="minDate" placeholder="Date from when you need the vehicle"
+                        formControlName="dateFrom" ngbDatepicker #dateFrom="ngbDatepicker" >
+                       
+                          <button class="btn btn-outline-primary calendar" (click)="dateFrom.toggle()" type="button"><i class="fas fa-calendar "></i></button>
+                     
+                     </div>
+                   
+              </div>
+  
+              <div class="col">
+                <label for="dateTo">The date by which you need the vehicle</label>
+                <div class="input-group form-group">
+                      <input id = "dateTo" [minDate]="minDate" class="form-control" placeholder="The date by which you need the vehicle"
+                      formControlName="dateTo" ngbDatepicker #dateTo="ngbDatepicker">
+                     
+                        <button class="btn btn-outline-primary calendar" (click)="dateTo.toggle()" type="button"><i class="fas fa-calendar"></i></button>
+                      
+                    </div>
+                 
+              </div>
+  
+          </div>
+          <br/>
+   
+          <div class="row">
+              
+            <div class="col">
+                <label for="carTypes">Choose a car type</label>
+                  <select class="form-control" formControlName="carType" id="carTypes">
+                    <option value=""> - </option>
+                    <option value="limousine">Limousine</option>
+                    <option value="caravan">Caravan</option>
+                    <option value="suv">SUV</option>
+                 </select>
+              </div>
+              <div class="col">
+                <label for="noPassengers">Number of passengers</label>
+                  <input id="noPassengers" type="number" class="form-control" formControlName="carNumberOfPassengers" min = "1" placeholder="Number of passengers">
+              </div>
+  
+          </div>
+        <br/>
+        <div class="row">
+          <div class="col">
+            <label for="priceFrom">Price from</label>
+              <input id="priceFrom"type="number" class="form-control" formControlName="carPriceFrom" min = "0" placeholder="Price from">
+          </div>
+  
+          <div class="col">
+            <label for="priceTo">Price to</label>
+              <input id="priceTo" type="number" class="form-control" formControlName="carPriceTo" min = "1" placeholder="Price to">
+          </div>
+        </div>
+  
+  
+          
+          <br/>
+          <div class="row">
+            <div class="col">
+              <button type="reset" id="resetButton" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-undo mr-1"></i>Reset search form</button>
+            </div>
+              <div class="col">
+                <button [disabled] = "!searchCarsForm.valid" type="button" id="searchButton" class="btn btn-outline-primary btn-rounded " (click)="searchCars()"><i class="fas fa-search mr-1"></i>Search</button>
+              </div>
+  
+          </div>
+            
+        </form>
+    </div>
+  </div>
+      <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" [animation]="'fade'">
+        <mdb-carousel-item class="d-flex justify-content-center"  *ngFor="let item of slides; let i = index">
+              
+                <div class="col-md-4" *ngFor="let car of item; let carIndex = index">
+                  <mdb-card (click) = "openCarDetailsModal(car.CarId)" title="Click for more details"class="my-1">
+                    <mdb-card-img [src]="car.CarImage"></mdb-card-img>
+                    <mdb-card-body>
+                      <mdb-card-title>
+                        <h4>{{ car.CarBrand }}</h4>
+                        
+                      </mdb-card-title>
+                      
+                    </mdb-card-body>
+                  </mdb-card>
+                </div>
+             
+        </mdb-carousel-item>
+      </mdb-carousel>
+    </div>

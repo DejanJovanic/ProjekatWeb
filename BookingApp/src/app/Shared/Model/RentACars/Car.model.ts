@@ -3,6 +3,7 @@
 export class Car{
     constructor(
         public CarId: number,
+        public CarRentedDates: string[],
         public CarBrand: string,
         public CarModel: string,
         public CarYearOfProduction: number,

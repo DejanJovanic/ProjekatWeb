@@ -15,7 +15,10 @@ export class RentACarEnterpriseProfileComponent implements OnInit {
   counter;
   isHalf = false;
   address: string;
-  constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute) { }
+  role: string;
+  constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute) { 
+    this.role = sessionStorage["Role"]
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
