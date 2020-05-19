@@ -4,18 +4,22 @@
         <form [formGroup]="searchEnterpriseForm">
           <div class="row">
               <div class="col">
-                  <input type="text" class="form-control" formControlName="enterpriseName" placeholder="Enterprise name">
+                <label for="enName">Enterprise name</label>
+                  <input id="enName" type="text" class="form-control" formControlName="enterpriseName" placeholder="Enterprise name">
               </div>
 
               <div class="col">
-                  <input type="text" class="form-control" formControlName="branchLocation" placeholder="Branch location">
+                <label for="brLocation">Branch location</label>
+                  <input id= "brLocation" type="text" class="form-control" formControlName="branchLocation" placeholder="Branch location">
               </div>
           </div>
         <br/>
           <div class="row">
             <div class="col">
+
+              <label for="dateFrom">Date from when you need the vehicle</label>
               <div class="input-group form-group">
-                      <input class="form-control" [minDate]="minDate" placeholder="Date from"
+                      <input class="form-control" [minDate]="minDate" placeholder="Date from when you need the vehicle"
                       formControlName="modelFrom" ngbDatepicker #dateFrom="ngbDatepicker" >
                      
                         <button class="btn btn-outline-primary calendar" (click)="dateFrom.toggle()" type="button"><i class="fas fa-calendar "></i></button>
@@ -25,8 +29,9 @@
             </div>
 
             <div class="col">
+              <label for="dateTo">The date by which you need the vehicle</label>
               <div class="input-group form-group">
-                    <input [minDate]="minDate" class="form-control" placeholder="Date to"
+                    <input id = "dateTo" [minDate]="minDate" class="form-control" placeholder="The date by which you need the vehicle"
                     formControlName="modelTo" ngbDatepicker #dateTo="ngbDatepicker">
                    
                       <button class="btn btn-outline-primary calendar" (click)="dateTo.toggle()" type="button"><i class="fas fa-calendar"></i></button>
@@ -57,8 +62,8 @@
     <mdb-carousel-item class="d-flex justify-content-center" *ngFor="let item of slides; let i = index">
         
             <div class="col-md-4" *ngFor="let enterprise of item; let enterpriseIndex = index">
-              <mdb-card title="Click for more details"class="my-1">
-                <mdb-card-img [src]="enterprise.EnterpriseImage" [routerLink]="['/EnterpriseProfile/', enterprise.EnterpriseId]" routerLinkActive="router-link-active"></mdb-card-img>
+              <mdb-card title="Click for more details" [routerLink]="['/EnterpriseProfile/', enterprise.EnterpriseId]" routerLinkActive="router-link-active" class="my-1">
+                <mdb-card-img [src]="enterprise.EnterpriseImage" ></mdb-card-img>
                 <mdb-card-body>
                   <mdb-card-title>
                     <h4>{{ enterprise.EnterpriseName }}</h4>

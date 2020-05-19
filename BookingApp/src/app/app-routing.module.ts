@@ -24,6 +24,7 @@ import { CompanyEditComponent } from './Airline/AirlineAdmin/company-edit/compan
 import { RentACarEnterpriseLocationOnMapComponent } from './RentACar/RentACarEnterpriseLocation/rent-acar-enterprise-location-on-map/rent-acar-enterprise-location-on-map.component';
 import { RentACarBranchesComponent } from './RentACar/RentACarListOfBranches/rent-acar-branches/rent-acar-branches.component';
 import { EditFastReservationSeatsComponent } from './Airline/AirlineAdmin/edit-fast-reservation-seats/edit-fast-reservation-seats.component';
+import { RentACarReservationComponent } from './RentACar/RentACarSetReservation/rent-acar-reservation/rent-acar-reservation.component';
 
 const routes: Routes = [
   {path:'',redirectTo: 'main', pathMatch : 'full'},
@@ -46,6 +47,7 @@ const routes: Routes = [
   {path: 'EnterpriseSpecialOffers/:id', component: RentACarEnterpriseSpecialServiceComponent},
   {path: 'EnterpriseLocation/:id', component: RentACarEnterpriseLocationOnMapComponent},
   {path: 'EnterpriseBranches/:id', component: RentACarBranchesComponent},
+  {path: 'EnterpriseRentACar/:id', component: RentACarReservationComponent},
   {path: 'CompanyEdit', component: CompanyEditComponent},
   {path: 'EditFastReservationSeats/:id', component: EditFastReservationSeatsComponent, resolve:{details : SeatResolveService}}
 ];

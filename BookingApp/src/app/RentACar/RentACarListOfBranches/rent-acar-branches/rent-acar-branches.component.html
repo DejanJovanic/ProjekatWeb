@@ -4,15 +4,16 @@
       <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" [animation]="'fade'">
         <mdb-carousel-item class="d-flex justify-content-center"  *ngFor="let item of slides; let i = index">
               
-                <div class="col-md-4" *ngFor="let branch of item; let carIndex = index">
-                  <mdb-card title="Click for location on map" class="my-1">
-                    <mdb-card-img [src]="branch.BranchImage"></mdb-card-img>
+                <div class="col-md-4" *ngFor="let branch of item; let branchIndex = index">
+                  <mdb-card title="Click to see our location on map" [routerLink]="['/EnterpriseLocation/', branch.BranchAddress.AddressId]" routerLinkActive="router-link-active" class="my-1">
+                
+                    <mdb-card-img [src]="Enterprise.EnterpriseImage" ></mdb-card-img>
                     <mdb-card-body>
                       <mdb-card-title>
                         <h4>{{ branch.BranchName }}</h4>
-                        
+
                       </mdb-card-title>
-                      
+                      <p>Address <i class="fas fa-angle-double-right"></i> {{branch.BranchAddress.Street + " " + branch.BranchAddress.StreetNo + ", " + branch.BranchAddress.ZipCode + " " + branch.BranchAddress.City + ", " + branch.BranchAddress.Country}}</p>
                     </mdb-card-body>
                   </mdb-card>
                 </div>
