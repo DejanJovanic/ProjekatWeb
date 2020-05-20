@@ -24,18 +24,11 @@ export class RentACarReservationComponent implements OnInit {
   branchLocationFrom: boolean = false;
   branchLocationTo: boolean = false;
   formatedDates: string[] = []; //ovo koristim sada samo zbog lakse provere kod rezervacije, kasnije ce biti niz tipa Date
-  dateFrom: Date = new Date();
-  dateTo: Date = new Date();
+ 
   datesBetween: Date[] = [];
   numberOfDays: number;
   searchedCars: Car[] = [];
-  chunk(arr, chunkSize) {
-    let R = [];
-    for (let i = 0, len = arr.length; i < len; i += chunkSize) {
-      R.push(arr.slice(i, i + chunkSize));
-    }
-    return R;
-  }
+ 
   constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal, public datepipe: DatePipe) { 
     const current = new Date();
     this.minDate = {
@@ -48,12 +41,19 @@ export class RentACarReservationComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.id = +params["id"];
-      this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
-      
-      this.setForm();
+     
     });
+    this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
+    this.setForm();
   }
   
+  chunk(arr, chunkSize) {
+    let R = [];
+    for (let i = 0, len = arr.length; i < len; i += chunkSize) {
+      R.push(arr.slice(i, i + chunkSize));
+    }
+    return R;
+  }
   setForm(){
     let carPlacePickUp = "";
     let carPlaceReturn = "";
@@ -98,40 +98,22 @@ export class RentACarReservationComponent implements OnInit {
     var MS_PER_DAY = 1000 * 60 * 60 * 24;
     var start  = dateFrom.getTime();
     var end = dateTo.getTime();
-    var  numberOfDays = Math.ceil((end - start) / MS_PER_DAY);
+    var numberOfDays = Math.ceil((end - start) / MS_PER_DAY);
 
 
     this.datesBetween = Array.from(new Array(numberOfDays + 1), 
     (v, i) => new Date(start + (i * MS_PER_DAY)));
-    //var  start = this.datepipe.transform(this.dateFrom, 'dd-MM-yyyy'); //format za upis u datume kada je vozilo rezervisano
-    //var end = this.datepipe.transform(this.dateTo, 'dd-MM-yyyy'); //format za upis u datume kada je vozilo rezervisano
+    
 
     //ovaj for ispod, sa formatiranim datumima, koristim samo zbog lakseg testiranja
     for(let i: number = 0; i < this.datesBetween.length; i++){
         this.formatedDates.push(this.datepipe.transform(this.datesBetween[i], 'dd-MM-yyyy'));
     }
 
-   
-
     
-    for(let i: number = 0; i < this.Enterprise.EnterpriseCars.length; i++){
-      for(let j: number = 0; j < this.Enterprise.EnterpriseCars[i].CarRentedDates.length; j++){
-        for(let k: number = 0; k < this.formatedDates.length; k++){
-          if(this.Enterprise.EnterpriseCars[i].CarRentedDates[j] == this.formatedDates[k]){
-            this.slides = this.chunk(this.searchedCars, 3);
-            this.datesBetween = [];
-            this.formatedDates = [];
-            return;
-          
-          }
-        }
-        
-      }
-    }
-
+    
     
 
-    
     if(this.Enterprise.EnterpriseAddress.City.toLowerCase() == carPlacePickUp.toLowerCase()){
       this.companyLocationFrom = true;   
     }
@@ -154,7 +136,19 @@ export class RentACarReservationComponent implements OnInit {
         if((carType.toLowerCase() != this.Enterprise.EnterpriseCars[i].CarType.toLowerCase()) || parseInt(carNumberOfPassengers) > this.Enterprise.EnterpriseCars[i].CarNumberOfSeats){
           continue;
         }
-      
+        
+        for(let j: number = 0; j < this.Enterprise.EnterpriseCars[i].CarRentedDates.length; j++){
+          for(let k: number = 0; k < this.formatedDates.length; k++){
+            if(this.Enterprise.EnterpriseCars[i].CarRentedDates[j] == this.formatedDates[k]){
+              var rented = true;
+            }
+          }
+        }
+    
+        if(rented){
+          rented = false;
+          continue;
+        }
         
         if (carPriceFrom != "" || carPriceFrom != null){
           if(parseInt(carPriceFrom) > this.Enterprise.EnterpriseCars[i].CarPrice){
@@ -184,15 +178,9 @@ export class RentACarReservationComponent implements OnInit {
   
   }
 
-
-  
-
-
-
-
-  openCarDetailsModal(index: number){
+  openCarDetailsModal(carId: number, enterpriseId: number){
     const modalRef = this.modalService.open(RentACarDetailsModalComponent);
-    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(index);
+    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId, enterpriseId);
   }
   
 

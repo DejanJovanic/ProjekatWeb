@@ -14,7 +14,7 @@ p{
     font-size: 1.1vw;
 }
 .card{
-    background-color: rgba(15, 14, 14, 0.678) !important;
+    background-color: rgba(0, 0, 0, 0.733) !important;
     width: 300mm; 
     padding: 5mm;
 }
@@ -31,8 +31,6 @@ p{
 }
 
 .my-1:hover {
-    padding-top: 1vw;
-    border-radius: 10px;
     cursor: pointer;
 }
 
@@ -40,5 +38,5 @@ p{
     margin:auto;
     height: 320px;
     width: 400px;
-    background-color: rgba(15, 14, 14, 0.678) !important;
+    background-color: rgba(0, 0, 0, 0.733) !important;
 }

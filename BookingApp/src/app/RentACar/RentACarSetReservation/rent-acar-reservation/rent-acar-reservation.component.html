@@ -1,7 +1,7 @@
 
 <div class="bg-img">
     <div class="container">
-      <div class="card" >
+      <div class="card2" >
         <form  [formGroup]="searchCarsForm">
           <div class="row">
   
@@ -92,22 +92,23 @@
         </form>
     </div>
   </div>
+  <section class="pricing py-5">
       <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" [animation]="'fade'">
         <mdb-carousel-item class="d-flex justify-content-center"  *ngFor="let item of slides; let i = index">
               
                 <div class="col-md-4" *ngFor="let car of item; let carIndex = index">
-                  <mdb-card (click) = "openCarDetailsModal(car.CarId)" title="Click for more details"class="my-1">
-                    <mdb-card-img [src]="car.CarImage"></mdb-card-img>
-                    <mdb-card-body>
-                      <mdb-card-title>
-                        <h4>{{ car.CarBrand }}</h4>
-                        
-                      </mdb-card-title>
-                      
-                    </mdb-card-body>
-                  </mdb-card>
+                  <div class="card" (click) = "openCarDetailsModal(car.CarId, Enterprise.EnterpriseId)">
+                    <div class="card-body">
+                      <h5 class="card-title text-muted text-uppercase text-center">{{car.CarBrand}} {{car.CarModel}}</h5>
+                      <h6 class="card-price text-center">{{car.CarPrice}}$<span class="period">/day</span></h6>
+                      <hr>
+                      <button type="button" id="reservationBtn" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-car mr-1"></i>Reservation details</button>
+                    
+                    </div>
+                  </div>
                 </div>
              
         </mdb-carousel-item>
       </mdb-carousel>
+    </section>
     </div>

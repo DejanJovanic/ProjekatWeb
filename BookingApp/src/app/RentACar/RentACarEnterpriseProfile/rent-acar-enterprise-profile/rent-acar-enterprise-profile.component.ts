@@ -23,12 +23,14 @@ export class RentACarEnterpriseProfileComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.id = +params["id"];
-      this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
 
-      this.address = this.Enterprise.EnterpriseAddress.Street + " " + this.Enterprise.EnterpriseAddress.StreetNo + ", " + this.Enterprise.EnterpriseAddress.ZipCode + " " + this.Enterprise.EnterpriseAddress.City + ", " + this.Enterprise.EnterpriseAddress.Country;
-      this.updateStars();
-      this.getArrayValues(0);
     });
+    
+    this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
+    this.address = this.Enterprise.EnterpriseAddress.Street + " " + this.Enterprise.EnterpriseAddress.StreetNo + ", " + this.Enterprise.EnterpriseAddress.ZipCode + " " + this.Enterprise.EnterpriseAddress.City + ", " + this.Enterprise.EnterpriseAddress.Country;
+    this.updateStars();
+    this.getArrayValues(0);
+    
   }
   updateStars() {
     this.isHalf = this.Enterprise.EnterpriseRating %1 !== 0? true : false;

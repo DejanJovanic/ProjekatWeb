@@ -16,10 +16,11 @@ export class RentACarEnterpriseSpecialServiceComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.id = +params["id"];
-      this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
-
-      this.slides = this.chunk(this.Enterprise.EnterpriseOffers, 3);
+   
     });
+
+    this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
+    this.slides = this.chunk(this.Enterprise.EnterpriseOffers, 3);
   }
 
   chunk(arr, chunkSize) {
