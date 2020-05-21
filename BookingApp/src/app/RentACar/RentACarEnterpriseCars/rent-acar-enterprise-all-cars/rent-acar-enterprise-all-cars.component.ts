@@ -6,6 +6,7 @@ import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-a
 import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnterprise.model';
 import { Car } from 'src/app/Shared/Model/RentACars/Car.model';
 import { FormGroup, FormControl } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-rent-acar-enterprise-all-cars',
@@ -32,8 +33,8 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
   RentACarSearchedCars: Car[] = [];
   role: string;
   slides: any = [[]];
- 
-  constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal) { 
+  Cars: Car[] = [];
+  constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal, public datepipe: DatePipe) { 
     this.role = sessionStorage["Role"]
   }
   
@@ -44,6 +45,10 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
      
      
     });
+    this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
+    
+   
+    
     this.slides = this.chunk(this.Enterprise.EnterpriseCars, 3);
   }
 

@@ -78,8 +78,6 @@ export class RentACarReservationComponent implements OnInit {
   searchCars(){ 
     var carPlacePickUp = this.searchCarsForm.value.carPlacePickUp;
     var carPlaceReturn = this.searchCarsForm.value.carPlaceReturn;
-    //var dateFrom = this.searchCarsForm.value.dateFrom; 
-    //var dateTo = this.searchCarsForm.value.dateTo; 
     var carType = this.searchCarsForm.value.carType; 
     var carNumberOfPassengers = this.searchCarsForm.value.carNumberOfPassengers; 
     var carPriceFrom = this.searchCarsForm.value.carPriceFrom; 
@@ -107,13 +105,10 @@ export class RentACarReservationComponent implements OnInit {
 
     //ovaj for ispod, sa formatiranim datumima, koristim samo zbog lakseg testiranja
     for(let i: number = 0; i < this.datesBetween.length; i++){
-        this.formatedDates.push(this.datepipe.transform(this.datesBetween[i], 'dd-MM-yyyy'));
+        this.formatedDates.push(this.datesBetween[i].toDateString());
     }
 
     
-    
-    
-
     if(this.Enterprise.EnterpriseAddress.City.toLowerCase() == carPlacePickUp.toLowerCase()){
       this.companyLocationFrom = true;   
     }
@@ -139,7 +134,7 @@ export class RentACarReservationComponent implements OnInit {
         
         for(let j: number = 0; j < this.Enterprise.EnterpriseCars[i].CarRentedDates.length; j++){
           for(let k: number = 0; k < this.formatedDates.length; k++){
-            if(this.Enterprise.EnterpriseCars[i].CarRentedDates[j] == this.formatedDates[k]){
+            if(Date.parse(this.Enterprise.EnterpriseCars[i].CarRentedDates[j]) == Date.parse(this.formatedDates[k])){
               var rented = true;
             }
           }
@@ -161,8 +156,14 @@ export class RentACarReservationComponent implements OnInit {
               continue;
           }
         }
-
-        this.searchedCars.push(this.Enterprise.EnterpriseCars[i]);
+        var today = new Date();
+        var d1 = today.toDateString();
+        
+        if((Date.parse(d1) < Date.parse(this.Enterprise.EnterpriseCars[i].CarDiscountDateFrom)) || (Date.parse(d1) > Date.parse(this.Enterprise.EnterpriseCars[i].CarDiscountDateTo)) ){
+          this.searchedCars.push(this.Enterprise.EnterpriseCars[i]);
+        }
+        
+        
       }
     }
   

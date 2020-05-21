@@ -76,7 +76,7 @@ export class RentACarEnterprisesComponent implements OnInit {
 
     //ovaj for ispod, sa formatiranim datumima, koristim samo zbog lakseg testiranja
     for(let i: number = 0; i < this.datesBetween.length; i++){
-        this.formatedDates.push(this.datepipe.transform(this.datesBetween[i], 'dd-MM-yyyy'));
+        this.formatedDates.push(this.datesBetween[i].toDateString());
     }
     
     
@@ -101,7 +101,7 @@ export class RentACarEnterprisesComponent implements OnInit {
               for(let j: number = 0; j < this.RentACarEnterprises[i].EnterpriseCars.length; j++){
                 for(let l: number = 0; l < this.RentACarEnterprises[i].EnterpriseCars[j].CarRentedDates.length; l++){
                   for(let k: number = 0; k < this.formatedDates.length; k++){
-                    if(this.RentACarEnterprises[i].EnterpriseCars[j].CarRentedDates[l] == this.formatedDates[k]){
+                    if(Date.parse(this.RentACarEnterprises[i].EnterpriseCars[j].CarRentedDates[l]) == Date.parse(this.formatedDates[k])){
                       var rented = true;
                     }
                   }

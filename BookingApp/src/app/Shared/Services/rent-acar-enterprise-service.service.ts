@@ -224,9 +224,9 @@ export class RentACarEnterpriseServiceService {
     
     new Car(
       0,
-      ["20-05-2020", "30-05-2020"],
-      "",
-      "",
+      ["Fri May 22 2020", "Sat May 30 2020"],
+      "Mon May 18 2020",
+      "Thu May 21 2020",
       0,
       "Audi",
       "R8",
@@ -240,9 +240,9 @@ export class RentACarEnterpriseServiceService {
     ),
     new Car(
       1,
-      ["21-06-2020", "29-05-2020"],
-      "",
-      "",
+      ["Sun Jun 21 2020", "Fri May 29 2020"],
+      "Fri May 22 2020",
+      "Sat May 23 2020",
       0,
       "Mercedes",
       "G class",
@@ -256,9 +256,9 @@ export class RentACarEnterpriseServiceService {
     ),
     new Car(
       2,
-      ["18-05-2020", "12-06-2020"],
-      "",
-      "",
+      ["Mon May 18 2020", "Fri Jun 12 2020"],
+      "Thu May 21 2020",
+      "Thu May 21 2020",
       0,
       "BMW",
       "x5",

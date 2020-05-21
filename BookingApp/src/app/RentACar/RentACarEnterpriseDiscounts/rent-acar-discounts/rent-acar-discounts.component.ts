@@ -16,7 +16,7 @@ export class RentACarDiscountsComponent implements OnInit {
   id: number;
   Enterprise: RentACarEnterprise;
   slides: any = [[]];
-  carnOnDiscounts: Car[] = [];
+  carsOnDiscount: Car[] = [];
 
   constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal) { }
 
@@ -27,7 +27,18 @@ export class RentACarDiscountsComponent implements OnInit {
      
       
     });
-    this.slides = this.chunk(this.Enterprise.EnterpriseCars, 3);
+
+    var today = new Date();
+    
+    var d1 = today.toDateString();
+   
+    for(let i: number = 0; i < this.Enterprise.EnterpriseCars.length; i++){
+      if((Date.parse(d1) >= Date.parse(this.Enterprise.EnterpriseCars[i].CarDiscountDateFrom)) && (Date.parse(d1) <= Date.parse(this.Enterprise.EnterpriseCars[i].CarDiscountDateTo)) ){
+       
+        this.carsOnDiscount.push(this.Enterprise.EnterpriseCars[i]);
+      }
+    }
+    this.slides = this.chunk(this.carsOnDiscount, 3);
   }
 
   
