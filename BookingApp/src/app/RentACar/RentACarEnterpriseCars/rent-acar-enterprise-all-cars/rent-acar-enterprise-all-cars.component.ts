@@ -41,14 +41,10 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
   ngOnInit(): void{
     this.route.params.subscribe((params: Params) => {
       this.id = +params["id"];
-      this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
-     
-     
+      
     });
+    
     this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
-    
-   
-    
     this.slides = this.chunk(this.Enterprise.EnterpriseCars, 3);
   }
 

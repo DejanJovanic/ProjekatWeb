@@ -56,6 +56,7 @@ import { EditFastReservationSeatsComponent } from './Airline/AirlineAdmin/edit-f
 import { RemoveSeatComponent } from './Airline/AirlineAdmin/remove-seat/remove-seat.component';
 import { RentACarReservationComponent } from './RentACar/RentACarSetReservation/rent-acar-reservation/rent-acar-reservation.component';
 import { RentACarDiscountsComponent } from './RentACar/RentACarEnterpriseDiscounts/rent-acar-discounts/rent-acar-discounts.component';
+import { RentACarAdminEnterpriseComponent } from './RentACar/RentACarAdmin/rent-acar-admin-enterprise/rent-acar-admin-enterprise.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { RentACarDiscountsComponent } from './RentACar/RentACarEnterpriseDiscoun
     EditFastReservationSeatsComponent,
     RemoveSeatComponent,
     RentACarReservationComponent,
-    RentACarDiscountsComponent
+    RentACarDiscountsComponent,
+    RentACarAdminEnterpriseComponent
   ],
   imports: [
     
