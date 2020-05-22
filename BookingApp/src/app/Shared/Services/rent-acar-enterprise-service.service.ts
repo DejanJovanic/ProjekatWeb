@@ -372,6 +372,10 @@ export class RentACarEnterpriseServiceService {
      
   };
 
+  getOneSpecialOffer(offerId: number, enterpriseId: number){
+    return this.RentACarEnterprises[enterpriseId].EnterpriseOffers[offerId];
+  }
+
   getAddress = index => {
     for(let i: number=0; i < this.RentACarAddress.length; i++){
       if(this.RentACarAddress[i].AddressId == index){

@@ -5,6 +5,8 @@ import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnter
 import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
 import { UserNetworkService } from 'src/app/Users/Services/UserNetwork/user-network.service';
 import { Router } from '@angular/router';
+import { RentACarEnterpriseEditModalComponent } from '../rent-acar-enterprise-edit-modal/rent-acar-enterprise-edit-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-rent-acar-admin-enterprise',
@@ -18,7 +20,7 @@ export class RentACarAdminEnterpriseComponent implements OnInit {
   address: string;
   Admin: RentACarAdmin
   Enterprise: RentACarEnterprise
-  constructor(private router : Router, private EnterpriseService: RentACarEnterpriseServiceService, private userNetwork: UserNetworkService, private user : UserCacheService) { 
+  constructor(private modalService : NgbModal, private router : Router, private EnterpriseService: RentACarEnterpriseServiceService, private userNetwork: UserNetworkService, private user : UserCacheService) { 
 
     
   }
@@ -60,5 +62,10 @@ export class RentACarAdminEnterpriseComponent implements OnInit {
    this.user.currentUser = null;
 
    
+  }
+
+  openEnterpriseEditModal(id: number){
+    const modalRef = this.modalService.open(RentACarEnterpriseEditModalComponent);
+    modalRef.componentInstance.item = this.EnterpriseService.getRentACarEnterprise(id);
   }
 }

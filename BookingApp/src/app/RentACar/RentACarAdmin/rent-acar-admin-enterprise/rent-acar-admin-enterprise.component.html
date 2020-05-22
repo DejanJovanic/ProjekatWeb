@@ -8,8 +8,8 @@
                 <li class="nav-item"><a [routerLink]="['/EnterpriseDiscounts/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active" title="Click to see enterprise discounts" class="nav-link">Discounts</a></li>
                 <li class="nav-item"><a title="Click to see enterprise branches" class="nav-link" [routerLink]="['/EnterpriseBranches/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Branches</a></li>
                 <li class="nav-item"><a  title="Click to see enterprise location on map" class="nav-link" [routerLink]="['/EnterpriseLocation/', Enterprise.EnterpriseAddress.AddressId]" routerLinkActive="router-link-active">Location</a></li>
-                <li class="nav-item"><a title="Click to see enterprise special offers" class="nav-link" [routerLink]="['/EnterpriseSpecialOffers/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Edit company profile</a></li>
-                <li class="nav-item"><a class="nav-link" (click) = "AdminLogout()">Logout</a></li>
+                <li class="nav-item"><a title="Click to edit enterprise information" class="nav-link" (click) = "openEnterpriseEditModal(Enterprise.EnterpriseId)">Edit enterprise profile</a></li>
+                <li class="nav-item"><a title="Click to logout" class="nav-link" (click) = "AdminLogout()">Logout</a></li>
             </ul>
         </div>
     </div>

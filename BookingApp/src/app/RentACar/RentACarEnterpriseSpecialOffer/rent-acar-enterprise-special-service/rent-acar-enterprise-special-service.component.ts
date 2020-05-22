@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
 import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
 import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnterprise.model';
+import { RentACarEditSpecialOffersModalComponent } from '../../RentACarAdmin/rent-acar-edit-special-offers-modal/rent-acar-edit-special-offers-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-rent-acar-enterprise-special-service',
   templateUrl: './rent-acar-enterprise-special-service.component.html',
@@ -11,7 +13,10 @@ export class RentACarEnterpriseSpecialServiceComponent implements OnInit {
   Enterprise: RentACarEnterprise;
   id: number;
   slides: any = [[]];
-  constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute) { }
+  role: string;
+  constructor(private modalService : NgbModal, private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute) { 
+    this.role = sessionStorage["Role"]
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -29,6 +34,11 @@ export class RentACarEnterpriseSpecialServiceComponent implements OnInit {
       R.push(arr.slice(i, i + chunkSize));
     }
     return R;
+  }
+
+  openSpecialOfferEditModal(offerId: number, enterpriseId: number){
+    const modalRef = this.modalService.open(RentACarEditSpecialOffersModalComponent);
+    modalRef.componentInstance.item = this.EnterpriseService.getOneSpecialOffer(offerId, enterpriseId);
   }
 
 }

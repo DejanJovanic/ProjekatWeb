@@ -9,12 +9,18 @@
                     <h5 class="card-title text-muted text-uppercase text-center">{{enterpriseOffer.OfferName}}</h5>
                     <h6 class="card-price text-center">{{enterpriseOffer.OfferPrice}}$<span class="period">/day</span></h6>
                     <hr>
-                    <ul class="fa-ul" *ngFor="let packageContent of enterpriseOffer.OfferContent; let packageIndex = index">
-
-                      <li><span class="fa-li"><i class="fas fa-check"></i></span>{{packageContent}}</li>
-                     
+                    <div class="row">
+          
+                      <div class="col">
+                        <button *ngIf="role ===  'RentACarAdmin'" (click) = "openSpecialOfferEditModal(enterpriseOffer.SpecialOfferId, Enterprise.EnterpriseId)" type="button" class="btn btn-outline-primary btn-rounded "><i class="fas fa-edit mr-1"></i> Edit </button>
+                      </div>
                       
-                    </ul>
+                      
+                        <div class="col">
+                          <button *ngIf="role ===  'RentACarAdmin'" type="button" id="dltBtn" class="btn btn-outline-primary btn-rounded "><i class="fas fa-delete mr-1"></i> Delete </button>
+                        </div>
+            
+                    </div>
                   
                   </div>
                 </div>
