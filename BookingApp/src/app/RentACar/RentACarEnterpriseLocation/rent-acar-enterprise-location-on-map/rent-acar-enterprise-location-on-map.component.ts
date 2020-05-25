@@ -33,12 +33,14 @@ export class RentACarEnterpriseLocationOnMapComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.id = +params["id"];
-      this.Address = this.EnterpriseService.getAddress(this.id);
-      
-      
-      this.query = this.Address.Street + " " + this.Address.StreetNo + ", " + this.Address.ZipCode + " " + this.Address.City + ", " + this.Address.Country;
+     
      
     });
+
+    this.Address = this.EnterpriseService.getAddress(this.id);
+      
+      
+    this.query = this.Address.Street + " " + this.Address.StreetNo + ", " + this.Address.ZipCode + " " + this.Address.City + ", " + this.Address.Country;
   }
 
   public ngAfterViewInit() {

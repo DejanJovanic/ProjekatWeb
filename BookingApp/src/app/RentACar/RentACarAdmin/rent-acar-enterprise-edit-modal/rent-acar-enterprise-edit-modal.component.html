@@ -1,0 +1,79 @@
+
+
+<div class="modal-body" >
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <div *ngIf = "alert" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success!</strong> You have successfully edited your business information.
+    <button (click) = "closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+   
+   
+<div class="card">
+    <div class="card-body">
+      <h6 class="card-price text-center"><span class="period"><i class="fas fa-edit"></i> Edit "{{item.EnterpriseName}}" information <i class="fas fa-edit"></i></span></h6>
+      <hr>
+      <form  [formGroup]="editEnterpriseInfoForm" (ngSubmit)="editProfile()">
+        <div class="row">
+          <label for="name">Name</label>
+          <input type="text" formControlName="enterpriseName" id="name" class="form-control">
+        </div>
+
+        <br/>
+        <div class="row">
+          <label for="country">Country</label>
+          <input type="text" formControlName="enterpriseCountry" id = "country"class="form-control"> 
+        </div>
+
+        <br/>
+        <div class="row">
+          <label for="city">City</label>
+          <input type="text" formControlName="enterpriseCity" id = "city" class="form-control"> 
+        </div>
+
+        <br/>
+        <div class="row">
+          <label for="street">Street</label>
+          <input type="text" formControlName="enterpriseStreet"  id = "street" class="form-control"> 
+        </div>
+
+        <br/>
+        <div class="row">
+          <label for="streetNo">Street number</label>
+          <input type="text" formControlName="enterpriseStreetNo" id = "streetNo" class="form-control"> 
+        </div>
+
+        <br/>
+        <div class="row">
+          <label for="zipCode">Zip code</label>
+          <input type="text" formControlName="enterpriseZipCode" id = "zipCode" class="form-control"> 
+        </div>
+        
+        <br/>
+        <div class="row">
+          <label for="descrption">Description</label>
+          <textarea id = "descrption"formControlName="enterpriseDescription"  rows="4" cols="50"></textarea>
+        </div>
+        <hr>
+
+        <div class="row">
+          
+          <div class="col">
+            <button type="button" (click)="activeModal.close('Close click')" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-times mr-1"></i>Cancel</button>
+          </div>
+          
+          
+            <div class="col">
+              <button [disabled] = "!editEnterpriseInfoForm.valid" type="submit" id="saveButton" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-save mr-1"></i>Save</button>
+            </div>
+
+        </div>
+      </form>
+        
+    </div>
+  </div>
+</div>
+

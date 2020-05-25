@@ -6,6 +6,7 @@ import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-a
 import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnterprise.model';
 import { Car } from 'src/app/Shared/Model/RentACars/Car.model';
 import { FormGroup, FormControl } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-rent-acar-enterprise-all-cars',
@@ -26,26 +27,31 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
     carPriceTo: new FormControl('')
     
   });
+  
   Enterprise: RentACarEnterprise;
   id: number;
   RentACarSearchedCars: Car[] = [];
   role: string;
-
   slides: any = [[]];
-  chunk(arr, chunkSize) {
-    let R = [];
-    for (let i = 0, len = arr.length; i < len; i += chunkSize) {
-      R.push(arr.slice(i, i + chunkSize));
-    }
-    return R;
-  }
-  constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal) { 
+  Cars: Car[] = [];
+  constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal, public datepipe: DatePipe) { 
     this.role = sessionStorage["Role"]
   }
   
-  openCarDetailsModal(index: number){
+  ngOnInit(): void{
+    this.route.params.subscribe((params: Params) => {
+      this.id = +params["id"];
+      
+    });
+    
+    this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
+    this.slides = this.chunk(this.Enterprise.EnterpriseCars, 3);
+  }
+
+  
+  openCarDetailsModal(carId: number, enterpriseId: number){
     const modalRef = this.modalService.open(RentACarDetailsModalComponent);
-    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(index);
+    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId, enterpriseId);
   }
   searchCars(){
     var carBrand = this.searchCarsForm.value.carBrand;
@@ -140,13 +146,13 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
     
     this.slides = this.chunk(this.Enterprise.EnterpriseCars, 3);
   }
-  ngOnInit(): void{
-    this.route.params.subscribe((params: Params) => {
-      this.id = +params["id"];
-      this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
-     
-      this.slides = this.chunk(this.Enterprise.EnterpriseCars, 3);
-    });
+
+  chunk(arr, chunkSize) {
+    let R = [];
+    for (let i = 0, len = arr.length; i < len; i += chunkSize) {
+      R.push(arr.slice(i, i + chunkSize));
+    }
+    return R;
   }
 
 

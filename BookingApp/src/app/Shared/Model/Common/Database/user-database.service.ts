@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../User.model';
 import { AirlineAdmin } from '../AirlineAdmin.model';
+import { RentACarAdmin } from '../../RentACars/RentACarAdmin.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,17 @@ export class UserDatabaseService {
       temp.airlineID = i;
       this.users.push(temp);
 
+    }
+    for(let i = 0; i < 6; i++){
+      let temp = new RentACarAdmin();
+      temp.username = "rentACarAdmin" + i;
+      temp.name = "name" + i;
+      temp.lastName = "lastName" + i;
+      temp.passportNo = "" + i;
+      temp.systemRole = "RentACarAdmin";
+      temp.RentACarEnterpriseId = i;
+      this.users.push(temp);
+      
     }
   }
 }

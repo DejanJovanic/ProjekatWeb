@@ -1,7 +1,9 @@
 
 
 <div class="modal-body">
-   
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
     <h6 class="card-price text-center"><span class="period"><i class="fas fa-car"></i> Car details <i class="fas fa-car"></i></span></h6>
    
    
@@ -35,7 +37,12 @@
                 </div>
         </div>
     </li>
-        
+    <hr>
+    <div class="row">
+    
+        <button type="button" (click)="activeModal.close('Close click')" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-times mr-1"></i> Close </button>
+      
+    </div>
       </ul>
     
     </div>

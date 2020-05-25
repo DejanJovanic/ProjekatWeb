@@ -56,6 +56,7 @@ export class MainComponent implements OnInit {
           ];
           this.router.navigate(['AirlineAdmin'],{ relativeTo : this.activeRoute});
           break;
+
       }
     }
    
