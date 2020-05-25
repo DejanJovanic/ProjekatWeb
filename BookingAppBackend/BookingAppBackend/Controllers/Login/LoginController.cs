@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookingAppBackend.Controllers
+namespace BookingAppBackend.Controllers.Login
 {
     [Route("api/[controller]")]
     [ApiController]

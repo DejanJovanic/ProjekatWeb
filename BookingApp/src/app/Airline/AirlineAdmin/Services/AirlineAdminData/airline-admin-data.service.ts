@@ -10,8 +10,8 @@ export class AirlineAdminDataService {
 
   constructor(private cache : AirlineCacheService,private network : AirlineAdminNetworkService) { }
 
-  public GetAirlineData(username : string){
-    this.network.GetAirlineData(username).subscribe(i =>{
+  public GetAirlineData(){
+    this.network.GetAirlineData().subscribe(i =>{
       this.cache.airlines.next([i]);
     })
   }

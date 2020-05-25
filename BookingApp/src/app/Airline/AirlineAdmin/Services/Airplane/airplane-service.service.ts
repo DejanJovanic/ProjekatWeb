@@ -21,7 +21,7 @@ export class AirplaneService {
     }));
   }
 
-  public SetAirplane(airplane : Airplane) : Observable<boolean>{
+  public SetAirplane(airplane : Airplane) : Observable<Airplane>{
     return this.network.SetAirplane(airplane);
   }
 }

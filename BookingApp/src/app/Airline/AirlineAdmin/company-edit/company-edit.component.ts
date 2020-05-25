@@ -21,7 +21,33 @@ export class CompanyEditComponent implements OnInit {
   constructor(private builder : FormBuilder,private cache: AirlineCacheService,
     private modalService : NgbModal,private service : AirlineAdminDataService,private router : Router) {
     this.company = this.cache.airlines.getValue()[0];
+    if(!this.company.name || this.company.description == undefined)
+      this.company.name = ""
+    if(!this.company.description || this.company.description == undefined)
+      this.company.description = ""
+    
+    if(!this.company.address || this.company.address == undefined)
+      this.company.address = new AirlineAddress();
+      
+    if(!this.company.address.city || this.company.address == undefined)
+      this.company.address.city = ""
+    
+    if(!this.company.address.country || this.company.address.country == undefined)
+      this.company.address.country = ""
+
+    if(!this.company.address.street || this.company.address.street == undefined)
+      this.company.address.street = ""
+
+    if(!this.company.address.zipCode || this.company.address.zipCode == undefined)
+      this.company.address.zipCode = ""
+    
+    if(!this.company.address.streetNo || this.company.address.streetNo == undefined)
+      this.company.address.streetNo = "";
+    if(!this.company.destinations || this.company.destinations == undefined)
+      this.company.destinations = [];
+        
     this.destinations = this.company.destinations;
+
    }
 
   ngOnInit(): void {
@@ -53,7 +79,7 @@ export class CompanyEditComponent implements OnInit {
       temp.address.country = this.companyForm.value.country;
       temp.address.street = this.companyForm.value.street;
       temp.address.zipCode = this.companyForm.value.zipCode;
-      temp.address.streetNo = +this.companyForm.value.streetNo
+      temp.address.streetNo = this.companyForm.value.streetNo
       this.service.EditCompanyData(temp);
       this.router.navigate(['main/AirlineAdmin']);
     }

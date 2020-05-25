@@ -7,7 +7,10 @@ import { AirlineAddress } from 'src/app/Shared/Model/Airlines/AirlineAddress.mod
 export class AddressPipe implements PipeTransform {
 
   transform(value: AirlineAddress): unknown {
-    return `${value.street} ${value.streetNo}, ${value.zipCode}, ${value.city}, ${value.country}`
+    if(value == null || value == undefined)
+      return "";
+    else
+      return `${value.street? value.street : ""} ${value.streetNo? value.streetNo : ""}, ${value.zipCode? value.zipCode : ""}, ${value.city? value.city : ""}, ${value.country? value.country : ""}`
   }
 
 }

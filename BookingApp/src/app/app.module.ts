@@ -55,6 +55,8 @@ import { SeatsComponent } from './Airline/SeatReservation/seats/seats.component'
 import { EditFastReservationSeatsComponent } from './Airline/AirlineAdmin/edit-fast-reservation-seats/edit-fast-reservation-seats.component';
 import { RemoveSeatComponent } from './Airline/AirlineAdmin/remove-seat/remove-seat.component';
 import { RentACarReservationComponent } from './RentACar/RentACarSetReservation/rent-acar-reservation/rent-acar-reservation.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BearerInterceptor } from './Shared/Interceptors/BearerInterceptor/bearer.interceptor';
 
 @NgModule({
   declarations: [
@@ -114,9 +116,10 @@ import { RentACarReservationComponent } from './RentACar/RentACarSetReservation/
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MDBBootstrapModule
+    MDBBootstrapModule,
+    HttpClientModule
   ],
-  providers: [CookieService, DatePipe],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: BearerInterceptor, multi: true},CookieService, DatePipe],
  
   bootstrap: [FrameComponent]
 })

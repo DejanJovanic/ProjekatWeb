@@ -19,7 +19,7 @@ export class AirlineAdminMainComponent implements OnInit {
   ngOnInit(): void {
     if(sessionStorage["Role"] == "AirlineAdmin"){
       if(sessionStorage["username"]){
-        this.service.GetAirlineData(sessionStorage["username"])
+        this.service.GetAirlineData()
       }
     }
   }

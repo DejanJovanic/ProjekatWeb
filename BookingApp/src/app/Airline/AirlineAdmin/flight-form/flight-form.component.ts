@@ -39,13 +39,11 @@ export class FlightFormComponent implements OnInit {
   destinations1 : string[]
   destinations2 : string[]
   destinationOptions : string[] = []
-  airplanes : Airplane[]
   classes : string[] = []
   isRoundTrip : boolean;
 
   constructor(private builder : FormBuilder,private cache : AirlineCacheService,
     private modalService : NgbModal) {
-    this.airplanes = cache.airlines.getValue()[0].airplanes
     this.destinations1 = cache.airlines.getValue()[0].destinations;
     this.destinations2 = cache.airlines.getValue()[0].destinations;
     this.classes = Object.keys(FlightClass).filter(i => isNaN(Number(i)))
@@ -56,20 +54,22 @@ export class FlightFormComponent implements OnInit {
     this.isRoundTrip = this.flight ? this.flight.isRoundTrip : false
     this.flightForm = this.builder.group({
       startLocation : [this.flight ? this.flight.startLocation : this.destinations1[0],Validators.required],
-      finishLocation : [this.flight ? this.flight.finishLocation : this.destinations2[1],Validators.required],
+      finishLocation : [this.flight ? this.flight.endLocation : this.destinations2[1],Validators.required],
       isRoundTrip : [this.isRoundTrip],
       startDate : [this.flight ? this.flight.startDate : '',Validators.required],
-      finishDate : [this.flight ? this.flight.finishDate : '',Validators.required],
+      finishDate : [this.flight ? this.flight.endDate : '',Validators.required],
       startTime : [this.flight ? this.flight.startDate : {hour : 2,minute : 20},Validators.required],
       finishTime : [this.flight ? this.flight.startDate : {hour : 2,minute : 20},Validators.required],
       startDateBack : [ this.flight ? this.flight.startDate : '',Validators.required],
-      finishDateBack : [this.flight ? this.flight.finishDate : '',Validators.required],
+      finishDateBack : [this.flight ? this.flight.endDate : '',Validators.required],
       startTimeBack : [this.flight ? this.flight.startDate : {hour : 2,minute : 20},Validators.required],
       finishTimeBack : [this.flight ? this.flight.startDate : {hour : 2,minute : 20},Validators.required],
       price : [this.flight ? this.flight.price : '',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
       travelDistance : [this.flight ? this.flight.travelDistance : '',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
-      airplane : [this.flight ? this.flight.airline.id : this.airplanes[0].id],
-      class : [this.flight ? FlightClass[this.flight.flightClass] : this.classes[0]]
+      class : [this.flight ? FlightClass[this.flight.flightClass] : this.classes[0]],
+      rows : ['',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
+      cols : ['',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
+      
     }, {validators : [this.startFinishLocationsValidator,this.startFinishDatesValidator]})
 
     this.flightForm.get('isRoundTrip').valueChanges.subscribe(i =>{
@@ -88,7 +88,7 @@ export class FlightFormComponent implements OnInit {
         this.flightForm.get('finishTimeBack').enable()
       }
     })
-    //this.flightForm.get('isRoundTrip').setValue(this.isRoundTrip);
+    this.flightForm.get('isRoundTrip').setValue(this.isRoundTrip);
   }
 
   SetStops(){
@@ -99,26 +99,43 @@ export class FlightFormComponent implements OnInit {
 
   Submit(){
     if(this.flightForm.valid){
+      
       let start = new Date(this.flightForm.value.startDate.year,this.flightForm.value.startDate.month,
         this.flightForm.value.startDate.day,this.flightForm.value.startTime.hour,this.flightForm.value.startTime.minute)
       let end = new Date(this.flightForm.value.finishDate.year,this.flightForm.value.finishDate.month,
         this.flightForm.value.finishDate.day,this.flightForm.value.finishTime.hour,this.flightForm.value.finishTime.minute)
+      
+      let startBack = undefined;
+      let endBack = undefined;
+      if(this.flightForm.value.isRoundTrip){
+        startBack = new Date(this.flightForm.value.startDateBack.year,this.flightForm.value.startDateBack.month,
+          this.flightForm.value.startDateBack.day,this.flightForm.value.startTimeBack.hour,this.flightForm.value.startTimeBack.minute)
+        endBack = new Date(this.flightForm.value.finishDateBack.year,this.flightForm.value.finishDateBack.month,
+          this.flightForm.value.finishDateBack.day,this.flightForm.value.finishTimeBack.hour,this.flightForm.value.finishTimeBack.minute)
         
+      }
       var ms = moment(start).diff(moment(end));
       var d = moment.duration(ms);
       var s = Math.floor(d.asHours()) + moment.utc(ms).format(":mm:ss");
 
       if(this.flight == null){
         let temp = new Flight(this.cache.airlines.getValue()[0]);
+        if(this.flightForm.value.isRoundTrip){
+          temp.startDateBack = startBack;
+          temp.endDateBack = endBack;
+        }
         temp.startDate = start;
-        temp.finishDate = end;
-        temp.finishLocation = this.flightForm.value.finishLocation;
+        temp.endDate = end;
+        temp.startLocation = this.flightForm.value.startLocation;
+        temp.endLocation = this.flightForm.value.finishLocation;
         temp.numberOfStops = this.destinationOptions.length;
         temp.stopsLocations = this.destinationOptions;
         temp.travelDistance = this.flightForm.value.travelDistance;
         temp.isRoundTrip = this.flightForm.value.isRoundTrip;
-        temp.price = this.flightForm.value.price;
-        temp.airplaneID = this.flightForm.value.airplane;
+        temp.price = +this.flightForm.value.price;
+        temp.airplane = new Airplane();
+        temp.airplane.Rows = +this.flightForm.value.rows;
+        temp.airplane.Columns = +this.flightForm.value.cols;
         temp.flightClass = FlightClass[this.flightForm.value.class as keyof typeof FlightClass]
         this.flightEvent.emit(temp);
       }

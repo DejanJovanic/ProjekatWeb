@@ -20,15 +20,15 @@ export class AirlineDatabaseService {
       company.address.city = "city" + i
       company.address.country = "country" + i
       company.address.street = "street" + i
-      company.address.streetNo = i
+      company.address.streetNo = i.toString();
       company.address.zipCode = "" + i + (i+1) + (i+2)
       company.grade = i;
       let flight = new FlightDatabase(company);
       flight.id = i;
       flight.price = i + 100;
       flight.startDate = new Date();
-      flight.finishDate = new Date();
-      flight.finishDate.setMonth((flight.finishDate.getMonth() + i) % 12);
+      flight.endDate = new Date();
+      flight.endDate.setMonth((flight.endDate.getMonth() + i) % 12);
       company.flightsDatabases.push(flight);
       company.flights.push(flight);
       company.destinations.push("Beograd")
