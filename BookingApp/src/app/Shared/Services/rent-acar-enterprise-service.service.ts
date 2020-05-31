@@ -224,7 +224,7 @@ export class RentACarEnterpriseServiceService {
     
     new Car(
       0,
-      ["Fri May 22 2020", "Sat May 30 2020"],
+      ["Sun May 31 2020", "Sat May 30 2020"],
       "Mon May 18 2020",
       "Thu May 21 2020",
       0,
@@ -240,7 +240,7 @@ export class RentACarEnterpriseServiceService {
     ),
     new Car(
       1,
-      ["Sun Jun 21 2020", "Fri May 29 2020"],
+      ["Sat May 30 2020", "Fri May 29 2020"],
       "Fri May 22 2020",
       "Sat May 23 2020",
       0,
@@ -366,11 +366,15 @@ export class RentACarEnterpriseServiceService {
     return this.RentACars;
   };
 
-  getOneCar(carId:number, enterpriseId:number){
+  getOneCar(carId:number){
     
-    return this.RentACarEnterprises[enterpriseId].EnterpriseCars[carId];
+    for(let i: number = 0; i < this.RentACars.length; i++){
+        if(this.RentACars[i].CarId == carId){
+          return this.RentACars[i];
+        }
+    }
      
-  };
+  }
 
   getOneSpecialOffer(offerId: number, enterpriseId: number){
     return this.RentACarEnterprises[enterpriseId].EnterpriseOffers[offerId];
@@ -384,4 +388,5 @@ export class RentACarEnterpriseServiceService {
     }
    
   };
+
 }

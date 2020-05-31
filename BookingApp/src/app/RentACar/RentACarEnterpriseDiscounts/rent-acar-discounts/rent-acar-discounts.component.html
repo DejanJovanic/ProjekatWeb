@@ -4,7 +4,7 @@
         <mdb-carousel-item class="d-flex justify-content-center"  *ngFor="let item of slides; let i = index">
                 
                 <div class="col-md-4" *ngFor="let car of item; let carIndex = index">
-                    <div class="card" (click) = "openCarDetailsModal(car.CarId, Enterprise.EnterpriseId)" title="Click for more car details">
+                    <div class="card" (click) = "openCarDetailsModal(car.CarId)" title="Click for more car details">
                         <div class="card-body">
                         <h5 class="card-title text-muted text-uppercase text-center">{{car.CarBrand}} {{car.CarModel}}</h5>
                         <h6 class="card-price text-center">{{car.CarPrice}}$<span class="period">/day</span></h6>

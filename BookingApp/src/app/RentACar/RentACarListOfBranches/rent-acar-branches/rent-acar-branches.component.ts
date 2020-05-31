@@ -35,4 +35,8 @@ export class RentACarBranchesComponent implements OnInit {
     return R;
   }
 
+  openBranchAddModal(enterpriseId: number){
+    
+  }
+
 }

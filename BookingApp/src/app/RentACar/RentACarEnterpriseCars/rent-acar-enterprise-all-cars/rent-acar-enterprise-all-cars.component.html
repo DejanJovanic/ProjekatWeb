@@ -1,133 +1,126 @@
 
 <div class="bg-img">
-  <div class="container">
+  <div *ngIf="role !==  'RentACarAdmin'" class="container">
     <div class="card2" >
-      <form [formGroup]="searchCarsForm">
-        <div class="row">
+      <form [formGroup]="searchCarsForm" >
+          <div class="row">
 
-          <div class="col">
-            <label for="carBrands">Car brand</label>
-              <input type="text" class="form-control" formControlName="carBrand" id="carBrands" placeholder="Car brand">
-                
-          </div>
-
-          <div class="col">
-            <label for="carModels">Car model</label>
-              <input type="text" class="form-control" formControlName="carModel" id="carModels" placeholder="Car model">
-                
-          </div>
-        </div>
-        <br/>
-        <div class="row">
-
-          <div class="col">
-            <label for="carTypes">Choose a car type</label>
-              <select class="form-control" formControlName="carType" id="carTypes">
-                <option value=""> - </option>
-                <option value="limousine">Limousine</option>
-                <option value="caravan">Caravan</option>
-                <option value="suv">SUV</option>
-             </select>
-          </div>
-
-          <div class="col">
-            <label for="carTransmissions">Choose a transmission type</label>
-              <select class="form-control" formControlName="carTransmission" id="carTransmissions">
-                <option value=""> - </option>
-                <option value="automatic">Automatic</option>
-                <option value="manual">Manual</option>
-             
-             </select>
-          </div>
-        </div>
-        <br/>
-        <div class="row">
-
-          <div class="col">
-            <label for="carFuels">Choose a fuel type</label>
-              <select class="form-control" formControlName="carFuel" id="carFuels">
-                <option value=""> - </option>
-                <option value="gasoline">Gasoline</option>
-                <option value="diesel">Diesel</option>
-             </select>
-          </div>
-
-          <div class="col">
-            <label for="carSeats">Number of seats</label>
-            <select class="form-control" formControlName="carNumberOfSeats" id="carSeats">
-              <option value=""> - </option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="5">5</option>
-              <option value="7">7</option>
-           </select>
-                
-          </div>
-        </div>
-        <br/>
-        <div class="row">
             <div class="col">
-              <label for="carYearFrom">Year of production from</label>
-                <input id="carYearFrom" type="number" class="form-control" formControlName="carYearOfProductionFrom" min="1990" max = "2020" placeholder="Year of production from">
+              <label for="carBrands">Car brand</label>
+                <input type="text" class="form-control" formControlName="carBrand" id="carBrands" placeholder="Car brand">
+                  
             </div>
 
             <div class="col">
-              <label for="carYearTo">Year of production to</label>
-                <input id="carYearTo" type="number" class="form-control" formControlName="carYearOfProductionTo" min="1991" max = "2020" placeholder="Year of production to">
+              <label for="carModels">Car model</label>
+                <input type="text" class="form-control" formControlName="carModel" id="carModels" placeholder="Car model">
+                  
             </div>
-        </div>
-      <br/>
-      <div class="row">
-        <div class="col">
-          <label for="priceFrom">Price from</label>
-            <input id="priceFrom"type="number" class="form-control" formControlName="carPriceFrom"  min="0" placeholder="Price from">
-        </div>
+          </div>
+          <br/>
+          <div class="row">
 
-        <div class="col">
-          <label for="priceTo">Price to</label>
-            <input id="priceTo" type="number" class="form-control" formControlName="carPriceTo" min="0" placeholder="Price to">
-        </div>
-      </div>
+            <div class="col">
+              <label for="carTypes">Choose a car type</label>
+                <select class="form-control" formControlName="carType" id="carTypes">
+                  <option value=""> - </option>
+                  <option value="limousine">Limousine</option>
+                  <option value="caravan">Caravan</option>
+                  <option value="suv">SUV</option>
+              </select>
+            </div>
 
+            <div class="col">
+              <label for="carTransmissions">Choose a transmission type</label>
+                <select class="form-control" formControlName="carTransmission" id="carTransmissions">
+                  <option value=""> - </option>
+                  <option value="automatic">Automatic</option>
+                  <option value="manual">Manual</option>
+              
+              </select>
+            </div>
+          </div>
+          <br/>
+          <div class="row">
 
-        
+            <div class="col">
+              <label for="carFuels">Choose a fuel type</label>
+                <select class="form-control" formControlName="carFuel" id="carFuels">
+                  <option value=""> - </option>
+                  <option value="gasoline">Gasoline</option>
+                  <option value="diesel">Diesel</option>
+              </select>
+            </div>
+
+            <div class="col">
+              <label for="carSeats">Number of seats</label>
+              <select class="form-control" formControlName="carNumberOfSeats" id="carSeats">
+                <option value=""> - </option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="7">7</option>
+              </select>
+                  
+            </div>
+          </div>
+          <br/>
+          <div class="row">
+              <div class="col">
+                <label for="carYearFrom">Year of production from</label>
+                  <input id="carYearFrom" type="number" class="form-control" formControlName="carYearOfProductionFrom" min="1990" max = "2020" placeholder="Year of production from">
+              </div>
+
+              <div class="col">
+                <label for="carYearTo">Year of production to</label>
+                  <input id="carYearTo" type="number" class="form-control" formControlName="carYearOfProductionTo" min="1991" max = "2020" placeholder="Year of production to">
+              </div>
+          </div>
         <br/>
         <div class="row">
-          
           <div class="col">
-            <button type="button" class="btn btn-outline-primary btn-rounded " (click)="showAllCars()"><i class="fas fa-car mr-1"></i>Show all cars</button>
+            <label for="priceFrom">Price per day from</label>
+              <input id="priceFrom"type="number" class="form-control" formControlName="carPriceFrom"  min="0" placeholder="Price per day from">
           </div>
-          
-          
-            <div class="col">
-              <button type="button" id="searchButton" class="btn btn-outline-primary btn-rounded " (click)="searchCars()"><i class="fas fa-search mr-1"></i>Search</button>
-            </div>
 
+          <div class="col">
+            <label for="priceTo">Price per day to</label>
+              <input id="priceTo" type="number" class="form-control" formControlName="carPriceTo" min="0" placeholder="Price per day to">
+          </div>
         </div>
+
+
+          
+          <br/>
+          <div class="row">
+            
+            <div class="col">
+              <button type="button" class="btn btn-outline-primary btn-rounded " (click)="showAllCars()"><i class="fas fa-car mr-1"></i>Show all cars</button>
+            </div>
+            
+            
+              <div class="col">
+                <button type="button" id="searchButton" class="btn btn-outline-primary btn-rounded " (click)="searchCars()"><i class="fas fa-search mr-1"></i>Search</button>
+              </div>
+
+          </div>
           
       </form>
   </div>
 </div>
 <section class="pricing py-5">
+  <button *ngIf="role ===  'RentACarAdmin'" (click) = "openCarAddModal(Enterprise.EnterpriseId)" type="button"  class="btn btn-outline-primary btn-rounded "><i class="fas fa-plus mr-1"></i> Add </button>
     <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" [animation]="'fade'">
       <mdb-carousel-item class="d-flex justify-content-center"  *ngFor="let item of slides; let i = index">
-            
               <div class="col-md-4" *ngFor="let car of item; let carIndex = index">
-                
-                  <div class="card" (click) = "openCarDetailsModal(car.CarId, Enterprise.EnterpriseId)" title="Click for more car details">
+                  <div class="card" (click) = "openCarDetailsModal(car.CarId)" title="Click for more car details">
                     <div class="card-body">
                       <h5 class="card-title text-muted text-uppercase text-center">{{car.CarBrand}} {{car.CarModel}}</h5>
                       <h6 class="card-price text-center">{{car.CarPrice}}$<span class="period">/day</span></h6>
-                      
-                    
                     </div>
                   </div>
-                 
-               
-              </div>
-           
+              </div> 
       </mdb-carousel-item>
     </mdb-carousel>
     </section>
-
   </div>
