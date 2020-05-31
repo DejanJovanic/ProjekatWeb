@@ -22,6 +22,7 @@ export class MainComponent implements OnInit {
    }
    Logout(){
      sessionStorage.clear();
+     localStorage.clear();
      //this.loggedIn = false;
      this.router.navigateByUrl('/Login', {skipLocationChange: true})
      .then(() => this.router.navigate(['/main/Airlines']));

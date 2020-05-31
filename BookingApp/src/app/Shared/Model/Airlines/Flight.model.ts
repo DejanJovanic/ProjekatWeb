@@ -1,13 +1,16 @@
 import { AirlineCompany } from './AirlineCompany.model';
 import { FlightClass } from './FlightClass.model';
+import { Airplane } from './Airplane.model';
 
 export class Flight{
     id : number;
-    airplaneID : number;
+    airplane : Airplane;
     startLocation : string;
     startDate : Date;
-    finishLocation : string;
-    finishDate : Date;
+    endLocation : string;
+    endDate : Date;
+    startDateBack : Date;
+    endDateBack : Date;
     travelTime : string;
     travelDistance : number;
     numberOfStops : number;

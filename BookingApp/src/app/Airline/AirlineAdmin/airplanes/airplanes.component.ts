@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Airplane } from 'src/app/Shared/Model/Airlines/Airplane.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddAirplaneModalComponent } from '../add-airplane-modal/add-airplane-modal.component';
+import { AirlineAdminDataService } from '../Services/AirlineAdminData/airline-admin-data.service';
+import { UserCacheService } from 'src/app/Users/Services/UserCache/user-cache.service';
 
 @Component({
   selector: 'app-airplanes',
@@ -13,7 +15,7 @@ import { AddAirplaneModalComponent } from '../add-airplane-modal/add-airplane-mo
 export class AirplanesComponent implements OnInit {
 
   items : Observable<Airplane[]>
-  constructor(private service : AirplaneService, private modal : NgbModal) {
+  constructor(private service : AirplaneService,private adminService : AirlineAdminDataService, private modal : NgbModal) {
     this.items = service.airplanes;
    }
 
@@ -23,7 +25,7 @@ export class AirplanesComponent implements OnInit {
   AddAirplane(){
     let ref = this.modal.open(AddAirplaneModalComponent,{size : 'lg'})
     ref.componentInstance.CreatedAirplane.subscribe(item =>{
-      this.service.SetAirplane(item).subscribe(i =>{});
+      this.service.SetAirplane(item).subscribe(i => this.adminService.GetAirlineData());
     })
   }
 

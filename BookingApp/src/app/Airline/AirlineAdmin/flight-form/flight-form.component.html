@@ -206,25 +206,6 @@
         <div class="col-sm-6 form-group">
             <div class="row">
                 <div class="col-sm-5">
-                    <label for="airplane">
-                        Airplane:
-                    </label>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <select id="airplane" class="form-control" formControlName="airplane">
-                        <option [ngValue]="item.id" *ngFor="let item of airplanes">
-                            {{item.name}}
-                        </option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 form-group">
-            <div class="row">
-                <div class="col-sm-5">
                     <label for="class">
                         Flight class:
                     </label>
@@ -237,6 +218,36 @@
                             {{item}}
                         </option>
                     </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-sm-6 form-group">
+            <div class="row">
+                <div class="col-sm-5">
+                    <label for="rows">
+                        Rows:
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <input type="text" id="rows" class="form-control" formControlName="rows"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 form-group">
+            <div class="row">
+                <div class="col-sm-5">
+                    <label for="cols">
+                        Columns:
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <input type="text" id="cols" class="form-control"  formControlName="cols"/>
                 </div>
             </div>
         </div>

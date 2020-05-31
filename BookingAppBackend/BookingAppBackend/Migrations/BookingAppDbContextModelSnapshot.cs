@@ -19,6 +19,276 @@ namespace BookingAppBackend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.Airline", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Destinations")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.ToTable("Airlines");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 100,
+                            Description = "Really good airline !!!!",
+                            Destinations = "[]"
+                        },
+                        new
+                        {
+                            Id = 101,
+                            Description = "Really good airline !!!!",
+                            Destinations = "[]"
+                        },
+                        new
+                        {
+                            Id = 102,
+                            Description = "Really good airline !!!!",
+                            Destinations = "[]"
+                        });
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.AirlineAddress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Latitude")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Longitude")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AirlineAddress");
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.Airplane", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AirlineId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Columns")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rows")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AirlineId");
+
+                    b.ToTable("Airplane");
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.DisabledSeat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AirplaneId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Column")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Row")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AirplaneId");
+
+                    b.ToTable("DisabledSeat");
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.FastFlight", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AirlineId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Column")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FlightId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Row")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AirlineId");
+
+                    b.HasIndex("FlightId");
+
+                    b.ToTable("FastFlight");
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.Flight", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AirlineId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AirplaneId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EndDateBack")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EndLocation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FlightClass")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsRoundTrip")
+                        .HasColumnType("bit");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDateBack")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("StartLocation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StopsLocations")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AirlineId");
+
+                    b.HasIndex("AirplaneId");
+
+                    b.ToTable("Flight");
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.RemovedSeat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AirplaneId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Column")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Row")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AirplaneId");
+
+                    b.ToTable("RemovedSeat");
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AirlineId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Column")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FlightId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Row")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TicketOwnerUsername")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AirlineId");
+
+                    b.HasIndex("FlightId");
+
+                    b.HasIndex("TicketOwnerUsername");
+
+                    b.ToTable("Ticket");
+                });
+
             modelBuilder.Entity("BookingAppBackend.Model.AuthentificationAndAuthorization.AuthentificationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -94,14 +364,14 @@ namespace BookingAppBackend.Migrations
                         {
                             Id = "0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4388c6c4-0037-4f4c-97e8-e386a226dd69",
+                            ConcurrencyStamp = "826b87ef-feff-452c-b8b3-d6451000b50f",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "User0",
                             Password = "user0",
                             PhoneNumberConfirmed = false,
                             Role = "User",
-                            SecurityStamp = "75322bb2-0a40-4650-bcc9-760866b85e86",
+                            SecurityStamp = "b4113e43-56af-4d21-b2c2-5c95863fe5c3",
                             TwoFactorEnabled = false,
                             UserName = "user0"
                         },
@@ -109,14 +379,14 @@ namespace BookingAppBackend.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ec103ff0-43d9-4e50-9a6e-b92a11c067cd",
+                            ConcurrencyStamp = "3112ebe0-e470-4445-8992-fab22884cfec",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "User1",
                             Password = "user1",
                             PhoneNumberConfirmed = false,
                             Role = "User",
-                            SecurityStamp = "63d0241b-f04f-4ec9-a3e7-68b63883d93d",
+                            SecurityStamp = "13dcc246-6db1-4050-9d2e-321b09f3bafe",
                             TwoFactorEnabled = false,
                             UserName = "user1"
                         },
@@ -124,14 +394,14 @@ namespace BookingAppBackend.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1fdc8c5c-9bd9-4163-ae6f-4fa8f32fb22e",
+                            ConcurrencyStamp = "21ff06f3-2740-410c-a715-b514ce95582b",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "User2",
                             Password = "user2",
                             PhoneNumberConfirmed = false,
                             Role = "User",
-                            SecurityStamp = "68386eca-4af9-4f1d-b482-286c2aa277c6",
+                            SecurityStamp = "9b1a42e6-0977-44b4-b4b9-f6b1253eeafe",
                             TwoFactorEnabled = false,
                             UserName = "user2"
                         },
@@ -139,14 +409,14 @@ namespace BookingAppBackend.Migrations
                         {
                             Id = "3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2348a12f-7dcb-4a8c-aee3-cc2bad7e39b8",
+                            ConcurrencyStamp = "f12547a1-3554-4322-8585-3088bd61a4bd",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "AirlineAdmin0",
                             Password = "airlineAdmin0",
                             PhoneNumberConfirmed = false,
                             Role = "AirlineAdmin",
-                            SecurityStamp = "38a35796-56f3-4b3b-bff1-ef7f71b90727",
+                            SecurityStamp = "79311b20-ab60-4241-8b0a-6e33c121a151",
                             TwoFactorEnabled = false,
                             UserName = "airlineAdmin0"
                         },
@@ -154,14 +424,14 @@ namespace BookingAppBackend.Migrations
                         {
                             Id = "4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e39bfc84-adf9-43e5-9009-527816fb2ebb",
+                            ConcurrencyStamp = "2fdfba2e-1e8a-4ff1-811b-77ed4eea4e45",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "AirlineAdmin1",
                             Password = "airlineAdmin1",
                             PhoneNumberConfirmed = false,
                             Role = "AirlineAdmin",
-                            SecurityStamp = "acd96e40-7f19-45e2-832a-5dc08933013c",
+                            SecurityStamp = "a7ab1d77-c877-47b9-88bf-012523fa7ce3",
                             TwoFactorEnabled = false,
                             UserName = "airlineAdmin1"
                         },
@@ -169,14 +439,14 @@ namespace BookingAppBackend.Migrations
                         {
                             Id = "5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cc05905e-91a4-43ef-bb45-79496dbdec5d",
+                            ConcurrencyStamp = "ffd09b7c-f4a5-4128-8dd6-f66f83e3f709",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "AirlineAdmin2",
                             Password = "airlineAdmin2",
                             PhoneNumberConfirmed = false,
                             Role = "AirlineAdmin",
-                            SecurityStamp = "51a5cd76-5c48-4278-a06c-13e17735633e",
+                            SecurityStamp = "6a0636e7-aae9-4896-8d90-3c8123e0b577",
                             TwoFactorEnabled = false,
                             UserName = "airlineAdmin2"
                         });
@@ -187,8 +457,8 @@ namespace BookingAppBackend.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AirlineID")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AirlineID")
+                        .HasColumnType("int");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
@@ -210,7 +480,7 @@ namespace BookingAppBackend.Migrations
                         new
                         {
                             Username = "airlineadmin0",
-                            AirlineID = "0",
+                            AirlineID = 100,
                             LastName = "AirlineAdmin0",
                             Name = "AirlineAdmin0",
                             Password = "airlineadmin0",
@@ -219,7 +489,7 @@ namespace BookingAppBackend.Migrations
                         new
                         {
                             Username = "airlineadmin1",
-                            AirlineID = "1",
+                            AirlineID = 101,
                             LastName = "AirlineAdmin1",
                             Name = "AirlineAdmin1",
                             Password = "airlineadmin1",
@@ -228,7 +498,7 @@ namespace BookingAppBackend.Migrations
                         new
                         {
                             Username = "airlineadmin2",
-                            AirlineID = "2",
+                            AirlineID = 102,
                             LastName = "AirlineAdmin2",
                             Name = "AirlineAdmin2",
                             Password = "airlineadmin2",
@@ -417,6 +687,71 @@ namespace BookingAppBackend.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.Airline", b =>
+                {
+                    b.HasOne("BookingAppBackend.Model.Airlines.AirlineAddress", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.Airplane", b =>
+                {
+                    b.HasOne("BookingAppBackend.Model.Airlines.Airline", null)
+                        .WithMany("Airplanes")
+                        .HasForeignKey("AirlineId");
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.DisabledSeat", b =>
+                {
+                    b.HasOne("BookingAppBackend.Model.Airlines.Airplane", null)
+                        .WithMany("DisabledSeats")
+                        .HasForeignKey("AirplaneId");
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.FastFlight", b =>
+                {
+                    b.HasOne("BookingAppBackend.Model.Airlines.Airline", null)
+                        .WithMany("FastFlights")
+                        .HasForeignKey("AirlineId");
+
+                    b.HasOne("BookingAppBackend.Model.Airlines.Flight", "Flight")
+                        .WithMany()
+                        .HasForeignKey("FlightId");
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.Flight", b =>
+                {
+                    b.HasOne("BookingAppBackend.Model.Airlines.Airline", null)
+                        .WithMany("Flights")
+                        .HasForeignKey("AirlineId");
+
+                    b.HasOne("BookingAppBackend.Model.Airlines.Airplane", "Airplane")
+                        .WithMany()
+                        .HasForeignKey("AirplaneId");
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.RemovedSeat", b =>
+                {
+                    b.HasOne("BookingAppBackend.Model.Airlines.Airplane", null)
+                        .WithMany("RemovedSeats")
+                        .HasForeignKey("AirplaneId");
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.Ticket", b =>
+                {
+                    b.HasOne("BookingAppBackend.Model.Airlines.Airline", null)
+                        .WithMany("Tickets")
+                        .HasForeignKey("AirlineId");
+
+                    b.HasOne("BookingAppBackend.Model.Airlines.Flight", "Flight")
+                        .WithMany()
+                        .HasForeignKey("FlightId");
+
+                    b.HasOne("BookingAppBackend.Model.Users.User", "TicketOwner")
+                        .WithMany()
+                        .HasForeignKey("TicketOwnerUsername");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

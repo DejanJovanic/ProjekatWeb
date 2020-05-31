@@ -1,4 +1,6 @@
-export class User{
+import { IUser } from './IUser.model';
+
+export class User implements IUser{
     public username : string;
     public email : string;
     public name : string;

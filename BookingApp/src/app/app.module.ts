@@ -55,6 +55,8 @@ import { SeatsComponent } from './Airline/SeatReservation/seats/seats.component'
 import { EditFastReservationSeatsComponent } from './Airline/AirlineAdmin/edit-fast-reservation-seats/edit-fast-reservation-seats.component';
 import { RemoveSeatComponent } from './Airline/AirlineAdmin/remove-seat/remove-seat.component';
 import { RentACarReservationComponent } from './RentACar/RentACarSetReservation/rent-acar-reservation/rent-acar-reservation.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BearerInterceptor } from './Shared/Interceptors/BearerInterceptor/bearer.interceptor';
 import { RentACarDiscountsComponent } from './RentACar/RentACarEnterpriseDiscounts/rent-acar-discounts/rent-acar-discounts.component';
 import { RentACarAdminEnterpriseComponent } from './RentACar/RentACarAdmin/rent-acar-admin-enterprise/rent-acar-admin-enterprise.component';
 import { RentACarEnterpriseEditModalComponent } from './RentACar/RentACarAdmin/rent-acar-enterprise-edit-modal/rent-acar-enterprise-edit-modal.component';
@@ -134,9 +136,10 @@ import { RentACarBranchDetailsModalComponent } from './RentACar/rent-acar-branch
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MDBBootstrapModule
+    MDBBootstrapModule,
+    HttpClientModule
   ],
-  providers: [CookieService, DatePipe],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: BearerInterceptor, multi: true},CookieService, DatePipe],
  
   bootstrap: [FrameComponent]
 })

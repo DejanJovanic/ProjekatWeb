@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using BookingAppBackend.Database.Contex;
+using BookingAppBackend.Database.Interfaces;
+using BookingAppBackend.Database.Repository;
 using BookingAppBackend.Model;
 using BookingAppBackend.Model.AuthentificationAndAuthorization;
 using BookingAppBackend.Model.Users;
+using BookingAppBackend.Service.Airline;
+using BookingAppBackend.Service.AirlineAdmin;
+using BookingAppBackend.Service.Airplane;
 using BookingAppBackend.Service.AuthentificationAndAuthorization;
+using BookingAppBackend.Service.Flight;
+using BookingAppBackend.Service.GeneralUser;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,6 +44,7 @@ namespace BookingAppBackend
         {
             services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
             services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<BookingAppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("BookingServiceConnection")));
 
@@ -82,27 +91,46 @@ namespace BookingAppBackend
 
             //DI services
             services.AddScoped<ILoginService, LoginService>();
-
+            services.AddScoped<IGeneralUserService, GeneralUserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAirlineAdminRepository, AirlineAdminRepository>();
+            services.AddScoped<IAirlineRepository, AirlineRepository>();
+            services.AddScoped<IAirplaneRepository, AirplaneRepository>();
+            services.AddScoped<IAirlineService, AirlineService>();
+            services.AddScoped<IAirplaneService, AirplaneService>();
+            services.AddScoped<IAirlineAdminService, AirlineAdminService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IFlightRepository, FlightRepository>();
+            services.AddScoped<IFlightService, FlightService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.Use(async (ctx, next) =>
+            {
+                await next();
+                if (ctx.Response.StatusCode == 204)
+                {
+                    ctx.Response.ContentLength = 0;
+                }
+            });
+                
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
+          
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseCors(builder =>
-                builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-
-            );
+            app.UseCors(builder => {
+                builder.WithOrigins("http://localhost:4200")
+                  .AllowAnyMethod()
+                  .AllowAnyHeader()
+                  .AllowCredentials();
+            });
 
             app.UseAuthentication();
 
@@ -112,6 +140,7 @@ namespace BookingAppBackend
             {
                 endpoints.MapControllers();
             });
+            ///app.UseMvc();
         }
     }
 }

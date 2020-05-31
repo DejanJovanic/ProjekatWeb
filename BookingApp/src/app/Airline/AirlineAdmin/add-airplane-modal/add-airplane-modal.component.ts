@@ -63,7 +63,32 @@ export class AddAirplaneModalComponent implements OnInit {
 
   OnSubmit(){
     if(this.form.valid){
-      let temp = this.form.value as Airplane;
+      let temp = new Airplane()
+      /* temp.Name = this.form.value.name;
+      if(this.form.value.firstClass){
+        temp.FirstRows = +this.form.value.firstRows
+        temp.FirstCols = +this.form.value.firstCols
+      }
+      else{
+        temp.FirstRows = 0
+        temp.FirstCols = 0
+      }
+      if(this.form.value.businessClass){
+        temp.BusinessRows = +this.form.value.businessRows
+        temp.BusinessCols = +this.form.value.businessCols
+      }
+      else{
+        temp.BusinessRows = 0
+        temp.BusinessCols = 0
+      }
+      if(this.form.value.economyClass){
+        temp.EconomyRows = +this.form.value.economyRows
+        temp.EconomyCols = +this.form.value.economyCols
+      }
+      else{
+        temp.EconomyRows = 0
+        temp.EconomyCols = 0
+      } */
       this.CreatedAirplane.emit(temp);
       this.activeModal.close();
     }
