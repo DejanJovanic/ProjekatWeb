@@ -4,27 +4,18 @@
           <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" [animation]="'fade'">
             <mdb-carousel-item class="d-flex justify-content-center" *ngFor="let item of slides; let i = index">
               <div class="col-md-4" *ngFor="let enterpriseOffer of item; let enterpriseIndex = index">
-                <div class="card" >
+                <div class="card" title="Click for more details about this special offer." (click) = "openSpecialOfferDetails(enterpriseOffer.SpecialOfferId)">
                   <div class="card-body">
                     <h5 class="card-title text-muted text-uppercase text-center">{{enterpriseOffer.OfferName}}</h5>
                     <h6 class="card-price text-center">{{enterpriseOffer.OfferPrice}}$<span class="period">/day</span></h6>
-                    <hr>
-                    <div class="row">
-          
-                      <div class="col">
-                        <button *ngIf="role ===  'RentACarAdmin'" (click) = "openSpecialOfferEditModal(enterpriseOffer.SpecialOfferId, Enterprise.EnterpriseId)" type="button" class="btn btn-outline-primary btn-rounded "><i class="fas fa-edit mr-1"></i> Edit </button>
-                      </div>
-                      
-                      
-                        <div class="col">
-                          <button *ngIf="role ===  'RentACarAdmin'" type="button" id="dltBtn" class="btn btn-outline-primary btn-rounded "><i class="fas fa-trash mr-1"></i> Delete </button>
-                        </div>
-            
-                    </div>
+                    
                   
                   </div>
                 </div>
+                <br/>
+                <br/>
             </div>
+            
         </mdb-carousel-item>
       </mdb-carousel> 
       

@@ -67,6 +67,7 @@ import { RentACarAddBranchModalComponent } from './RentACar/RentACarAdmin/rent-a
 import { RentACarAddCarModalComponent } from './RentACar/RentACarAdmin/rent-acar-add-car-modal/rent-acar-add-car-modal.component';
 import { RentACarEditCarModalComponent } from './RentACar/RentACarAdmin/rent-acar-edit-car-modal/rent-acar-edit-car-modal.component';
 import { RentACarBranchDetailsModalComponent } from './RentACar/rent-acar-branch-details-modal/rent-acar-branch-details-modal.component';
+import { RentACarSpecialOfferDetailsModalComponent } from './RentACar/rent-acar-special-offer-details-modal/rent-acar-special-offer-details-modal.component';
 
 @NgModule({
   declarations: [
@@ -127,7 +128,8 @@ import { RentACarBranchDetailsModalComponent } from './RentACar/rent-acar-branch
     RentACarAddBranchModalComponent,
     RentACarAddCarModalComponent,
     RentACarEditCarModalComponent,
-    RentACarBranchDetailsModalComponent
+    RentACarBranchDetailsModalComponent,
+    RentACarSpecialOfferDetailsModalComponent
   ],
   imports: [
     

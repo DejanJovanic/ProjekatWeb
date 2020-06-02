@@ -107,7 +107,7 @@ hr {
 }
 .modal-body{
   
-    background: linear-gradient(to bottom, #5c4d42cc 0%, rgba(92, 77, 66, 0.8) 100%),url('../../../../assets/RentACarEnterpriseBackgroundForAllCars.jpg') no-repeat center center fixed;
+    background: linear-gradient(to bottom, #5c4d42cc 0%, rgba(92, 77, 66, 0.8) 100%),url('../../../../assets/RentACarEnterpriseBackgroundForProfile.jpg')  no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

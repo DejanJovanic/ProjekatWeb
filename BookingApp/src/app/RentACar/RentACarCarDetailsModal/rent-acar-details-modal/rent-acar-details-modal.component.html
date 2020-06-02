@@ -1,61 +1,61 @@
 
 
 <div class="modal-body">
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    <h6 class="card-price text-center"><span class="period"><i class="fas fa-car"></i> Car details <i class="fas fa-car"></i></span></h6>
-   
-   
-<div class="card">
-    <div class="card-body">
-      <h6 class="card-price text-center"><span class="period">{{item.CarPrice}}$/day</span></h6>
-      <hr>
-      <ul class="fa-ul">
-        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Brand: {{item.CarBrand}}</li>
-        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Model: {{item.CarModel}}</li>
-        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Year of production: {{item.CarYearOfProduction}}</li>
-        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Type: {{item.CarType}}</li>
-        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Number of seats: {{item.CarNumberOfSeats}}</li>
-        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Fuel: {{item.CarFuelType}}</li>
-        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Transmission type: {{item.CarTransmissionType}}</li>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h6 class="card-price text-center"><span class="period"><i class="fas fa-car"></i> Car details <i class="fas fa-car"></i></span></h6>
+    
+    
+    <div class="card">
+        <div class="card-body">
+        <h6 class="card-price text-center"><span class="period">{{item.CarPrice}}$/day</span></h6>
         <hr>
-        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Rating: 
-            <div class="d-flex justify-content-center">
-                <div class="item">
-                    <div *ngFor="let i of [0,1,2,3,4]">
-                        <div class="fav fav-star-default "></div>
+        <ul class="fa-ul">
+            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Brand: {{item.CarBrand}}</li>
+            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Model: {{item.CarModel}}</li>
+            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Year of production: {{item.CarYearOfProduction}}</li>
+            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Type: {{item.CarType}}</li>
+            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Number of seats: {{item.CarNumberOfSeats}}</li>
+            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Fuel: {{item.CarFuelType}}</li>
+            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Transmission type: {{item.CarTransmissionType}}</li>
+            <hr>
+            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Rating: 
+                <div class="d-flex justify-content-center">
+                    <div class="item">
+                        <div *ngFor="let i of [0,1,2,3,4]">
+                            <div class="fav fav-star-default "></div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="item">
-                    <div *ngFor="let i of animeArr;last as isLast">
-                        <div class="fav fav-star is-animating" [ngClass]= "{'isHalf': isHalf}"></div>
-                        <div class="halfstar1" *ngIf="isHalf">&#x2605;</div>
-                        <div class="halfstar2" *ngIf="isHalf">&#x2605;</div>
+                    <div class="item">
+                        <div *ngFor="let i of animeArr;last as isLast">
+                            <div class="fav fav-star is-animating" [ngClass]= "{'isHalf': isHalf}"></div>
+                            <div class="halfstar1" *ngIf="isHalf">&#x2605;</div>
+                            <div class="halfstar2" *ngIf="isHalf">&#x2605;</div>
+                        </div>
                     </div>
-                </div>
+            </div>
+        </li>
+        <hr>
+        <div class="row">
+            
+            <div class="col">
+                <button type="button" (click)="activeModal.close('Close click')" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-times mr-1"></i> Close </button>
+            </div>
+
+            <div class="col">
+                <button *ngIf="role ===  'RentACarAdmin'" [disabled] = "disableButtons" type="button" (click)="openEditCarModal(item.CarId)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-edit mr-1"></i> Edit </button>
+            </div>
+
+            <div class="col">
+                <button *ngIf="role ===  'RentACarAdmin'" [disabled] = "disableButtons"type="button" (click)="activeModal.close('Close click')" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-trash mr-1"></i> Delete </button>
+            </div>
         </div>
-    </li>
-    <hr>
-    <div class="row">
+
         
-        <div class="col">
-            <button type="button" (click)="activeModal.close('Close click')" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-times mr-1"></i> Close </button>
-        </div>
-
-        <div class="col">
-            <button *ngIf="role ===  'RentACarAdmin'" [disabled] = "disableButtons" type="button" (click)="openEditCarModal(item.CarId)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-edit mr-1"></i> Edit </button>
-        </div>
-
-        <div class="col">
-            <button *ngIf="role ===  'RentACarAdmin'" [disabled] = "disableButtons"type="button" (click)="activeModal.close('Close click')" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-trash mr-1"></i> Delete </button>
+        </ul>
+        
         </div>
     </div>
-
-    
-      </ul>
-    
-    </div>
-  </div>
 </div>
