@@ -62,6 +62,13 @@ import { RentACarAdminEnterpriseComponent } from './RentACar/RentACarAdmin/rent-
 import { RentACarEnterpriseEditModalComponent } from './RentACar/RentACarAdmin/rent-acar-enterprise-edit-modal/rent-acar-enterprise-edit-modal.component';
 import { RentACarEditSpecialOffersModalComponent } from './RentACar/RentACarAdmin/rent-acar-edit-special-offers-modal/rent-acar-edit-special-offers-modal.component';
 import { DisableSeatComponent } from './Airline/AirlineAdmin/disable-seat/disable-seat.component';
+import { RentACarAddSpecialOfferModalComponent } from './RentACar/RentACarAdmin/rent-acar-add-special-offer-modal/rent-acar-add-special-offer-modal.component';
+import { RentACarEditBranchModalComponent } from './RentACar/RentACarAdmin/rent-acar-edit-branch-modal/rent-acar-edit-branch-modal.component';
+import { RentACarAddBranchModalComponent } from './RentACar/RentACarAdmin/rent-acar-add-branch-modal/rent-acar-add-branch-modal.component';
+import { RentACarAddCarModalComponent } from './RentACar/RentACarAdmin/rent-acar-add-car-modal/rent-acar-add-car-modal.component';
+import { RentACarEditCarModalComponent } from './RentACar/RentACarAdmin/rent-acar-edit-car-modal/rent-acar-edit-car-modal.component';
+import { RentACarBranchDetailsModalComponent } from './RentACar/rent-acar-branch-details-modal/rent-acar-branch-details-modal.component';
+import { RentACarSpecialOfferDetailsModalComponent } from './RentACar/rent-acar-special-offer-details-modal/rent-acar-special-offer-details-modal.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +124,14 @@ import { DisableSeatComponent } from './Airline/AirlineAdmin/disable-seat/disabl
     RentACarAdminEnterpriseComponent,
     RentACarEnterpriseEditModalComponent,
     RentACarEditSpecialOffersModalComponent,
-    DisableSeatComponent
+    DisableSeatComponent,
+    RentACarAddSpecialOfferModalComponent,
+    RentACarEditBranchModalComponent,
+    RentACarAddBranchModalComponent,
+    RentACarAddCarModalComponent,
+    RentACarEditCarModalComponent,
+    RentACarBranchDetailsModalComponent,
+    RentACarSpecialOfferDetailsModalComponent
   ],
   imports: [
     

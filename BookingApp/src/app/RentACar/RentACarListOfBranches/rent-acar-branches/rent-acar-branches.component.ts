@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnterprise.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RentACarAddBranchModalComponent } from '../../RentACarAdmin/rent-acar-add-branch-modal/rent-acar-add-branch-modal.component';
+import { RentACarBranchDetailsModalComponent } from '../../rent-acar-branch-details-modal/rent-acar-branch-details-modal.component';
 
 @Component({
   selector: 'app-rent-acar-branches',
@@ -13,8 +16,10 @@ export class RentACarBranchesComponent implements OnInit {
   Enterprise: RentACarEnterprise;
   id: number;
   slides: any = [[]];
-  
-  constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute) { }
+  role: string;
+  constructor(private modalService : NgbModal, private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute) { 
+    this.role = sessionStorage["Role"]
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -33,6 +38,16 @@ export class RentACarBranchesComponent implements OnInit {
       R.push(arr.slice(i, i + chunkSize));
     }
     return R;
+  }
+
+  openBranchAddModal(enterpriseId: number){
+    const modalRef = this.modalService.open(RentACarAddBranchModalComponent);
+    modalRef.componentInstance.item = this.EnterpriseService.getRentACarEnterprise(enterpriseId);
+  }
+
+  openBranchDetailsModal(branchId: number){
+    const modalRef = this.modalService.open(RentACarBranchDetailsModalComponent);
+    modalRef.componentInstance.item = this.EnterpriseService.getOneBranch(branchId);
   }
 
 }

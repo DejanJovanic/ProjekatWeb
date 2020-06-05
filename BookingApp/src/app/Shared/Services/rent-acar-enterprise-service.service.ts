@@ -58,60 +58,67 @@ export class RentACarEnterpriseServiceService {
    new SpecialOffer( 
     0, 
     "GPS",
-    8),
+    8,
+    "With this special service you can safely visit any desired location."),
 
     new SpecialOffer( 
     1,
     "Fuel Tank",
-    10),
+    10,
+    "With this special service you can safely drive for miles and miles without thinking about refueling."),
 
     new SpecialOffer( 
     2,
     "Child seat",
-    4),
+    4,
+    "With this special service you do not have to worry about the safety of children. For us, the safety of your children comes first."),
     
     new SpecialOffer(
       3,
       "Winter tires",
-      5
-    ),
+      5,
+      "With this special service, you don't have to worry about snowfall."),
 
     new SpecialOffer(
       4,
       "Summer tires",
-      5
-    ),
+      5,
+      "With this special service you do not have to worry about bad weather."),
 
     new SpecialOffer(
       5,
       "Deep wash",
-      2
-    ),
+      2,
+      "With this special service you don't have to worry about car cleanliness."),
 
     new SpecialOffer(
       6,
       "Polishing wheels",
-      3
-    ),
+      3,
+      "With this special service you get a high gloss for the wheels."),
     new SpecialOffer( 
     7,
     "Travel insurance",
-    10),
+    10,
+    "With this special service you can drive calmly and carefree. In case of accident and injury, our agency covers all costs."),
 
     new SpecialOffer( 
       8,
       "Car insurance",
-      10),
+      10,
+      "With this special service, you don't have to worry about car accidents. In case of bad weather or car damage, our agency covers all costs."),
 
     new SpecialOffer( 
     9,  
     "Aluminium wheels",
-    15),
+    15,
+    "With this special service you get the best wheels. The wheels are resistant to all damage."),
 
     new SpecialOffer( 
     10,
     "Tinted glass",
-    20)
+    20,
+    "With this special service you can enjoy driving like a real 'boss'.")
   ]
   private Branches: Branch[] = [
     new Branch(
@@ -122,7 +129,7 @@ export class RentACarEnterpriseServiceService {
     ),
     new Branch(
       1,
-      "Enterprise Pariz, France",
+      "Enterprise Amiens, France",
       this.RentACarAddress[7]
     ),
     new Branch(
@@ -224,7 +231,7 @@ export class RentACarEnterpriseServiceService {
     
     new Car(
       0,
-      ["Fri May 22 2020", "Sat May 30 2020"],
+      ["Sun May 31 2020", "Sat May 30 2020"],
       "Mon May 18 2020",
       "Thu May 21 2020",
       0,
@@ -240,7 +247,7 @@ export class RentACarEnterpriseServiceService {
     ),
     new Car(
       1,
-      ["Sun Jun 21 2020", "Fri May 29 2020"],
+      ["Sat May 30 2020", "Fri May 29 2020"],
       "Fri May 22 2020",
       "Sat May 23 2020",
       0,
@@ -366,14 +373,31 @@ export class RentACarEnterpriseServiceService {
     return this.RentACars;
   };
 
-  getOneCar(carId:number, enterpriseId:number){
+  getOneCar(carId:number){
     
-    return this.RentACarEnterprises[enterpriseId].EnterpriseCars[carId];
+    for(let i: number = 0; i < this.RentACars.length; i++){
+        if(this.RentACars[i].CarId == carId){
+          return this.RentACars[i];
+        }
+    }
      
-  };
+  }
 
-  getOneSpecialOffer(offerId: number, enterpriseId: number){
-    return this.RentACarEnterprises[enterpriseId].EnterpriseOffers[offerId];
+  getOneBranch(branchId: number){
+    for(let i: number = 0; i < this.Branches.length; i++){
+      if(this.Branches[i].BranchId == branchId){
+        return this.Branches[i];
+      }
+    }
+  }
+
+  getOneSpecialOffer(offerId: number){
+    for(let i: number = 0; i < this.SpecialOffers.length; i++){
+      if(this.SpecialOffers[i].SpecialOfferId == offerId){
+        return this.SpecialOffers[i];
+      }
+    }
+  
   }
 
   getAddress = index => {
@@ -384,4 +408,5 @@ export class RentACarEnterpriseServiceService {
     }
    
   };
+
 }

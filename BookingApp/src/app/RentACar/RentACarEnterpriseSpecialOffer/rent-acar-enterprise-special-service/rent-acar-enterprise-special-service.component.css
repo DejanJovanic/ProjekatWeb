@@ -9,7 +9,9 @@
     background-size: cover;
 }
 
-
+.card:hover {
+    cursor:pointer;
+}
 .pricing .card {
     border: none;
     border-radius: 1rem;

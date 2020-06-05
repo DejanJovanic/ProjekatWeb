@@ -1,0 +1,44 @@
+
+
+<div class="modal-body">
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    <h6 class="card-price text-center"><span class="period"><i class="fas fa-building"></i> Branch details <i class="fas fa-building"></i></span></h6>
+   
+   
+<div class="card">
+    <div class="card-body">
+      <h6 class="card-price text-center"><span class="period"> {{item.BranchName}} </span></h6>
+      <hr>
+      <ul class="fa-ul">
+        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Name: {{item.BranchName}}</li>
+        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Country: {{item.BranchAddress.Country}}</li>
+        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>City: {{item.BranchAddress.City}}</li>
+        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Street: {{item.BranchAddress.Street}}</li>
+        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Street number: {{item.BranchAddress.StreetNo}}</li>
+        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Zip code: {{item.BranchAddress.ZipCode}}</li>
+
+       
+    <div class="row">
+        
+
+        <div class="col">
+            <button *ngIf="role ===  'RentACarAdmin'"  type="button" (click)="openEditBranchModal(item.BranchId)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-edit mr-1"></i> Edit </button>
+        </div>
+
+        <div class="col">
+            <button *ngIf="role ===  'RentACarAdmin'" type="button" (click)="activeModal.close('Close click')" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-trash mr-1"></i> Delete </button>
+        </div>
+
+        <div class="col">
+            <button  type="button" title="Click to see branch location on map" class="btn btn-outline-primary btn-rounded " (click)="activeModal.close('Close click')" [routerLink]="['/EnterpriseLocation/', item.BranchAddress.AddressId]" routerLinkActive="router-link-active" ><i class="fas fa-map-marker-alt mr-1"></i> Location </button>
+        </div>
+    </div>
+
+    
+      </ul>
+    
+    </div>
+  </div>
+</div>

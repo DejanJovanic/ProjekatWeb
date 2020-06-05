@@ -49,9 +49,9 @@ export class RentACarDiscountsComponent implements OnInit {
     }
     return R;
   }
-  openCarDetailsModal(carId: number, enterpriseId: number){
+  openCarDetailsModal(carId: number){
     const modalRef = this.modalService.open(RentACarDetailsModalComponent);
-    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId, enterpriseId);
+    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId);
   }
 
 }

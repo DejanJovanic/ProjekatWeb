@@ -7,6 +7,7 @@ import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnter
 import { Car } from 'src/app/Shared/Model/RentACars/Car.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { RentACarAddCarModalComponent } from '../../RentACarAdmin/rent-acar-add-car-modal/rent-acar-add-car-modal.component';
 
 @Component({
   selector: 'app-rent-acar-enterprise-all-cars',
@@ -49,9 +50,9 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
   }
 
   
-  openCarDetailsModal(carId: number, enterpriseId: number){
+  openCarDetailsModal(carId: number){
     const modalRef = this.modalService.open(RentACarDetailsModalComponent);
-    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId, enterpriseId);
+    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId);
   }
   searchCars(){
     var carBrand = this.searchCarsForm.value.carBrand;
@@ -153,6 +154,11 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
       R.push(arr.slice(i, i + chunkSize));
     }
     return R;
+  }
+
+  openCarAddModal(enterpriseId: number){
+    const modalRef = this.modalService.open(RentACarAddCarModalComponent);
+    modalRef.componentInstance.item = this.EnterpriseService.getRentACarEnterprise(enterpriseId);
   }
 
 
