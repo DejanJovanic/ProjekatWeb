@@ -3,5 +3,6 @@ export enum SeatStatus{
     Taken,
     Selected,
     Fast,
-    Removed
+    Removed,
+    Disabled
 }

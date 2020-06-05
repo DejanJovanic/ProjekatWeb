@@ -40,7 +40,7 @@ namespace BookingAppBackend.Controllers.UserGeneral
                     switch (response.Resource.Role)
                     {
                         case "User":
-                            return Ok(new { User = mapper.Map<UserResource>((User)response.Resource.Item) });
+                            return Ok(new { User = mapper.Map<UserResource>((BookingAppBackend.Model.Users.User)response.Resource.Item) });
                         case "AirlineAdmin":
                             return Ok(new { User = mapper.Map<AirlineAdminResource>((AirlineAdmin)response.Resource.Item) });
                         default:

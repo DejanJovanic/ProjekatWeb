@@ -61,6 +61,7 @@ import { RentACarDiscountsComponent } from './RentACar/RentACarEnterpriseDiscoun
 import { RentACarAdminEnterpriseComponent } from './RentACar/RentACarAdmin/rent-acar-admin-enterprise/rent-acar-admin-enterprise.component';
 import { RentACarEnterpriseEditModalComponent } from './RentACar/RentACarAdmin/rent-acar-enterprise-edit-modal/rent-acar-enterprise-edit-modal.component';
 import { RentACarEditSpecialOffersModalComponent } from './RentACar/RentACarAdmin/rent-acar-edit-special-offers-modal/rent-acar-edit-special-offers-modal.component';
+import { DisableSeatComponent } from './Airline/AirlineAdmin/disable-seat/disable-seat.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +116,8 @@ import { RentACarEditSpecialOffersModalComponent } from './RentACar/RentACarAdmi
     RentACarDiscountsComponent,
     RentACarAdminEnterpriseComponent,
     RentACarEnterpriseEditModalComponent,
-    RentACarEditSpecialOffersModalComponent
+    RentACarEditSpecialOffersModalComponent,
+    DisableSeatComponent
   ],
   imports: [
     

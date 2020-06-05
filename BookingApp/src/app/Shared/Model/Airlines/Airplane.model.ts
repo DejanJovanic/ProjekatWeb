@@ -1,5 +1,9 @@
+import { Seat } from './Seat.model';
+
 export class Airplane{
     id : number;
-    Rows : number;
-    Columns : number;
+    rows : number;
+    columns : number;
+    disabledSeats : Seat[];
+    removedSeats : Seat[];
 }

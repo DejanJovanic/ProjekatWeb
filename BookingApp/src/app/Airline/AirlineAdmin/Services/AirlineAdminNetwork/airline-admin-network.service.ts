@@ -27,6 +27,13 @@ export class AirlineAdminNetworkService {
     }
    )
   }
+
+  public RemoveSeat(row : number,column : number, flightId : number){
+    return this.client.put<Flight>('http://localhost:50000/api/Flight/RemoveSeat',{row:row,column:column,flightId:flightId})
+  }
+  public DisableSeat(row : number,column : number, flightId : number){
+    return this.client.put<Flight>('http://localhost:50000/api/Flight/DisableSeat',{row:row,column:column,flightId:flightId})
+  }
   public SetFlight(flight : Flight) : Observable<boolean>{
     return this.client.post<boolean>('http://localhost:50000/api/Flight/Add',flight)
   }

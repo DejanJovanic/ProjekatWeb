@@ -27,7 +27,7 @@ export class RentACarAdminEnterpriseComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.user.currentUser == null){
-      this.userNetwork.GetUserDetails(sessionStorage["username"]).subscribe(i=> {this.Admin = i as RentACarAdmin});
+      this.userNetwork.GetUserDetails().subscribe(i=> {this.Admin = i as RentACarAdmin});
     }
     else{
     this.Admin = this.user.currentUser as RentACarAdmin;

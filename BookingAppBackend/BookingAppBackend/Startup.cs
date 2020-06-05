@@ -16,6 +16,7 @@ using BookingAppBackend.Service.Airplane;
 using BookingAppBackend.Service.AuthentificationAndAuthorization;
 using BookingAppBackend.Service.Flight;
 using BookingAppBackend.Service.GeneralUser;
+using BookingAppBackend.Service.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -102,6 +103,7 @@ namespace BookingAppBackend
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IFlightRepository, FlightRepository>();
             services.AddScoped<IFlightService, FlightService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

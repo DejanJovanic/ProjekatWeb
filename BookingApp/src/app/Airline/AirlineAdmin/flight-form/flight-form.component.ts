@@ -134,8 +134,8 @@ export class FlightFormComponent implements OnInit {
         temp.isRoundTrip = this.flightForm.value.isRoundTrip;
         temp.price = +this.flightForm.value.price;
         temp.airplane = new Airplane();
-        temp.airplane.Rows = +this.flightForm.value.rows;
-        temp.airplane.Columns = +this.flightForm.value.cols;
+        temp.airplane.rows = +this.flightForm.value.rows;
+        temp.airplane.columns = +this.flightForm.value.cols;
         temp.flightClass = FlightClass[this.flightForm.value.class as keyof typeof FlightClass]
         this.flightEvent.emit(temp);
       }

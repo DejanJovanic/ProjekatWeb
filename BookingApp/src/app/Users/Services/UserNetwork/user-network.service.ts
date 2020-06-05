@@ -3,7 +3,7 @@ import { Observable, of, forkJoin } from 'rxjs';
 import { UserDatabaseService } from 'src/app/Shared/Model/Common/Database/user-database.service';
 import { User } from 'src/app/Shared/Model/Common/User.model';
 import { UserCacheService } from '../UserCache/user-cache.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { IUser } from 'src/app/Shared/Model/Common/IUser.model';
 import { AirlineAdmin } from 'src/app/Shared/Model/Common/AirlineAdmin.model';
@@ -24,7 +24,7 @@ export class UserNetworkService {
       }
       return forkJoin<User>(temp);
   }     
-  public Login(username : string, password : string) : Observable<boolean>{
+/*   public Login(username : string, password : string) : Observable<boolean>{
     let user = this.db.users.find(i => i.username == username)
     if(user != null){
       return of(true);
@@ -32,13 +32,13 @@ export class UserNetworkService {
     else{
       return of(false);
     }   
-  }
-/*   public Login(username : string, password : string) : Observable<string>{
+  } */
+  public Login(username : string, password : string) : Observable<string>{
     return this.client.post<{token:string}>('http://localhost:50000/api/Login/Login',{username : username, password : password}).pipe(
       map(i => i.token) 
     )  
-  } */
-  public GetUserDetails(username : string) : Observable<User>{
+  }
+/*   public GetUserDetails(username : string) : Observable<User>{
     let user = this.db.users.find(i => i.username == username)
     if(user != null){
       return of(user);
@@ -46,8 +46,8 @@ export class UserNetworkService {
     else{
       return of(null);
     }  
-  }
-/*   public GetUserDetails() : Observable<User>{
+  } */
+  public GetUserDetails() : Observable<User>{
     return this.client.get<{user : any}>('http://localhost:50000/api/GeneralUser/GetUser').pipe(
       map( i =>{
         switch(sessionStorage["Role"]){
@@ -66,7 +66,7 @@ export class UserNetworkService {
 
       )
       )
-  } */
+  }
 
   public SearchForFriends(params : {username : string, name: string, lastName : string}) : Observable<{username : string, name: string, lastName : string}[]>{
     return of(this.db.users.filter(i =>{
@@ -89,14 +89,9 @@ export class UserNetworkService {
     }))
   }
   public SendFriendRequest(username : string){
-    let temp = this.db.users.find(i => i.username == username);
-    if(temp != null){
-      let list = this.cache.friends.getValue();
-      if(list.find(i => i.username == temp.username) == null){
-        list.push(temp);
-        this.cache.friends.next(list)
-      }
-     
-    }
+    this.client.post<User>('http://localhost:50000/api/User/SendRequest',   
+    {
+        params :  new HttpParams().set('friendUsername',username)
+    })
   }
 }

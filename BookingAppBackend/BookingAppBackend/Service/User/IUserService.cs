@@ -5,16 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookingAppBackend.Database.Interfaces
+namespace BookingAppBackend.Service.User
 {
-    public interface IUserRepository
+    public interface IUserService
     {
-        Task<User> GetUserAsync(string username);
-        Task<IEnumerable<User>> GetFriends(string username);
-        Task<IEnumerable<User>> GetPendingRequests(string username);
+        Task<IEnumerable<BookingAppBackend.Model.Users.User>> GetFriends(string username);
+        Task<IEnumerable<BookingAppBackend.Model.Users.User>> GetPendingRequests(string username);
+        Task<IEnumerable<BookingAppBackend.Model.Users.User>> Search(UserSearchParams param);
         Task<UserResponse> SendRequest(string username, string friendUsername);
         Task<UserResponse> AcceptRequest(string username, string friendUsername);
         Task<UserResponse> RejectRequest(string username, string friendUsername);
-        Task<IEnumerable<User>> Search(UserSearchParams param);
     }
 }

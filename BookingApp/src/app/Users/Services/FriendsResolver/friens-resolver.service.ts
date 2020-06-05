@@ -13,7 +13,7 @@ export class FriensResolverService implements Resolve<any> {
   constructor(private cacheService : UserCacheService, private networkService : UserNetworkService) { }
   resolve(route: import("@angular/router").ActivatedRouteSnapshot, state: import("@angular/router").RouterStateSnapshot) {
    if(this.cacheService.currentUser == null){
-     return this.networkService.GetUserDetails(this.cacheService.currentUser.username).pipe(switchMap(a =>{
+     return this.networkService.GetUserDetails().pipe(switchMap(a =>{
       if(this.cacheService.friends.getValue() == null){
         return this.networkService.getFriends(this.cacheService.currentUser.username).pipe(tap(item =>{
           this.cacheService.friends.next(item);

@@ -91,6 +91,8 @@ export class SeatsComponent implements OnInit {
         return 'green';
       case SeatStatus.Fast:
         return 'blue';
+      case SeatStatus.Disabled:
+        return 'purple';
     }
   }
   private setDisplay(seats : Seats) : SeatDisplay[]{

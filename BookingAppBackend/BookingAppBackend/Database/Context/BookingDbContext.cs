@@ -24,6 +24,9 @@ namespace BookingAppBackend.Database.Contex
         {
             base.OnModelCreating(builder);
             builder.Entity<User>().HasKey(i => i.Username);
+            builder.Entity<User>().HasMany(i => i.Friends).WithOne().HasForeignKey("ParentId").IsRequired(false);
+            builder.Entity<User>().HasMany(i => i.PendingRequests).WithOne().HasForeignKey("ParentId").IsRequired(false);
+
             builder.Entity<User>().HasData(
                 new User { Name = "User0", LastName = "User0", Username = "user0", Password = "user0", Role = "User" },
                 new User { Name = "User1", LastName = "User1", Username = "user1", Password = "user1", Role = "User" },

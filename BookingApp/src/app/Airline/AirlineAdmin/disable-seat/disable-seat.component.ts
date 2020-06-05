@@ -1,20 +1,20 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AirlineCacheService } from '../../AirlineShared/Services/AirlineCache/airline-cache.service';
-import { Flight } from 'src/app/Shared/Model/Airlines/Flight.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { SeatDisplayState } from 'src/app/Shared/Model/Airlines/SeatDisplayState.model';
-import { Seats } from 'src/app/Shared/Model/Airlines/Seats.model';
 import { SeatStatus } from 'src/app/Shared/Model/Airlines/SeatStatus.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Seats } from 'src/app/Shared/Model/Airlines/Seats.model';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AirlineAdminNetworkService } from '../Services/AirlineAdminNetwork/airline-admin-network.service';
+import { AirlineCacheService } from '../../AirlineShared/Services/AirlineCache/airline-cache.service';
+import { SeatDisplayState } from 'src/app/Shared/Model/Airlines/SeatDisplayState.model';
+import { Flight } from 'src/app/Shared/Model/Airlines/Flight.model';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-remove-seat',
-  templateUrl: './remove-seat.component.html',
-  styleUrls: ['./remove-seat.component.css']
+  selector: 'app-disable-seat',
+  templateUrl: './disable-seat.component.html',
+  styleUrls: ['./disable-seat.component.css']
 })
-export class RemoveSeatComponent implements OnInit, OnDestroy {
+export class DisableSeatComponent implements OnInit, OnDestroy {
 
   flight : Flight
   sub : Subscription;
@@ -28,7 +28,8 @@ export class RemoveSeatComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.form = this.builder.group({
-      index : ['',[Validators.pattern(/^[0-9]+$/),Validators.required]]
+      row : ['',[Validators.pattern(/^[0-9]+$/),Validators.required]],
+      column : ['',[Validators.pattern(/^[0-9]+$/),Validators.required]]
     })
     this.sub = this.route.params.subscribe(i =>{
       let id = +i['id'];
@@ -43,9 +44,7 @@ export class RemoveSeatComponent implements OnInit, OnDestroy {
 
   OnSubmit(){
     if(this.form.valid){
-      let row = Math.floor((+this.form.value.index - 1) / this.seats.colNum);
-      let col = (+this.form.value.index - 1) % this.seats.colNum;
-      this.network.RemoveSeat(row,col,this.flight.id).subscribe(i =>{
+      this.network.DisableSeat(+this.form.value.row - 1,+this.form.value.column - 1,this.flight.id).subscribe(i =>{
         this.router.navigate(['']);
       })
     }

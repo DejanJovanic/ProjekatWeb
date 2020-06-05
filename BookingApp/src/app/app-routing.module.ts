@@ -27,6 +27,8 @@ import { EditFastReservationSeatsComponent } from './Airline/AirlineAdmin/edit-f
 import { RentACarReservationComponent } from './RentACar/RentACarSetReservation/rent-acar-reservation/rent-acar-reservation.component';
 import { RentACarDiscountsComponent } from './RentACar/RentACarEnterpriseDiscounts/rent-acar-discounts/rent-acar-discounts.component';
 import { RentACarAdminEnterpriseComponent } from './RentACar/RentACarAdmin/rent-acar-admin-enterprise/rent-acar-admin-enterprise.component';
+import { RemoveSeatComponent } from './Airline/AirlineAdmin/remove-seat/remove-seat.component';
+import { DisableSeatComponent } from './Airline/AirlineAdmin/disable-seat/disable-seat.component';
 
 const routes: Routes = [
   {path:'',redirectTo: 'main', pathMatch : 'full'},
@@ -37,6 +39,8 @@ const routes: Routes = [
     {path : 'Airplanes', component: AirplanesComponent},
     {path : 'CompanyPreview', component: AirlineAdminCompanyPreviewComponent}
   ]},
+  {path : 'RemoveSeat/:id', component: RemoveSeatComponent},
+  {path : 'DisableSeat/:id', component: DisableSeatComponent},
   {path: 'AddFlight', component: AddFlightComponent},
   {path:'seats/:id', component: SeatReservationComponent, resolve:{details : SeatResolveService}},
   {path:'seatAssignment/:id', component: SeatAssignmentComponent, resolve:{reservation : ReservationResolverService,friends : FriensResolverService}},
