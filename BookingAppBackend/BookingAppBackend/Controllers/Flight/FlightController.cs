@@ -64,7 +64,7 @@ namespace BookingAppBackend.Controllers.Flight
                 return BadRequest(new { Message = ret.Message });
         }
 
-        [HttpPut]
+        [HttpDelete]
         [Authorize(Roles = "AirlineAdmin")]
         [Route("RemoveSeat")]
         public async Task<IActionResult> RemoveSeat(FlightSeatChange param)
