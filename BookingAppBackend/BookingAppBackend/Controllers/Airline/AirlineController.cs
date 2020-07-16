@@ -25,13 +25,14 @@ namespace BookingAppBackend.Controllers.Airline
             this.mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Search")]
-        public async Task<IActionResult> SearchAirlines([FromBody] AirlineSearchParameters param)
+        public async Task<IActionResult> SearchAirlines(AirlineSearchParameters param)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new { Message = "Invalid search parameters supplied" });
             var ret = await service.GetAirlines(param);
+            
             return Ok(new { Airlines = mapper.Map<IEnumerable<AirlineResource>>(ret) }); 
 
         }
@@ -39,7 +40,6 @@ namespace BookingAppBackend.Controllers.Airline
 
         [HttpGet]
         [Authorize(Roles ="AirlineAdmin")]
-        [Route("Get")]
         public async Task<IActionResult> GetAirline(int airlineId)
         {
             if (airlineId < 0)

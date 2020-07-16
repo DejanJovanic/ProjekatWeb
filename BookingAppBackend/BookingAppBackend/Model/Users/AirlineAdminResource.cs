@@ -11,5 +11,7 @@ namespace BookingAppBackend.Model.Users
         public string Name { get; set; }
         public string LastName { get; set; }
         public string AirlineID { get; set; }
+        public string City { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

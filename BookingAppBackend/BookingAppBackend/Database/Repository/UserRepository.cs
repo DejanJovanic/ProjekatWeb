@@ -16,6 +16,7 @@ namespace BookingAppBackend.Database.Repository
 
         public async Task<User> GetUserAsync(string username)
         {
+            if (string.IsNullOrWhiteSpace(username)) return null;
             return await context.RegisteredUsers.FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
         }
 
@@ -81,6 +82,28 @@ namespace BookingAppBackend.Database.Repository
             return new UserResponse(user);
         }
 
+        public async Task<UserResponse> InsertUser(User user)
+        {
+            var temp = await context.RegisteredUsers.FindAsync(user.Username);
+            if (temp == null)
+            {
+                context.RegisteredUsers.Add(user);
+                return new UserResponse(user);
+            }
+            else
+                return new UserResponse("User with given username already exists.");
+        }
+        public async Task<UserResponse> EnableUser(string username)
+        {
+            var temp = await context.RegisteredUsers.FindAsync(username);
+            if (temp != null)
+            {
+                temp.IsEnabled = true;
+                return new UserResponse(temp);
+            }
+            else
+                return new UserResponse("User with given username does not exist.");
+        }
         private bool CheckIfOk(User user,UserSearchParams param)
         {
             bool isOk = true;

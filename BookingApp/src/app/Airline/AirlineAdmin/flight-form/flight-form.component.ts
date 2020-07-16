@@ -7,6 +7,10 @@ import { StopsModalComponent } from '../stops-modal/stops-modal.component';
 import * as moment from 'moment'
 import { Airplane } from 'src/app/Shared/Model/Airlines/Airplane.model';
 import { FlightClass } from 'src/app/Shared/Model/Airlines/FlightClass.model';
+import { LoadWeigth } from 'src/app/Shared/Model/Airlines/LoadWeigth.model';
+import { Extra } from 'src/app/Shared/Model/Airlines/Extra.model';
+import { LoadWeigthComponent } from '../load-weigth/load-weigth.component';
+import { ExtrasComponent } from '../extras/extras.component';
 
 @Component({
   selector: 'app-flight-form',
@@ -41,6 +45,8 @@ export class FlightFormComponent implements OnInit {
   destinationOptions : string[] = []
   classes : string[] = []
   isRoundTrip : boolean;
+  loadWeights : LoadWeigth[] = []
+  paidExtras : Extra[] = []
 
   constructor(private builder : FormBuilder,private cache : AirlineCacheService,
     private modalService : NgbModal) {
@@ -69,7 +75,7 @@ export class FlightFormComponent implements OnInit {
       class : [this.flight ? FlightClass[this.flight.flightClass] : this.classes[0]],
       rows : ['',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
       cols : ['',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
-      
+      loadInCabin : ['',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
     }, {validators : [this.startFinishLocationsValidator,this.startFinishDatesValidator]})
 
     this.flightForm.get('isRoundTrip').valueChanges.subscribe(i =>{
@@ -97,20 +103,30 @@ export class FlightFormComponent implements OnInit {
     ref.componentInstance.selectedPlaces = this.destinationOptions;
   }
 
+  SetLoad(){
+    let ref = this.modalService.open(LoadWeigthComponent)
+    ref.componentInstance.loadOptions = this.loadWeights;
+  }
+
+  SetExtras(){
+    let ref = this.modalService.open(ExtrasComponent)
+    ref.componentInstance.extras = this.paidExtras
+  }
+
   Submit(){
     if(this.flightForm.valid){
       
-      let start = new Date(this.flightForm.value.startDate.year,this.flightForm.value.startDate.month,
+      let start = new Date(this.flightForm.value.startDate.year,this.flightForm.value.startDate.month - 1,
         this.flightForm.value.startDate.day,this.flightForm.value.startTime.hour,this.flightForm.value.startTime.minute)
-      let end = new Date(this.flightForm.value.finishDate.year,this.flightForm.value.finishDate.month,
+      let end = new Date(this.flightForm.value.finishDate.year,this.flightForm.value.finishDate.month - 1,
         this.flightForm.value.finishDate.day,this.flightForm.value.finishTime.hour,this.flightForm.value.finishTime.minute)
       
       let startBack = undefined;
       let endBack = undefined;
       if(this.flightForm.value.isRoundTrip){
-        startBack = new Date(this.flightForm.value.startDateBack.year,this.flightForm.value.startDateBack.month,
+        startBack = new Date(this.flightForm.value.startDateBack.year,this.flightForm.value.startDateBack.month - 1,
           this.flightForm.value.startDateBack.day,this.flightForm.value.startTimeBack.hour,this.flightForm.value.startTimeBack.minute)
-        endBack = new Date(this.flightForm.value.finishDateBack.year,this.flightForm.value.finishDateBack.month,
+        endBack = new Date(this.flightForm.value.finishDateBack.year,this.flightForm.value.finishDateBack.month - 1,
           this.flightForm.value.finishDateBack.day,this.flightForm.value.finishTimeBack.hour,this.flightForm.value.finishTimeBack.minute)
         
       }
@@ -130,9 +146,13 @@ export class FlightFormComponent implements OnInit {
         temp.endLocation = this.flightForm.value.finishLocation;
         temp.numberOfStops = this.destinationOptions.length;
         temp.stopsLocations = this.destinationOptions;
-        temp.travelDistance = this.flightForm.value.travelDistance;
+        temp.extras = this.paidExtras;
+        temp.weightPricings = this.loadWeights;
+        temp.extras = this.paidExtras;
+        temp.distance = +this.flightForm.value.travelDistance;
         temp.isRoundTrip = this.flightForm.value.isRoundTrip;
         temp.price = +this.flightForm.value.price;
+        temp.loadInCabin = +this.flightForm.value.loadInCabin;
         temp.airplane = new Airplane();
         temp.airplane.rows = +this.flightForm.value.rows;
         temp.airplane.columns = +this.flightForm.value.cols;

@@ -18,6 +18,9 @@ namespace BookingAppBackend.Mappers
             CreateMap<AirlineAdmin, AirlineAdminResource>();
             CreateMap<Airline, AirlineResource>();
             CreateMap<Flight, FlightResource>();
+            CreateMap<DisabledSeat, Seat>();
+            CreateMap<RemovedSeat, Seat>();
+            CreateMap<Airplane, AirplaneUser>();
         }
     }
 }

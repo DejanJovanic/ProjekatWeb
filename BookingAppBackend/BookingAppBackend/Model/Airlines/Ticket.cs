@@ -18,5 +18,12 @@ namespace BookingAppBackend.Model.Airlines
         public double Price { get; set; }
         public Flight Flight { get; set; }
         public User TicketOwner { get; set; }
+        public ICollection<PaidExtras> SelectedExtras { get; set; } = new List<PaidExtras>();
+        public double LoadWeight { get; set; }
+        public User InvitedBy { get; set; }
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        public string Passport { get; set; }
+        public bool IsApporved { get; set; }
     }
 }

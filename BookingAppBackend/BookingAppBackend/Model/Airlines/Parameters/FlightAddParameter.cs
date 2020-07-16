@@ -21,11 +21,17 @@ namespace BookingAppBackend.Model.Airlines.Parameters
         public List<string> StopsLocations { get; set; }
         [Required]
         public double Price { get; set; }
+        [Required]
+        public double Distance { get; set; }
+        [Required]
+        public double LoadInCabin { get; set; }
         public Airplane Airplane { get; set; }
         [Required]
         public bool IsRoundTrip { get; set; }
         [Required]
         public FlightClass FlightClass { get; set; }
+        public ICollection<WeightPricing> WeightPricings { get; set; } = new List<WeightPricing>();
+        public ICollection<PaidExtras> Extras { get; set; } = new List<PaidExtras>();
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (EndDate < StartDate)

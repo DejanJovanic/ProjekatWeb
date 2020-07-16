@@ -26,7 +26,6 @@ namespace BookingAppBackend.Controllers.UserGeneral
         }
 
         [HttpGet]
-        [Route("GetUser")]
         [Authorize(Roles ="User,AirlineAdmin")]
         public async Task<IActionResult> GetUser()
         {
@@ -42,7 +41,7 @@ namespace BookingAppBackend.Controllers.UserGeneral
                         case "User":
                             return Ok(new { User = mapper.Map<UserResource>((BookingAppBackend.Model.Users.User)response.Resource.Item) });
                         case "AirlineAdmin":
-                            return Ok(new { User = mapper.Map<AirlineAdminResource>((AirlineAdmin)response.Resource.Item) });
+                            return Ok(new { User = mapper.Map<AirlineAdminResource>((BookingAppBackend.Model.Users.AirlineAdmin)response.Resource.Item) });
                         default:
                             return StatusCode(500);
                     }

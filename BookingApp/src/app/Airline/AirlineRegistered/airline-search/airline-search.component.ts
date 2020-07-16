@@ -1,7 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { FlightSearchService } from '../Services/FlightSearch/flight-search.service';
 import { Subscription } from 'rxjs';
+import { FlightSearchParams } from 'src/app/Shared/Model/Airlines/FlightSearchParams.model';
+import { FlightClass } from 'src/app/Shared/Model/Airlines/FlightClass.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmptyStringField } from '../../AirlineShared/Validators/EmptyStringField.validator';
 
 @Component({
   selector: 'app-airline-search',
@@ -23,21 +27,47 @@ import { Subscription } from 'rxjs';
     ]),
   ]
 })
-export class AirlineSearchComponent implements OnInit, OnDestroy {
+export class AirlineSearchComponent implements OnInit {
 
+  public searchForm : FormGroup
+  private searchParams : FlightSearchParams
+  @Output()
+  public search : EventEmitter<FlightSearchParams> = new EventEmitter<FlightSearchParams>()
   isCollapsed = true;
-  searchSub : Subscription
-  constructor(private searchService: FlightSearchService) { }
-  ngOnDestroy(): void {
-    if(this.searchSub)
-      this.searchSub.unsubscribe();
-  }
+  classes : string[] = []
+  constructor(private builder : FormBuilder) {
+    this.classes = Object.keys(FlightClass).filter(i => isNaN(Number(i)))
+   }
+
 
   ngOnInit(): void {
+    if(sessionStorage.flightSearch)
+      this.searchParams = JSON.parse(sessionStorage.flightSearch)
+    else
+      this.searchParams = null
+
+    this.searchForm = this.builder.group({
+      startLocation : [this.searchParams? this.searchParams.startLocation : '',[Validators.required,Validators.pattern(/^[a-zA-Z- ]+?$/),EmptyStringField]],
+      endLocation : [this.searchParams? this.searchParams.endLocation : '',[Validators.required,Validators.pattern(/^[a-zA-Z- ]+?$/),EmptyStringField]],
+      startDate : ['',Validators.required],
+      finishDate : ['',Validators.required],
+      isRoundTrip : [this.searchParams ? this.searchParams.isRoundTrip : false],
+      isMultiCity : [this.searchParams ? this.searchParams.isMultiCity : false],
+      class : [this.classes[0]],
+    })
   }
-  GetAll(){
-    if(this.searchSub)
-      this.searchSub.unsubscribe();
-    this.searchSub = this.searchService.getResults(null).subscribe(i => {});
+
+  Submit(){
+    if(this.searchForm.valid){
+      this.searchParams = new FlightSearchParams();
+      this.searchParams.startLocation = this.searchForm.value.startLocation;
+      this.searchParams.endLocation = this.searchForm.value.endLocation;
+      this.searchParams.isRoundTrip  = this.searchForm.value.isRoundTrip;
+      this.searchParams.isMultiCity = this.searchForm.value.isMultiCity;
+      this.searchParams.flightClass = this.searchForm.value.class;
+      this.searchParams.startDate = new Date(this.searchForm.value.startDate.year,this.searchForm.value.startDate.month - 1,this.searchForm.value.startDate.day);
+      this.searchParams.endDate = new Date(this.searchForm.value.finishDate.year,this.searchForm.value.finishDate.month - 1,this.searchForm.value.finishDate.day);
+      this.search.emit(this.searchParams);
+    }
   }
 }

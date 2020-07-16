@@ -69,6 +69,10 @@ import { RentACarAddCarModalComponent } from './RentACar/RentACarAdmin/rent-acar
 import { RentACarEditCarModalComponent } from './RentACar/RentACarAdmin/rent-acar-edit-car-modal/rent-acar-edit-car-modal.component';
 import { RentACarBranchDetailsModalComponent } from './RentACar/rent-acar-branch-details-modal/rent-acar-branch-details-modal.component';
 import { RentACarSpecialOfferDetailsModalComponent } from './RentACar/rent-acar-special-offer-details-modal/rent-acar-special-offer-details-modal.component';
+import { LoadWeigthComponent } from './Airline/AirlineAdmin/load-weigth/load-weigth.component';
+import { ExtrasComponent } from './Airline/AirlineAdmin/extras/extras.component';
+import { EnterPassportComponent } from './Airline/SeatReservation/enter-passport/enter-passport.component';
+import { SetDetailsComponent } from './Airline/SeatReservation/set-details/set-details.component';
 
 @NgModule({
   declarations: [
@@ -131,7 +135,11 @@ import { RentACarSpecialOfferDetailsModalComponent } from './RentACar/rent-acar-
     RentACarAddCarModalComponent,
     RentACarEditCarModalComponent,
     RentACarBranchDetailsModalComponent,
-    RentACarSpecialOfferDetailsModalComponent
+    RentACarSpecialOfferDetailsModalComponent,
+    LoadWeigthComponent,
+    ExtrasComponent,
+    EnterPassportComponent,
+    SetDetailsComponent
   ],
   imports: [
     

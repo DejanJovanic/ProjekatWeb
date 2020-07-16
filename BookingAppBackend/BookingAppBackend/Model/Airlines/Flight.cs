@@ -20,9 +20,13 @@ namespace BookingAppBackend.Model.Airlines
         public string EndLocation { get; set; }
         public ICollection<string> StopsLocations { get; set; } = new List<string>();
         public double Price { get; set; }
+        public double Distance { get; set; }
         public Airplane Airplane { get; set; }
         public bool IsRoundTrip { get; set; }
         public FlightClass FlightClass { get; set; }
+        public double LoadInCabin { get; set; }
+        public ICollection<WeightPricing> WeightPricings { get; set; } = new List<WeightPricing>();
+        public ICollection<PaidExtras> Extras { get; set; } = new List<PaidExtras>();
 
     }
 }

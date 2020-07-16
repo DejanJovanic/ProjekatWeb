@@ -13,6 +13,7 @@ namespace BookingAppBackend.Model.Airlines.Resources
         public DateTime EndDateBack { get; set; }
         public string StartLocation { get; set; }
         public string EndLocation { get; set; }
+        public double Distance { get; set; }
         public IEnumerable<string> StopsLocations { get; set; }
         public double Price { get; set; }
         public int AirplaneId { get; set; }

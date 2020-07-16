@@ -6,6 +6,9 @@ import { FlightUserDetailsComponent } from '../flight-user-details/flight-user-d
 import { UserFlightDetails } from 'src/app/Shared/Model/Common/UserFlightDetails.model';
 import { FriendChooseModalComponent } from '../friend-choose-modal/friend-choose-modal.component';
 import { UserCacheService } from 'src/app/Users/Services/UserCache/user-cache.service';
+import { EnterPassportComponent } from '../enter-passport/enter-passport.component';
+import { FlightDetailsService } from '../../AirlineShared/Services/FlightDetails/flight-details.service';
+import { SetDetailsComponent } from '../set-details/set-details.component';
 
 @Component({
   selector: 'app-ticket-preview',
@@ -22,27 +25,41 @@ export class TicketPreviewComponent implements OnInit {
 
   @Input()
   public currentUserSelected : {isSelected : boolean};
+  @Input()
+  public discountPercentage : number;
   @Output()
   public dataAdded : EventEmitter<UserFlightDetailsModal>
 
+  public maxWeigth : number;
   @Output()
   public dataCleared : EventEmitter<number>;
-  constructor(private modalService : NgbModal,private cache : UserCacheService) {
+  constructor(private modalService : NgbModal,private cache : UserCacheService,private flightDetails : FlightDetailsService) {
     this.dataAdded = new EventEmitter();
     this.dataCleared = new EventEmitter();
    }
 
   ngOnInit(): void {
+    if(this.flightDetails.details.luggageOptions.length > 0){
+      this.maxWeigth = this.flightDetails.details.luggageOptions[0].to
+      this.flightDetails.details.luggageOptions.forEach(element => {
+        if(element.to > this.maxWeigth ) this.maxWeigth  = element.to
+      });
+    }
+    
   }
 
   ChooseMe(){
     if(this.cache.currentUser != null){
-      this.currentUserSelected.isSelected = true;
-      this.ticket.details = new UserFlightDetails();
-      this.ticket.details.name = this.cache.currentUser.name;
-      this.ticket.details.lastName = this.cache.currentUser.lastName;
-      this.ticket.details.passportNum = this.cache.currentUser.passportNo;
-      this.ticket.details.username = this.cache.currentUser.username;
+      var ref = this.modalService.open(EnterPassportComponent);
+      ref.componentInstance.returnValue.subscribe(passport =>{
+        this.currentUserSelected.isSelected = true;
+        this.ticket.details = new UserFlightDetails();
+        this.ticket.details.name = this.cache.currentUser.name;
+        this.ticket.details.lastName = this.cache.currentUser.lastName;
+        this.ticket.details.passportNum = passport;
+        this.ticket.details.username = this.cache.currentUser.username;
+      })
+ 
     }
   }
   ClearData(){
@@ -92,7 +109,26 @@ export class TicketPreviewComponent implements OnInit {
       this.ticket.details.username = item.username;
       this.dataAdded.emit(item);
     })
-
+  }
+  SetDetails(){
+    const modalRef = this.modalService.open(SetDetailsComponent);
+    modalRef.componentInstance.maxWeigth = this.maxWeigth
+    modalRef.componentInstance.returnValue.subscribe(i =>{
+      this.ticket.price = this.flightDetails.details.price;
+      for(let a of this.flightDetails.details.luggageOptions){
+        if(a.from >= i.luggageWeigth && a.to < i.luggageWeigth){
+          this.ticket.price += i.luggageWeigth * a.price;
+          break;
+        }
+      }
+      for(let a of i.selectedExtras){
+        this.ticket.price += a.price;
+      }
+      this.CalculatePrice();
+    })
   }
 
+  CalculatePrice(){
+    this.ticket.price -= (this.ticket.price / 100) * this.discountPercentage; 
+  }
 }

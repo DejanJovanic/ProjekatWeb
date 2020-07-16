@@ -254,8 +254,37 @@
     </div>
     <br>
     <div class="form-row">
+        <div class="col-sm-6 form-group">
+            <div class="row">
+                <div class="col-sm-5">
+                    <label for="cols">
+                        Max load in cabin(kg):
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <input type="text" id="cols" class="form-control"  formControlName="loadInCabin"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="form-row">
         <div class="col-sm-4">
             <button class="btn btn-primary" type="button" (click)="SetStops()">Set Stops</button>
+        </div>
+    </div>
+    <br>
+     <div class="form-row">
+        <div class="col-sm-4">
+            <button class="btn btn-primary" type="button" (click)="SetLoad()">Set Load weigth groups</button>
+        </div>
+    </div>
+    <br>
+    <div class="form-row">
+        <div class="col-sm-4">
+            <button class="btn btn-primary" type="button" (click)="SetExtras()">Set Optional extras</button>
         </div>
     </div>
     <br>

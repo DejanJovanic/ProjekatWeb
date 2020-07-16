@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BookingAppBackend.Database.Contex
 {
-    public class BookingAppDbContext : IdentityDbContext<AuthentificationUser>
+    public class BookingAppDbContext : IdentityDbContext<AuthentificationUser,AuthorizationRole,string>
     {
         public DbSet<User> RegisteredUsers { get; set; }
         public DbSet<AirlineAdmin> AirlineAdmins { get; set; }

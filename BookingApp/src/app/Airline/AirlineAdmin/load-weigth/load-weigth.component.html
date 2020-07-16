@@ -1,0 +1,57 @@
+<div class="modal-body">
+    <div class="container">
+        <form (submit)="OnSubmit()" [formGroup]="form">
+            <div class="form-row">
+                <div class="col-sm-4">
+                    <label for="from">
+                        Starting Weigth:
+                    </label>
+                </div>
+                <div class="col-sm-4">
+                    <label for="to">
+                        Endinging Weigth:
+                    </label>
+                </div>
+                <div class="col-sm-4">
+                    <label for="price">
+                        Price per kg:
+                    </label>
+                </div>
+            </div>
+            <div class="form-row">
+                <input type="number" name="from" class="col-sm-4 form-control" formControlName="from"/>
+                <input type="number" name="to" class="col-sm-4 form-control" formControlName="to"/>
+                <input type="number" name="price" class="col-sm-4 form-control" formControlName="price"/>
+            </div>
+            <div class="form-row">
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" type="submit">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </form>
+        <hr>     
+        <div class="row" *ngFor="let item of loadOptions">
+            <br>
+            <div class="col-sm-12 card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">From:</div>
+                        <div class="col-sm-3">To:</div>
+                        <div class="col-sm-3">Price:</div>
+                      
+                    </div> 
+                    <div class="row">
+                        <div class="col-sm-3">{{item.from}}</div>
+                        <div class="col-sm-3">{{item.to}}</div>
+                        <div class="col-sm-3">{{item.price}}</div>
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-danger" (click)="RemoveOption(item)">Remove</button>
+                        </div>
+                    </div>                                 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

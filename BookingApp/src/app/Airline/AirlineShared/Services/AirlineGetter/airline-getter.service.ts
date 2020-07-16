@@ -21,8 +21,9 @@ export class AirlineGetterService {
       if(i){
         let flights = new Array<Flight>();
         for(let airline of i){
-          for(let flight of airline.flights){
-            flights.push(flight);
+          if(airline.flights)
+            for(let flight of airline.flights){
+              flights.push(flight);
           }
         }
         return flights;

@@ -23,34 +23,34 @@ namespace BookingAppBackend.Controllers.Airplane
             this.adminService = adminService;
         }
 
-        [HttpPost]
-        [Authorize(Roles = "AirlineAdmin")]
-        [Route("Add")]
-        public async Task<IActionResult> AddAirplane(BookingAppBackend.Model.Airlines.Airplane airplane)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(new { Message = "Invalid airplane sent." });
+        //[HttpPost]
+        //[Authorize(Roles = "AirlineAdmin")]
+        //[Route("Add")]
+        //public async Task<IActionResult> AddAirplane(BookingAppBackend.Model.Airlines.Airplane airplane)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(new { Message = "Invalid airplane sent." });
 
-            var admin = await adminService.GetAdminAsync(User.Identity.Name);
+        //    var admin = await adminService.GetAdminAsync(User.Identity.Name);
 
-            if (admin == null)
-                return BadRequest(new { Message = "Given Admin does not exist" });
+        //    if (admin == null)
+        //        return BadRequest(new { Message = "Given Admin does not exist" });
 
-            try
-            {
-                var temp = await service.AddAirplane(airplane,admin.AirlineID);
-                if (temp.Success)
-                {
-                    return Ok(temp.Resource);
-                }
-                else
-                    return BadRequest(new { Message = temp.Message });
+        //    try
+        //    {
+        //        var temp = await service.AddAirplane(airplane,admin.AirlineID);
+        //        if (temp.Success)
+        //        {
+        //            return Ok(temp.Resource);
+        //        }
+        //        else
+        //            return BadRequest(new { Message = temp.Message });
 
-            }
-            catch
-            {
-                return StatusCode(500);
-            }
-        }
+        //    }
+        //    catch
+        //    {
+        //        return StatusCode(500);
+        //    }
+        //}
     }
 }

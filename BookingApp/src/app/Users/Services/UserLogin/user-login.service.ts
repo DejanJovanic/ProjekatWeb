@@ -13,7 +13,7 @@ export class UserLoginService {
   constructor(private cache : UserCacheService,private network : UserNetworkService)  {}
   
   public Login(username : string, password : string) : Observable<User>{
-  /*  return new Observable(observer =>{
+/*    return new Observable(observer =>{
       this.network.Login(username,password).subscribe(i =>{
         if(i == true){
           this.network.GetUserDetails(username).subscribe(j =>{
@@ -35,7 +35,7 @@ export class UserLoginService {
           observer.complete();
         }
       })
-    });  */
+    }); */ 
     return this.network.Login(username,password).pipe(
       tap(i =>{
         if(i){

@@ -44,34 +44,31 @@ namespace BookingAppBackend.Service.Airline
 
         public async Task<IEnumerable<BookingAppBackend.Model.Airlines.Airline>> GetAirlines(AirlineSearchParameters param)
         {
-            return await new Task<IEnumerable<BookingAppBackend.Model.Airlines.Airline>>(b =>
+
+            var airlines = repo.GetAirlines();
+            var temp = param;
+            foreach (var a in airlines)
             {
-                var airlines = repo.GetAirlines();
-                var temp = (AirlineSearchParameters)b;
-                foreach (var a in airlines)
+                a.Flights = a.Flights.Where(i =>
                 {
-                    a.Flights = a.Flights.Where(i =>
-                    {
-                        if (i.StartDate < temp.StartDate)
-                            return false;
-                        if (i.EndDate > temp.EndDate)
-                            return false;
-                        if (i.StartLocation.ToLower() != temp.StartLocation.ToLower())
-                            return false;
-                        if (i.EndLocation.ToLower() != temp.EndLocation.ToLower())
-                            return false;
-                        if (i.IsRoundTrip != temp.IsRoundTrip)
-                            return false;
-                        if (temp.MultiCity && i.StopsLocations.Count == 0)
-                            return false;
-                        if (i.FlightClass != (FlightClass)Enum.Parse(typeof(FlightClass), temp.FlightClass))
-                            return false;
-                        return true;
-                    }).ToList();
-                }
-                return airlines.Where(i => i.Flights.Count() > 0);
-            }, param);
-            
+                    if (i.StartDate < temp.StartDate)
+                        return false;
+                    if (i.EndDate > temp.EndDate)
+                        return false;
+                    if (i.StartLocation.ToLower() != temp.StartLocation.ToLower())
+                        return false;
+                    if (i.EndLocation.ToLower() != temp.EndLocation.ToLower())
+                        return false;
+                    if (i.IsRoundTrip != temp.IsRoundTrip)
+                        return false;
+                    if (temp.MultiCity && i.StopsLocations.Count == 0)
+                        return false;
+                    if (i.FlightClass != (FlightClass)Enum.Parse(typeof(FlightClass), temp.FlightClass))
+                        return false;
+                    return true;
+                }).ToList();
+            }
+            return airlines.Where(i => i.Flights.Count() > 0);            
         }
 
         public async Task<BookingAppBackend.Model.Airlines.Airline> EditAirlineAsync(AirlineParameter airline)

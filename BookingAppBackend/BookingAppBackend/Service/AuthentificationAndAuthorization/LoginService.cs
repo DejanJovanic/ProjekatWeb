@@ -2,6 +2,7 @@
 using BookingAppBackend.Model;
 using BookingAppBackend.Model.AuthentificationAndAuthorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -17,35 +18,45 @@ namespace BookingAppBackend.Service.AuthentificationAndAuthorization
     public class LoginService : ILoginService
     {
         private UserManager<AuthentificationUser> manager;
-        private BookingAppDbContext context;
-        private readonly ApplicationSettings appSettings;
+        private IConfiguration configration;
 
-        public LoginService(UserManager<AuthentificationUser> manager, BookingAppDbContext context, IOptions<ApplicationSettings> appSettings)
+        public LoginService(UserManager<AuthentificationUser> manager, IConfiguration configration)
         {
             this.manager = manager;
-            this.context = context;
-            this.appSettings = appSettings.Value;
+            this.configration = configration;
         }
 
         public async Task<string> Login(string username, string password)
         {
             var ret = "";
             var user = await manager.FindByNameAsync(username);
-            if(user != null) // + provera password-a
+            
+            if(user != null) 
             {
-                var tokenDescriptor = new SecurityTokenDescriptor
+                var isOk = await manager.CheckPasswordAsync(user, password);
+
+                if (isOk)
                 {
-                    Subject = new ClaimsIdentity(new Claim[]
+                    var role = await manager.GetRolesAsync(user);
+                    if (role.First() == "User" && !(await manager.IsEmailConfirmedAsync(user)))
+                        return "";
+                    var tokenDescriptor = new SecurityTokenDescriptor
                     {
+                        Subject = new ClaimsIdentity(new Claim[]
+                        {
                         new Claim(ClaimTypes.Name,user.UserName),
-                        new Claim(ClaimTypes.Role, user.Role)
-                    }),
-                    Expires = DateTime.UtcNow.AddDays(1),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
-                };
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-                ret = tokenHandler.WriteToken(securityToken);
+                        new Claim(ClaimTypes.Role, role.First())
+                        }),
+                        Expires = DateTime.UtcNow.AddDays(1),
+                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configration["ApplicationSettings:JWT_Secret"])), SecurityAlgorithms.HmacSha256Signature)
+                    };
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+                    ret = tokenHandler.WriteToken(securityToken);
+                }
+                else
+                    return ret;
+          
                 
             }
             return ret;

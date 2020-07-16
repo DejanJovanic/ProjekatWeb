@@ -5,13 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="migracije\20200711114258_Initial.cs" />
+    <Compile Remove="migracije\20200711114258_Initial.Designer.cs" />
     <Compile Remove="Migrations\20200524141617_Airline.cs" />
     <Compile Remove="Migrations\20200524141617_Airline.Designer.cs" />
+    <Compile Remove="Migrations\20200711112520_added-pricings.cs" />
+    <Compile Remove="Migrations\20200711112520_added-pricings.Designer.cs" />
+    <Compile Remove="Migrations\20200711113459_pricings.cs" />
+    <Compile Remove="Migrations\20200711113459_pricings.Designer.cs" />
+    <Compile Remove="Migrations\20200711113818_pricings.cs" />
+    <Compile Remove="Migrations\20200711113818_pricings.Designer.cs" />
+    <Compile Remove="Migrations\20200713110318_ChangedTicketsAgain.cs" />
+    <Compile Remove="Migrations\20200713110318_ChangedTicketsAgain.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="MailKit" Version="2.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />

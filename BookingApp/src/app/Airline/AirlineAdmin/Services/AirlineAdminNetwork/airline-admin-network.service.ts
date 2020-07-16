@@ -21,7 +21,7 @@ export class AirlineAdminNetworkService {
     private client : HttpClient) { }
 
   public GetAirlineData() : Observable<AirlineCompany>{
-   return this.client.get<AirlineCompany>('http://localhost:50000/api/Airline/Get',
+   return this.client.get<AirlineCompany>('http://localhost:50000/api/Airline',
     {
        params :  new HttpParams().set('airlineId',((this.userData.currentUser as AirlineAdmin).airlineID).toString())
     }
@@ -35,7 +35,7 @@ export class AirlineAdminNetworkService {
     return this.client.put<Flight>('http://localhost:50000/api/Flight/DisableSeat',{row:row,column:column,flightId:flightId})
   }
   public SetFlight(flight : Flight) : Observable<boolean>{
-    return this.client.post<boolean>('http://localhost:50000/api/Flight/Add',flight)
+    return this.client.post<boolean>('http://localhost:50000/api/Flight',flight).pipe(map(i => i ? true : false))
   }
   public SetAirplane(airplane : Airplane) : Observable<Airplane>{
     return this.client.post<Airplane>('http://localhost:50000/api/Airplane/Add',airplane);

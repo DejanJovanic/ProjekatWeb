@@ -1,5 +1,6 @@
 export class FlightFilterParams{
-    price : number;
+    priceFrom : number;
+    priceTo : number;
     startDate : Date;
     finishDate : Date;
 }

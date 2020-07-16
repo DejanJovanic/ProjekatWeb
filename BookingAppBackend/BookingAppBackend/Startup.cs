@@ -15,12 +15,16 @@ using BookingAppBackend.Service.AirlineAdmin;
 using BookingAppBackend.Service.Airplane;
 using BookingAppBackend.Service.AuthentificationAndAuthorization;
 using BookingAppBackend.Service.Flight;
+using BookingAppBackend.Service.Friends;
 using BookingAppBackend.Service.GeneralUser;
+using BookingAppBackend.Service.Seat;
 using BookingAppBackend.Service.User;
+using BookingAppBackend.Utils.EMailSender;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -49,24 +53,23 @@ namespace BookingAppBackend
             services.AddDbContext<BookingAppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("BookingServiceConnection")));
 
-            services.AddDefaultIdentity<AuthentificationUser>()
+            services.AddDefaultIdentity<AuthentificationUser>().AddRoles<AuthorizationRole>()
                 .AddEntityFrameworkStores<BookingAppDbContext>();
-
-            // services.Configure<IdentityOptions>(options =>
-            // {
-            //     options.Password.RequireDigit = false;
-            //     options.Password.RequireNonAlphanumeric = false;
-            //     options.Password.RequireLowercase = false;
-            //     options.Password.RequireUppercase = false;
-            //     options.Password.RequiredLength = 4;
-            // }
-            //);
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+            }
+           );
 
             services.AddCors();
 
             var key = Encoding.UTF8.GetBytes(Configuration["ApplicationSettings:JWT_Secret"].ToString());
 
-
+           
             services.AddAuthentication(x =>
             {
                 x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -97,17 +100,19 @@ namespace BookingAppBackend
             services.AddScoped<IAirlineAdminRepository, AirlineAdminRepository>();
             services.AddScoped<IAirlineRepository, AirlineRepository>();
             services.AddScoped<IAirplaneRepository, AirplaneRepository>();
+            services.AddScoped<IFlightRepository, FlightRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAirlineService, AirlineService>();
             services.AddScoped<IAirplaneService, AirplaneService>();
-            services.AddScoped<IAirlineAdminService, AirlineAdminService>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IFlightRepository, FlightRepository>();
+            services.AddScoped<IAirlineAdminService, AirlineAdminService>();   
             services.AddScoped<IFlightService, FlightService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IFriendsService, FriendsService>();
+            services.AddScoped<ISeatService, SeatService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IServiceProvider provider)
         {
             app.Use(async (ctx, next) =>
             {
@@ -117,7 +122,6 @@ namespace BookingAppBackend
                     ctx.Response.ContentLength = 0;
                 }
             });
-                
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -143,6 +147,53 @@ namespace BookingAppBackend
                 endpoints.MapControllers();
             });
             ///app.UseMvc();
+            //var provider = app.ApplicationServices.GetService<IServiceProvider>();
+            CreateRoles(provider);
+        }
+
+        public void CreateRoles(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<AuthorizationRole>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<AuthentificationUser>>();
+            Task<IdentityResult> roleResult;
+            string email = "admin@admin.com";
+            string[] roles = { "Admin", "AirlineAdmin", "User" };
+            //Check that there is an Administrator role and create if not
+
+            foreach(var a in roles)
+            {
+                Task<bool> hasAdminRole = roleManager.RoleExistsAsync(a);
+                hasAdminRole.Wait();
+
+                if (!hasAdminRole.Result)
+                {
+                    roleResult = roleManager.CreateAsync(new AuthorizationRole(a));
+                    roleResult.Wait();
+                }
+            }
+           
+
+            //Check if the admin user exists and create it if not
+            //Add to the Administrator role
+
+            Task<AuthentificationUser> testUser = userManager.FindByEmailAsync(email);
+            testUser.Wait();
+
+            if (testUser.Result == null)
+            {
+                var admin = new AuthentificationUser();
+                admin.Email = email;
+                admin.UserName = "Admin";
+
+                Task<IdentityResult> newUser = userManager.CreateAsync(admin, "Admin@123");
+                newUser.Wait();
+
+                if (newUser.Result.Succeeded)
+                {
+                    Task<IdentityResult> newUserRole = userManager.AddToRoleAsync(admin, "Admin");
+                    newUserRole.Wait();
+                }
+            }
         }
     }
 }

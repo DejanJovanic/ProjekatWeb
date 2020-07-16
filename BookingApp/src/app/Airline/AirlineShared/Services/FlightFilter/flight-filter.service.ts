@@ -15,11 +15,12 @@ export class FlightFilterService {
    }
 
   public filterFunction(item : Flight, params : FlightFilterParams){
-    if(!isNaN(params.price) && params.price != null){
-      return item.price == params.price;
+    if(!isNaN(params.priceFrom) && params.priceFrom != null && item.price < params.priceFrom){
+      return false;
     }
-    else{
-      return true;
+    if(!isNaN(params.priceTo) && params.priceTo!= null && item.price > params.priceTo){
+      return false;
     }
+    return true;
   }
 }

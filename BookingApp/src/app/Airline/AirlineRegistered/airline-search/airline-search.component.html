@@ -4,6 +4,106 @@
         Search
     </div>
     <div [ngbCollapse]="isCollapsed" id="flight-search-content" class="card-body">
-        <button class="btn btn-primary" (click)="GetAll()">Get all flights</button>
+        <form (submit)="Submit()" [formGroup]="searchForm">
+            <div class="form-row">
+                <div class="col-sm-6 form-group">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <label for="startLocation">
+                                Start Location:
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <input type="text" id="startLocation" class="form-control" formControlName="startLocation"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <label for="endLocation">
+                                End Location:
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <input type="text" id="endLocation" class="form-control" formControlName="endLocation"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-sm-6 form-group">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <label for="startDate">
+                                Start date:
+                            </label> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <ngb-datepicker id="startDate"  formControlName="startDate" #d></ngb-datepicker>
+                        </div>  
+                    </div>          
+                </div>
+                <div class="col-sm-6 form-group">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <label for="finishDate">
+                                Finish date:
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <ngb-datepicker id="finishDate"  formControlName="finishDate" #d></ngb-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-sm-6">
+                    <div class="form-check">
+                        <input id="isRoundTrip" class="form-check-input" type="checkbox" formControlName="isRoundTrip"/>
+                        <label for="isRoundTrip" class="form-check-label"> Round trip </label> 
+                    </div>   
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-check">
+                        <input id="isMultiCity" class="form-check-input" type="checkbox" formControlName="isMultiCity"/>
+                        <label for="isMultiCity" class="form-check-label"> Is multi-city </label> 
+                    </div>   
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-sm-6 form-group">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <label for="class">
+                                Flight class:
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <select id="class" class="form-control" formControlName="class">
+                                <option [ngValue]="item" *ngFor="let item of classes">
+                                    {{item}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>      
+        </form>
     </div>
 </div>

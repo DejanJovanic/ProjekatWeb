@@ -16,7 +16,7 @@ export class FlightSearchService {
 
   getResults(params : FlightSearchParams) : Observable<AirlineCompany[]>{
     return this.network.getFlights(params).pipe(
-      tap(i => this.cache.airlines.next(i))
-    );
+      tap(i => this.cache.airlines.next(i)));
+    
   }
 }

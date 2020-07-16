@@ -22,7 +22,6 @@ namespace BookingAppBackend.Controllers.Login
         }
 
         [HttpPost]
-        [Route("Login")]
         public async Task<IActionResult> Login([FromBody]UsernamePasswordResource credentials)
         {
             if (!ModelState.IsValid)

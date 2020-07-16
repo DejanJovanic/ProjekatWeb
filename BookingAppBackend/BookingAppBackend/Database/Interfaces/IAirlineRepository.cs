@@ -11,6 +11,7 @@ namespace BookingAppBackend.Database.Interfaces
     {
         IEnumerable<Airline> GetAirlines();
         Task<Airline> GetAirline(int id);
+        Task<Airline> GetAirlineWithFlight(int flightId);
         Task<Airline> EditAirline(AirlineParameter airline);
     }
 }

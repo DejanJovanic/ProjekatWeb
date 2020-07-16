@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingAppBackend.Model.Users;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,5 +16,9 @@ namespace BookingAppBackend.Model.Airlines
         public Flight Flight { get; set; }
         public int Row { get; set; }
         public int Column { get; set; }
+        public User User { get; set; }
+        public double DiscountPercentage { get; set; }
+        public ICollection<PaidExtras> Extras { get; set; }
+        public double LoadWeight { get; set; }
     }
 }

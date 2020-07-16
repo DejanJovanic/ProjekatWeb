@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlightDetails } from 'src/app/Shared/Model/Airlines/FlightDetails.model';
 import { Subscription } from 'rxjs';
@@ -17,7 +17,7 @@ import { SeatDisplayState } from 'src/app/Shared/Model/Airlines/SeatDisplayState
   templateUrl: './seat-reservation.component.html',
   styleUrls: ['./seat-reservation.component.css']
 })
-export class SeatReservationComponent implements OnInit {
+export class SeatReservationComponent implements OnInit, OnDestroy {
 
   public reservation : FlightReservation
   public seats : Seats
@@ -31,8 +31,11 @@ export class SeatReservationComponent implements OnInit {
     ,private cache : AirlineCacheService) {
     this.reservation = new FlightReservation()
   }
+  ngOnDestroy(): void {
+    if(this.obs) this.obs.unsubscribe()
+  }
   ngOnInit(): void {
-    this.route.data.subscribe((data : {details : FlightDetails}) =>{
+    this.obs = this.route.data.subscribe((data : {details : FlightDetails}) =>{
       this.details = data.details;
       this.seats = this.details.seats;
     })
@@ -41,6 +44,7 @@ export class SeatReservationComponent implements OnInit {
   onButtonClicked(){
     if(this.reservation != null && this.selectedSeats.length > 0){
       this.reservation.flight = null;
+
       this.reservation.tickets = this.selectedSeats;
       this.reservationService.reservation = this.reservation;
       sessionStorage["currentReservation"] = JSON.stringify(this.reservation);

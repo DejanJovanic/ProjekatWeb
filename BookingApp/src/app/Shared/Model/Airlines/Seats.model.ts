@@ -32,10 +32,10 @@ export class Seats{
               this.seats[a.row][a.column] = SeatStatus.Taken
             }
           }
-          if(flight.fastFlights){
+   /*        if(flight.fastFlights){
             for(let a of flight.fastFlights){
               this.seats[a.row][a.column] = SeatStatus.Fast
             }
-          }
+          } */
     }
 }
