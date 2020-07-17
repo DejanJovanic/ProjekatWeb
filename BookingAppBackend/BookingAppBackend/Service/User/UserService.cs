@@ -60,30 +60,32 @@ namespace BookingAppBackend.Service.User
                         var roleOk = await manager.AddToRoleAsync(temp1, "User");
                         if (roleOk.Succeeded)
                         {
+                            ////Deo za slanje konfirmacionog mail-a korisniku
                             string token = await manager.GenerateEmailConfirmationTokenAsync(temp1);
 
-                            string link = urlHelper.Action("ConfirmEmail", "VerifyAccount", new { username = data.Username, token = token },
-                                protocol: urlHelper.ActionContext.HttpContext.Request.Scheme);
+                            //string link = urlHelper.Action("ConfirmEmail", "VerifyAccount", new { username = data.Username, token = token },
+                            //    protocol: urlHelper.ActionContext.HttpContext.Request.Scheme);
 
-                            MimeMessage message = new MimeMessage();
+                            //MimeMessage message = new MimeMessage();
 
-                            MailboxAddress to = new MailboxAddress("User", data.Email);
-                            MailboxAddress from = new MailboxAddress("BookingAppTeam", "deki.jovanic@gmail.com");
-                            message.Subject = "Account Verification";
-                            message.From.Add(from);
-                            message.To.Add(to);
-                            var body = new BodyBuilder();
-                            body.HtmlBody = $@"<p>To verify your account, please follow the link: {link} </p>";
-                            body.TextBody = $"To verify your account, please follow the link: {link} ";
-                            message.Body = body.ToMessageBody();
+                            //MailboxAddress to = new MailboxAddress("User", data.Email);
+                            //MailboxAddress from = new MailboxAddress("BookingAppTeam", "deki.jovanic@gmail.com");
+                            //message.Subject = "Account Verification";
+                            //message.From.Add(from);
+                            //message.To.Add(to);
+                            //var body = new BodyBuilder();
+                            //body.HtmlBody = $@"<p>To verify your account, please follow the link: {link} </p>";
+                            //body.TextBody = $"To verify your account, please follow the link: {link} ";
+                            //message.Body = body.ToMessageBody();
 
-                            using (var client = new MailKit.Net.Smtp.SmtpClient())
-                            {
-                                client.Connect("smtp.gmail.com", 465);
-                                client.Authenticate("bookingappweb2@gmail.com", "bookingapp123");
-                                client.Send(message);
-                                client.Disconnect(true);
-                            }
+                            //using (var client = new MailKit.Net.Smtp.SmtpClient())
+                            //{
+                            //    client.Connect("smtp.gmail.com", 465);
+                            //    client.Authenticate("bookingappweb2@gmail.com", "bookingapp123");
+                            //    client.Send(message);
+                            //    client.Disconnect(true);
+                            //}
+                            await manager.ConfirmEmailAsync(temp1, token);
                             try
                             {
                                 var a = await repo.InsertUser(temp2);

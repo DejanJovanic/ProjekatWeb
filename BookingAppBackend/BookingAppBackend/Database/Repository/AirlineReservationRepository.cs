@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BookingAppBackend.Database.Repository
 {
-    public class AirlineReservationRepository : Repository
+    public class AirlineReservationRepository : Repository,IAirlineReservationRepository
     {
         IFlightRepository flightRepo;
 
@@ -27,10 +27,10 @@ namespace BookingAppBackend.Database.Repository
                 var reservation = new Reservation();
                 var airlineId = tickets.First().AirlineId;
                 var flightId = tickets.First().FlightId;
-                var airline = await context.Airlines.Include(i => i.FastFlights).Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets)
+                var airline = await context.Airlines.Include(i => i.FastFlights).ThenInclude(i => i.Flight).Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight)
                       .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.RemovedSeats)
                       .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.DisabledSeats)
-                      .Include(i => i.Flights).ThenInclude(i => i.Extras)
+                      .Include(i => i.Flights).ThenInclude(i => i.PaidExtras)
                       .Include(i => i.Flights).ThenInclude(i => i.WeightPricings)
                       .FirstOrDefaultAsync(i => i.Id == airlineId);
                 if (airline == null)                    
@@ -51,21 +51,33 @@ namespace BookingAppBackend.Database.Repository
                             reservation.SettingUser = owner;
 
                         var inviter = await context.RegisteredUsers.FindAsync(a.InvitedByUsername);
-                        if (inviter != null)
+                        if (inviter != null || (string.IsNullOrWhiteSpace(a.InvitedByUsername) && owner != null))
                         {
                             var ticket = new Ticket();
+                            
                             ticket.Flight = flight;
                             ticket.Column = a.Column;
                             ticket.Row = a.Row;
 
                             ticket.TicketOwner = owner;
                             ticket.InvitedBy = inviter;
-                            ticket.IsApporved = false;
+                            if (string.IsNullOrWhiteSpace(a.TicketOwnerUsername) || (owner == inviter) || (string.IsNullOrWhiteSpace(a.InvitedByUsername) && owner != null))
+                                ticket.IsApporved = true;
+                            else
+                                ticket.IsApporved = false;
                             ticket.LoadWeight = a.LoadWeight;
-                            foreach (var b in flight.Extras)
+                            foreach (var b in flight.PaidExtras)
                             {
                                 if (a.SelectedExtras.Contains(b.Id))
-                                    ticket.SelectedExtras.Add(b);
+                                {
+                                    var extra = new TicketPaidExtra();
+                                    extra.PaidExtra = b;
+                                    extra.Ticket = ticket;
+                                    b.Tickets.Add(extra);
+                                    ticket.SelectedExtras.Add(extra);
+                                    context.TicketPaidExtras.Add(extra);
+                                }
+
                             }
                             if (owner != null)
                             {
@@ -79,6 +91,8 @@ namespace BookingAppBackend.Database.Repository
                             }
                             ticket.Passport = a.Passport;
                             reservation.AirlineTickets.Add(ticket);
+                            
+                       
                         }
                         else
                             return new AirlineReservationResponse("Inviter with given username does not exist.");

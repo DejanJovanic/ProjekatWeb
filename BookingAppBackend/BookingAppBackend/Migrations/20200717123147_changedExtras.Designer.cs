@@ -4,18 +4,20 @@ using BookingAppBackend.Database.Contex;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookingAppBackend.Migrations
 {
     [DbContext(typeof(BookingAppDbContext))]
-    partial class BookingAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200717123147_changedExtras")]
+    partial class changedExtras
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.6")
+                .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -188,21 +190,6 @@ namespace BookingAppBackend.Migrations
                     b.ToTable("FastFlight");
                 });
 
-            modelBuilder.Entity("BookingAppBackend.Model.Airlines.FastFlightPaidExtra", b =>
-                {
-                    b.Property<int>("FastFlightId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaidExtraId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FastFlightId", "PaidExtraId");
-
-                    b.HasIndex("PaidExtraId");
-
-                    b.ToTable("FastFlightPaidExtras");
-                });
-
             modelBuilder.Entity("BookingAppBackend.Model.Airlines.Flight", b =>
                 {
                     b.Property<int>("Id")
@@ -272,6 +259,9 @@ namespace BookingAppBackend.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("FastFlightId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("FlightId")
                         .HasColumnType("int");
 
@@ -281,9 +271,16 @@ namespace BookingAppBackend.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<int?>("TicketId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("FastFlightId");
+
                     b.HasIndex("FlightId");
+
+                    b.HasIndex("TicketId");
 
                     b.ToTable("PaidExtras");
                 });
@@ -390,21 +387,6 @@ namespace BookingAppBackend.Migrations
                     b.HasIndex("TicketOwnerUsername");
 
                     b.ToTable("Tickets");
-                });
-
-            modelBuilder.Entity("BookingAppBackend.Model.Airlines.TicketPaidExtra", b =>
-                {
-                    b.Property<int>("TicketId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaidExtraId")
-                        .HasColumnType("int");
-
-                    b.HasKey("TicketId", "PaidExtraId");
-
-                    b.HasIndex("PaidExtraId");
-
-                    b.ToTable("TicketPaidExtras");
                 });
 
             modelBuilder.Entity("BookingAppBackend.Model.Airlines.WeightPricing", b =>
@@ -732,21 +714,6 @@ namespace BookingAppBackend.Migrations
                         .HasForeignKey("Username");
                 });
 
-            modelBuilder.Entity("BookingAppBackend.Model.Airlines.FastFlightPaidExtra", b =>
-                {
-                    b.HasOne("BookingAppBackend.Model.Airlines.FastFlight", "FastFlight")
-                        .WithMany("PaidExtras")
-                        .HasForeignKey("FastFlightId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookingAppBackend.Model.Airlines.PaidExtras", "PaidExtra")
-                        .WithMany("FastFlights")
-                        .HasForeignKey("PaidExtraId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("BookingAppBackend.Model.Airlines.Flight", b =>
                 {
                     b.HasOne("BookingAppBackend.Model.Airlines.Airline", null)
@@ -760,9 +727,17 @@ namespace BookingAppBackend.Migrations
 
             modelBuilder.Entity("BookingAppBackend.Model.Airlines.PaidExtras", b =>
                 {
+                    b.HasOne("BookingAppBackend.Model.Airlines.FastFlight", null)
+                        .WithMany("PaidExtras")
+                        .HasForeignKey("FastFlightId");
+
                     b.HasOne("BookingAppBackend.Model.Airlines.Flight", null)
                         .WithMany("PaidExtras")
                         .HasForeignKey("FlightId");
+
+                    b.HasOne("BookingAppBackend.Model.Airlines.Ticket", null)
+                        .WithMany("SelectedExtras")
+                        .HasForeignKey("TicketId");
                 });
 
             modelBuilder.Entity("BookingAppBackend.Model.Airlines.RemovedSeat", b =>
@@ -800,21 +775,6 @@ namespace BookingAppBackend.Migrations
                     b.HasOne("BookingAppBackend.Model.Users.User", "TicketOwner")
                         .WithMany()
                         .HasForeignKey("TicketOwnerUsername");
-                });
-
-            modelBuilder.Entity("BookingAppBackend.Model.Airlines.TicketPaidExtra", b =>
-                {
-                    b.HasOne("BookingAppBackend.Model.Airlines.PaidExtras", "PaidExtra")
-                        .WithMany("Tickets")
-                        .HasForeignKey("PaidExtraId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookingAppBackend.Model.Airlines.Ticket", "Ticket")
-                        .WithMany("SelectedExtras")
-                        .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("BookingAppBackend.Model.Airlines.WeightPricing", b =>

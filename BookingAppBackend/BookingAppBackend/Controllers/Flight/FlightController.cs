@@ -41,6 +41,20 @@ namespace BookingAppBackend.Controllers.Flight
                 return BadRequest(new { Message = ret.Message });
         }
 
-       
+        [HttpGet]
+ //       [Authorize(Roles = "User")]
+        [Route("Details")]
+        public async Task<IActionResult> GetFlightDetails(int flightId)
+        {
+
+
+            var ret = await service.GetDetails(flightId);
+
+            if (ret.Success)
+                return Ok(ret.Resource);
+            else
+                return BadRequest(new { Message = ret.Message });
+        }
+
     }
 }

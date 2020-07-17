@@ -10,7 +10,7 @@
     <br>
     <div class="row" *ngFor="let item of tickets">
         <div class="col-sm-12">
-            <app-ticket-preview  [isAssignment]="false" [ticket]="item"></app-ticket-preview>
+            <app-ticket-preview [discountPercentage]="discountPercentage"  [isAssignment]="false" [ticket]="item"></app-ticket-preview>
         </div>
     </div>
     <br>

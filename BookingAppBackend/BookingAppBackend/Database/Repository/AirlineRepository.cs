@@ -22,16 +22,18 @@ namespace BookingAppBackend.Database.Repository
 
         public async Task<Airline> GetAirline(int id)
         {
-            return await context.Airlines.Include(i => i.Address).Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).Include(i => i.FastFlights).
-                Include(i => i.Flights).ThenInclude(i=> i.Airplane).ThenInclude(i => i.DisabledSeats)
+            return await context.Airlines.Include(i => i.Address).Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).Include(i => i.FastFlights).ThenInclude(i => i.Flight)
+               .Include(i => i.Flights).ThenInclude(i=> i.Airplane).ThenInclude(i => i.DisabledSeats)
                .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.RemovedSeats)
+               .Include(i => i.Flights).ThenInclude(i => i.PaidExtras)
+               .Include(i => i.Flights).ThenInclude(i => i.WeightPricings)
                .FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public async Task<Airline> GetAirlineWithFlight(int flightId)
         {
-            return await context.Airlines.Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).Include(i => i.FastFlights).
-                Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.DisabledSeats)
+            return await context.Airlines.Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).Include(i => i.FastFlights).ThenInclude(i => i.Flight)
+               .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.DisabledSeats)
                .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.RemovedSeats)
                .FirstOrDefaultAsync(i => i.Flights.Count(j => j.Id == flightId) > 0);
         }

@@ -9,6 +9,7 @@ namespace BookingAppBackend.Service.Flight
 {
     public interface IFlightService
     {
+        Task<FlightDetailsResponse> GetDetails(int flightId);
         Task<FlightResponse> AddFlight(FlightAddParameter flight, int airlineId);
     }
 }

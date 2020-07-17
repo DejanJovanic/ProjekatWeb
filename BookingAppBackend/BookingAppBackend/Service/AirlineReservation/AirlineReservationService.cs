@@ -54,16 +54,16 @@ namespace BookingAppBackend.Service.AirlineReservation
             double cost = 0;
             if(reservation.AirlineTickets.Count > 0)
             {
-                var distanceDiscountPercentage = reservation.AirlineTickets.Count(i => i.TicketOwner != null && i.IsApporved) * reservation.AirlineTickets.First().Flight.Distance / 1000;
+                var distanceDiscountPercentage = reservation.AirlineTickets.Count(i => i.TicketOwner != null && i.InvitedBy != null && i.TicketOwner != i.InvitedBy && i.IsApporved) * reservation.AirlineTickets.First().Flight.Distance / 300;
                 foreach (var a in reservation.AirlineTickets)
                 {
                     cost = a.Flight.Price;
                     foreach (var b in a.SelectedExtras)
-                        cost += b.Price;
+                        cost += b.PaidExtra.Price;
 
                     foreach(var b in a.Flight.WeightPricings)
                     {
-                        if(b.From >= a.LoadWeight && b.To < a.LoadWeight)
+                        if(b.From <= a.LoadWeight && b.To >= a.LoadWeight)
                         {
                             cost += a.LoadWeight * b.Price;
                             break;

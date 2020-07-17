@@ -12,6 +12,7 @@ using BookingAppBackend.Model.AuthentificationAndAuthorization;
 using BookingAppBackend.Model.Users;
 using BookingAppBackend.Service.Airline;
 using BookingAppBackend.Service.AirlineAdmin;
+using BookingAppBackend.Service.AirlineReservation;
 using BookingAppBackend.Service.Airplane;
 using BookingAppBackend.Service.AuthentificationAndAuthorization;
 using BookingAppBackend.Service.Flight;
@@ -98,6 +99,7 @@ namespace BookingAppBackend
             services.AddScoped<IGeneralUserService, GeneralUserService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAirlineAdminRepository, AirlineAdminRepository>();
+            services.AddScoped<IAirlineReservationRepository, AirlineReservationRepository>();
             services.AddScoped<IAirlineRepository, AirlineRepository>();
             services.AddScoped<IAirplaneRepository, AirplaneRepository>();
             services.AddScoped<IFlightRepository, FlightRepository>();
@@ -109,6 +111,7 @@ namespace BookingAppBackend
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFriendsService, FriendsService>();
             services.AddScoped<ISeatService, SeatService>();
+            services.AddScoped<IAirlineReservationService, AirlineReservationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

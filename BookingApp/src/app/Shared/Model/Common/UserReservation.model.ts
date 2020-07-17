@@ -1,13 +1,14 @@
 import { FlightReservation } from '../Airlines/FlightReservation.model';
 import { CarReservation } from '../RentACars/CarReservation.model';
+import { TicketNetwork } from '../Airlines/TicketNetwork.model';
 
 //Klasa koja ce sadrzati informacije o trenutnoj kreiranoj rezervaciji
 export class UserReservation{
-    flight : FlightReservation
+    flight : TicketNetwork[]
     car : CarReservation
 
     constructor(){
-        this.flight = null;
+        this.flight = [];
         this.car = null;
     }
 }

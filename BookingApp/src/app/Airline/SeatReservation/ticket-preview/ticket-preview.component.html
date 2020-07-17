@@ -94,7 +94,7 @@
         </div>
         <ng-template #assignment>
             <div class="container">
-                <div class="col-sm-12">
+                <div class="col-sm-12" *ngIf="ticket.details.passportNum">
                     <button (click)="SetDetails()" class="btn btn-primary">Set details</button>
                 </div>
             </div>

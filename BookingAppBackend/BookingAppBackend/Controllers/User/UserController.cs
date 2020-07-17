@@ -41,7 +41,7 @@ namespace BookingAppBackend.Controllers.User
             {
                 var temp = await service.Add(param, Url);
                 if (temp.Success)
-                    return Ok(mapper.Map<IEnumerable<UserResource>>(temp.Resource));
+                    return Ok(mapper.Map<UserResource>(temp.Resource));
                 else
                     return BadRequest(new { Message = temp.Message });
             }

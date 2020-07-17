@@ -10,6 +10,7 @@ namespace BookingAppBackend.Database.Interfaces
 {
     public interface IFlightRepository
     {
+        Task<Flight> GetFlightAsync(int flightId);
         Task<FlightResponse> GetFlightAsync(int flightId, int airlineId);
         Task<FlightResponse> AddFlight(FlightAddParameter flight, int airlineId);
         Task<FlightResponse> AddSeats(int rowsTop, int rowsBottom, int columnsLeft, int columnsRight, int airlineId, int flightId);

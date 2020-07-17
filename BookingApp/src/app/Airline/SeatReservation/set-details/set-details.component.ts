@@ -43,7 +43,7 @@ export class SetDetailsComponent implements OnInit {
     this.Details.selectedExtras.splice(this.Details.selectedExtras.indexOf(item),1);
   }
 
-  Finish(){
+  public Submit(){
     if(this.form.valid){
       this.Details.luggageWeigth = this.form.value.luggageWeigth;
       this.returnValue.emit(this.Details);

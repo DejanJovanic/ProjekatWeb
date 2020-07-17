@@ -26,7 +26,7 @@ namespace BookingAppBackend.Model.Airlines
         public FlightClass FlightClass { get; set; }
         public double LoadInCabin { get; set; }
         public ICollection<WeightPricing> WeightPricings { get; set; } = new List<WeightPricing>();
-        public ICollection<PaidExtras> Extras { get; set; } = new List<PaidExtras>();
+        public ICollection<PaidExtras> PaidExtras { get; set; } = new List<PaidExtras>();
 
     }
 }

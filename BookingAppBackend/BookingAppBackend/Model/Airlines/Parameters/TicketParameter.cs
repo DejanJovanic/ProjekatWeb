@@ -9,7 +9,6 @@ namespace BookingAppBackend.Model.Airlines.Parameters
     {
         public int Row { get; set; }
         public int Column { get; set; }
-        public double Price { get; set; }
         public int AirlineId { get; set; }
         public int FlightId { get; set; }
         public string TicketOwnerUsername { get; set; }

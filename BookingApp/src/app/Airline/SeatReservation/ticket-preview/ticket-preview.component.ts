@@ -45,7 +45,7 @@ export class TicketPreviewComponent implements OnInit {
         if(element.to > this.maxWeigth ) this.maxWeigth  = element.to
       });
     }
-    
+    this.CalculatePrice();
   }
 
   ChooseMe(){
@@ -115,8 +115,10 @@ export class TicketPreviewComponent implements OnInit {
     modalRef.componentInstance.maxWeigth = this.maxWeigth
     modalRef.componentInstance.returnValue.subscribe(i =>{
       this.ticket.price = this.flightDetails.details.price;
+      this.ticket.extras = i.selectedExtras;
+      this.ticket.luggageWeigth = i.luggageWeigth;
       for(let a of this.flightDetails.details.luggageOptions){
-        if(a.from >= i.luggageWeigth && a.to < i.luggageWeigth){
+        if(a.from <= i.luggageWeigth && a.to >= i.luggageWeigth){
           this.ticket.price += i.luggageWeigth * a.price;
           break;
         }

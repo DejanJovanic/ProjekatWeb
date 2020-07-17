@@ -18,7 +18,7 @@ namespace BookingAppBackend.Model.Airlines
         public int Column { get; set; }
         public User User { get; set; }
         public double DiscountPercentage { get; set; }
-        public ICollection<PaidExtras> Extras { get; set; }
+        public ICollection<FastFlightPaidExtra> PaidExtras { get; set; } = new List<FastFlightPaidExtra>();
         public double LoadWeight { get; set; }
     }
 }

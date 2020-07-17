@@ -6,4 +6,6 @@ export class Airplane{
     columns : number;
     disabledSeats : Seat[];
     removedSeats : Seat[];
+    takenSeats : Seat[];
+    specialSeats : Seat[];
 }

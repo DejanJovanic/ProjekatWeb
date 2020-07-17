@@ -14,7 +14,19 @@ namespace BookingAppBackend.Database.Repository
     public class FlightRepository : Repository, IFlightRepository
     {
         public FlightRepository(BookingAppDbContext context) : base(context) { }
-
+        public async Task<Flight> GetFlightAsync(int flightId)
+        {
+            var temp =  await context.Airlines.Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).Include(i => i.FastFlights).ThenInclude(i => i.Flight)
+               .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.DisabledSeats)
+               .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.RemovedSeats)
+               .Include(i => i.Flights).ThenInclude(i => i.PaidExtras)
+               .Include(i => i.Flights).ThenInclude(i => i.WeightPricings)
+               .FirstOrDefaultAsync(i => i.Flights.Count(j => j.Id == flightId) > 0);
+            if (temp != null)
+                return temp.Flights.FirstOrDefault(i => i.Id == flightId);
+            else
+                return null;
+        }
         public async Task<FlightResponse> AddFlight(FlightAddParameter flight, int airlineId)
         {
             var temp = await context.Airlines.Include(i => i.Flights).Include(i => i.Airplanes).FirstOrDefaultAsync(i => i.Id == airlineId);
@@ -31,7 +43,7 @@ namespace BookingAppBackend.Database.Repository
                 tempFlight.Distance = flight.Distance;
                 tempFlight.LoadInCabin = flight.LoadInCabin;
                 tempFlight.WeightPricings = flight.WeightPricings;
-                tempFlight.Extras = flight.Extras;
+                tempFlight.PaidExtras = flight.Extras;
                 if (flight.IsRoundTrip)
                 {
                     tempFlight.StartDateBack = flight.StartDateBack;
@@ -55,9 +67,11 @@ namespace BookingAppBackend.Database.Repository
 
         public async Task<FlightResponse> GetFlightAsync(int flightId,int airlineId)
         {
-            var airline = await context.Airlines.Include(i => i.FastFlights).Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets)
+            var airline = await context.Airlines.Include(i => i.FastFlights).ThenInclude(i => i.Flight).Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight)
              .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.RemovedSeats)
              .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.DisabledSeats)
+             .Include(i => i.Flights).ThenInclude(i => i.PaidExtras)
+             .Include(i => i.Flights).ThenInclude(i => i.WeightPricings)
              .FirstOrDefaultAsync(i => i.Id == airlineId);
             if (airline == null)
                 return new FlightResponse("Airline does not exist.");
@@ -69,7 +83,7 @@ namespace BookingAppBackend.Database.Repository
         }
         public async Task<FlightResponse> RemoveSeat(int row,int column,int airlineId,int flightId)
         {
-            var airline = await context.Airlines.Include(i => i.FastFlights).Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets)
+            var airline = await context.Airlines.Include(i => i.FastFlights).ThenInclude(i => i.Flight).Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight)
                 .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.RemovedSeats)
                 .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.DisabledSeats)
                 .FirstOrDefaultAsync(i => i.Id == airlineId);
@@ -101,7 +115,7 @@ namespace BookingAppBackend.Database.Repository
 
         public async Task<FlightResponse> DisableSeat(int row, int column, int airlineId, int flightId)
         {
-            var airline = await context.Airlines.Include(i => i.FastFlights).Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets)
+            var airline = await context.Airlines.Include(i => i.FastFlights).ThenInclude(i => i.Flight).Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight)
                      .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.RemovedSeats)
                      .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.DisabledSeats)
                      .FirstOrDefaultAsync(i => i.Id == airlineId); if (airline == null)
@@ -132,7 +146,7 @@ namespace BookingAppBackend.Database.Repository
 
         public async Task<FlightResponse> AddSeats(int rowsTop, int rowsBottom,int columnsLeft,int columnsRight, int airlineId, int flightId)
         {
-            var airline = await context.Airlines.Include(i => i.FastFlights).Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets)
+            var airline = await context.Airlines.Include(i => i.FastFlights).ThenInclude(i => i.Flight).Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight)
                      .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.RemovedSeats)
                      .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.DisabledSeats)
                      .FirstOrDefaultAsync(i => i.Id == airlineId); if (airline == null)

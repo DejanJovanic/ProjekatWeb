@@ -23,28 +23,16 @@ namespace BookingAppBackend.Controllers.FlightReservation
 
         [HttpPost]
         [Authorize(Roles = "User")]
-        public async Task<IActionResult> AddReservation([FromBody]ICollection<TicketParameter> tickets)
+        public async Task<IActionResult> AddReservation(ReservationParameter flightReservation)
         {
-            if (tickets == null || tickets.Count() > 0)
+            if (flightReservation.Tickets == null || flightReservation.Tickets.Count() == 0)
                 return BadRequest(new { Message = "Tickets have to be supplied." });
             try
             {
-                var ret = await service.Add(tickets);
+                var ret = await service.Add(flightReservation.Tickets);
                 if (ret.Success)
-                {
-                    var reservation = new Reservation();
-                    reservation.AirlineTickets = new List<Ticket>();
-                    foreach(var a in ret.Resource.AirlineTickets)
-                    {
-                        if (a.TicketOwner != null && a.TicketOwner.Username == User.Identity.Name)
-                        {
-                            reservation.AirlineTickets.Add(a);
-                            continue;
-                        }
-                        else if (a.TicketOwner == null && a.InvitedBy.Username == User.Identity.Name)
-                            reservation.AirlineTickets.Add(a);
-                    }
-                    return Ok(reservation);
+                {               
+                    return Ok(true);
                 }                 
                 else
                     return BadRequest(new { Message = ret.Message });

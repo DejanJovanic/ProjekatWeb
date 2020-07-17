@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookingAppBackend.Model.Airlines
@@ -14,5 +15,8 @@ namespace BookingAppBackend.Model.Airlines
         public string Description { get; set; }
 
         public double Price { get; set; }
+
+        public ICollection<FastFlightPaidExtra> FastFlights { get; set; } = new List<FastFlightPaidExtra>();
+        public ICollection<TicketPaidExtra> Tickets { get; set; } = new List<TicketPaidExtra>();
     }
 }

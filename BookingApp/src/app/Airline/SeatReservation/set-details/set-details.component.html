@@ -1,7 +1,7 @@
 <div class="modal-body">
-    <form (submit)="Finish()" [formGroup]="form" novalidate>
+    <form (submit)="Submit()" [formGroup]="form" novalidate>
         <div class="form-group row">
-            <label for="luggageWeigth" class="col-sm-2 col-form-label">Passport Number: </label>
+            <label for="luggageWeigth" class="col-sm-2 col-form-label">Luggage weight: </label>
             <div class="col-sm-10">
                 <input class="form-control" type="number" name="luggageWeigth" formControlName="luggageWeigth"/>
             </div>
@@ -16,16 +16,17 @@
             <div class="col-sm-3">
                 {{item.price}}
             </div>
-            <div *ngIf="!ShouldBeDisplayed(item); else addExtra " class="col-sm-3">
-                <button class="btn btn-primary" (click)="RemoveExtra(item)">Remove</button>
+            <div *ngIf="ShouldBeDisplayed(item); else addExtra " class="col-sm-3">
+                <button class="btn btn-primary" type="button" (click)="RemoveExtra(item)">Remove</button>
             </div>
             <ng-template #addExtra>
-                <button class="btn btn-primary" (click)="AddExtra(item)">Add</button>
+                <button class="btn btn-primary" type="button" (click)="AddExtra(item)">Add</button>
             </ng-template>
         </div>
+        <div class="col-sm-3">
+            <button class="btn btn-primary" [disabled]="form.invalid" type="submit">Set details</button>
+        </div>
     </form>
-    <div class="col-sm-3">
-        <button class="btn btn-primary" [disabled]="form.invalid" type="submit">Set details</button>
-    </div>
+
 </div>
 
