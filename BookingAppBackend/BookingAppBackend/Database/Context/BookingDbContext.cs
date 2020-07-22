@@ -19,7 +19,9 @@ namespace BookingAppBackend.Database.Contex
         public DbSet<Airline> Airlines { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<TicketPaidExtra> TicketPaidExtras { get; set; }
+        public DbSet<Reservation> Reservation { get; set; }
         public DbSet<FastFlightPaidExtra> FastFlightPaidExtras { get; set; }
+        public DbSet<UserReservation> UserReservations { get; set; }
 
         public BookingAppDbContext(DbContextOptions options) : base(options) { }
  
@@ -49,7 +51,12 @@ namespace BookingAppBackend.Database.Contex
             builder.Entity<FastFlightPaidExtra>().HasKey(i => new { i.FastFlightId, i.PaidExtraId });
             builder.Entity<FastFlightPaidExtra>().HasOne(i => i.FastFlight).WithMany(i => i.PaidExtras).HasForeignKey(i => i.FastFlightId);
             builder.Entity<FastFlightPaidExtra>().HasOne(i => i.PaidExtra).WithMany(i => i.FastFlights).HasForeignKey(i => i.PaidExtraId);
- 
+
+
+            builder.Entity<UserReservation>().HasKey(i => new { i.Username, i.ReservationId });
+            builder.Entity<UserReservation>().HasOne(i => i.User).WithMany(i => i.MyReservations).HasForeignKey(i => i.Username);
+            builder.Entity<UserReservation>().HasOne(i => i.Reservation).WithMany(i => i.Users).HasForeignKey(i => i.ReservationId);
+
         }
    
     }

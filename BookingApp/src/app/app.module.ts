@@ -73,6 +73,10 @@ import { LoadWeigthComponent } from './Airline/AirlineAdmin/load-weigth/load-wei
 import { ExtrasComponent } from './Airline/AirlineAdmin/extras/extras.component';
 import { EnterPassportComponent } from './Airline/SeatReservation/enter-passport/enter-passport.component';
 import { SetDetailsComponent } from './Airline/SeatReservation/set-details/set-details.component';
+import { ReservationsMainComponent } from './Airline/AirlineRegistered/reservations-main/reservations-main.component';
+import { ReservationsHolderComponent } from './Airline/AirlineRegistered/reservations-holder/reservations-holder.component';
+import { ReservationsPanelComponent } from './Airline/AirlineRegistered/reservations-panel/reservations-panel.component';
+import { ReservationConfirmationComponent } from './Airline/AirlineRegistered/reservation-confirmation/reservation-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -139,7 +143,11 @@ import { SetDetailsComponent } from './Airline/SeatReservation/set-details/set-d
     LoadWeigthComponent,
     ExtrasComponent,
     EnterPassportComponent,
-    SetDetailsComponent
+    SetDetailsComponent,
+    ReservationsMainComponent,
+    ReservationsHolderComponent,
+    ReservationsPanelComponent,
+    ReservationConfirmationComponent
   ],
   imports: [
     

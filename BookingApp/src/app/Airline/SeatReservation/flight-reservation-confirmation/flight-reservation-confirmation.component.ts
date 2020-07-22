@@ -55,33 +55,7 @@ export class FlightReservationConfirmationComponent implements OnInit, OnDestroy
   }
 
   SetReservation(){
-    let reservations = []
-    for(let item of this.service.reservation.tickets){
-      let temp = new TicketNetwork();
-      temp.Row = item.row;
-      temp.Column = item.column;
-      temp.AirlineId = this.service.reservation.flight.airline.id;
-      temp.FlightId = this.service.reservation.flight.id;
-      temp.TicketOwnerUsername = item.details.username;
-      temp.SelectedExtras = []
-      for(let a of item.extras){
-        temp.SelectedExtras.push(a.id);
-      }
-      
-      if(item.luggageWeigth)
-        temp.LoadWeight = item.luggageWeigth;
-      else
-        temp.LoadWeight = 0;
-      if(item.details.username != this.user.currentUser.username)
-        temp.InvitedByUsername = this.user.currentUser.username;
-      else
-        temp.InvitedByUsername = "";
-      temp.Name = item.details.name;
-      temp.LastName = item.details.lastName;
-      temp.Passport = item.details.passportNum;
-      reservations.push(temp);
-    }
-    this.bookingService.SetFlightReservation(reservations);
+    this.bookingService.SetFlightReservation(this.service.reservation);
     this.sub = this.bookingService.SendCurrentReservation().subscribe(i =>{
       this.service.reservation = null;
       this.router.navigate(['']);

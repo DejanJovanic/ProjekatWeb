@@ -1,0 +1,8 @@
+<div class="container">  
+    <div class="card-deck">
+        <br>
+        <ng-container *ngFor="let item of reservations | async">
+            <app-reservations-panel  [reservation]=item></app-reservations-panel>
+        </ng-container>
+    </div>
+</div>

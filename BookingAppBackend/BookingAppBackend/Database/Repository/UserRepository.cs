@@ -1,5 +1,6 @@
 ﻿using BookingAppBackend.Database.Contex;
 using BookingAppBackend.Database.Interfaces;
+using BookingAppBackend.Model.Airlines;
 using BookingAppBackend.Model.Responses;
 using BookingAppBackend.Model.Users;
 using Microsoft.EntityFrameworkCore;
@@ -124,6 +125,28 @@ namespace BookingAppBackend.Database.Repository
             var temp = await context.RegisteredUsers.ToListAsync();
             return temp.Where(i => CheckIfOk(i,param));
 
+        }
+
+        public async Task<UserResponse> AddReservation(string username,Reservation reservation)
+        {
+            var temp = await context.RegisteredUsers.Include(i => i.MyReservations).FirstOrDefaultAsync(i => i.Username.ToLower() == username.ToLower());
+            if (temp != null)
+            {
+                try
+                {
+                    var ur = new UserReservation { User = temp, Reservation = reservation };
+                    temp.MyReservations.Add(ur);
+                    reservation.Users.Add(ur);
+                    return new UserResponse(temp);
+                }
+                catch(Exception e)
+                {
+                    return new UserResponse(e.InnerException.Message);
+                }
+       
+            }
+            else
+                return new UserResponse("User with given username does not exist");
         }
 
     }

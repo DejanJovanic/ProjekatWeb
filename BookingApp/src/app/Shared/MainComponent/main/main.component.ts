@@ -44,13 +44,14 @@ export class MainComponent implements OnInit {
         case "User":
           this.links = [
             {title : "Flights" , route : "Airlines"},
-            {title : "Friends" , route : "Friends"}
+            {title : "Friends" , route : "Friends"},
+            {title : "Reservations", route : "Reservations"}
           ];
           this.router.navigate(['Airlines'],{ relativeTo : this.activeRoute});
           break;
         case "AirlineAdmin":
           this.links = [
-            {title : "Fligts", route : "AirlineAdmin"},
+            {title : "Flights", route : "AirlineAdmin"},
             {title : "Airplanes", route : "Airplanes"},
             {title : "Company preview", route: 'CompanyPreview'}
           ];

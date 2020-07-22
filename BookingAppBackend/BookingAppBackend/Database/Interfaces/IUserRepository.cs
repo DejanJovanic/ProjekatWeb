@@ -1,4 +1,5 @@
-﻿using BookingAppBackend.Model.Responses;
+﻿using BookingAppBackend.Model.Airlines;
+using BookingAppBackend.Model.Responses;
 using BookingAppBackend.Model.Users;
 using System;
 using System.Collections.Generic;
@@ -18,5 +19,6 @@ namespace BookingAppBackend.Database.Interfaces
         Task<UserResponse> InsertUser(User user);
         Task<UserResponse> EnableUser(string username);
         Task<IEnumerable<User>> Search(UserSearchParams param);
+        Task<UserResponse> AddReservation(string username, Reservation reservation);
     }
 }

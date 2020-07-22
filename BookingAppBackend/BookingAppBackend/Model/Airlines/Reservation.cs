@@ -16,6 +16,6 @@ namespace BookingAppBackend.Model.Airlines
         public User SettingUser { get; set; }
         public ICollection<Ticket> AirlineTickets { get; set; } = new List<Ticket>();
 
-        public double ApprovedCostReductionPercentage { get; set; }
+        public ICollection<UserReservation> Users { get; set; } = new List<UserReservation>();
     }
 }

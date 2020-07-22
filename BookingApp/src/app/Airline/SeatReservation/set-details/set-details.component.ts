@@ -49,7 +49,6 @@ export class SetDetailsComponent implements OnInit {
       this.returnValue.emit(this.Details);
       this.activeModal.close()
     }
-    ;
   }
 
 }

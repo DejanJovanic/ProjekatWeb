@@ -14,16 +14,19 @@ namespace BookingAppBackend.Database.Repository
     public class AirlineReservationRepository : Repository,IAirlineReservationRepository
     {
         IFlightRepository flightRepo;
+        IUserRepository userRepo;
 
-        public AirlineReservationRepository(IFlightRepository flightRepository,BookingAppDbContext context) : base(context)
+        public AirlineReservationRepository(IFlightRepository flightRepo, IUserRepository userRepo,BookingAppDbContext context) : base(context)
         {
-            flightRepo = flightRepository;
-        }  
+            this.flightRepo = flightRepo;
+            this.userRepo = userRepo;
+        }
 
         public async Task<AirlineReservationResponse> Add(ICollection<TicketParameter> tickets)
         {
             if (tickets.Count > 0)
             {
+                var users = new List<string>();
                 var reservation = new Reservation();
                 var airlineId = tickets.First().AirlineId;
                 var flightId = tickets.First().FlightId;
@@ -54,17 +57,20 @@ namespace BookingAppBackend.Database.Repository
                         if (inviter != null || (string.IsNullOrWhiteSpace(a.InvitedByUsername) && owner != null))
                         {
                             var ticket = new Ticket();
-                            
+                            ticket.Airline = airline;
                             ticket.Flight = flight;
                             ticket.Column = a.Column;
                             ticket.Row = a.Row;
-
+                            ticket.BookingDate = DateTime.Now;
                             ticket.TicketOwner = owner;
+                            if (owner != null)
+                                users.Add(owner.Username);
+
                             ticket.InvitedBy = inviter;
                             if (string.IsNullOrWhiteSpace(a.TicketOwnerUsername) || (owner == inviter) || (string.IsNullOrWhiteSpace(a.InvitedByUsername) && owner != null))
-                                ticket.IsApporved = true;
+                                ticket.IsApproved = true;
                             else
-                                ticket.IsApporved = false;
+                                ticket.IsApproved = false;
                             ticket.LoadWeight = a.LoadWeight;
                             foreach (var b in flight.PaidExtras)
                             {
@@ -101,6 +107,12 @@ namespace BookingAppBackend.Database.Repository
                         return new AirlineReservationResponse("Owner with given username does not exist.");     
                 }
                 airline.Reservations.Add(reservation);
+                foreach(var a in users)
+                {
+                   var temp = await userRepo.AddReservation(a, reservation);
+                    if (!temp.Success)
+                        return new AirlineReservationResponse(temp.Message);
+                }
                 return new AirlineReservationResponse(reservation);
             }
             else
@@ -126,6 +138,188 @@ namespace BookingAppBackend.Database.Repository
             }
 
             return new AirlineReservationResponse(reservation);
+        }
+
+        public async Task<AirlineReservationResponse> AcceptReservation(ReservationOptionsParameter param,string username)
+        {
+            var temp = await context.RegisteredUsers
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.TicketOwner)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.SelectedExtras).ThenInclude(i => i.PaidExtra)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.Users).ThenInclude(i => i.User)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.SettingUser)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).ThenInclude(i => i.PaidExtras)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).ThenInclude(i => i.WeightPricings)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Airline).ThenInclude(i => i.Address)
+              .FirstOrDefaultAsync(i => i.Username.ToLower() == username.ToLower());
+            if (temp != null)
+            {
+                foreach(var b in temp.MyReservations)
+                {
+                    var ticket = b.Reservation.AirlineTickets.FirstOrDefault(i => i.Id == param.TicketId);
+                    if(ticket != null)
+                    {
+                        ticket.IsApproved = true;
+                        ticket.LoadWeight = param.LuggageWeight;
+                        ticket.Passport = param.PassportNumber;
+                        foreach (var a in ticket.Flight.PaidExtras)
+                        {
+                            if (param.SelectedExtras.Contains(a.Id))
+                            {
+                                var extra = new TicketPaidExtra();
+                                extra.PaidExtra = a;
+                                extra.Ticket = ticket;
+                                a.Tickets.Add(extra);
+                                ticket.SelectedExtras.Add(extra);
+                                context.TicketPaidExtras.Add(extra);
+                            }
+                        }
+                        return new AirlineReservationResponse(b.Reservation);
+                    }
+                }
+                return new AirlineReservationResponse("User has no reservation with given id");                              
+            }
+            else
+                return new AirlineReservationResponse("User does not exist");
+        }
+
+        public async Task<AirlineReservationResponse> RejectReservation(ReservationOptionsParameter param, string username)
+        {
+            var temp = await context.RegisteredUsers
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.TicketOwner)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.SelectedExtras).ThenInclude(i => i.PaidExtra)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.Users).ThenInclude(i => i.User)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.SettingUser)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).ThenInclude(i => i.PaidExtras)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).ThenInclude(i => i.WeightPricings)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Airline).ThenInclude(i => i.Address)
+              .FirstOrDefaultAsync(i => i.Username.ToLower() == username.ToLower());
+            if (temp != null)
+            {
+                foreach (var b in temp.MyReservations)
+                {
+                    var ticket = b.Reservation.AirlineTickets.FirstOrDefault(i => i.Id == param.TicketId);
+                    if (ticket != null)
+                    {
+                        b.Reservation.AirlineTickets.Remove(ticket);
+                        b.Reservation.Users.Remove(b);
+                        temp.MyReservations.Remove(b);
+                        context.Tickets.Remove(ticket);
+                        if(b.Reservation.AirlineTickets.Count == 0)
+                        {
+                            context.Reservation.Remove(b.Reservation);
+                        }
+                        return new AirlineReservationResponse(b.Reservation);
+                    }
+                }
+                return new AirlineReservationResponse("User has no reservation with given id");
+            }
+            else
+                return new AirlineReservationResponse("User does not exist");
+        }
+
+        public async Task<AirlineReservationResponse> CancelReservation(ReservationOptionsParameter param, string username)
+        {
+            var temp = await context.RegisteredUsers
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.TicketOwner)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.SelectedExtras).ThenInclude(i => i.PaidExtra)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.Users).ThenInclude(i => i.User)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.SettingUser)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).ThenInclude(i => i.PaidExtras)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).ThenInclude(i => i.WeightPricings)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Airline).ThenInclude(i => i.Address)
+              .FirstOrDefaultAsync(i => i.Username.ToLower() == username.ToLower());
+            if (temp != null)
+            {
+                foreach (var b in temp.MyReservations)
+                {
+                    var ticket = b.Reservation.AirlineTickets.FirstOrDefault(i => i.Id == param.TicketId);
+                    if (ticket != null)
+                    {
+
+                        foreach(var a in ticket.SelectedExtras)
+                        {
+                            context.TicketPaidExtras.Remove(a);
+                        }
+                        if(ticket.TicketOwner == null)
+                        {
+                            b.Reservation.AirlineTickets.Remove(ticket);
+                            context.Tickets.Remove(ticket);
+                            if (b.Reservation.AirlineTickets.Count(i => i.TicketOwner == null) == 0 && b.Reservation.AirlineTickets.Count(i => i.TicketOwner.Username.ToLower() == b.Reservation.SettingUser.Username.ToLower()) == 0)
+                            {
+                                var user = b.Reservation.Users.FirstOrDefault(i => i.Username.ToLower() == b.Reservation.SettingUser.Username.ToLower());
+                                if (user != null)
+                                {
+                                    b.Reservation.Users.Remove(b);
+                                    user.User.MyReservations.Remove(b);
+                                }
+                                
+                            }
+                        }
+                        else if(ticket.TicketOwner.Username.ToLower() == b.Reservation.SettingUser.Username.ToLower())
+                        {
+                            b.Reservation.AirlineTickets.Remove(ticket);
+                            context.Tickets.Remove(ticket);
+                            if(b.Reservation.AirlineTickets.Count(i => i.TicketOwner == null) == 0)
+                            {
+                                b.Reservation.Users.Remove(b);
+                                temp.MyReservations.Remove(b);
+                            }
+                        }
+                        else
+                        {
+                            b.Reservation.AirlineTickets.Remove(ticket);
+                            context.Tickets.Remove(ticket);
+                            b.Reservation.Users.Remove(b);
+                            temp.MyReservations.Remove(b);
+                        }
+                        
+                      
+                     
+                        if (b.Reservation.AirlineTickets.Count == 0)
+                        {
+                            context.Reservation.Remove(b.Reservation);
+                        }
+                        return new AirlineReservationResponse(b.Reservation);
+                    }
+                }
+                return new AirlineReservationResponse("User has no reservation with given id");
+            }
+            else
+                return new AirlineReservationResponse("User does not exist");
+        }
+        public async Task<ICollection<Reservation>> GetReservations(string username)
+        {
+            var ret = new List<Reservation>();
+            try
+            {
+                var temp = await context.RegisteredUsers
+               .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.TicketOwner)
+               .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.SettingUser)
+               .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).ThenInclude(i => i.PaidExtras)
+               .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Airline).ThenInclude(i => i.Address)
+               .FirstOrDefaultAsync(i => i.Username.ToLower() == username.ToLower());
+                if (temp != null)
+                {
+                    foreach (var a in temp.MyReservations)
+                    {
+                        var reservation = new Reservation();
+                        foreach (var b in a.Reservation.AirlineTickets)
+                        {
+                            if (b.TicketOwner?.Username.ToLower() == username.ToLower())
+                                reservation.AirlineTickets.Add(b);
+                            if (b.TicketOwner == null && a.Reservation.SettingUser.Username.ToLower() == username.ToLower())
+                                reservation.AirlineTickets.Add(b);
+                        }
+                        ret.Add(reservation);
+                    }
+                }
+                return ret;
+            }
+            catch(Exception e)
+            {
+                return ret;
+            }
+           
         }
     }
 }

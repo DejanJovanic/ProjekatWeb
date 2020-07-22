@@ -29,6 +29,8 @@ import { RentACarDiscountsComponent } from './RentACar/RentACarEnterpriseDiscoun
 import { RentACarAdminEnterpriseComponent } from './RentACar/RentACarAdmin/rent-acar-admin-enterprise/rent-acar-admin-enterprise.component';
 import { RemoveSeatComponent } from './Airline/AirlineAdmin/remove-seat/remove-seat.component';
 import { DisableSeatComponent } from './Airline/AirlineAdmin/disable-seat/disable-seat.component';
+import { ReservationsMainComponent } from './Airline/AirlineRegistered/reservations-main/reservations-main.component';
+import { ReservationConfirmationComponent } from './Airline/AirlineRegistered/reservation-confirmation/reservation-confirmation.component';
 
 const routes: Routes = [
   {path:'',redirectTo: 'main', pathMatch : 'full'},
@@ -37,8 +39,10 @@ const routes: Routes = [
     {path : 'Friends', component: FriendsMainComponent, resolve:{friends : FriensResolverService}},
     {path : 'AirlineAdmin', component : AirlineAdminMainComponent},
     {path : 'Airplanes', component: AirplanesComponent},
-    {path : 'CompanyPreview', component: AirlineAdminCompanyPreviewComponent}
+    {path : 'CompanyPreview', component: AirlineAdminCompanyPreviewComponent},
+    {path : 'Reservations', component: ReservationsMainComponent}
   ]},
+  {path : 'ManageInvitation/:airlineId/:flightId/:ticketId', component : ReservationConfirmationComponent,resolve:{details : SeatResolveService}},
   {path : 'RemoveSeat/:id', component: RemoveSeatComponent},
   {path : 'DisableSeat/:id', component: DisableSeatComponent},
   {path: 'AddFlight', component: AddFlightComponent},

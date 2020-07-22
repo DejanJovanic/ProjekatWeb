@@ -159,6 +159,9 @@ namespace BookingAppBackend.Migrations
                     b.Property<int?>("AirlineId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("BookingDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Column")
                         .HasColumnType("int");
 
@@ -167,6 +170,9 @@ namespace BookingAppBackend.Migrations
 
                     b.Property<int?>("FlightId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsRated")
+                        .HasColumnType("bit");
 
                     b.Property<double>("LoadWeight")
                         .HasColumnType("float");
@@ -262,6 +268,29 @@ namespace BookingAppBackend.Migrations
                     b.ToTable("Flight");
                 });
 
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.FlightRating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("FlightId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Rate")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FlightId");
+
+                    b.ToTable("FlightRating");
+                });
+
             modelBuilder.Entity("BookingAppBackend.Model.Airlines.PaidExtras", b =>
                 {
                     b.Property<int>("Id")
@@ -321,9 +350,6 @@ namespace BookingAppBackend.Migrations
                     b.Property<int?>("AirlineId")
                         .HasColumnType("int");
 
-                    b.Property<double>("ApprovedCostReductionPercentage")
-                        .HasColumnType("float");
-
                     b.Property<string>("SettingUserUsername")
                         .HasColumnType("nvarchar(450)");
 
@@ -343,6 +369,12 @@ namespace BookingAppBackend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AirlineId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("BookingDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Column")
                         .HasColumnType("int");
 
@@ -352,7 +384,10 @@ namespace BookingAppBackend.Migrations
                     b.Property<string>("InvitedByUsername")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("IsApporved")
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRated")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
@@ -381,6 +416,8 @@ namespace BookingAppBackend.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AirlineId");
+
                     b.HasIndex("FlightId");
 
                     b.HasIndex("InvitedByUsername");
@@ -405,6 +442,21 @@ namespace BookingAppBackend.Migrations
                     b.HasIndex("PaidExtraId");
 
                     b.ToTable("TicketPaidExtras");
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.UserReservation", b =>
+                {
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Username", "ReservationId");
+
+                    b.HasIndex("ReservationId");
+
+                    b.ToTable("UserReservations");
                 });
 
             modelBuilder.Entity("BookingAppBackend.Model.Airlines.WeightPricing", b =>
@@ -758,6 +810,13 @@ namespace BookingAppBackend.Migrations
                         .HasForeignKey("AirplaneId");
                 });
 
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.FlightRating", b =>
+                {
+                    b.HasOne("BookingAppBackend.Model.Airlines.Flight", null)
+                        .WithMany("Ratings")
+                        .HasForeignKey("FlightId");
+                });
+
             modelBuilder.Entity("BookingAppBackend.Model.Airlines.PaidExtras", b =>
                 {
                     b.HasOne("BookingAppBackend.Model.Airlines.Flight", null)
@@ -785,6 +844,10 @@ namespace BookingAppBackend.Migrations
 
             modelBuilder.Entity("BookingAppBackend.Model.Airlines.Ticket", b =>
                 {
+                    b.HasOne("BookingAppBackend.Model.Airlines.Airline", "Airline")
+                        .WithMany()
+                        .HasForeignKey("AirlineId");
+
                     b.HasOne("BookingAppBackend.Model.Airlines.Flight", "Flight")
                         .WithMany()
                         .HasForeignKey("FlightId");
@@ -813,6 +876,21 @@ namespace BookingAppBackend.Migrations
                     b.HasOne("BookingAppBackend.Model.Airlines.Ticket", "Ticket")
                         .WithMany("SelectedExtras")
                         .HasForeignKey("TicketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.Airlines.UserReservation", b =>
+                {
+                    b.HasOne("BookingAppBackend.Model.Airlines.Reservation", "Reservation")
+                        .WithMany("Users")
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookingAppBackend.Model.Users.User", "User")
+                        .WithMany("Reservations")
+                        .HasForeignKey("Username")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -7,6 +7,11 @@ import { AirlineDatabaseService } from 'src/app/Shared/Model/Airlines/Database/a
 import { FlightDetails } from 'src/app/Shared/Model/Airlines/FlightDetails.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Seats } from 'src/app/Shared/Model/Airlines/Seats.model';
+import { FlightReservation } from 'src/app/Shared/Model/Airlines/FlightReservation.model';
+import { Airline } from 'src/app/Shared/Model/Airlines/Airline.model';
+import { TicketNetwork } from 'src/app/Shared/Model/Airlines/TicketNetwork.model';
+import { Flight } from 'src/app/Shared/Model/Airlines/Flight.model';
+import { ReservationConfirmation } from 'src/app/Shared/Model/Airlines/ReservationConfirmation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +41,20 @@ export class AirlineNetworkService {
       i.seats.CreateSeatsAirplane(i.airplane);
       return i;
     }))
+  }
+
+  getReservations() : Observable<{airline : AirlineCompany, flight : Flight, tickets : TicketNetwork[]}[]>{
+    return this.client.get<{airline : AirlineCompany, flight : Flight, tickets : TicketNetwork[]}[]>('http://localhost:50000/api/FlightReservation')
+  }
+
+  confirmReservation(data : ReservationConfirmation) : Observable<boolean>{
+    return this.client.post<boolean>('http://localhost:50000/api/FlightReservation/Accept',data).pipe(map(i => i ? true : false))
+  }
+
+  rejectReservation(data : {airlineId : number,flightId : number, ticketId : number}) : Observable<boolean>{
+    return this.client.post<boolean>('http://localhost:50000/api/FlightReservation/Reject',data).pipe(map(i => i ? true : false))
+  }
+   cancelReservation(data : {airlineId : number,flightId : number, ticketId : number}) : Observable<boolean>{
+    return this.client.post<boolean>('http://localhost:50000/api/FlightReservation/Cancel',data).pipe(map(i => i ? true : false))
   }
 }

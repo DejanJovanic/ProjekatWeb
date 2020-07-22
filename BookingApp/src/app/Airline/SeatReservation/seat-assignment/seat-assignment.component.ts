@@ -51,12 +51,16 @@ export class SeatAssignmentComponent implements OnInit {
     this.tickets = this.reservation.tickets;
   }
   public IsOk(){
+    let meIn = false;
     for(let a of this.reservation.tickets){
       if(a.details == null){
         return false;
       }
+      else{
+        if(a.details.username && a.details.username.toLowerCase() == this.cache.currentUser.username.toLowerCase()) meIn = true;
+      }
     }
-    return true;
+    return meIn;
   }
 
   OnClick(){

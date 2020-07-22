@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingAppBackend.Model.Airlines.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ namespace BookingAppBackend.Model.Airlines.Parameters
 {
     public class TicketParameter
     {
+        public int Id { get; set; }
         public int Row { get; set; }
         public int Column { get; set; }
         public int AirlineId { get; set; }
@@ -18,5 +20,8 @@ namespace BookingAppBackend.Model.Airlines.Parameters
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Passport { get; set; }
+        public bool IsRated { get; set; }
+        public bool IsApproved { get; set; }
+        public double Price { get; set; }
     }
 }

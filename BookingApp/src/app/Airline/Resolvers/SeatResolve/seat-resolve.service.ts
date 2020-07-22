@@ -9,6 +9,9 @@ export class SeatResolveService implements Resolve<any> {
 
   constructor(private service : FlightDetailsService) { }
   resolve(route: import("@angular/router").ActivatedRouteSnapshot, state: import("@angular/router").RouterStateSnapshot) {
-    return this.service.getDetails(route.params.id)
+    if(route.params.id)
+      return this.service.getDetails(route.params.id)
+    else
+      return this.service.getDetails(route.params.flightId)
   }
 }

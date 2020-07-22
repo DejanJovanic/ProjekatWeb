@@ -1,0 +1,73 @@
+<form (submit)="Accept()" [formGroup]="form" novalidate>
+    <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Passport Number: </label>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" name="passportNum" formControlName="passportNum"/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="luggageWeigth" class="col-sm-2 col-form-label">Luggage weight: </label>
+        <div class="col-sm-10">
+            <input class="form-control" type="number" name="luggageWeigth" formControlName="luggageWeigth"/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-3">
+            Name:
+        </div>
+        <div class="col-sm-3">
+            Description:
+        </div>
+        <div class="col-sm-3">
+            Price:
+        </div>
+    </div>
+    <div *ngFor="let item of details.extras" class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{item.name}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{item.description}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{item.price}}
+                        </div>
+                        <div *ngIf="ShouldBeDisplayed(item); else addExtra " class="col-sm-3">
+                            <button class="btn btn-danger" type="button" (click)="RemoveExtra(item)">Remove</button>
+                        </div>
+                        <ng-template #addExtra>
+                            <div class="col-sm-3">
+                                <button class="btn btn-primary" type="button" (click)="AddExtra(item)">Add</button>
+                            </div>           
+                        </ng-template>
+                    </div>      
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <h4>
+                Price:
+            </h4>
+        </div>
+        <div class="col-sm-4">
+            <h3>
+                {{price}}
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <button class="btn btn-primary"  [disabled]="form.invalid" type="submit">Accept</button>
+        </div>
+
+        <div class="col-sm-3">
+            <button class="btn btn-danger" (click)="Reject()"  type="button">Reject</button>
+        </div>
+    </div>
+</form>
