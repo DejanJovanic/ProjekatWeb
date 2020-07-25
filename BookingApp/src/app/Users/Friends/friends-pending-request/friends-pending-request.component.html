@@ -1,1 +1,7 @@
-<p>friends-pending-request works!</p>
+<div class="card" *ngFor="let request of pendingRequests | async">
+    <div class="card-body">
+        <span>{{request.username}} sent you a friend request</span>
+        <button class="btn btn-success" (click)="Accept(request)">Accept</button>
+        <button class="btn btn-danger" (click)="Decline(request)">Decline</button>
+    </div>
+</div>

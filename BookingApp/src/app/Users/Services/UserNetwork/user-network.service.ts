@@ -4,7 +4,7 @@ import { UserDatabaseService } from 'src/app/Shared/Model/Common/Database/user-d
 import { User } from 'src/app/Shared/Model/Common/User.model';
 import { UserCacheService } from '../UserCache/user-cache.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { IUser } from 'src/app/Shared/Model/Common/IUser.model';
 import { AirlineAdmin } from 'src/app/Shared/Model/Common/AirlineAdmin.model';
 
@@ -15,32 +15,18 @@ export class UserNetworkService {
 
   constructor(private db : UserDatabaseService,private cache : UserCacheService,private client : HttpClient) { }
 
-  public getFriends(username : string) : Observable<User[]>{
-    return this.client.get<User[]>('http://localhost:50000/api/Friends')
+  public getFriends() : Observable<User[]>{
+    return this.client.get<User[]>('http://localhost:50000/api/Friends').pipe(tap(i =>{
+      if(i) this.cache.friends.next(i);
+    }))
   }     
-/*   public Login(username : string, password : string) : Observable<boolean>{
-    let user = this.db.users.find(i => i.username == username)
-    if(user != null){
-      return of(true);
-    }
-    else{
-      return of(false);
-    }   
-  } */
+
   public Login(username : string, password : string) : Observable<string>{
     return this.client.post<{token:string}>('http://localhost:50000/api/Login',{username : username, password : password}).pipe(
       map(i => i.token) 
     )  
   }
-/*   public GetUserDetails(username : string) : Observable<User>{
-    let user = this.db.users.find(i => i.username == username)
-    if(user != null){
-      return of(user);
-    }
-    else{
-      return of(null);
-    }  
-  } */
+
   public GetUserDetails() : Observable<User>{
     return this.client.get<{user : any}>('http://localhost:50000/api/GeneralUser').pipe(
       map( i =>{
@@ -57,18 +43,43 @@ export class UserNetworkService {
             return null
         }
       }
-
       )
-      )
+    )
   }
 
   public SearchForFriends(params : {username : string, name: string, lastName : string}) : Observable<{username : string, name: string, lastName : string}[]>{
-   return this.client.get<{username : string, name: string, lastName : string}[]>('http://localhost:50000/api/User')
+    let param = new HttpParams()
+    if(params.username) param = param.append('username',params.username)
+    if(params.name) param = param.append('name',params.name)
+    if(params.lastName) param = param.append('lastName',params.lastName)
+    if(param.keys().length > 0)
+      return this.client.get<{username : string, name: string, lastName : string}[]>('http://localhost:50000/api/User',  { params :  param}) 
+    else
+      return of(null)
   }
   public SendFriendRequest(username : string){
-    this.client.post<User>('http://localhost:50000/api/FriendRequest',   
+    return this.client.post<User>('http://localhost:50000/api/FriendRequest',null,   
     {
         params :  new HttpParams().set('friendUsername',username)
     })
+  }
+
+    public AcceptFriendRequest(username : string){
+      return this.client.put<User>('http://localhost:50000/api/FriendRequest',null,   
+    {
+        params :  new HttpParams().set('friendUsername',username)
+    })
+  }
+
+  public DeclineFriendRequest(username : string){
+    return this.client.delete<User>('http://localhost:50000/api/FriendRequest',   
+    {
+        params :  new HttpParams().set('friendUsername',username)
+    })
+  }
+  public GetPendingFriendRequest(){
+    return this.client.get<User[]>('http://localhost:50000/api/FriendRequest').pipe(tap(i =>{
+      if(i) this.cache.pendingRequests.next(i);
+    }))
   }
 }

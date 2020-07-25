@@ -4,14 +4,16 @@ using BookingAppBackend.Database.Contex;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookingAppBackend.Migrations
 {
     [DbContext(typeof(BookingAppDbContext))]
-    partial class BookingAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200723164847_changedFriends")]
+    partial class changedFriends
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -641,12 +643,12 @@ namespace BookingAppBackend.Migrations
                     b.Property<string>("RequestSenderUsername")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SendingUserUsername")
+                    b.Property<string>("Username")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SendingUserUsername");
+                    b.HasIndex("Username");
 
                     b.ToTable("PendingRequest");
                 });
@@ -947,10 +949,9 @@ namespace BookingAppBackend.Migrations
 
             modelBuilder.Entity("BookingAppBackend.Model.Users.PendingRequest", b =>
                 {
-                    b.HasOne("BookingAppBackend.Model.Users.User", "SendingUser")
+                    b.HasOne("BookingAppBackend.Model.Users.User", null)
                         .WithMany("MyPendingRequests")
-                        .HasForeignKey("SendingUserUsername")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Username");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

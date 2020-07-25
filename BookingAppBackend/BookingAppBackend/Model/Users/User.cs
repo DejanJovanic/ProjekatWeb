@@ -15,8 +15,8 @@ namespace BookingAppBackend.Model.Users
         public bool IsEnabled { get; set; }
         public string City { get; set; }
         public string PhoneNumber { get; set; }
-        public ICollection<User> Friends { get; set; } = new List<User>();
-        public ICollection<User> PendingRequests { get; set; } = new List<User>();
+        public ICollection<Friend> MyFriends { get; set; } = new List<Friend>();
+        public ICollection<PendingRequest> MyPendingRequests { get; set; } = new List<PendingRequest>();
         public ICollection<UserReservation> MyReservations { get; set; } = new List<UserReservation>();
         public User() { }
     }

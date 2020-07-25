@@ -23,64 +23,154 @@ namespace BookingAppBackend.Database.Repository
 
         public async Task<IEnumerable<User>> GetFriends(string username)
         {
-          var temp = await context.RegisteredUsers.Include(i => i.Friends).FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
-          return temp.Friends;
+            var temp = await context.RegisteredUsers
+                .Include(i => i.MyFriends)
+                .FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
+            if(temp != null)
+            {
+                var ret = new List<User>();
+                foreach(var a in temp.MyFriends)
+                {
+                    var user = new User();
+                    user.Username = a.FriendUsername;
+                    user.Name = a.FriendName;
+                    user.LastName = a.FriendLastName;
+                    ret.Add(user);
+                }
+                return ret;
+            }
+            else
+                return null;
         }
 
         public async Task<IEnumerable<User>> GetPendingRequests(string username)
         {
-            var temp = await context.RegisteredUsers.Include(i => i.PendingRequests).FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
-            return temp.PendingRequests;
+            var temp = await context.RegisteredUsers
+                .Include(i => i.MyPendingRequests)
+                .FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
+            if (temp != null)
+            {
+                var ret = new List<User>();
+                foreach (var a in temp.MyPendingRequests)
+                {
+                    var user = new User();
+                    user.Username = a.RequestSenderUsername;
+                    ret.Add(user);
+                }
+                return ret;
+            }
+            else
+                return null;
         }
         public async Task<UserResponse> AcceptRequest(string username,string friendUsername)
         {
-            var user = await context.RegisteredUsers.Include(i => i.Friends).Include(i => i.PendingRequests).FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
+            var user = await context.RegisteredUsers
+                .Include(i => i.MyFriends)
+                .Include(i => i.MyPendingRequests)
+                .FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
             if (user == null)
                 return new UserResponse("User with username: " + username + " does not exist.");
-            var friend = await context.RegisteredUsers.Include(i => i.Friends).Include(i => i.PendingRequests).FirstOrDefaultAsync(i => i.Username.ToLower().Equals(friendUsername.ToLower()));
+            var friend = await context.RegisteredUsers
+                .Include(i => i.MyFriends)
+                .FirstOrDefaultAsync(i => i.Username.ToLower().Equals(friendUsername.ToLower()));
             if (friend == null)
                 return new UserResponse("User with username: " + friendUsername + " hasn't sent friend request.");
-            if(!user.PendingRequests.Contains(friend))
-                return new UserResponse("No friend request found.");
-            user.PendingRequests.Remove(friend);
-            user.Friends.Add(friend);
-            friend.Friends.Add(user);
+            PendingRequest temp = null;
+            foreach(var a in user.MyPendingRequests)
+            {
+                if(a.RequestSenderUsername.ToLower() == friendUsername.ToLower())
+                {
+                    var friend1 = new Friend();
+                    var friend2 = new Friend();
+                    friend1.FriendLastName = user.LastName;
+                    friend1.FriendName = user.Name;
+                    friend1.FriendUsername = user.Username;
+                   
+                    friend2.FriendUsername = friend.Username;
+                    friend2.FriendName = friend.Name;
+                    friend2.FriendLastName = friend.LastName;
+
+                    user.MyFriends.Add(friend2);
+                    friend.MyFriends.Add(friend1);
+
+                    temp = a;
+                    break;
+                }
+            }
             
-            return new UserResponse(user);
+            if(temp != null)
+            {
+                user.MyPendingRequests.Remove(temp);
+                return new UserResponse(user);
+            }
+            else
+                return new UserResponse("No friend request found.");
+
+            
+            
         }
 
         public async Task<UserResponse> SendRequest(string username, string friendUsername)
         {
-            var user = await context.RegisteredUsers.FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
+            var user = await context.RegisteredUsers
+                .Include(i => i.MyFriends)
+                .Include(i => i.MyPendingRequests)
+                .FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
             if (user == null)
                 return new UserResponse("User with username: " + username + " does not exist.");
-            var friend = await context.RegisteredUsers.Include(i => i.Friends).Include(i => i.PendingRequests).FirstOrDefaultAsync(i => i.Username.ToLower().Equals(friendUsername.ToLower()));
+            var friend = await context.RegisteredUsers
+                .Include(i => i.MyFriends)
+                .Include(i => i.MyPendingRequests)
+                .FirstOrDefaultAsync(i => i.Username.ToLower().Equals(friendUsername.ToLower()));
             if (friend == null)
                 return new UserResponse("User with username: " + friendUsername + " hasn't sent friend request.");
 
-            if(friend.PendingRequests.Contains(user))
+            if(friend.MyPendingRequests.Count(i => i.RequestSenderUsername.ToLower() == username.ToLower() ) > 0)
                 return new UserResponse("Friend request already sent.");
-            if (friend.Friends.Contains(user))
-                return new UserResponse("Already friends.");
-            
-            friend.PendingRequests.Add(user);
+            foreach(var a in friend.MyFriends)
+            {
+                if(a.FriendUsername.ToLower() == username.ToLower())
+                    return new UserResponse("Already friends.");
+            }
+
+            var req = new PendingRequest();
+            req.RequestSenderUsername = username;
+            friend.MyPendingRequests.Add(req);
 
             return new UserResponse(user);
         }
 
         public async Task<UserResponse> RejectRequest(string username, string friendUsername)
         {
-            var user = await context.RegisteredUsers.Include(i => i.Friends).Include(i => i.PendingRequests).FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
+            var user = await context.RegisteredUsers
+                .Include(i => i.MyFriends)
+                .Include(i => i.MyPendingRequests)
+                .FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
             if (user == null)
                 return new UserResponse("User with username: " + username + " does not exist.");
-            var friend = await context.RegisteredUsers.Include(i => i.Friends).Include(i => i.PendingRequests).FirstOrDefaultAsync(i => i.Username.ToLower().Equals(friendUsername.ToLower()));
+            var friend = await context.RegisteredUsers
+                .Include(i => i.MyFriends)
+                .Include(i => i.MyPendingRequests)
+                .FirstOrDefaultAsync(i => i.Username.ToLower().Equals(friendUsername.ToLower()));
             if (friend == null)
                 return new UserResponse("User with username: " + friendUsername + " hasn't sent friend request.");
-            if (!user.PendingRequests.Contains(friend))
+            PendingRequest req = null;
+            foreach(var a in user.MyPendingRequests)
+            {
+                if (a.RequestSenderUsername.ToLower() == friendUsername.ToLower())
+                {
+                    req = a;
+                }
+            }
+            if(req != null)
+            {
+                user.MyPendingRequests.Remove(req);
+                return new UserResponse(user);
+            }
+            else
+            {
                 return new UserResponse("No friend request found.");
-            user.PendingRequests.Remove(friend);
-
-            return new UserResponse(user);
+            }           
         }
 
         public async Task<UserResponse> InsertUser(User user)

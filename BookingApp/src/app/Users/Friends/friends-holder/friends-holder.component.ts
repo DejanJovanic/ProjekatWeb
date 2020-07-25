@@ -12,7 +12,7 @@ export class FriendsHolderComponent implements OnInit {
 
   public friends : Observable<User[]>
   constructor(private cache : UserCacheService) { 
-    this.friends = cache.friends;
+    this.friends = cache.friends.asObservable();
   }
 
   ngOnInit(): void {

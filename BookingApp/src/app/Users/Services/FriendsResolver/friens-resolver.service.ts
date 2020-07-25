@@ -15,7 +15,7 @@ export class FriensResolverService implements Resolve<any> {
    if(this.cacheService.currentUser == null){
      return this.networkService.GetUserDetails().pipe(switchMap(a =>{
       if(this.cacheService.friends.getValue() == null){
-        return this.networkService.getFriends(this.cacheService.currentUser.username).pipe(tap(item =>{
+        return this.networkService.getFriends().pipe(tap(item =>{
           this.cacheService.friends.next(item);
         }))
       }
@@ -26,7 +26,7 @@ export class FriensResolverService implements Resolve<any> {
    }
    else{
     if(this.cacheService.friends.getValue() == null){
-      return this.networkService.getFriends(this.cacheService.currentUser.username).pipe(tap(item =>{
+      return this.networkService.getFriends().pipe(tap(item =>{
         this.cacheService.friends.next(item);
       }))
     }

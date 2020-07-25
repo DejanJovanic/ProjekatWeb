@@ -26,10 +26,11 @@ namespace BookingAppBackend.Controllers.User
 
         [HttpGet]
         [Authorize(Roles = "User")]
-        public async Task<IActionResult> Search(UserSearchParams param)
+        public async Task<IActionResult> Search(string username,string name,string lastName)
         {
-            if (string.IsNullOrWhiteSpace(param.Username) && string.IsNullOrWhiteSpace(param.Name) && string.IsNullOrWhiteSpace(param.LastName))
+            if (string.IsNullOrWhiteSpace(username) && string.IsNullOrWhiteSpace(name) && string.IsNullOrWhiteSpace(lastName))
                 return BadRequest(new { Message = "Invalid parameters supplied." });
+            var param = new UserSearchParams { LastName = lastName, Name = name, Username = username };
             var ret = await service.Search(param);
             return Ok(mapper.Map<IEnumerable<UserResource>>(ret));
         }

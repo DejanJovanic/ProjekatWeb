@@ -13,22 +13,11 @@ export class UserCacheService {
 
   public currentUser : User
   public friends : BehaviorSubject<User[]>
+  public pendingRequests : BehaviorSubject<User[]>
   public reservations : BehaviorSubject<FlightReservation[]>
   constructor() {
     this.friends = new BehaviorSubject(null);
     this.reservations = new BehaviorSubject(null);
+    this.pendingRequests = new BehaviorSubject(null);
    }
-
- /*   public GetFriends() : Observable<User[]>{
-     if(this.friends.getValue() != null){
-       return this.friends.asObservable();
-     }
-     else{
-       return this.network.getFriends(this.currentUser.username).pipe(tap(item =>{
-         this.friends.next(item);
-       }));
-     }
-
-   } */
-
 }

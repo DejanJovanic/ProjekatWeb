@@ -27,7 +27,7 @@
                     <div class="col-sm-3">
                         <p>{{item.lastName}}</p>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-3" *ngIf="!IsInFriends(item.username); else alreadyIn">
                         <button type="button" class="btn btn-primary btm-sm" (click)="SendRequest(item.username)">Add</button>
                     </div>
                 </div>
@@ -35,4 +35,9 @@
         </div>       
     </ng-container>
 </div>
+<ng-template #alreadyIn>
+    <div class="col-sm-3">
+        <p>Friends</p>
+    </div>
+</ng-template>
 

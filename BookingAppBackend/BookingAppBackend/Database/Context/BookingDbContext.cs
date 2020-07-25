@@ -22,7 +22,6 @@ namespace BookingAppBackend.Database.Contex
         public DbSet<Reservation> Reservation { get; set; }
         public DbSet<FastFlightPaidExtra> FastFlightPaidExtras { get; set; }
         public DbSet<UserReservation> UserReservations { get; set; }
-
         public BookingAppDbContext(DbContextOptions options) : base(options) { }
  
 
@@ -30,8 +29,7 @@ namespace BookingAppBackend.Database.Contex
         {
             base.OnModelCreating(builder);
             builder.Entity<User>().HasKey(i => i.Username);
-            builder.Entity<User>().HasMany(i => i.Friends).WithOne().HasForeignKey("ParentId").IsRequired(false);
-            builder.Entity<User>().HasMany(i => i.PendingRequests).WithOne().HasForeignKey("ParentId").IsRequired(false);
+
 
             builder.Entity<AirlineAdmin>().HasKey(i => i.Username);
             builder.Entity<Airline>().Property(i => i.Destinations).HasJsonConversion();
@@ -57,6 +55,7 @@ namespace BookingAppBackend.Database.Contex
             builder.Entity<UserReservation>().HasOne(i => i.User).WithMany(i => i.MyReservations).HasForeignKey(i => i.Username);
             builder.Entity<UserReservation>().HasOne(i => i.Reservation).WithMany(i => i.Users).HasForeignKey(i => i.ReservationId);
 
+            builder.Entity<User>().HasMany(i => i.MyPendingRequests).WithOne(i => i.SendingUser).OnDelete(DeleteBehavior.Cascade);
         }
    
     }
