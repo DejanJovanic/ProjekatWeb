@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ReservationService } from '../Services/Reservation/reservation.service';
 import { Subscription } from 'rxjs';
+import { FastFlightService } from '../Services/FastFlight/fast-flight.service';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-reservations-main',
@@ -10,13 +12,13 @@ import { Subscription } from 'rxjs';
 export class ReservationsMainComponent implements OnInit,OnDestroy {
 
   private sub : Subscription
-  constructor(private service : ReservationService) { }
+  constructor(private service : ReservationService,private fastFlightService : FastFlightService) { }
   ngOnDestroy(): void {
     if(this.sub) this.sub.unsubscribe()
   }
 
   ngOnInit(): void {
-    this.sub = this.service.getReservations().subscribe(i => {})
+    this.sub = this.service.getReservations().pipe(mergeMap(_ => this.fastFlightService.GetFastFlightReservations())).subscribe(i => {})
   }
 
 }

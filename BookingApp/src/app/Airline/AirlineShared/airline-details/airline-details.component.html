@@ -1,7 +1,11 @@
 <div class="container">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-8">
             <h2 class="Display-4">{{item.name}}</h2>
+        </div>
+        <div class="col-sm-4">
+            <a (click)="Redirection()" [routerLink]="['/FastFlights', item.id]"
+            routerLinkActive="router-link-active">View fast flights</a>
         </div>
     </div>
     <div class="row">

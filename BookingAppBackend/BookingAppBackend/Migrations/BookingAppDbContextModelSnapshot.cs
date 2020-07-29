@@ -177,6 +177,12 @@ namespace BookingAppBackend.Migrations
                     b.Property<double>("LoadWeight")
                         .HasColumnType("float");
 
+                    b.Property<string>("PassportNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
                     b.Property<int>("Row")
                         .HasColumnType("int");
 
@@ -807,7 +813,7 @@ namespace BookingAppBackend.Migrations
 
             modelBuilder.Entity("BookingAppBackend.Model.Airlines.FastFlight", b =>
                 {
-                    b.HasOne("BookingAppBackend.Model.Airlines.Airline", null)
+                    b.HasOne("BookingAppBackend.Model.Airlines.Airline", "Airline")
                         .WithMany("FastFlights")
                         .HasForeignKey("AirlineId");
 
@@ -816,7 +822,7 @@ namespace BookingAppBackend.Migrations
                         .HasForeignKey("FlightId");
 
                     b.HasOne("BookingAppBackend.Model.Users.User", "User")
-                        .WithMany()
+                        .WithMany("FastFlights")
                         .HasForeignKey("Username");
                 });
 

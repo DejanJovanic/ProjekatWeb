@@ -10,6 +10,7 @@ export class Ticket{
     luggageWeigth : number;
     extras : Extra[]
     details : UserFlightDetails
+    bookingDate : Date;
     isRated : boolean;
     isApproved : boolean;
 

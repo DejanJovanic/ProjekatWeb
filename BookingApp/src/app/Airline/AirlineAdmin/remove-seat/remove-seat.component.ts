@@ -8,6 +8,8 @@ import { Seats } from 'src/app/Shared/Model/Airlines/Seats.model';
 import { SeatStatus } from 'src/app/Shared/Model/Airlines/SeatStatus.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AirlineAdminNetworkService } from '../Services/AirlineAdminNetwork/airline-admin-network.service';
+import { FlightDetails } from 'src/app/Shared/Model/Airlines/FlightDetails.model';
+import { Ticket } from 'src/app/Shared/Model/Airlines/Ticket.model';
 
 @Component({
   selector: 'app-remove-seat',
@@ -20,35 +22,24 @@ export class RemoveSeatComponent implements OnInit, OnDestroy {
   sub : Subscription;
   SeatDisplayState = SeatDisplayState;
   seats : Seats;
-  form : FormGroup;
+  selectedSeats : Ticket[] = []
   constructor(private router : Router,private network : AirlineAdminNetworkService,private cache : AirlineCacheService,private route : ActivatedRoute,private builder : FormBuilder) { }
   ngOnDestroy(): void {
    this.sub.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.form = this.builder.group({
-      index : ['',[Validators.pattern(/^[0-9]+$/),Validators.required]]
-    })
-    this.sub = this.route.params.subscribe(i =>{
-      let id = +i['id'];
-      this.flight = this.cache.airlines.getValue()[0].flights.filter(i => i.id == id)[0];
-      this.seats = new Seats();
-      this.seats.colNum = this.flight.airplane.columns;
-      this.seats.rowNum = this.flight.airplane.rows;
-      this.seats.CreateSeats(this.flight);
-    })
-    
+
+      this.sub = this.route.data.subscribe((data : {details : FlightDetails}) =>{
+      this.seats = data.details.seats;
+    })    
   }
 
-  OnSubmit(){
-    if(this.form.valid){
-      let row = Math.floor((+this.form.value.index - 1) / this.seats.colNum);
-      let col = (+this.form.value.index - 1) % this.seats.colNum;
-      this.network.RemoveSeat(row,col,this.flight.id).subscribe(i =>{
+  OnClick(){
+      this.network.RemoveSeat(+this.selectedSeats[0].row,+this.selectedSeats[0].column,+this.route.snapshot.params.id).subscribe(i =>{
         this.router.navigate(['']);
       })
-    }
+    
   }
 
 }

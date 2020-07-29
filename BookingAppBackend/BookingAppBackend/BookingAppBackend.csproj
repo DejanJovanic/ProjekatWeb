@@ -21,6 +21,8 @@
     <Compile Remove="Migrations\20200717122708_changedExtras.Designer.cs" />
     <Compile Remove="Migrations\20200717123009_extrasAgain.cs" />
     <Compile Remove="Migrations\20200717123009_extrasAgain.Designer.cs" />
+    <Compile Remove="Migrations\20200728100358_fastFlightAirline.cs" />
+    <Compile Remove="Migrations\20200728100358_fastFlightAirline.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

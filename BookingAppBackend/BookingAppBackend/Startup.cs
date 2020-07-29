@@ -15,6 +15,8 @@ using BookingAppBackend.Service.AirlineAdmin;
 using BookingAppBackend.Service.AirlineReservation;
 using BookingAppBackend.Service.Airplane;
 using BookingAppBackend.Service.AuthentificationAndAuthorization;
+using BookingAppBackend.Service.FastFlight;
+using BookingAppBackend.Service.FastFlightReservation;
 using BookingAppBackend.Service.Flight;
 using BookingAppBackend.Service.FriendRequests;
 using BookingAppBackend.Service.Friends;
@@ -97,8 +99,11 @@ namespace BookingAppBackend
 
             //DI services
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IFastFlightService, FastFlightService>();
             services.AddScoped<IFriendRequestService, FriendRequestService>();
             services.AddScoped<IGeneralUserService, GeneralUserService>();
+            services.AddScoped<IFastFlightRepository, FastFlightRepository>();
+            services.AddScoped<IFastFlightReservationService, FastFlightReservationService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAirlineAdminRepository, AirlineAdminRepository>();
             services.AddScoped<IAirlineReservationRepository, AirlineReservationRepository>();

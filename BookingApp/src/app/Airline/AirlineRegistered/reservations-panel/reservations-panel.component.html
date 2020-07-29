@@ -81,7 +81,7 @@
                                 <button class="btn btn-danger" (click)="Cancel(ticket)" *ngIf="ticket.isApproved && checkIfTimeOk(reservation.flight.startDate)">
                                     Cancel
                                 </button> 
-                                <button class="btn btn-info" (click)="Rate(ticket)" *ngIf="ticket.isApproved && !checkIfTimeOk(reservation.flight.startDate)">
+                                <button class="btn btn-info" (click)="Rate(ticket)" *ngIf="ticket.isApproved && !ticket.isRated && !checkIfTimeOk(reservation.flight.startDate)">
                                     Rate
                                 </button>     
                             </div>

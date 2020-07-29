@@ -77,6 +77,12 @@ import { ReservationsMainComponent } from './Airline/AirlineRegistered/reservati
 import { ReservationsHolderComponent } from './Airline/AirlineRegistered/reservations-holder/reservations-holder.component';
 import { ReservationsPanelComponent } from './Airline/AirlineRegistered/reservations-panel/reservations-panel.component';
 import { ReservationConfirmationComponent } from './Airline/AirlineRegistered/reservation-confirmation/reservation-confirmation.component';
+import { FastFlightHolderComponent } from './Airline/AirlineRegistered/fast-flight-holder/fast-flight-holder.component';
+import { FastFlightPanelComponent } from './Airline/AirlineRegistered/fast-flight-panel/fast-flight-panel.component';
+import { FastFlightConfirmationComponent } from './Airline/AirlineRegistered/fast-flight-confirmation/fast-flight-confirmation.component';
+import { FastReservationsHolderComponent } from './Airline/AirlineRegistered/fast-reservations-holder/fast-reservations-holder.component';
+import { FastReservationsPanelComponent } from './Airline/AirlineRegistered/fast-reservations-panel/fast-reservations-panel.component';
+
 
 @NgModule({
   declarations: [
@@ -147,7 +153,13 @@ import { ReservationConfirmationComponent } from './Airline/AirlineRegistered/re
     ReservationsMainComponent,
     ReservationsHolderComponent,
     ReservationsPanelComponent,
-    ReservationConfirmationComponent
+    ReservationConfirmationComponent,
+    FastFlightHolderComponent,
+    FastFlightPanelComponent,
+    FastFlightConfirmationComponent,
+    FastReservationsHolderComponent,
+    FastReservationsPanelComponent,
+
   ],
   imports: [
     

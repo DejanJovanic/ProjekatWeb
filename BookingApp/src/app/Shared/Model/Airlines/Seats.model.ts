@@ -2,6 +2,7 @@ import { SeatStatus } from './SeatStatus.model';
 import { Flight } from './Flight.model';
 import { FlightDetails } from './FlightDetails.model';
 import { Airplane } from './Airplane.model';
+import { AirlineCompany } from './AirlineCompany.model';
 
 export class Seats{
     rowNum : number;
@@ -12,7 +13,7 @@ export class Seats{
         this.seats = []
     }
 
-    public CreateSeats(flight : Flight){
+    public CreateSeats(flight : Flight,airline : AirlineCompany){
         for(let i = 0 ; i < this.rowNum;i += 1){
             this.seats.push([]);
             for(let j = 0; j < this.colNum; j += 1){
@@ -34,11 +35,11 @@ export class Seats{
               this.seats[a.row][a.column] = SeatStatus.Taken
             }
           }
-   /*        if(flight.fastFlights){
-            for(let a of flight.fastFlights){
-              this.seats[a.row][a.column] = SeatStatus.Fast
-            }
-          } */
+          if(airline.fastFlights){
+                for(let a of airline.fastFlights){
+                  this.seats[a.row][a.column] = SeatStatus.Fast
+                }
+              } 
     }
 
     public CreateSeatsAirplane(airplane : Airplane){

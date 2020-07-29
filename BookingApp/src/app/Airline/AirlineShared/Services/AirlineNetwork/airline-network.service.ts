@@ -12,6 +12,7 @@ import { Airline } from 'src/app/Shared/Model/Airlines/Airline.model';
 import { TicketNetwork } from 'src/app/Shared/Model/Airlines/TicketNetwork.model';
 import { Flight } from 'src/app/Shared/Model/Airlines/Flight.model';
 import { ReservationConfirmation } from 'src/app/Shared/Model/Airlines/ReservationConfirmation.model';
+import { FastFlight } from 'src/app/Shared/Model/Airlines/FastFlight.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,39 @@ import { ReservationConfirmation } from 'src/app/Shared/Model/Airlines/Reservati
 export class AirlineNetworkService {
 
   constructor(private db : AirlineDatabaseService,private client : HttpClient) { }
+
+  getFastFlights(airlineId : number) : Observable<FastFlight[]>{
+    return this.client.get<FastFlight[]>('http://localhost:50000/api/FastFlight',
+      {
+        params :  new HttpParams().set('airlineId',airlineId.toString())
+      }
+    )
+  }
+
+  GetFastFlightReservations(){
+    return this.client.get<FastFlight[]>('http://localhost:50000/api/FastFlightReservation' )
+   
+  }
+
+  CancelFastFlightReservation(airlineId : number,fastFlightId : number){
+    return this.client.delete<FastFlight>('http://localhost:50000/api/FastFlightReservation',
+    {
+      params :  new HttpParams().set('airlineId',airlineId.toString()).set('fastFlightId',fastFlightId.toString())
+    }
+  )
+  }
+
+  SendFastFlightReservation(airlineId : number,username : string,fastFlightId : number,extras : number[],loadWeight : number,passportNumber : string) : Observable<FastFlight>{
+    return this.client.post<FastFlight>('http://localhost:50000/api/FastFlightReservation',
+    {
+      airlineId : airlineId,
+      username : username,
+      fastFlightId : fastFlightId,
+      paidExtras : extras,
+      loadWeight : loadWeight,
+      passportNumber : passportNumber
+    })
+  }
 
   getFlights(params : FlightSearchParams)  {
     return this.client.post<{airlines : AirlineCompany[]}>('http://localhost:50000/api/Airline/Search',params).pipe(map(i =>{

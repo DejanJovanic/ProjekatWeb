@@ -35,7 +35,10 @@ export class SeatsComponent implements OnInit {
         this.seatClicked = this.itemClickedFast;
         break;
       case SeatDisplayState.Removal:
-        this.seatClicked = this.itemClickedReservation;
+        this.seatClicked = this.itemClickedFast;
+        break;
+      case SeatDisplayState.Disable:
+        this.seatClicked = this.itemClickedFast;
         break;
     }
     this.seatColor = this.getItemColor
@@ -65,19 +68,25 @@ export class SeatsComponent implements OnInit {
     for(let a of this.seats){
       if(a.row == row && a.column == column){
         if(a.status == SeatStatus.Free){
-          a.status = SeatStatus.Fast;
+    
+          a.status = SeatStatus.Selected;
           let temp = new Ticket();
           temp.row = row;
           temp.column = column;
           temp.seatIndex = a.index;
           this.selectedSeats.push(temp);
         }
-        else if(a.status == SeatStatus.Fast){
+        else if(a.status == SeatStatus.Selected){
           a.status = SeatStatus.Free;
           this.selectedSeats.splice(this.selectedSeats.findIndex(item => item.seatIndex == a.index),1)
         }
-        break;
+        continue;
       }
+      else if(a.status == SeatStatus.Selected){
+        this.selectedSeats.splice(this.selectedSeats.findIndex(item => item.seatIndex == a.index),1)
+          a.status = SeatStatus.Free;
+      }
+      
     }
   }
 
@@ -108,13 +117,6 @@ export class SeatsComponent implements OnInit {
         temp.offsetY = i * 65;
         temp.index = i * seats.colNum + j + 1;
         ret.push(temp);
-        if(this.state == SeatDisplayState.FastSelector && temp.status == SeatStatus.Fast){
-          let temp2 = new Ticket();
-          temp2.row = temp.row;
-          temp2.column = temp.column;
-          temp2.seatIndex = temp.index;
-          this.selectedSeats.push(temp2);
-        }
       }
     }
 

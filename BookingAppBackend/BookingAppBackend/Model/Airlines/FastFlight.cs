@@ -13,12 +13,15 @@ namespace BookingAppBackend.Model.Airlines
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public Airline Airline { get; set; }
         public Flight Flight { get; set; }
         public int Row { get; set; }
         public int Column { get; set; }
         public User User { get; set; }
         public double DiscountPercentage { get; set; }
+        public double Price { get; set; }
         public DateTime BookingDate { get; set; }
+        public string PassportNumber { get; set; }
         public ICollection<FastFlightPaidExtra> PaidExtras { get; set; } = new List<FastFlightPaidExtra>();
         public double LoadWeight { get; set; }
         public bool IsRated { get; set; }

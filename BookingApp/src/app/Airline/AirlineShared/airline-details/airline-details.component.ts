@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AirlineCompany } from 'src/app/Shared/Model/Airlines/AirlineCompany.model';
 import { AddressPipe } from '../Pipes/Address/address.pipe';
 
@@ -11,9 +11,17 @@ export class AirlineDetailsComponent implements OnInit {
 
   @Input()
   item : AirlineCompany
-  constructor() {}
+  @Output()
+  redirectionHappening : EventEmitter<any>
+  constructor() {
+  this.redirectionHappening = new EventEmitter()
+  }
 
   ngOnInit(): void {
+  }
+
+  public Redirection(){
+    this.redirectionHappening.emit(null);
   }
 
 }

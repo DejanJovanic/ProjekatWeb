@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    {{fastFlight.flight.startDate}}
+                </div>
+                <div class="col-sm-3">
+                    {{fastFlight.flight.endDate}}
+                </div>
+                <div class="col-sm-3">
+                    {{fastFlight.flight.price - (fastFlight.flight.price / 100 * fastFlight.discountPercentage)}}
+                </div>         
+            </div>
+        </div>    
+        <div class="col-sm-3">
+           <span>Class: {{fastFlight.flight.flightClass}}</span> 
+        </div>
+        <div class="col-sm-3">
+            <span>Row: {{fastFlight.row}}</span> 
+        </div>
+        <div class="col-sm-3">
+            <span>Column: {{fastFlight.column}}</span> 
+        </div>         
+    </div>  
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-sm-3">
+                <button class="btn btn-primary" [routerLink]="['/FastFlightConfirmation/',fastFlight.flight.id,fastFlight.id]" routerLinkActive="router-link-active">Set Reservation</button>
+            </div>
+        </div>
+    </div>
+</div>  

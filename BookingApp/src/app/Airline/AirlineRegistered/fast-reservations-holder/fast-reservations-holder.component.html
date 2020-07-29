@@ -1,0 +1,8 @@
+<div class="container">  
+    <div class="card-deck">
+        <br>
+        <ng-container *ngFor="let item of fastFlights | async">
+            <app-fast-reservations-panel [fastFlight]=item></app-fast-reservations-panel>
+        </ng-container>
+    </div>
+</div>

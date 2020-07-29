@@ -1,33 +1,14 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-            <app-seats [state]="SeatDisplayState.Preview" [seatsInput]="seats"></app-seats>
+            <app-seats [state]="SeatDisplayState.FastSelector" [selectedSeats]="selectedSeats" [seatsInput]="seats"></app-seats>
         </div>
     </div>
-    <div class="row">
-        <h3>Enter seat for removal</h3>
+
+    <div class="form">
+        <div class="col-sm-3">
+            <button type="button" [disabled]="selectedSeats.length == 0" (click)="OnClick()" class="btn btn-primary">Remove seat</button>
+        </div>
     </div>
-    <form [formGroup]="form" (submit)="OnSubmit()" novalidate>
-        <div class="form-row">
-            <div class="col-sm-6 form-group">
-                <div class="row">
-                    <div class="col-sm-5">
-                        <label for="index">
-                            Seat index:
-                        </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <input type="text" id="index" class="form-control" formControlName="index"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-sm-3">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </form>
+
 </div>

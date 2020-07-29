@@ -22,12 +22,16 @@ namespace BookingAppBackend.Database.Repository
 
         public async Task<Airline> GetAirline(int id)
         {
-            return await context.Airlines.Include(i => i.Address).Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).Include(i => i.FastFlights).ThenInclude(i => i.Flight)
-               .Include(i => i.Flights).ThenInclude(i=> i.Airplane).ThenInclude(i => i.DisabledSeats)
-               .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.RemovedSeats)
-               .Include(i => i.Flights).ThenInclude(i => i.PaidExtras)
-               .Include(i => i.Flights).ThenInclude(i => i.WeightPricings)
-               .FirstOrDefaultAsync(i => i.Id == id);
+            return await context.Airlines
+                .Include(i => i.Address)
+                .Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight)
+                .Include(i => i.FastFlights).ThenInclude(i => i.Flight)
+                .Include(i => i.FastFlights).ThenInclude(i => i.User)
+                .Include(i => i.Flights).ThenInclude(i=> i.Airplane).ThenInclude(i => i.DisabledSeats)
+                .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.RemovedSeats)
+                .Include(i => i.Flights).ThenInclude(i => i.PaidExtras)
+                .Include(i => i.Flights).ThenInclude(i => i.WeightPricings)
+                .FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public async Task<Airline> GetAirlineWithFlight(int flightId)

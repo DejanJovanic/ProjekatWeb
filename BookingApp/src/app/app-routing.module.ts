@@ -31,6 +31,8 @@ import { RemoveSeatComponent } from './Airline/AirlineAdmin/remove-seat/remove-s
 import { DisableSeatComponent } from './Airline/AirlineAdmin/disable-seat/disable-seat.component';
 import { ReservationsMainComponent } from './Airline/AirlineRegistered/reservations-main/reservations-main.component';
 import { ReservationConfirmationComponent } from './Airline/AirlineRegistered/reservation-confirmation/reservation-confirmation.component';
+import { FastFlightHolderComponent } from './Airline/AirlineRegistered/fast-flight-holder/fast-flight-holder.component';
+import { FastFlightConfirmationComponent } from './Airline/AirlineRegistered/fast-flight-confirmation/fast-flight-confirmation.component';
 
 const routes: Routes = [
   {path:'',redirectTo: 'main', pathMatch : 'full'},
@@ -42,9 +44,11 @@ const routes: Routes = [
     {path : 'CompanyPreview', component: AirlineAdminCompanyPreviewComponent},
     {path : 'Reservations', component: ReservationsMainComponent}
   ]},
+  {path : 'FastFlights/:airlineId', component : FastFlightHolderComponent},
+  {path : 'FastFlightConfirmation/:flightId/:fastFlightId', component : FastFlightConfirmationComponent,resolve:{details : SeatResolveService}},
   {path : 'ManageInvitation/:airlineId/:flightId/:ticketId', component : ReservationConfirmationComponent,resolve:{details : SeatResolveService}},
-  {path : 'RemoveSeat/:id', component: RemoveSeatComponent},
-  {path : 'DisableSeat/:id', component: DisableSeatComponent},
+  {path : 'RemoveSeat/:id', component: RemoveSeatComponent,resolve:{details : SeatResolveService}},
+  {path : 'DisableSeat/:id', component: DisableSeatComponent,resolve:{details : SeatResolveService}},
   {path: 'AddFlight', component: AddFlightComponent},
   {path:'seats/:id', component: SeatReservationComponent, resolve:{details : SeatResolveService}},
   {path:'seatAssignment/:id', component: SeatAssignmentComponent, resolve:{reservation : ReservationResolverService,friends : FriensResolverService}},

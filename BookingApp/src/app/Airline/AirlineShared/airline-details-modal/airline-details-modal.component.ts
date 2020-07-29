@@ -16,4 +16,8 @@ export class AirlineDetailsModalComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  RedirectionHandler($event){
+    this.activeModal.close();
+  }
+
 }

@@ -21,6 +21,7 @@ namespace BookingAppBackend.Model.Airlines.Parameters
         public string LastName { get; set; }
         public string Passport { get; set; }
         public bool IsRated { get; set; }
+        public DateTime BookingDate { get; set; }
         public bool IsApproved { get; set; }
         public double Price { get; set; }
     }

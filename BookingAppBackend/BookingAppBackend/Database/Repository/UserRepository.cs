@@ -21,6 +21,16 @@ namespace BookingAppBackend.Database.Repository
             return await context.RegisteredUsers.FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
         }
 
+        public async Task<User> GetUserWithFastFlightsAsync(string username)
+        {
+            if (string.IsNullOrWhiteSpace(username)) return null;
+            return await context.RegisteredUsers
+                .Include(i => i.FastFlights).ThenInclude(i => i.Flight).ThenInclude(i => i.PaidExtras)
+                .Include(i => i.FastFlights).ThenInclude(i => i.Airline).ThenInclude(i => i.Address)
+                .Include(i => i.FastFlights).ThenInclude(i => i.PaidExtras).ThenInclude(i => i.PaidExtra)
+                .FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
+        }
+
         public async Task<IEnumerable<User>> GetFriends(string username)
         {
             var temp = await context.RegisteredUsers
