@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form [formGroup]="form" (submit)="DrawDailyEarnings()">
+            <div class="row">           
+                    <div class="col-sm-3">
+                        <label for="showOptions">
+                            Date from:
+                        </label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="date"  #focusable formControlName="startDate" />
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="showOptions">
+                            Date to:
+                        </label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="date" formControlName="endDate"/>
+                    </div>      
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <button class="btn btn-primary" type="submit">Draw earnings</button>
+                </div>
+            </div>
+
+        </form>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="earnings" style="height: 370px; width: 100%;"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form [formGroup]="form">
+            <div class="row">             
+                    <div class="col-sm-4">
+                        <label for="showOptions">
+                            Show ticket sale by:
+                        </label>
+                    </div>
+                    <div class="col-sm-3">
+                        <select id="showOptions" class="form-control" formControlName="showOption">
+                            <option *ngFor="let item of showOptions" [ngValue] = "item">{{item}}</option>
+                        </select>
+                    </div>
+                
+            </div>
+        </form>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="ticketSale" style="height: 370px; width: 100%;"></div>
+        </div>
+    </div>
+</div>

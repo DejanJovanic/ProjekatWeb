@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-md-2">
+        <div class="row">
+            <div class="col-md-12">
+                <a  [routerLink]="['/main/Stats/AirlineRatings']" routerLinkActive="router-link-active">Ratings</a>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <a  [routerLink]="['/main/Stats/AirlineTicketSale']" routerLinkActive="router-link-active">Ticket Sale</a>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <a  [routerLink]="['/main/Stats/AirlineEarnings']" routerLinkActive="router-link-active">Earnings</a> 
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <router-outlet></router-outlet>
+    </div>
+</div>

@@ -65,8 +65,8 @@ export class AirlineSearchComponent implements OnInit {
       this.searchParams.isRoundTrip  = this.searchForm.value.isRoundTrip;
       this.searchParams.isMultiCity = this.searchForm.value.isMultiCity;
       this.searchParams.flightClass = this.searchForm.value.class;
-      this.searchParams.startDate = new Date(this.searchForm.value.startDate.year,this.searchForm.value.startDate.month - 1,this.searchForm.value.startDate.day);
-      this.searchParams.endDate = new Date(this.searchForm.value.finishDate.year,this.searchForm.value.finishDate.month - 1,this.searchForm.value.finishDate.day);
+      this.searchParams.startDate = new Date(this.searchForm.value.startDate);
+      this.searchParams.endDate = new Date(this.searchForm.value.finishDate);
       this.search.emit(this.searchParams);
     }
   }

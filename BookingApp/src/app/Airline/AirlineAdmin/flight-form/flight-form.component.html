@@ -52,13 +52,13 @@
                 <div class="row">
                     <div class="col-sm-5">
                         <label for="startDate">
-                            Start date:
+                            Start date and time:
                         </label> 
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
-                        <ngb-datepicker id="startDate"  formControlName="startDate" #d></ngb-datepicker>
+                        <input type="datetime-local" id="startDate"  formControlName="startDateTime" />
                     </div>  
                 </div>          
             </div>
@@ -66,62 +66,32 @@
                 <div class="row">
                     <div class="col-sm-5">
                         <label for="finishDate">
-                            Finish date:
+                            Finish date and time:
                         </label>
                     </div>
 
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
-                        <ngb-datepicker id="finishDate"  formControlName="finishDate" #d></ngb-datepicker>
+                        <input type="datetime-local" id="finishDate"  formControlName="finishDateTime" />
                     </div>
                 </div>
             </div>
         </div>
-       <div class="form-row">
-           <div class="col-sm-6 form-group">
-                <div class="row">
-                    <div class="col-sm-5">
-                        <label for="startTime">
-                            Start time:
-                        </label>
-                    </div>   
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <ngb-timepicker id="startTime" formControlName="startTime" #d></ngb-timepicker>
-                    </div>
-                </div>
-           </div>
-           <div class="col-sm-6 form-group">
-                <div class="row">
-                    <div class="col-sm-5">
-                        <label for="finishTime">
-                            Finish time:
-                        </label>
-                    </div>
-                </div>
-                <div class="row">                    
-                    <div class="col-sm-3">
-                        <ngb-timepicker id="finishTime" formControlName="finishTime" #d></ngb-timepicker>
-                    </div>
-                </div>  
-            </div>
-       </div>
 
        <div class="form-row" *ngIf="isRoundTrip">
         <div class="col-sm-6 form-group">
             <div class="row">
                 <div class="col-sm-5">
                     <label for="startDateBack">
-                        Start date back:
+                        Start date and time back:
                     </label> 
                 </div>
 
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <ngb-datepicker id="startDateBack"  formControlName="startDateBack" #d></ngb-datepicker>
+                    <input type="datetime-local" id="startDateBack"  formControlName="startDateTimeBack" />
                 </div>  
             </div>          
         </div>
@@ -129,48 +99,18 @@
             <div class="row">
                 <div class="col-sm-5">
                     <label for="finishDateBack">
-                        Finish date back:
+                        Finish date and time back:
                     </label>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <ngb-datepicker id="finishDateBack"  formControlName="finishDateBack" #d></ngb-datepicker>
+                    <input type="datetime-local" id="finishDateBack"  formControlName="finishDateTimeBack" />
                 </div>
             </div>
         </div>
     </div>
-       <div class="form-row" *ngIf="isRoundTrip">
-        <div class="col-sm-6 form-group">
-             <div class="row">
-                <div class="col-sm-5">
-                    <label for="startTimeBack">
-                        Start time back:
-                    </label>
-                </div>
-             </div>
-             <div class="row">
-                 <div class="col-sm-3">
-                     <ngb-timepicker id="startTimeBack" formControlName="startTimeBack" #d></ngb-timepicker>
-                 </div>
-             </div>
-        </div>
-        <div class="col-sm-6 form-group">
-             <div class="row">
-                 <div class="col-sm-5">
-                    <label for="finishTimeBack">
-                        Finish time back:
-                    </label>
-                 </div>
-             </div>
-             <div class="row">                    
-                 <div class="col-sm-3">
-                     <ngb-timepicker id="finishTimeBack" formControlName="finishTimeBack" #d></ngb-timepicker>
-                 </div>
-             </div>  
-         </div>
-    </div>
-    
+
     <div class="form-row">
         <div class="col-sm-6 form-group">
             <div class="row">

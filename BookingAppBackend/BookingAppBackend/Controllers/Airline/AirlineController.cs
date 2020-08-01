@@ -57,6 +57,26 @@ namespace BookingAppBackend.Controllers.Airline
                 return BadRequest(new { Message = temp.Message });
         }
 
+        [HttpGet]
+        [Authorize(Roles = "AirlineAdmin")]
+        [Route("GetData")]
+        public async Task<IActionResult> GetAirlineData(int airlineId)
+        {
+            if (airlineId < 0)
+                return BadRequest(new { Message = "Airline id cannot be negative number." });
+
+            var temp = await service.CheckAdmin(User.Identity.Name, airlineId);
+
+            if (temp.Success)
+            {
+                var ret = await service.GetData(airlineId);
+                return Ok(ret);
+
+            }
+            else
+                return BadRequest(new { Message = temp.Message });
+        }
+
         [HttpPost]
         [Authorize(Roles ="AirlineAdmin")]
         [Route("Edit")]

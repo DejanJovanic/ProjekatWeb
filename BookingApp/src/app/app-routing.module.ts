@@ -33,6 +33,11 @@ import { ReservationsMainComponent } from './Airline/AirlineRegistered/reservati
 import { ReservationConfirmationComponent } from './Airline/AirlineRegistered/reservation-confirmation/reservation-confirmation.component';
 import { FastFlightHolderComponent } from './Airline/AirlineRegistered/fast-flight-holder/fast-flight-holder.component';
 import { FastFlightConfirmationComponent } from './Airline/AirlineRegistered/fast-flight-confirmation/fast-flight-confirmation.component';
+import { AirlineDataComponent } from './Airline/AirlineAdmin/airline-data/airline-data.component';
+import { AirlineEarningsComponent } from './Airline/AirlineAdmin/airline-earnings/airline-earnings.component';
+import { AirlineTicketSaleComponent } from './Airline/AirlineAdmin/airline-ticket-sale/airline-ticket-sale.component';
+import { AirlineRatingsComponent } from './Airline/AirlineAdmin/airline-ratings/airline-ratings.component';
+import { AirlineStatsResolverService } from './Airline/Resolvers/AirlineStatsResolver/airline-stats-resolver.service';
 
 const routes: Routes = [
   {path:'',redirectTo: 'main', pathMatch : 'full'},
@@ -40,9 +45,13 @@ const routes: Routes = [
     {path : 'Airlines', component: AirlineMainComponent},
     {path : 'Friends', component: FriendsMainComponent, resolve:{friends : FriensResolverService}},
     {path : 'AirlineAdmin', component : AirlineAdminMainComponent},
-    {path : 'Airplanes', component: AirplanesComponent},
     {path : 'CompanyPreview', component: AirlineAdminCompanyPreviewComponent},
-    {path : 'Reservations', component: ReservationsMainComponent}
+    {path : 'Reservations', component: ReservationsMainComponent},
+    {path : 'Stats', component: AirlineDataComponent, resolve:{data : AirlineStatsResolverService},children:[
+      {path : 'AirlineRatings', component: AirlineRatingsComponent},
+      {path : 'AirlineTicketSale', component: AirlineTicketSaleComponent},
+      {path : 'AirlineEarnings', component: AirlineEarningsComponent}
+    ]}
   ]},
   {path : 'FastFlights/:airlineId', component : FastFlightHolderComponent},
   {path : 'FastFlightConfirmation/:flightId/:fastFlightId', component : FastFlightConfirmationComponent,resolve:{details : SeatResolveService}},

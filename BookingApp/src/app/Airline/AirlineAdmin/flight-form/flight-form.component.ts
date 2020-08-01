@@ -26,12 +26,11 @@ export class FlightFormComponent implements OnInit {
     return start != end ? null : {startEndLocation : true}
  }
  private startFinishDatesValidator : ValidatorFn = (fg: FormGroup) => {
-  const start = fg.get('startDate').value;
-  const end = fg.get('finishDate').value;
-  const startTime = fg.get('startTime').value;
-  const endTime = fg.get('finishTime').value;
-  let temp1 = new Date(start.year,start.month,start.day,startTime.hour,startTime.minute).getTime()
-  let temp2 = new Date(end.year,end.month,end.day,endTime.hour,endTime.minute).getTime() 
+  const start = fg.get('startDateTime').value;
+  const end = fg.get('finishDateTime').value;
+
+  let temp1 = new Date(start).getTime()
+  let temp2 = new Date(end).getTime() 
   return temp1 < temp2 ? null : {startEndDate : true};
 }
   @Input()
@@ -62,14 +61,10 @@ export class FlightFormComponent implements OnInit {
       startLocation : [this.flight ? this.flight.startLocation : this.destinations1[0],Validators.required],
       finishLocation : [this.flight ? this.flight.endLocation : this.destinations2[1],Validators.required],
       isRoundTrip : [this.isRoundTrip],
-      startDate : [this.flight ? this.flight.startDate : '',Validators.required],
-      finishDate : [this.flight ? this.flight.endDate : '',Validators.required],
-      startTime : [this.flight ? this.flight.startDate : {hour : 2,minute : 20},Validators.required],
-      finishTime : [this.flight ? this.flight.startDate : {hour : 2,minute : 20},Validators.required],
-      startDateBack : [ this.flight ? this.flight.startDate : '',Validators.required],
-      finishDateBack : [this.flight ? this.flight.endDate : '',Validators.required],
-      startTimeBack : [this.flight ? this.flight.startDate : {hour : 2,minute : 20},Validators.required],
-      finishTimeBack : [this.flight ? this.flight.startDate : {hour : 2,minute : 20},Validators.required],
+      startDateTime : [this.flight ? this.flight.startDate : '',Validators.required],
+      finishDateTime : [this.flight ? this.flight.endDate : '',Validators.required],
+      startDateTimeBack : [ this.flight ? this.flight.startDate : '',Validators.required],
+      finishDateTimeBack : [this.flight ? this.flight.endDate : '',Validators.required],
       price : [this.flight ? this.flight.price : '',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
       travelDistance : [this.flight ? this.flight.travelDistance : '',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
       class : [this.flight ? FlightClass[this.flight.flightClass] : this.classes[0]],
@@ -81,17 +76,14 @@ export class FlightFormComponent implements OnInit {
     this.flightForm.get('isRoundTrip').valueChanges.subscribe(i =>{
       this.isRoundTrip = i;
       if(!i){
-        this.flightForm.get('startDateBack').disable()
-        this.flightForm.get('finishDateBack').disable()
-        this.flightForm.get('startTimeBack').disable()
-        this.flightForm.get('finishTimeBack').disable()
+        this.flightForm.get('startDateTimeBack').disable()
+        this.flightForm.get('finishDateTimeBack').disable()
+
         
       }
       else{
-        this.flightForm.get('startDateBack').enable()
-        this.flightForm.get('finishDateBack').enable()
-        this.flightForm.get('startTimeBack').enable()
-        this.flightForm.get('finishTimeBack').enable()
+        this.flightForm.get('startDateTimeBack').enable()
+        this.flightForm.get('finishDateTimeBack').enable()
       }
     })
     this.flightForm.get('isRoundTrip').setValue(this.isRoundTrip);
@@ -116,18 +108,14 @@ export class FlightFormComponent implements OnInit {
   Submit(){
     if(this.flightForm.valid){
       
-      let start = new Date(this.flightForm.value.startDate.year,this.flightForm.value.startDate.month - 1,
-        this.flightForm.value.startDate.day,this.flightForm.value.startTime.hour,this.flightForm.value.startTime.minute)
-      let end = new Date(this.flightForm.value.finishDate.year,this.flightForm.value.finishDate.month - 1,
-        this.flightForm.value.finishDate.day,this.flightForm.value.finishTime.hour,this.flightForm.value.finishTime.minute)
+      let start = new Date(this.flightForm.value.startDateTime)
+      let end = new Date(this.flightForm.value.finishDateTime)
       
       let startBack = undefined;
       let endBack = undefined;
       if(this.flightForm.value.isRoundTrip){
-        startBack = new Date(this.flightForm.value.startDateBack.year,this.flightForm.value.startDateBack.month - 1,
-          this.flightForm.value.startDateBack.day,this.flightForm.value.startTimeBack.hour,this.flightForm.value.startTimeBack.minute)
-        endBack = new Date(this.flightForm.value.finishDateBack.year,this.flightForm.value.finishDateBack.month - 1,
-          this.flightForm.value.finishDateBack.day,this.flightForm.value.finishTimeBack.hour,this.flightForm.value.finishTimeBack.minute)
+        startBack = new Date(this.flightForm.value.startDateTimeBack)
+        endBack = new Date(this.flightForm.value.finishDateTimeBack)
         
       }
       var ms = moment(start).diff(moment(end));

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule , CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -82,7 +82,13 @@ import { FastFlightPanelComponent } from './Airline/AirlineRegistered/fast-fligh
 import { FastFlightConfirmationComponent } from './Airline/AirlineRegistered/fast-flight-confirmation/fast-flight-confirmation.component';
 import { FastReservationsHolderComponent } from './Airline/AirlineRegistered/fast-reservations-holder/fast-reservations-holder.component';
 import { FastReservationsPanelComponent } from './Airline/AirlineRegistered/fast-reservations-panel/fast-reservations-panel.component';
-
+import { AirlineDataComponent } from './Airline/AirlineAdmin/airline-data/airline-data.component';
+import { AirlineEarningsComponent } from './Airline/AirlineAdmin/airline-earnings/airline-earnings.component';
+import { AirlineTicketSaleComponent } from './Airline/AirlineAdmin/airline-ticket-sale/airline-ticket-sale.component';
+import { AirlineRatingsComponent } from './Airline/AirlineAdmin/airline-ratings/airline-ratings.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -159,20 +165,27 @@ import { FastReservationsPanelComponent } from './Airline/AirlineRegistered/fast
     FastFlightConfirmationComponent,
     FastReservationsHolderComponent,
     FastReservationsPanelComponent,
+    AirlineDataComponent,
+    AirlineEarningsComponent,
+    AirlineTicketSaleComponent,
+    AirlineRatingsComponent,
 
   ],
   imports: [
     
     NgbModule,
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     MDBBootstrapModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot(),
+    NgxSpinnerModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: BearerInterceptor, multi: true},CookieService, DatePipe],
- 
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [FrameComponent]
 })
 export class AppModule { }

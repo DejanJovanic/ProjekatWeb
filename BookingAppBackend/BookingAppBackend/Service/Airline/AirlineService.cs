@@ -27,7 +27,10 @@ namespace BookingAppBackend.Service.Airline
         {
             return await repo.GetAirline(id);
         }
-
+        public async Task<AirlineDataResource> GetData(int airlineId)
+        {
+            return await repo.GetData(airlineId);
+        }
         public async Task<AirlineAdminResponse> CheckAdmin(string username, int id)
         {
             var temp = await adminRepo.GetAirlineAdminAsync(username);

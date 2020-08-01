@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <h4>Company rating:</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h2>{{rating}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Class
+                        </th>
+                        <th>
+                            Start location
+                        <th>
+                            Finish location
+                        </th>
+
+                        <th>
+                            Is round trip
+                        </th>
+                        <th>
+                            Rating
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of flights">
+                        <td>{{item.id}}</td>
+                        <td>{{item.class}}</td>
+                        <td>{{item.startLocation}}</td>
+                        <td>{{item.endLocation}}</td>
+                        <td>{{item.isRoundTrip}}</td>
+                        <td>{{item.rating}}</td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>

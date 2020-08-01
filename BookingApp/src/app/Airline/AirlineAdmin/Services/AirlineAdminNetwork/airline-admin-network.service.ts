@@ -15,6 +15,7 @@ import { FlightDetails } from 'src/app/Shared/Model/Airlines/FlightDetails.model
 import { Seats } from 'src/app/Shared/Model/Airlines/Seats.model';
 import { FastFlightAdd } from 'src/app/Shared/Model/Airlines/FastFlightAdd.model';
 import { FastFlight } from 'src/app/Shared/Model/Airlines/FastFlight.model';
+import { AirlineDataResource } from 'src/app/Shared/Model/Airlines/AirlineDataResource.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,13 @@ export class AirlineAdminNetworkService {
 
   public GetAirlineData() : Observable<AirlineCompany>{
    return this.client.get<AirlineCompany>('http://localhost:50000/api/Airline',
+    {
+       params :  new HttpParams().set('airlineId',((this.userData.currentUser as AirlineAdmin).airlineID).toString())
+    }
+   )
+  }
+  public GetData() :Observable<AirlineDataResource>{
+    return this.client.get<AirlineDataResource>('http://localhost:50000/api/Airline/GetData',
     {
        params :  new HttpParams().set('airlineId',((this.userData.currentUser as AirlineAdmin).airlineID).toString())
     }
