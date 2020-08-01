@@ -11,7 +11,8 @@ namespace BookingAppBackend.Service.User
     public interface IUserService
     {
         Task<IEnumerable<BookingAppBackend.Model.Users.User>> Search(UserSearchParams param);
-        Task<UserResponse> Add(UserAddEdit data, IUrlHelper urlHelper);
+        Task<UserResponse> Add(UserAdd data, IUrlHelper urlHelper);
         Task<UserResponse> EnableUser(string username);
+        Task<UserResponse> Edit(UserEdit details, string username);
     }
 }

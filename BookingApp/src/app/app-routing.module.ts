@@ -38,6 +38,9 @@ import { AirlineEarningsComponent } from './Airline/AirlineAdmin/airline-earning
 import { AirlineTicketSaleComponent } from './Airline/AirlineAdmin/airline-ticket-sale/airline-ticket-sale.component';
 import { AirlineRatingsComponent } from './Airline/AirlineAdmin/airline-ratings/airline-ratings.component';
 import { AirlineStatsResolverService } from './Airline/Resolvers/AirlineStatsResolver/airline-stats-resolver.service';
+import { UserPreviewComponent } from './Users/user-preview/user-preview.component';
+import { UserDetailsEditComponent } from './Users/user-details-edit/user-details-edit.component';
+
 
 const routes: Routes = [
   {path:'',redirectTo: 'main', pathMatch : 'full'},
@@ -53,6 +56,8 @@ const routes: Routes = [
       {path : 'AirlineEarnings', component: AirlineEarningsComponent}
     ]}
   ]},
+  {path : 'UserPreview', component : UserPreviewComponent},
+  {path : 'UserDetailsEdit', component : UserDetailsEditComponent},
   {path : 'FastFlights/:airlineId', component : FastFlightHolderComponent},
   {path : 'FastFlightConfirmation/:flightId/:fastFlightId', component : FastFlightConfirmationComponent,resolve:{details : SeatResolveService}},
   {path : 'ManageInvitation/:airlineId/:flightId/:ticketId', component : ReservationConfirmationComponent,resolve:{details : SeatResolveService}},

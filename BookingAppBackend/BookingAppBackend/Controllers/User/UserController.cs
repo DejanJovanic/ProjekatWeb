@@ -36,7 +36,7 @@ namespace BookingAppBackend.Controllers.User
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(UserAddEdit param)
+        public async Task<IActionResult> Add(UserAdd param)
         {
             if (ModelState.IsValid)
             {
@@ -48,6 +48,22 @@ namespace BookingAppBackend.Controllers.User
             }
             else
                 return BadRequest(new  { Message = "Invalid parameters supplied" });
+        }
+
+        [HttpPut]
+        [Authorize("User")]
+        public async Task<IActionResult> Edit(UserEdit param)
+        {
+            if (ModelState.IsValid)
+            {
+                var temp = await service.Edit(param, User.Identity.Name);
+                if (temp.Success)
+                    return Ok(mapper.Map<UserResource>(temp.Resource));
+                else
+                    return BadRequest(new { Message = temp.Message });
+            }
+            else
+                return BadRequest(new { Message = "Invalid parameters supplied" });
         }
     }
 }

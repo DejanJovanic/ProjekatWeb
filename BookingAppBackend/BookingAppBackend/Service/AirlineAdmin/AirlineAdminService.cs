@@ -65,5 +65,14 @@ namespace BookingAppBackend.Service.AirlineAdmin
             else
                 return new AirlineAdminResponse("User with given username already exists");
         }
+
+        public async Task<AirlineAdminResponse> Edit(UserEdit details,string username)
+        {
+            var temp = await repo.EditAirlineAdminAsync(details, username);
+            if (temp.Success)
+                await unitOfWork.CompleteAsync();
+
+            return temp;
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace BookingAppBackend.Database.Interfaces
     {
         Task<AirlineAdmin> GetAirlineAdminAsync(string username);
         Task<AirlineAdminResponse> AddAirlineAdminAsync(AirlineAdmin admin);
+        Task<AirlineAdminResponse> EditAirlineAdminAsync(UserEdit details, string username);
     }
 }

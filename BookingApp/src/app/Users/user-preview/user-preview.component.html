@@ -1,0 +1,100 @@
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header text-center">
+                <h3> Account preview </h3>
+            </div> 
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>
+                            Username:
+                        </label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>
+                            {{user.username}}
+                        </p>
+                    </div>
+                </div>
+                <div class="row" *ngIf="isAirlineAdmin">
+                    <div class="col-md-4">
+                        <label>
+                            Company id:
+                        </label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>
+                            {{user.airlineID}}
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>
+                            Name:
+                        </label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>
+                            {{user.name}}
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>
+                            Last name:
+                        </label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>
+                            {{user.lastName}}
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>
+                            E-mail:
+                        </label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>
+                            {{user.email}}
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>
+                            City:
+                        </label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>
+                            {{user.city}}
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>
+                            Phone:
+                        </label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>
+                            {{user.phoneNumber}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-center links">
+                    <a [routerLink]="['/UserDetailsEdit']" routerLinkActive="router-link-active"> Edit details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

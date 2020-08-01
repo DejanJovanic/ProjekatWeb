@@ -1,7 +1,9 @@
 ﻿using BookingAppBackend.Database.Contex;
 using BookingAppBackend.Database.Interfaces;
+using BookingAppBackend.Model.AuthentificationAndAuthorization;
 using BookingAppBackend.Model.Responses;
 using BookingAppBackend.Model.Users;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -31,6 +33,22 @@ namespace BookingAppBackend.Database.Repository
             }
             else
                 return new AirlineAdminResponse("Admin with given username already exists.");
+        }
+
+        public async Task<AirlineAdminResponse> EditAirlineAdminAsync(UserEdit details,string username)
+        {
+
+            var temp = await context.AirlineAdmins.FindAsync(username);
+            if (temp != null)
+            {
+                temp.City = details.City;
+                temp.Name = details.Name;
+                temp.LastName = details.LastName;
+                temp.PhoneNumber = details.PhoneNumber;
+                return new AirlineAdminResponse(temp);
+            }
+            else
+                return new AirlineAdminResponse("Admin with given username does not exist.");
         }
     }
 }

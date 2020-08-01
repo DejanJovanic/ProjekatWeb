@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BookingAppBackend.Database.Repository;
+using BookingAppBackend.Model.AuthentificationAndAuthorization;
 using BookingAppBackend.Model.Users;
 using BookingAppBackend.Service.GeneralUser;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingAppBackend.Controllers.UserGeneral
@@ -16,11 +18,13 @@ namespace BookingAppBackend.Controllers.UserGeneral
     [ApiController]
     public class GeneralUserController : ControllerBase
     {
+        private UserManager<AuthentificationUser> userManager;
         private IGeneralUserService service;
         private readonly IMapper mapper;
 
-        public GeneralUserController(IGeneralUserService service,IMapper mapper)
+        public GeneralUserController(UserManager<AuthentificationUser> userManager, IGeneralUserService service, IMapper mapper)
         {
+            this.userManager = userManager;
             this.service = service;
             this.mapper = mapper;
         }
@@ -36,12 +40,18 @@ namespace BookingAppBackend.Controllers.UserGeneral
             {
                 try
                 {
+                    var user = await userManager.FindByNameAsync(User.Identity.Name);
+                    var email = await userManager.GetEmailAsync(user);
                     switch (response.Resource.Role)
                     {
                         case "User":
-                            return Ok(new { User = mapper.Map<UserResource>((BookingAppBackend.Model.Users.User)response.Resource.Item) });
+                            var userRet = mapper.Map<UserResource>((Model.Users.User)response.Resource.Item);
+                            userRet.Email = email;
+                            return Ok(new { User = userRet });
                         case "AirlineAdmin":
-                            return Ok(new { User = mapper.Map<AirlineAdminResource>((BookingAppBackend.Model.Users.AirlineAdmin)response.Resource.Item) });
+                            var aaRet = mapper.Map<AirlineAdminResource>((BookingAppBackend.Model.Users.AirlineAdmin)response.Resource.Item);
+                            aaRet.Email = email;
+                            return Ok(new { User = aaRet});
                         default:
                             return StatusCode(500);
                     }

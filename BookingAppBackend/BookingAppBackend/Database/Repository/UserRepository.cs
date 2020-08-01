@@ -194,6 +194,24 @@ namespace BookingAppBackend.Database.Repository
             else
                 return new UserResponse("User with given username already exists.");
         }
+
+        public async Task<UserResponse> EditUser(UserEdit details, string username)
+        {
+
+            var temp = await context.RegisteredUsers.FindAsync(username);
+            if (temp != null)
+            {
+                temp.City = details.City;
+                temp.Name = details.Name;
+                temp.LastName = details.LastName;
+                temp.PhoneNumber = details.PhoneNumber;
+                return new UserResponse(temp);
+            }
+            else
+                return new UserResponse("Admin with given username does not exist.");
+        }
+
+
         public async Task<UserResponse> EnableUser(string username)
         {
             var temp = await context.RegisteredUsers.FindAsync(username);

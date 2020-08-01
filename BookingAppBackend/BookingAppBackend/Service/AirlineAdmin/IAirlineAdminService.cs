@@ -11,5 +11,6 @@ namespace BookingAppBackend.Service.AirlineAdmin
     {
         Task<BookingAppBackend.Model.Users.AirlineAdmin> GetAdminAsync(string username);
         Task<AirlineAdminResponse> Add(AirlineAdminAdd admin);
+        Task<AirlineAdminResponse> Edit(UserEdit details, string username);
     }
 }

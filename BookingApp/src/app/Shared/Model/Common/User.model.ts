@@ -5,6 +5,8 @@ export class User implements IUser{
     public email : string;
     public name : string;
     public lastName: string;
+    public city : string;
+    public phoneNumber : string;
     public passportNo : string;
     public systemRole : string;
     public friends : Array<User>

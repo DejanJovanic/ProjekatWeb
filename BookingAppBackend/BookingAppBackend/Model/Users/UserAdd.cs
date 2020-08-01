@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookingAppBackend.Model.Users
 {
-    public class UserAddEdit
+    public class UserAdd
     {
         [Required]
         public string Username { get; set; }
@@ -20,7 +20,9 @@ namespace BookingAppBackend.Model.Users
         public string Name { get; set; }
         [Required]
         public string LastName { get; set; }
+        [Required]
         public string City { get; set; }
+        [Required]
         public string PhoneNumber { get; set; }
     }
 }

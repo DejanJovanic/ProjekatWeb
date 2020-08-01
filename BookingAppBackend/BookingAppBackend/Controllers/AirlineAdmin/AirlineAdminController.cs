@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BookingAppBackend.Model.Users;
 using BookingAppBackend.Service.AirlineAdmin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +30,22 @@ namespace BookingAppBackend.Controllers.AirlineAdmin
             if (ModelState.IsValid)
             {
                 var temp = await service.Add(param);
+                if (temp.Success)
+                    return Ok(mapper.Map<AirlineAdminResource>(temp.Resource));
+                else
+                    return BadRequest(new { Message = temp.Message });
+            }
+            else
+                return BadRequest(new { Message = "Invalid parameters supplied" });
+        }
+
+        [HttpPut]
+        [Authorize("AirlineAdmin")]
+        public async Task<IActionResult> Edit(UserEdit param)
+        {
+            if (ModelState.IsValid)
+            {
+                var temp = await service.Edit(param, User.Identity.Name);
                 if (temp.Success)
                     return Ok(mapper.Map<AirlineAdminResource>(temp.Resource));
                 else

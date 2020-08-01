@@ -18,6 +18,7 @@ namespace BookingAppBackend.Database.Interfaces
         Task<UserResponse> AcceptRequest(string username, string friendUsername);
         Task<UserResponse> RejectRequest(string username, string friendUsername);
         Task<UserResponse> InsertUser(User user);
+        Task<UserResponse> EditUser(UserEdit details, string username);
         Task<UserResponse> EnableUser(string username);
         Task<IEnumerable<User>> Search(UserSearchParams param);
         Task<UserResponse> AddReservation(string username, Reservation reservation);

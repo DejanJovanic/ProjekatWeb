@@ -30,6 +30,9 @@ export class MainComponent implements OnInit {
     this.user.friends.next(null);
     this.airlines.airlines.next(null); 
    }
+   Preview(){
+    this.router.navigate(['UserPreview']);
+   }
   ngOnInit(): void {
     if(sessionStorage["Role"] == null)
     {

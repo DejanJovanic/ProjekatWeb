@@ -35,7 +35,16 @@ namespace BookingAppBackend.Service.User
             return await repo.Search(param);
         }
 
-        public async Task<UserResponse> Add(UserAddEdit data,IUrlHelper urlHelper)
+        public async Task<UserResponse> Edit(UserEdit details, string username)
+        {
+            var temp = await repo.EditUser(details, username);
+            if (temp.Success)
+                await unitOfWork.CompleteAsync();
+
+            return temp;
+        }
+
+        public async Task<UserResponse> Add(UserAdd data,IUrlHelper urlHelper)
         {
             var temp1 = new AuthentificationUser();
             var temp2 = new BookingAppBackend.Model.Users.User();

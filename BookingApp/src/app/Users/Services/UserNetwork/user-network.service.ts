@@ -27,17 +27,38 @@ export class UserNetworkService {
     )  
   }
 
+  public EditUserDetails(details : {name : string,lastName : string,phoneNumber : string,city : string}) : Observable<any>{
+    return this.client.put<any>('http://localhost:50000/api/User',details);
+  }
+
+  public EditAirlineAdminDetails(details : {name : string,lastName : string,phoneNumber : string,city : string}) : Observable<any>{
+    return this.client.put<any>('http://localhost:50000/api/AirlineAdmin',details);
+  }
+
   public GetUserDetails() : Observable<User>{
     return this.client.get<{user : any}>('http://localhost:50000/api/GeneralUser').pipe(
       map( i =>{
         switch(sessionStorage["Role"]){
           case  "User":
             let user = new User();
-            user = i.user as User;
+            user.name = i.user.name;
+            user.lastName = i.user.lastName;
+            user.phoneNumber = i.user.phoneNumber;
+            user.city = i.user.city;
+            user.email = i.user.email
+            user.username = i.user.username;
+            user.systemRole = "User";
             return user;
           case "AirlineAdmin":
             let admin = new AirlineAdmin()
-            admin = i.user as AirlineAdmin;
+            admin.name = i.user.name;
+            admin.lastName = i.user.lastName;
+            admin.phoneNumber = i.user.phoneNumber;
+            admin.city = i.user.city;
+            admin.email = i.user.email
+            admin.username = i.user.username;
+            admin.systemRole = "AirlineAdmin";
+            admin.airlineID = i.user.airlineID;
             return admin;
           default:
             return null

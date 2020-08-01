@@ -89,6 +89,9 @@ import { AirlineRatingsComponent } from './Airline/AirlineAdmin/airline-ratings/
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { UserPreviewComponent } from './Users/user-preview/user-preview.component';
+import { UserDetailsEditComponent } from './Users/user-details-edit/user-details-edit.component';
+
 
 @NgModule({
   declarations: [
@@ -169,7 +172,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     AirlineEarningsComponent,
     AirlineTicketSaleComponent,
     AirlineRatingsComponent,
-
+    UserPreviewComponent,
+    UserDetailsEditComponent
   ],
   imports: [
     
