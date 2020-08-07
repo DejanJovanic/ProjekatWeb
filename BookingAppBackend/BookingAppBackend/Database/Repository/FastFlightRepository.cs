@@ -99,7 +99,7 @@ namespace BookingAppBackend.Database.Repository
                                 return new FastFlightResponse("Seat isn't reserved");
                             if (a.User.Username.ToLower() != username.ToLower())
                                 return new FastFlightResponse("This user hasn't reserved this flight.");
-
+                            a.User.Points -= a.Flight.Distance / 200 * 10;
                             a.User = null;
                             user.FastFlights.Remove(a);
                             a.BookingDate = new DateTime();

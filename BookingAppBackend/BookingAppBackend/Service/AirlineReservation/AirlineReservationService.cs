@@ -27,22 +27,40 @@ namespace BookingAppBackend.Service.AirlineReservation
             this.flightRepo = flightRepo;
         }
 
-        public async Task<AirlineReservationResponse> Add(ICollection<TicketParameter> tickets)
+        public async Task<AirlineReservationResponse> Add(ICollection<TicketParameter> tickets,bool ownerInvestingPoints)
         {
             try
             {
                 var temp = await reservationRepo.Add(tickets);
                 if (temp.Success)
                 {
-                    await unitOfWork.CompleteAsync();
-                    var temp2 = CalculatePrices(temp.Resource);
-                    var temp3 = await reservationRepo.EditPrices(tickets.First().AirlineId, temp.Resource.Id, temp2);
-                    if (temp3.Success)
+                    //await unitOfWork.CompleteAsync();
+                    CalculatePrices(temp.Resource);
+                   
+
+                    //await unitOfWork.CompleteAsync();
+
+                    if (ownerInvestingPoints)
+                    {
+                        var temp4 = ReducePrice(temp.Resource, temp.Resource.SettingUser.Username);
+                        if (temp4.Success)
+                        {
+                            var points = CalculatePoints(temp.Resource.AirlineTickets.First().Flight.Distance);
+                            temp4.Resource.SettingUser.Points += points;
+
+                            await unitOfWork.CompleteAsync();
+
+                        }
+                        return temp4;
+                    }
+
+                        var points2 = CalculatePoints(temp.Resource.AirlineTickets.First().Flight.Distance);
+                        temp.Resource.SettingUser.Points += points2;
                         await unitOfWork.CompleteAsync();
-                    return temp3;
+      
                 }
-                else
-                    return new AirlineReservationResponse(temp.Message);
+
+                return temp;
             }
             catch(Exception e)
             {
@@ -50,22 +68,40 @@ namespace BookingAppBackend.Service.AirlineReservation
             }
         }
 
-        public async Task<AirlineReservationResponse> AcceptReservation(ReservationOptionsParameter param,string username)
+        public async Task<AirlineReservationResponse> AcceptReservation(ReservationOptionsParameter param,string username, bool investingPoints)
         {
             try
             {
                 var temp = await reservationRepo.AcceptReservation(param, username);
                 if (temp.Success)
                 {
-                    await unitOfWork.CompleteAsync();
-                    var temp2 = CalculatePrices(temp.Resource);
-                    var temp3 = await reservationRepo.EditPrices(param.AirlineId, temp.Resource.Id, temp2);
-                    if (temp3.Success)
+                    //await unitOfWork.CompleteAsync();
+                    CalculatePrices(temp.Resource);
+                    if (investingPoints)
+                    {
+                        var temp4 = ReducePrice(temp.Resource,username);
+
+                        var points = CalculatePoints(temp.Resource.AirlineTickets.First().Flight.Distance);
+                        var temp5 = temp.Resource.AirlineTickets.FirstOrDefault(i => i.TicketOwner != null && i.TicketOwner.Username == username);
+                        if (temp5 != null)
+                        {
+                            temp5.TicketOwner.Points += points;
+                            await unitOfWork.CompleteAsync();
+                        }
+
+                        return temp4;
+                    }
+
+                    var points2 = CalculatePoints(temp.Resource.AirlineTickets.First().Flight.Distance);
+                    var temp6 = temp.Resource.AirlineTickets.FirstOrDefault(i => i.TicketOwner != null && i.TicketOwner.Username == username);
+                    if (temp6 != null)
+                    {
+                        temp6.TicketOwner.Points += points2;
                         await unitOfWork.CompleteAsync();
-                    return temp3;
+                    }
+                    
                 }
-                else
-                    return new AirlineReservationResponse(temp.Message);
+                return temp;
             }
             catch (Exception e)
             {
@@ -78,22 +114,10 @@ namespace BookingAppBackend.Service.AirlineReservation
             try
             {
                 var temp = await reservationRepo.RejectReservation(param, username);
-                if (temp.Success)
-                {
+                if (temp.Success) { }
                     await unitOfWork.CompleteAsync();
-                    if(temp.Resource != null && temp.Resource.AirlineTickets != null && temp.Resource.AirlineTickets.Count > 0)
-                    {
-                        var temp2 = CalculatePrices(temp.Resource);
-                        var temp3 = await reservationRepo.EditPrices(param.AirlineId, temp.Resource.Id, temp2);
-                        if (temp3.Success)
-                            await unitOfWork.CompleteAsync();
-                        return temp3;
-                    }
-                    return temp;
-                  
-                }
-                else
-                    return new AirlineReservationResponse(temp.Message);
+                    
+                return temp;
             }
             catch (Exception e)
             {
@@ -107,36 +131,23 @@ namespace BookingAppBackend.Service.AirlineReservation
             {
                 var temp = await reservationRepo.CancelReservation(param, username);
                 if (temp.Success)
-                {
                     await unitOfWork.CompleteAsync();
-                    if (temp.Resource != null && temp.Resource.AirlineTickets != null && temp.Resource.AirlineTickets.Count > 0)
-                    {
-                        var temp2 = CalculatePrices(temp.Resource);
-                        var temp3 = await reservationRepo.EditPrices(param.AirlineId, temp.Resource.Id, temp2);
-                        if (temp3.Success)
-                            await unitOfWork.CompleteAsync();
-                        return temp3;
-                    }
-                    return temp;
-                }
-                else
-                    return new AirlineReservationResponse(temp.Message);
+                
+                return temp;
             }
             catch (Exception e)
             {
                 return new AirlineReservationResponse(e.Message);
             }
         }
-        public ICollection<(int,double)> CalculatePrices(Reservation reservation)
+        public void CalculatePrices(Reservation reservation)
         {
-            var ret = new List<(int, double)>();
-            double cost = 0;
-            if(reservation.AirlineTickets.Count > 0)
+
+            if (reservation.AirlineTickets.Count > 0)
             {
-                var distanceDiscountPercentage = reservation.AirlineTickets.Count(i => i.TicketOwner != null && i.InvitedBy != null && i.TicketOwner != i.InvitedBy && i.IsApproved) * reservation.AirlineTickets.First().Flight.Distance / 300;
                 foreach (var a in reservation.AirlineTickets)
                 {
-                    cost = a.Flight.Price;
+                    double cost = a.Flight.Price;
                     foreach (var b in a.SelectedExtras)
                         cost += b.PaidExtra.Price;
 
@@ -148,16 +159,49 @@ namespace BookingAppBackend.Service.AirlineReservation
                             break;
                         }
                     }
+                    cost -= a.NumberOfPointsInvested;
+                    a.Price = cost;
 
-                    if(distanceDiscountPercentage > 0)
-                        cost = cost / 100.00 * (100 - distanceDiscountPercentage);
-
-                    ret.Add((a.Id, cost));
                 }
             }
-
-            return ret;
           
+        }
+
+        public double CalculatePoints(double travelDistance)
+        {
+            return travelDistance / 200 * 10;
+        }
+
+        public AirlineReservationResponse ReducePrice(Reservation reservation, string username)
+        {
+            foreach(var ticket in reservation.AirlineTickets)
+            {
+                if (ticket.TicketOwner != null && ticket.TicketOwner.Username == username)
+                {
+                    if (ticket.TicketOwner.Points > 0)
+                    {
+                        if (ticket.TicketOwner.Points >= ticket.Price)
+                        {
+                            
+                            ticket.NumberOfPointsInvested =  ticket.Price;
+                            ticket.TicketOwner.Points -= ticket.Price;
+                            ticket.Price = 0;
+                        }
+                        else
+                        {
+                            ticket.Price -= ticket.TicketOwner.Points;
+                            ticket.NumberOfPointsInvested = ticket.TicketOwner.Points;
+                            ticket.TicketOwner.Points = 0;
+                        }
+                        return new AirlineReservationResponse(reservation);
+                    }
+                    else
+                        return new AirlineReservationResponse("User has no points.");
+                }
+
+            }
+            return new AirlineReservationResponse("User with given username hasn't booked flight in this reservation");
+
         }
 
         public async Task<ICollection<Reservation>> GetReservationsAsync(string username)

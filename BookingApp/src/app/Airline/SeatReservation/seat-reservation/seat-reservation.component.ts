@@ -47,7 +47,7 @@ export class SeatReservationComponent implements OnInit, OnDestroy {
 
       this.reservation.tickets = this.selectedSeats;
       this.reservationService.reservation = this.reservation;
-      sessionStorage["currentReservation"] = JSON.stringify(this.reservation);
+      localStorage["currentReservation"] = JSON.stringify(this.reservation);
       this.router.navigate(['/seatAssignment',this.route.snapshot.params.id]);
 
     }

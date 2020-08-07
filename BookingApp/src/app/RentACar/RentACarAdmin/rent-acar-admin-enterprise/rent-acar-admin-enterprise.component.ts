@@ -56,7 +56,7 @@ export class RentACarAdminEnterpriseComponent implements OnInit {
   }
 
   AdminLogout(){
-    sessionStorage.clear();
+    localStorage.clear();
     this.router.navigateByUrl('/Login', {skipLocationChange: true})
     .then(() => this.router.navigate(['/main/Airlines']));
    this.user.currentUser = null;

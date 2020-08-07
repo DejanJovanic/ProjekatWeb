@@ -12,7 +12,7 @@ export class UserPreviewComponent implements OnInit {
 
   user : any;
   isAirlineAdmin : boolean;
-  isRentACarAdmin
+  isRentACarAdmin : boolean
   constructor(private cache: UserCacheService) { }
 
   ngOnInit(): void {

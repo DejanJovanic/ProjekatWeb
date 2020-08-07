@@ -192,6 +192,7 @@ namespace BookingAppBackend
             if (testUser.Result == null)
             {
                 var admin = new AuthentificationUser();
+                admin.IsPasswordOk = true;
                 admin.Email = email;
                 admin.UserName = "Admin";
 

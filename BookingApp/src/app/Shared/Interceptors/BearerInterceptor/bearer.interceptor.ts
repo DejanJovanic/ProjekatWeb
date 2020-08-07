@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { tap, catchError, finalize } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -30,7 +30,11 @@ export class BearerInterceptor implements HttpInterceptor {
       return next.handle(cloned).pipe(catchError((err: any) => {
         if(err instanceof HttpErrorResponse) {
             try {
+              if(err.error.message)
                 this.toasterService.error(err.error.message, "Error", { positionClass: 'toast-center-center',closeButton:true  });
+              else
+                this.toasterService.error(err.error.errors[0][0], "Error", { positionClass: 'toast-center-center',closeButton:true  });
+                
             } catch(e) {
                 this.toasterService.error('An error occurred', '', { positionClass: 'toast-center-center',closeButton:true  });
             }
@@ -46,12 +50,13 @@ export class BearerInterceptor implements HttpInterceptor {
       return next.handle(request).pipe(catchError((err: any) => {
         if(err instanceof HttpErrorResponse) {
             try {
+              if(err.error.message != "PasswordChangeRequired")
                 this.toasterService.error(err.error.message, "Error", { positionClass: 'toast-center-center',closeButton:true  });
             } catch(e) {
                 this.toasterService.error('An error occurred', '', { positionClass: 'toast-center-center',closeButton:true });
             }
         }
-        return of(err);
+        return throwError(err);
     }),finalize(() =>{
       this.count--;
       if(this.count == 0)

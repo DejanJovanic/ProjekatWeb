@@ -17,7 +17,7 @@ export class RentACarEnterpriseProfileComponent implements OnInit {
   address: string;
   role: string;
   constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute) { 
-    this.role = sessionStorage["Role"]
+    this.role = localStorage["Role"]
   }
 
   ngOnInit(): void {

@@ -3,6 +3,7 @@ using BookingAppBackend.Model.AuthentificationAndAuthorization;
 using BookingAppBackend.Model.Responses;
 using BookingAppBackend.Model.Users;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,7 @@ namespace BookingAppBackend.Service.AirlineAdmin
                 return new AirlineAdminResponse("User with given username already exists");
         }
 
+    
         public async Task<AirlineAdminResponse> Edit(UserEdit details,string username)
         {
             var temp = await repo.EditAirlineAdminAsync(details, username);

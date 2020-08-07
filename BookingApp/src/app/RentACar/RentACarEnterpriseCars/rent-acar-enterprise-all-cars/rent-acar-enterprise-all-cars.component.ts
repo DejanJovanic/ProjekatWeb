@@ -36,7 +36,7 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
   slides: any = [[]];
   Cars: Car[] = [];
   constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal, public datepipe: DatePipe) { 
-    this.role = sessionStorage["Role"]
+    this.role = localStorage["Role"]
   }
   
   ngOnInit(): void{

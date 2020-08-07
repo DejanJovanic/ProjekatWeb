@@ -17,8 +17,8 @@ namespace BookingAppBackend.Database.Repository
 
         public IEnumerable<Airline> GetAirlines()
         {
-            return context.Airlines.Include(i => i.Address).Include(i => i.Flights)
-                .ToList();
+            return context.Airlines.Include(i => i.Address).Include(i => i.Flights).ToList();
+
         }
 
         public async Task<Airline> GetAirline(int id)

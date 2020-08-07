@@ -5,7 +5,7 @@ export class ReservationConfirmation{
     public passportNumber : string
     public luggageWeight : number
     public selectedExtras : number[]
-
+    public investingPoints : boolean
     constructor(){
         this.selectedExtras = [];
     }

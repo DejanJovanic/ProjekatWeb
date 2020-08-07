@@ -17,19 +17,16 @@ export class AirlineFilterComponent implements OnInit {
   constructor(private builder : FormBuilder) { }
 
   ngOnInit(): void {
-    if(sessionStorage.flightFilter)
-      this.filterParams = JSON.parse(sessionStorage.flightFilter)
+    if(localStorage.flightFilter)
+      this.filterParams = JSON.parse(localStorage.flightFilter)
     else
       this.filterParams = new FlightFilterParams();
     this.filterForm = this.builder.group(
       {
-        priceFrom:['',Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/)],
-        priceTo : ['',Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/)],
-        startDate:[''],
-        finishDate:[''],
-        flightDuration:[''],
-        
-
+        priceFrom:['',Validators.min(0)],
+        priceTo : ['',Validators.min(0)],
+        numberOfStops:['',Validators.min(0)],
+        airline:['',Validators.pattern(/^[a-zA-Z- ]+?$/)],
       });
   }
 
@@ -40,10 +37,9 @@ export class AirlineFilterComponent implements OnInit {
     let params = new FlightFilterParams();
     params.priceFrom = parseFloat(this.filterForm.value.priceFrom);
     params.priceTo = parseFloat(this.filterForm.value.priceTo);
-    if(this.filterForm.value.startDate != null){
-      params.startDate = new Date(this.filterForm.value.startDate.year,this.filterForm.value.startDate.month,
-        this.filterForm.value.startDate.day);
-    }
+    params.numberOfStops = parseFloat(this.filterForm.value.numberOfStops);
+    params.airline = this.filterForm.value.airline;
+
     this.filter.emit(params);
   }
 }

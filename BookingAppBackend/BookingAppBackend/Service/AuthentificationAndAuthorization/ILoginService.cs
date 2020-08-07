@@ -9,5 +9,6 @@ namespace BookingAppBackend.Service.AuthentificationAndAuthorization
     public interface ILoginService
     {
         Task<string> Login(string username, string password);
+        Task<string> ChangePassword(string username, string oldPassword, string newPassword);
     }
 }

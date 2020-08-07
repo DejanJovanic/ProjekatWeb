@@ -47,6 +47,7 @@ namespace BookingAppBackend.Service.User
         public async Task<UserResponse> Add(UserAdd data,IUrlHelper urlHelper)
         {
             var temp1 = new AuthentificationUser();
+            temp1.IsPasswordOk = true;
             var temp2 = new BookingAppBackend.Model.Users.User();
             temp1.UserName = data.Username;
             temp2.Username = data.Username;

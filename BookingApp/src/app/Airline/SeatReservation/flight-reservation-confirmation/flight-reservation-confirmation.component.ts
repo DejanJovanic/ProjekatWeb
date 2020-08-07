@@ -8,6 +8,9 @@ import { AirlineCacheService } from '../../AirlineShared/Services/AirlineCache/a
 import { TicketNetwork } from 'src/app/Shared/Model/Airlines/TicketNetwork.model';
 import { UserCacheService } from 'src/app/Users/Services/UserCache/user-cache.service';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/Shared/Model/Common/User.model';
+import { switchMap } from 'rxjs/operators';
+import { UserNetworkService } from 'src/app/Users/Services/UserNetwork/user-network.service';
 
 @Component({
   selector: 'app-flight-reservation-confirmation',
@@ -18,9 +21,10 @@ export class FlightReservationConfirmationComponent implements OnInit, OnDestroy
 
   private sub : Subscription
   public tickets : Ticket[]
-  public discountPercentage : number;
-  constructor(private cache : AirlineCacheService,public route : ActivatedRoute,private router : Router,private service : FlightReservationService,private bookingService : SetBookingServiceService,private user : UserCacheService) { 
+  public points : number
+  constructor(private userNetwork : UserNetworkService,private cache : AirlineCacheService,public route : ActivatedRoute,private router : Router,private service : FlightReservationService,private bookingService : SetBookingServiceService,private userService : UserCacheService) { 
      this.tickets = service.reservation.tickets;
+     this.points = userService.currentUser.points;
     let flights = this.cache.airlines.getValue().map(i =>{
       let flights = new Array<Flight>();
         for(let flight of i.flights){
@@ -40,11 +44,7 @@ export class FlightReservationConfirmationComponent implements OnInit, OnDestroy
     for(let item of this.tickets){
       item.price = this.service.reservation.flight.price;
     } 
-    this.discountPercentage = 0
-    if(sessionStorage.choosenFriends){
-        let friends = JSON.parse(sessionStorage.choosenFriends);
-        this.discountPercentage = Math.floor(flight.distance/300) * friends.length
-    }
+
   }
   ngOnDestroy(): void {
     if(this.sub) this.sub.unsubscribe();
@@ -54,13 +54,26 @@ export class FlightReservationConfirmationComponent implements OnInit, OnDestroy
      
   }
 
-  SetReservation(){
+  Cancel(){
+    this.router.navigate(['/main/Airlines']);
+  }
+
+  SetReservationPoints(){
     this.bookingService.SetFlightReservation(this.service.reservation);
-    this.sub = this.bookingService.SendCurrentReservation().subscribe(i =>{
+    this.sub = this.bookingService.SendCurrentReservationPoints().pipe(switchMap(_ => this.userNetwork.GetUserDetails())).subscribe(i =>{
       this.service.reservation = null;
       this.router.navigate(['']);
-      sessionStorage.removeItem("choosenFriends")
-      sessionStorage.removeItem("currentReservation")
+      localStorage.removeItem("choosenFriends")
+      localStorage.removeItem("currentReservation")
+    })
+  }
+  SetReservation(){
+    this.bookingService.SetFlightReservation(this.service.reservation);
+    this.sub = this.bookingService.SendCurrentReservation().pipe(switchMap(_ => this.userNetwork.GetUserDetails())).subscribe(i =>{
+      this.service.reservation = null;
+      this.router.navigate(['']);
+      localStorage.removeItem("choosenFriends")
+      localStorage.removeItem("currentReservation")
     })
  
   }

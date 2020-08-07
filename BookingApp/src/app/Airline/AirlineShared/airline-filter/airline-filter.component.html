@@ -4,24 +4,70 @@
         Filter
     </div>
     <div [ngbCollapse]="isCollapsed" id="flight-filter-content" class="card-body">
-        <form (submit)="onSubmit()" [formGroup]="filterForm" novalidate >
-            <div class="form-group row">
-                <label for="priceFrom" class="col-sm-2 col-form-label">price</label>
-                <div class="col-sm-10">
-                    <input class="form-control" type="text" name="priceFrom" id="priceFrom" formControlName="priceFrom"/>
-                </div>  
+        <form (submit)="onSubmit()" [formGroup]="filterForm">
+            <div class=" form-row">
+                <div class=" form-group col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <label for="priceFrom">
+                                Price from:
+                            </label> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <input class="form-control" type="number" min="0" name="priceFrom" id="priceFrom" formControlName="priceFrom"/>
+                        </div>  
+                    </div> 
+                </div>
+                <div class=" form-group col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <label for="priceTo">
+                                Price to:
+                            </label> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <input class="form-control" type="number" min="0" name="priceTo" id="priceTo" formControlName="priceTo"/>
+                        </div>  
+                    </div> 
+                </div>
+ 
             </div> 
-            <div class="form-group row">
-                <label for="startDate" class="col-sm-2 col-form-label">Start Date</label>
-                <div class="col-sm-10">
-                    <ngb-datepicker formControlName="startDate" #d></ngb-datepicker>
+            <div class=" form-row">
+                <div class=" form-group col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <label for="numberOfStops">
+                                Max. number of stops:
+                            </label> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <input class="form-control" type="number" min="0" name="numberOfStops" id="numberOfStops" formControlName="numberOfStops"/>
+                        </div>  
+                    </div> 
                 </div>
-                <label for="flightDuration" class="col-sm-2 col-form-label">Flight Duration</label>
-                <div class="col-sm-10">
-                    <ngb-timepicker formControlName="flightDuration" #d></ngb-timepicker>
+                <div class=" form-group col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <label for="airline">
+                                Airline:
+                            </label> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" min="0" name="airline" id="airline" formControlName="airline"/>
+                        </div>  
+                    </div> 
                 </div>
-            </div>
-            <button class="btn btn-primary" [disabled]="filterForm.invalid" type="submit">
+            </div> 
+
+            <button class="btn btn-primary" [disabled]="!filterForm.valid" type="submit">
                 Save
             </button>
         </form>   

@@ -18,8 +18,8 @@ export class SeatAssignmentComponent implements OnInit {
   public currentUserSelected : {isSelected : boolean}
   constructor(private service : FlightReservationService,private cache : UserCacheService,private router : Router,public route : ActivatedRoute) {
     let meIn = false;
-    if(sessionStorage["choosenFriends"] != null){
-      let temp = JSON.parse(sessionStorage["choosenFriends"]);
+    if(localStorage["choosenFriends"] != null){
+      let temp = JSON.parse(localStorage["choosenFriends"]);
       let friendCount = 0;
       
       for(let a of this.service.reservation.tickets){
@@ -33,7 +33,7 @@ export class SeatAssignmentComponent implements OnInit {
         }
       }
       if(friendCount != temp.length){
-        sessionStorage.removeItem("choosenFriends");
+        localStorage.removeItem("choosenFriends");
       }
 
       
@@ -65,7 +65,7 @@ export class SeatAssignmentComponent implements OnInit {
 
   OnClick(){
     this.service.reservation.flight = null
-    sessionStorage["currentReservation"] = JSON.stringify(this.service.reservation);
+    localStorage["currentReservation"] = JSON.stringify(this.service.reservation);
     this.router.navigate(['/flightReservationConfirm',this.route.snapshot.params.id]);
 
   }

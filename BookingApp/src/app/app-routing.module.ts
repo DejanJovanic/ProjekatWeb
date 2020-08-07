@@ -40,6 +40,7 @@ import { AirlineRatingsComponent } from './Airline/AirlineAdmin/airline-ratings/
 import { AirlineStatsResolverService } from './Airline/Resolvers/AirlineStatsResolver/airline-stats-resolver.service';
 import { UserPreviewComponent } from './Users/user-preview/user-preview.component';
 import { UserDetailsEditComponent } from './Users/user-details-edit/user-details-edit.component';
+import { ChangePasswordComponent } from './Users/change-password/change-password.component';
 
 
 const routes: Routes = [
@@ -56,6 +57,7 @@ const routes: Routes = [
       {path : 'AirlineEarnings', component: AirlineEarningsComponent}
     ]}
   ]},
+  {path : 'changePassword', component : ChangePasswordComponent},
   {path : 'UserPreview', component : UserPreviewComponent},
   {path : 'UserDetailsEdit', component : UserDetailsEditComponent},
   {path : 'FastFlights/:airlineId', component : FastFlightHolderComponent},

@@ -10,6 +10,7 @@ import * as jwtDecode from 'jwt-decode'
 })
 export class UserLoginService {
 
+  username : string
   constructor(private cache : UserCacheService,private network : UserNetworkService)  {}
   
   public Login(username : string, password : string) : Observable<User>{
@@ -19,7 +20,7 @@ export class UserLoginService {
           this.network.GetUserDetails(username).subscribe(j =>{
             if(j != null){
               this.cache.currentUser = j;
-              sessionStorage["Role"] = j.systemRole;
+              localStorage["Role"] = j.systemRole;
               observer.next(j)
               observer.complete()
             }
@@ -41,7 +42,7 @@ export class UserLoginService {
         if(i){
           localStorage["token"] = i;
           let decoded = jwtDecode(i);
-          sessionStorage["Role"] = decoded['role'];          
+          localStorage["Role"] = decoded['role'];          
         }}),
       switchMap(i => i != "" ? this.network.GetUserDetails() :of(null)),     
       tap(i =>{
@@ -53,5 +54,8 @@ export class UserLoginService {
     
   }
 
+  public ChangePassword(username,oldPassword,newPassword) : Observable<boolean>{
+    return this.network.ChangePassword(username,oldPassword,newPassword);
+  }
 
 }

@@ -16,7 +16,7 @@ export class FlightPanelComponent implements OnInit {
   @Input() flight: Flight;
 
   constructor(private modalService : NgbModal) {
-    this.role = sessionStorage["Role"]
+    this.role = localStorage["Role"]
    }
 
   OpenModal(){

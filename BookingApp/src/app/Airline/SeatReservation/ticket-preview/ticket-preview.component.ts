@@ -25,8 +25,7 @@ export class TicketPreviewComponent implements OnInit {
 
   @Input()
   public currentUserSelected : {isSelected : boolean};
-  @Input()
-  public discountPercentage : number;
+
   @Output()
   public dataAdded : EventEmitter<UserFlightDetailsModal>
 
@@ -45,7 +44,7 @@ export class TicketPreviewComponent implements OnInit {
         if(element.to > this.maxWeigth ) this.maxWeigth  = element.to
       });
     }
-    this.CalculatePrice();
+
   }
 
   ChooseMe(){
@@ -65,12 +64,12 @@ export class TicketPreviewComponent implements OnInit {
   ClearData(){
 
     if(this.ticket.details.username != undefined){
-      if(sessionStorage["choosenFriends"] != null){
-        let temp = JSON.parse(sessionStorage["choosenFriends"]);
+      if(localStorage["choosenFriends"] != null){
+        let temp = JSON.parse(localStorage["choosenFriends"]);
         let index = temp.indexOf(this.ticket.details.username)
         if(index != -1){
           temp.splice(index,1)
-          sessionStorage["choosenFriends"] = JSON.stringify(temp);
+          localStorage["choosenFriends"] = JSON.stringify(temp);
       }      
       else{
         this.currentUserSelected.isSelected = false
@@ -126,11 +125,8 @@ export class TicketPreviewComponent implements OnInit {
       for(let a of i.selectedExtras){
         this.ticket.price += a.price;
       }
-      this.CalculatePrice();
+     
     })
   }
 
-  CalculatePrice(){
-    this.ticket.price -= (this.ticket.price / 100) * this.discountPercentage; 
-  }
 }

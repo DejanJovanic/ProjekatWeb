@@ -43,6 +43,11 @@ namespace BookingAppBackend.Service.FastFlightReservation
                 if (temp.Success)
                 {
                     await unitOfWork.CompleteAsync();
+                    var points = CalculatePoints(temp.Resource.Flight.Distance);
+
+                    temp.Resource.User.Points += points;
+                    await unitOfWork.CompleteAsync();
+
                 }
 
                 return temp;
@@ -52,6 +57,11 @@ namespace BookingAppBackend.Service.FastFlightReservation
             {
                 return new FastFlightResponse("Something went wrong. Please, try again later.");
             }
+        }
+
+        public double CalculatePoints(double travelDistance)
+        {
+            return travelDistance / 200 * 10;
         }
 
         public async Task<IEnumerable<Model.Airlines.FastFlight>> Get(string username)

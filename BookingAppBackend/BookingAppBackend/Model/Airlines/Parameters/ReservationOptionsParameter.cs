@@ -17,5 +17,6 @@ namespace BookingAppBackend.Model.Airlines.Parameters
         public string PassportNumber { get; set; }
         public double LuggageWeight { get; set; }
         public ICollection<int> SelectedExtras { get; set; }
+        public bool InvestingPoints { get; set; }
     }
 }

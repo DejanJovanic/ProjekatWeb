@@ -15,7 +15,7 @@ export class FlightResolverService implements Resolve<any> {
       return empty()
     }
     else{
-      return this.search.getResults(JSON.parse(sessionStorage.flightSearch));
+      return this.search.getResults(JSON.parse(localStorage.flightSearch));
     }
   }
 }

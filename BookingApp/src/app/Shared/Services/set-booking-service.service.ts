@@ -58,7 +58,17 @@ export class SetBookingServiceService implements  SetFlightReservationService {
 
   public SendCurrentReservation(): Observable<boolean>{
         
-    return this.client.post('http://localhost:50000/api/FlightReservation/',{ tickets : this.currentReservation.flight},
+    return this.client.post('http://localhost:50000/api/FlightReservation/',{ tickets : this.currentReservation.flight, investingPoints : false},
+    ).pipe(tap(_ => {
+      this.currentReservation.car = null;
+      this.currentReservation.flight = null;
+    }),map(i => i ? true : false));
+  
+  }
+
+  public SendCurrentReservationPoints(): Observable<boolean>{
+        
+    return this.client.post('http://localhost:50000/api/FlightReservation/',{ tickets : this.currentReservation.flight, investingPoints : true},
     ).pipe(tap(_ => {
       this.currentReservation.car = null;
       this.currentReservation.flight = null;

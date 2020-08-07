@@ -53,7 +53,7 @@ namespace BookingAppBackend.Controllers.FlightReservation
                 else
                     return BadRequest("Something went wrong");
             }
-            catch(Exception e)
+            catch
             {
                 return StatusCode(500);
             }
@@ -67,7 +67,7 @@ namespace BookingAppBackend.Controllers.FlightReservation
                 return BadRequest(new { Message = "Tickets have to be supplied." });
             try
             {
-                var ret = await service.Add(flightReservation.Tickets);
+                var ret = await service.Add(flightReservation.Tickets,flightReservation.InvestingPoints);
                 if (ret.Success)
                 {               
                     return Ok(true);
@@ -90,7 +90,7 @@ namespace BookingAppBackend.Controllers.FlightReservation
                 return BadRequest("Invalid parameters supplied");
             try
             {
-                    var ret = await service.AcceptReservation(param, User.Identity.Name);
+                    var ret = await service.AcceptReservation(param, User.Identity.Name,param.InvestingPoints);
                 if (ret.Success)
                 {
                     return Ok(true);

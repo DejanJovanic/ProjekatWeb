@@ -8,6 +8,7 @@ namespace BookingAppBackend.Model.AuthentificationAndAuthorization
 {
     public class AuthentificationUser : IdentityUser
     {
+        public bool IsPasswordOk { get; set; }
         public AuthentificationUser() : base() { }
 
         public AuthentificationUser(string username) : base(username) { }

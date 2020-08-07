@@ -264,6 +264,8 @@ namespace BookingAppBackend.Database.Repository
                                 b.Reservation.Users.Remove(b);
                                 temp.MyReservations.Remove(b);
                             }
+                            ticket.TicketOwner.Points += ticket.NumberOfPointsInvested;
+                            ticket.TicketOwner.Points -= ticket.Flight.Distance / 200 * 10;
                         }
                         else
                         {
@@ -271,6 +273,8 @@ namespace BookingAppBackend.Database.Repository
                             context.Tickets.Remove(ticket);
                             b.Reservation.Users.Remove(b);
                             temp.MyReservations.Remove(b);
+                            ticket.TicketOwner.Points += ticket.NumberOfPointsInvested;
+                            ticket.TicketOwner.Points -= ticket.Flight.Distance / 200 * 10;
                         }
                         
                       
@@ -279,6 +283,8 @@ namespace BookingAppBackend.Database.Repository
                         {
                             context.Reservation.Remove(b.Reservation);
                         }
+
+                        
                         return new AirlineReservationResponse(b.Reservation);
                     }
                 }

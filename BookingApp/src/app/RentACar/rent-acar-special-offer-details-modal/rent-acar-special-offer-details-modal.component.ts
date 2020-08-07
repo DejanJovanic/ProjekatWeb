@@ -14,7 +14,7 @@ export class RentACarSpecialOfferDetailsModalComponent implements OnInit {
   item : SpecialOffer
   role: string;
   constructor(public activeModal : NgbActiveModal, private modalService : NgbModal,private EnterpriseService: RentACarEnterpriseServiceService) {
-    this.role = sessionStorage["Role"]
+    this.role = localStorage["Role"]
    }
 
   ngOnInit(): void {

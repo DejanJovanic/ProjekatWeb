@@ -41,8 +41,8 @@ export class AirlineSearchComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if(sessionStorage.flightSearch)
-      this.searchParams = JSON.parse(sessionStorage.flightSearch)
+    if(localStorage.flightSearch)
+      this.searchParams = JSON.parse(localStorage.flightSearch)
     else
       this.searchParams = null
 

@@ -21,6 +21,11 @@ export class FlightFilterService {
     if(!isNaN(params.priceTo) && params.priceTo!= null && item.price > params.priceTo){
       return false;
     }
+    if(!isNaN(params.numberOfStops) && params.numberOfStops!= null && item.stopsLocations.length > params.numberOfStops){
+      return false;
+    }
+    if(params.airline != null && params.airline != undefined && params.airline != "" && params.airline.toLowerCase() != item.airline.name.toLowerCase())
+      return false;
     return true;
   }
 }

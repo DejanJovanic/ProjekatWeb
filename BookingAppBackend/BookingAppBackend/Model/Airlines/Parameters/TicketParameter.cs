@@ -24,5 +24,6 @@ namespace BookingAppBackend.Model.Airlines.Parameters
         public DateTime BookingDate { get; set; }
         public bool IsApproved { get; set; }
         public double Price { get; set; }
+        public double NumberOfPointsInvested { get; set; }
     }
 }

@@ -23,8 +23,8 @@ export class FriendChooseModalComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    if(sessionStorage["choosenFriends"] != null){
-      let temp = JSON.parse(sessionStorage["choosenFriends"]);
+    if(localStorage["choosenFriends"] != null){
+      let temp = JSON.parse(localStorage["choosenFriends"]);
       this.chosenFriendsEvent.next(temp);
     }
     else{
@@ -48,15 +48,15 @@ export class FriendChooseModalComponent implements OnInit {
   }
 
   onFriendClick(username : string){
-    if(sessionStorage["choosenFriends"] != null){
-      let temp = JSON.parse(sessionStorage["choosenFriends"]);
+    if(localStorage["choosenFriends"] != null){
+      let temp = JSON.parse(localStorage["choosenFriends"]);
       temp.push(username);
-      sessionStorage["choosenFriends"] = JSON.stringify(temp);
+      localStorage["choosenFriends"] = JSON.stringify(temp);
     }
     else{
       let temp = []
       temp.push(username)
-      sessionStorage["choosenFriends"] = JSON.stringify(temp);
+      localStorage["choosenFriends"] = JSON.stringify(temp);
     }
 
     let user = this.service.friends.getValue().find(i => i.username == username);

@@ -21,6 +21,10 @@ export class UserNetworkService {
     }))
   }     
 
+  public ChangePassword(username,oldPassword,newPassword) : Observable<boolean>{
+    return this.client.put<boolean>('http://localhost:50000/api/Login/ChangePassword',{username : username, password : oldPassword, newPassword : newPassword})
+  }
+
   public Login(username : string, password : string) : Observable<string>{
     return this.client.post<{token:string}>('http://localhost:50000/api/Login',{username : username, password : password}).pipe(
       map(i => i.token) 
@@ -38,7 +42,7 @@ export class UserNetworkService {
   public GetUserDetails() : Observable<User>{
     return this.client.get<{user : any}>('http://localhost:50000/api/GeneralUser').pipe(
       map( i =>{
-        switch(sessionStorage["Role"]){
+        switch(localStorage["Role"]){
           case  "User":
             let user = new User();
             user.name = i.user.name;
@@ -48,6 +52,7 @@ export class UserNetworkService {
             user.email = i.user.email
             user.username = i.user.username;
             user.systemRole = "User";
+            user.points = i.user.points;
             return user;
           case "AirlineAdmin":
             let admin = new AirlineAdmin()

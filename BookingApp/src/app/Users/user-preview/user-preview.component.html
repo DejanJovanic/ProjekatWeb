@@ -29,6 +29,18 @@
                         </p>
                     </div>
                 </div>
+                <div class="row" *ngIf="!isAirlineAdmin && !isRentACarAdmin">
+                    <div class="col-md-4">
+                        <label>
+                            Points:
+                        </label>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>
+                            {{user.points}}
+                        </p>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-4">
                         <label>

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UserLoginService } from '../Services/UserLogin/user-login.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -22,17 +25,23 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
+    this.service.username = this.loginForm.value.username;
     this.service.Login(this.loginForm.value.username,this.loginForm.value.password).subscribe(i =>{
       if(i != null){
-        sessionStorage["username"] = this.loginForm.value.username;
+        localStorage["username"] = this.loginForm.value.username;
 
-        if(sessionStorage["Role"] == "RentACarAdmin"){
+        if(localStorage["Role"] == "RentACarAdmin"){
           this.router.navigate(['RentACarEnterpriseAdmin']);
         }
         else{
         this.router.navigate(['/main']);
+        }
       }
+    },
+      error =>{
+        if(error instanceof HttpErrorResponse && error.error.message == "PasswordChangeRequired")
+          this.router.navigate(['/changePassword']);
       }
-    })
+    )
   }
 }

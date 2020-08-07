@@ -8,8 +8,11 @@ namespace BookingAppBackend.Model.Airlines.Parameters
 {
     public class ReservationParameter
     {
-       public ICollection<TicketParameter> Tickets { get; set; }
-       public AirlineResource Airline { get; set; }
-       public FlightResource Flight { get; set; }
+        public ICollection<TicketParameter> Tickets { get; set; }
+        public AirlineResource Airline { get; set; }
+        public FlightResource Flight { get; set; }
+        public bool InvestingPoints { get; set; }
+       
+ 
     }
 }

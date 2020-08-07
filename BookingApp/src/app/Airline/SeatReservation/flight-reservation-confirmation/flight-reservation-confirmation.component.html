@@ -10,13 +10,19 @@
     <br>
     <div class="row" *ngFor="let item of tickets">
         <div class="col-sm-12">
-            <app-ticket-preview [discountPercentage]="discountPercentage"  [isAssignment]="false" [ticket]="item"></app-ticket-preview>
+            <app-ticket-preview  [isAssignment]="false" [ticket]="item"></app-ticket-preview>
         </div>
     </div>
     <br>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-4">
             <button class="btn btn-success" (click)="SetReservation()">Set reservation</button>
+        </div>
+        <div class="col-sm-4">
+            <button class="btn btn-success" [disabled]="points <= 0" (click)="SetReservationPoints()">Set reservation using points(current points:{{points}})</button>
+        </div>
+        <div class="col-sm-4">
+            <button class="btn btn-danger" (click)="Cancel()">Cancel</button>
         </div>
     </div>
 </div>

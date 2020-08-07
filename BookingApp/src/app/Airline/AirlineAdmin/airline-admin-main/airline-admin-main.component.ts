@@ -17,14 +17,14 @@ export class AirlineAdminMainComponent implements OnInit {
   constructor(private service : AirlineAdminDataService,private cache : UserCacheService) { }
   public filterSubject : Subject<FlightFilterParams> = new Subject<FlightFilterParams>();
   ngOnInit(): void {
-    if(sessionStorage["Role"] == "AirlineAdmin"){
-      if(sessionStorage["username"]){
+    if(localStorage["Role"] == "AirlineAdmin"){
+      if(localStorage["username"]){
         this.service.GetAirlineData()
       }
     }
   }
   onFlightFilter(event : FlightFilterParams){
-    sessionStorage.flightFilter = JSON.stringify(event);
+    localStorage.flightFilter = JSON.stringify(event);
     this.filterSubject.next(event);
   }
 

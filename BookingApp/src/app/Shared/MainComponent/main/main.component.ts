@@ -15,13 +15,12 @@ export class MainComponent implements OnInit {
   public loggedIn : boolean
   constructor(private router : Router,private activeRoute : ActivatedRoute
     ,private user : UserCacheService,private airlines : AirlineCacheService) {
-    if(sessionStorage["Role"] != null){
+    if(localStorage["Role"] != null){
       this.loggedIn = true;
-      this.username = sessionStorage["username"];
+      this.username = localStorage["username"];
     }
    }
    Logout(){
-     sessionStorage.clear();
      localStorage.clear();
      //this.loggedIn = false;
      this.router.navigateByUrl('/Login', {skipLocationChange: true})
@@ -34,7 +33,7 @@ export class MainComponent implements OnInit {
     this.router.navigate(['UserPreview']);
    }
   ngOnInit(): void {
-    if(sessionStorage["Role"] == null)
+    if(localStorage["Role"] == null)
     {
       this.links = [
         {title : "Flights" , route : "Airlines"}
@@ -43,7 +42,7 @@ export class MainComponent implements OnInit {
       this.router.navigate(['Airlines'],{ relativeTo : this.activeRoute});
     }
     else{
-      switch(sessionStorage["Role"]){
+      switch(localStorage["Role"]){
         case "User":
           this.links = [
             {title : "Flights" , route : "Airlines"},

@@ -91,6 +91,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { UserPreviewComponent } from './Users/user-preview/user-preview.component';
 import { UserDetailsEditComponent } from './Users/user-details-edit/user-details-edit.component';
+import { ChangePasswordComponent } from './Users/change-password/change-password.component';
 
 
 @NgModule({
@@ -173,7 +174,8 @@ import { UserDetailsEditComponent } from './Users/user-details-edit/user-details
     AirlineTicketSaleComponent,
     AirlineRatingsComponent,
     UserPreviewComponent,
-    UserDetailsEditComponent
+    UserDetailsEditComponent,
+    ChangePasswordComponent
   ],
   imports: [
     

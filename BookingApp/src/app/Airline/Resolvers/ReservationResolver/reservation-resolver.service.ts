@@ -15,8 +15,8 @@ export class ReservationResolverService implements Resolve<any> {
       return empty();
     }
     else{
-      if(sessionStorage["currentReservation"] != null){
-        this.reservation.reservation = JSON.parse(sessionStorage["currentReservation"])
+      if(localStorage["currentReservation"] != null){
+        this.reservation.reservation = JSON.parse(localStorage["currentReservation"])
         return empty();
       }
       else{

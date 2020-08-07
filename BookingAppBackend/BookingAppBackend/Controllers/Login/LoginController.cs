@@ -29,9 +29,33 @@ namespace BookingAppBackend.Controllers.Login
 
             var token = await service.Login(credentials.Username, credentials.Password);
             if (token != "")
-                return Ok(new { token });
+                if (token == "PasswordChangeRequired")
+                    return BadRequest(new { Message = token });
+                else
+                    return Ok(new { token });
             else
                 return BadRequest(new { message = "Invalid username/password supplied" });
+        }
+
+        [HttpPut]
+        [Route("ChangePassword")]
+        public async Task<IActionResult> PasswordChange(PasswordChange param)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new { message = "Wrong parameters supplied." });
+            try
+            {
+                var error = await service.ChangePassword(param.Username, param.Password, param.NewPassword);
+                if (error == null)
+                    return Ok(true);
+                else
+                    return BadRequest(new { message = error });
+            }
+            catch
+            {
+                 return StatusCode(500);
+            }
+           
         }
     }
 }

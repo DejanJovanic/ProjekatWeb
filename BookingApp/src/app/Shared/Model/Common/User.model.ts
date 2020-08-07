@@ -6,6 +6,7 @@ export class User implements IUser{
     public name : string;
     public lastName: string;
     public city : string;
+    public points : number;
     public phoneNumber : string;
     public passportNo : string;
     public systemRole : string;

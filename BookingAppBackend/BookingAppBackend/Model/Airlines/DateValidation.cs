@@ -15,7 +15,7 @@ namespace BookingAppBackend.Model.Airlines
         public override bool IsValid(object value)
         {
             var dt = (DateTime)value;
-            if (dt >= DateTime.Now)
+            if (dt.Date >= DateTime.Now.Date)
             {
                 return true;
             }

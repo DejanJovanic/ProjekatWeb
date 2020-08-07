@@ -16,7 +16,7 @@ export class RentACarDetailsModalComponent implements OnInit {
   role: string;
   disableButtons: boolean = false;
   constructor(public activeModal : NgbActiveModal, private modalService : NgbModal,private EnterpriseService: RentACarEnterpriseServiceService) { 
-    this.role = sessionStorage["Role"]
+    this.role = localStorage["Role"]
   }
   CarRatingArr=[];
   animeArr=[];

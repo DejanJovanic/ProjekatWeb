@@ -18,7 +18,7 @@ export class RentACarEnterpriseSpecialServiceComponent implements OnInit {
   slides: any = [[]];
   role: string;
   constructor(private modalService : NgbModal, private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute) { 
-    this.role = sessionStorage["Role"]
+    this.role = localStorage["Role"]
   }
 
   ngOnInit(): void {

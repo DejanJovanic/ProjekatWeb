@@ -14,4 +14,5 @@ export class TicketNetwork{
     isApproved : boolean
     isRated : boolean
     price : number
+    numberOfPointsInvested : number
 }

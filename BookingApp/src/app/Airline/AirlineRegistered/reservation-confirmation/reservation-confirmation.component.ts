@@ -7,6 +7,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ReservationConfirmation } from 'src/app/Shared/Model/Airlines/ReservationConfirmation.model';
 import { AirlineNetworkService } from '../../AirlineShared/Services/AirlineNetwork/airline-network.service';
+import { UserCacheService } from 'src/app/Users/Services/UserCache/user-cache.service';
+import { switchMap } from 'rxjs/operators';
+import { UserNetworkService } from 'src/app/Users/Services/UserNetwork/user-network.service';
 
 @Component({
   selector: 'app-reservation-confirmation',
@@ -26,7 +29,12 @@ export class ReservationConfirmationComponent implements OnInit,OnDestroy {
   price : number;
   sub : Subscription
   subNetwork : Subscription
-  constructor(private network : AirlineNetworkService,private builder : FormBuilder,private router : Router,private route : ActivatedRoute) { }
+  public points : number
+
+  constructor(private userNetwork : UserNetworkService,private network : AirlineNetworkService,private builder : FormBuilder,private router : Router,private route : ActivatedRoute,private userService : UserCacheService) {
+    this.points = userService.currentUser.points;
+
+  }
   ngOnDestroy(): void {
     if(this.obs) this.obs.unsubscribe();
     if(this.sub) this.sub.unsubscribe();
@@ -87,6 +95,24 @@ export class ReservationConfirmationComponent implements OnInit,OnDestroy {
     this.CalculatePrice()
   }
 
+  AcceptPoints(){
+    if(this.form.valid){
+      let temp = new ReservationConfirmation()
+      temp.airlineId = +this.airlineId;
+      temp.flightId = +this.flightId;
+      temp.ticketId = +this.ticketId;
+      temp.luggageWeight = +this.form.value.luggageWeigth
+      temp.passportNumber = this.form.value.passportNum
+      temp.investingPoints = true;
+
+      for(let a of this.selectedExtras){
+        temp.selectedExtras.push(a.id);
+      }  
+      this.subNetwork = this.network.confirmReservation(temp).pipe(switchMap(_ => this.userNetwork.GetUserDetails())).subscribe(i =>{
+        this.router.navigate(['/main/Airlines'])
+      })
+    }
+  }
   public Accept(){
     if(this.form.valid){
       let temp = new ReservationConfirmation()
@@ -95,10 +121,11 @@ export class ReservationConfirmationComponent implements OnInit,OnDestroy {
       temp.ticketId = +this.ticketId;
       temp.luggageWeight = +this.form.value.luggageWeigth
       temp.passportNumber = this.form.value.passportNum
+      temp.investingPoints = false;
       for(let a of this.selectedExtras){
         temp.selectedExtras.push(a.id);
       }  
-      this.subNetwork = this.network.confirmReservation(temp).subscribe(i =>{
+      this.subNetwork = this.network.confirmReservation(temp).pipe(switchMap(_ => this.userNetwork.GetUserDetails())).subscribe(i =>{
         this.router.navigate(['/main/Airlines'])
       })
     }

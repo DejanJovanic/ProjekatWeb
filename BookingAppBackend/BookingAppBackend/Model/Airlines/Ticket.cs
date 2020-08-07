@@ -20,6 +20,7 @@ namespace BookingAppBackend.Model.Airlines
         public Airline Airline { get; set; }
         public User TicketOwner { get; set; }
         public DateTime BookingDate { get; set; }
+        public double NumberOfPointsInvested { get; set; }
         public bool IsRated { get; set; }
         public ICollection<TicketPaidExtra> SelectedExtras { get; set; } = new List<TicketPaidExtra>();
         public double LoadWeight { get; set; }

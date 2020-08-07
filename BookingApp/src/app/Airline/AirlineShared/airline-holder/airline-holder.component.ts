@@ -34,8 +34,8 @@ export class AirlineHolderComponent implements OnInit, OnDestroy {
 
 
     this.sub = this.filter.subscribe(i => this.filterService.filter.next(i));
-    if(sessionStorage.flightFilter)
-      this.filterService.filter.next(JSON.parse(sessionStorage.flightFilter))
+    if(localStorage.flightFilter)
+      this.filterService.filter.next(JSON.parse(localStorage.flightFilter))
   }
 
   ngOnDestroy() : void{
