@@ -17,9 +17,9 @@ import { SortParameter } from 'src/app/Shared/Model/Airlines/SortParameter.model
 })
 export class AirlineMainComponent implements OnInit, OnDestroy {
 
-  constructor(private searchService: FlightSearchService,private getter : AirlineGetterService,private builder : FormBuilder) { }
+  constructor(private searchService: FlightSearchService,private getter : AirlineGetterService) { }
   searchSub : Subscription
-  form : FormGroup
+
   sub : Subscription
   public filterSubject : Subject<FlightFilterParams> = new Subject<FlightFilterParams>();
 
@@ -29,32 +29,11 @@ export class AirlineMainComponent implements OnInit, OnDestroy {
     if(this.sub)
       this.sub.unsubscribe();
       
-    this.getter.sort.next(null);
 
     this.filterSubject.next(null);
   }
   ngOnInit(): void {
-    this.form = this.builder.group({
-      sort : ['AirlineAZ']
-    })
-    this.getter.sort.next(SortParameter.AirlineAZ);
-    this.form.get('sort').valueChanges.subscribe(i =>{
-      switch(i){
-        case "AirlineAZ":
-          this.getter.sort.next(SortParameter.AirlineAZ);
-          break;
-        case "AirlineZA":
-          this.getter.sort.next(SortParameter.AirlineZA);
-          break;
-        case "PriceAsc":
-          this.getter.sort.next(SortParameter.PriceAscending);
-          break;
-        case "PriceDesc":
-          this.getter.sort.next(SortParameter.PriceDescending);
-          break;
-
-      }
-    })
+    
   }
   onFlightSearch(event : FlightSearchParams){
     if(this.searchSub)

@@ -1,33 +1,16 @@
+
 <div class = "row">
-    <div class="col-sm-12">
+    <div class="col-sm">
         <app-airline-search (search)="onFlightSearch($event)"></app-airline-search>
     </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm">
         <app-airline-filter (filter)="onFlightFilter($event)"></app-airline-filter>
     </div>
 </div>
-<form [formGroup]="form">
-    <div class="row">
-        <div class="col-sm-3">
-           <label>
-               Sort by :
-           </label>
-        </div>
-        <div class="col-sm-5">
-            <select formControlName="sort">
-                <option value="AirlineAZ">Airline A-Z</option>
-                <option value="AirlineZA">Airline Z-A</option>
-                <option value="PriceAsc">Price ascending</option>
-                <option value="PriceDesc">Price descending</option>
-            </select>
-        </div>
-    </div>       
-</form>
-
+<br>
+<br>
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-lg">
         <app-airline-holder [filter] = "filterSubject.asObservable()"></app-airline-holder>
     </div>
 </div>

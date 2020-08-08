@@ -1,12 +1,63 @@
-<div class="card">
-    <div class="card-body">
-        <ul ngbNav  class="nav-pills">
-            <li ngbNavItem *ngFor="let link of links">
-                <a ngbNavLink [routerLink]="link.route" routerLinkActive="active" >
+<ng-container *ngIf="loggedIn; then loggedInNav else loggedOutNav"></ng-container>
+
+<ng-template #loggedOutNav>
+    <nav class="box transform transform-active fright">
+        <div id="navBar" class="fleft">
+            <div class="fleft">
+                <ul>
+                  <li id="rentAcar">
+                    <a [routerLink]="['/RentACarEnterprises']" routerLinkActive="router-link-active">  <img src="../../assets/car.png" />Rent a Car enterprises  </a>
+                  </li>
+                  <li style="float: left !important;"  *ngFor="let link of links">
+                    <a   [routerLink]="link.route" routerLinkActive="router-link-active" >
+                        {{link.title}}
+                    </a> 
+                </li>
+                </ul>
+              </div>
+              <div class="fright">
+                  <ul>
+                      <li>
+                          <a [routerLink]="['/Register']" routerLinkActive="router-link-active"><img  src="../../assets/signup.png"/> Register </a>   
+                      </li>
+                      <li>
+                          <a [routerLink]="['/Login']" routerLinkActive="router-link-active"> <img  src="../../assets/login.png" />Login </a>
+                      </li>
+                     
+                  </ul>
+              </div>
+          </div>
+        </nav> 
+</ng-template>
+       
+<ng-template #loggedInNav>
+    <nav class="box transform transform-active fright" >
+    <div id="navBar" class="fleft">
+        <div class="fleft">
+            <ul>
+              <li id="rentAcar">
+                <a [routerLink]="['/RentACarEnterprises']" routerLinkActive="router-link-active">  <img src="../../assets/car.png" />Rent a Car enterprises  </a>
+              </li>
+              <li style="float: left !important;" *ngFor="let link of links">
+                <a  [routerLink]="link.route" routerLinkActive="router-link-active" >
                     {{link.title}}
                 </a> 
             </li>
-        </ul>
-    </div>
-</div>
+            </ul>
+          </div>
+            <div class="fright">
+                <ul>
+                    <li>
+                        <button type="button" class="invisButton" (click)="Logout()"><img  src="../../assets/logout.png" />Logout</button>
+                    </li>
+                    <li >
+                        <button type="button" (click)="Preview()" class="invisButton" title="View profile"> <img  src="../../assets/profileIcon.png"/> Hello {{username}}!</button>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav> 
+</ng-template>
+
 

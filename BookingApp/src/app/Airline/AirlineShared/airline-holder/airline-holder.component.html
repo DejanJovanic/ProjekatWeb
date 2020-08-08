@@ -1,9 +1,52 @@
 <div class="container">  
-    <div class="card-deck">
+    <div *ngIf="(flights | async) != null; else searchForItems" >
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>
+                        Sort by :
+                    </label>
+                </div>
+                <div class="col-sm-5">
+                    <select formControlName="sort">
+                        <option value="AirlineAZ">Airline A-Z</option>
+                        <option value="AirlineZA">Airline Z-A</option>
+                        <option value="PriceAsc">Price ascending</option>
+                        <option value="PriceDesc">Price descending</option>
+                    </select>
+                </div>
+            </div>       
+        </form>
         <br>
-        <ng-container *ngFor="let item of flights | async">
-            <app-flight-panel  [flight]=item></app-flight-panel>
-        </ng-container>
+        <div class="card-deck" *ngIf="(flights | async)?.length > 0; else nothingFound">
+            <ng-container *ngFor="let item of flights | async">
+                <app-flight-panel  [flight]=item></app-flight-panel>
+            </ng-container>
+        </div>
+      
     </div>
+
+    <ng-template #searchForItems >
+        <div class="row" class="text-center text-justify">
+            <div class="col-lg" >
+                <h3>
+                    <small>
+                        To display flight, please search for flights.
+                    </small>
+                </h3>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #nothingFound >
+        <div class="row" class="text-center text-justify">
+            <div class="col-lg" >
+                <h3>
+                    <small>
+                        No flights that match search criteria found!
+                    </small>
+                </h3>
+            </div>
+        </div>
+    </ng-template>
 </div>
 

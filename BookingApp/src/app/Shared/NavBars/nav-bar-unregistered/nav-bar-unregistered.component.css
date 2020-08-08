@@ -1,0 +1,81 @@
+nav {
+    width: 100%;
+    border-radius: 10px;
+    letter-spacing: 0.1vw;
+    background-color: #007ef5;
+    opacity: 0.9;
+  }
+  
+  #rentAcar{
+    float:left;
+  }
+  
+  #navBar {
+    position: fixed;
+    width: 90%;
+    height: 4vw;
+  }
+  
+  #navBar li {
+    height: 3.2vw;
+  }
+  
+  #navBar li img {
+    height: 1.5vw;
+  }
+  
+  nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  nav ul li {
+    float: right;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    display: block;
+    padding: 0.8vw;
+    font-size: 1.1vw;
+    font-family: "Roboto", sans-serif;
+    color: #ffffff;
+  }
+  nav ul li a:hover, .invisButton:hover {
+    padding-top: 0.7vw;
+    border-radius: 10px;
+  }
+  
+  #userName:hover{
+    padding-top: 0.7vw;
+    border-radius: 10px;
+    cursor:hand;
+  }
+  #userName{
+    text-decoration: none;
+    display: block;
+    padding: 0.8vw;
+    cursor:hand;
+    font-size: 1.1vw;
+    font-family: "Roboto", sans-serif;
+    color: #ffffff;
+  }
+  
+  .transform-active {
+  background-color: rgb(3, 118, 185);
+  height: 3.2vw;
+  width: 96%;
+  }
+  
+  .invisButton{
+    border: 0;
+    background-color: transparent;
+    text-decoration: none;
+    display: block;
+    padding: 0.8vw;
+    font-size: 1.1vw;
+    font-family: "Roboto", sans-serif;
+    color: #ffffff;
+  }
+  

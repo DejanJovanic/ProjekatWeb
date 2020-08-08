@@ -8,28 +8,28 @@
             <div class=" form-row">
                 <div class=" form-group col-sm-6">
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-6">
                             <label for="priceFrom">
                                 Price from:
                             </label> 
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-6">
                             <input class="form-control" type="number" min="0" name="priceFrom" id="priceFrom" formControlName="priceFrom"/>
                         </div>  
                     </div> 
                 </div>
                 <div class=" form-group col-sm-6">
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-6">
                             <label for="priceTo">
                                 Price to:
                             </label> 
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-6">
                             <input class="form-control" type="number" min="0" name="priceTo" id="priceTo" formControlName="priceTo"/>
                         </div>  
                     </div> 
@@ -39,37 +39,39 @@
             <div class=" form-row">
                 <div class=" form-group col-sm-6">
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-6">
                             <label for="numberOfStops">
                                 Max. number of stops:
                             </label> 
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-6">
                             <input class="form-control" type="number" min="0" name="numberOfStops" id="numberOfStops" formControlName="numberOfStops"/>
                         </div>  
                     </div> 
                 </div>
                 <div class=" form-group col-sm-6">
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-6">
                             <label for="airline">
                                 Airline:
                             </label> 
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-6">
                             <input class="form-control" type="text" min="0" name="airline" id="airline" formControlName="airline"/>
                         </div>  
                     </div> 
                 </div>
             </div> 
-
-            <button class="btn btn-primary" [disabled]="!filterForm.valid" type="submit">
-                Save
-            </button>
+            <div class=" form-row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" [disabled]="!filterForm.valid" type="submit"> Filter </button>
+                </div>
+            </div>
+           
         </form>   
     </div>
 </div>

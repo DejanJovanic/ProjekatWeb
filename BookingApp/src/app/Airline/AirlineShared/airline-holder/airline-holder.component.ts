@@ -7,6 +7,8 @@ import { FlightFilterParams } from 'src/app/Shared/Model/Airlines/FlightFilterPa
 import { FlightFilterService } from '../Services/FlightFilter/flight-filter.service';
 import { AirlineCacheService } from '../Services/AirlineCache/airline-cache.service';
 import { FlightSearchService } from '../../AirlineRegistered/Services/FlightSearch/flight-search.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { SortParameter } from 'src/app/Shared/Model/Airlines/SortParameter.model';
 
 
 @Component({
@@ -19,19 +21,39 @@ import { FlightSearchService } from '../../AirlineRegistered/Services/FlightSear
 export class AirlineHolderComponent implements OnInit, OnDestroy {
 
   public flights : Observable<Flight[]>;
-
+  form : FormGroup
   private sub : Subscription;
   private searchSub : Subscription;
 
   @Input() public filter : Observable<FlightFilterParams>;
 
   constructor(private data : AirlineGetterService,private filterService : FlightFilterService,
-    private searchService : FlightSearchService) {
+    private searchService : FlightSearchService,private builder : FormBuilder) {
       this.flights = this.data.flights;
     }
 
   ngOnInit(): void {
+    this.form = this.builder.group({
+      sort : ['AirlineAZ']
+    })
+    this.data.sort.next(SortParameter.AirlineAZ);
+    this.form.get('sort').valueChanges.subscribe(i =>{
+      switch(i){
+        case "AirlineAZ":
+          this.data.sort.next(SortParameter.AirlineAZ);
+          break;
+        case "AirlineZA":
+          this.data.sort.next(SortParameter.AirlineZA);
+          break;
+        case "PriceAsc":
+          this.data.sort.next(SortParameter.PriceAscending);
+          break;
+        case "PriceDesc":
+          this.data.sort.next(SortParameter.PriceDescending);
+          break;
 
+      }
+    })
 
     this.sub = this.filter.subscribe(i => this.filterService.filter.next(i));
     if(localStorage.flightFilter)
@@ -40,6 +62,8 @@ export class AirlineHolderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() : void{
     this.sub.unsubscribe();
+    this.data.sort.next(null);
+
     //this.searchSub.unsubscribe();
   }
 }

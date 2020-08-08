@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-5">
                             <input type="text" id="startLocation" class="form-control" formControlName="startLocation"/>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-5">
                             <input type="text" id="endLocation" class="form-control" formControlName="endLocation"/>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-5">
                             <input type="date" id="startDate"  formControlName="startDate" />
                         </div>  
                     </div>          
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-5">
                             <input type="date" id="finishDate"  formControlName="finishDate" />
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-5">
                             <select id="class" class="form-control" formControlName="class">
                                 <option [ngValue]="item" *ngFor="let item of classes">
                                     {{item}}
@@ -98,12 +98,19 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="col-sm-12">
-                    <button type="submit" class="btn btn-primary">Search</button>
+                <div class="col-sm-6 form-group">
+                    <div class="row">
+                        <br>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
                 </div>
-            </div>      
+                
+            </div>
+     
         </form>
     </div>
 </div>
