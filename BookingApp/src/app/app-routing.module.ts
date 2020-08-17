@@ -42,6 +42,7 @@ import { UserPreviewComponent } from './Users/user-preview/user-preview.componen
 import { UserDetailsEditComponent } from './Users/user-details-edit/user-details-edit.component';
 import { ChangePasswordComponent } from './Users/change-password/change-password.component';
 import { AddSeatsComponent } from './Airline/AirlineAdmin/add-seats/add-seats.component';
+import { EnableSeatComponent } from './Airline/AirlineAdmin/enable-seat/enable-seat.component';
 
 
 const routes: Routes = [
@@ -67,6 +68,7 @@ const routes: Routes = [
   {path : 'ManageInvitation/:airlineId/:flightId/:ticketId', component : ReservationConfirmationComponent,resolve:{details : SeatResolveService}},
   {path : 'RemoveSeat/:id', component: RemoveSeatComponent,resolve:{details : SeatResolveService}},
   {path : 'DisableSeat/:id', component: DisableSeatComponent,resolve:{details : SeatResolveService}},
+  {path : 'EnableSeat/:id', component: EnableSeatComponent,resolve:{details : SeatResolveService}},
   {path: 'AddFlight', component: AddFlightComponent},
   {path:'seats/:id', component: SeatReservationComponent, resolve:{details : SeatResolveService}},
   {path:'seatAssignment/:id', component: SeatAssignmentComponent, resolve:{reservation : ReservationResolverService,friends : FriensResolverService}},

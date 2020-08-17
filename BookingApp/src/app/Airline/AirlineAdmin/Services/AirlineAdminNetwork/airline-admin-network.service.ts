@@ -71,6 +71,9 @@ export class AirlineAdminNetworkService {
   public DisableSeat(row : number,column : number, flightId : number){
     return this.client.put<Flight>('http://localhost:50000/api/Seat',{row:row,column:column,flightId:flightId})
   }
+  public EnableSeat(row : number,column : number, flightId : number){
+    return this.client.put<Flight>('http://localhost:50000/api/Seat/Enable',{row:row,column:column,flightId:flightId})
+  }
   public SetFlight(flight : Flight) : Observable<boolean>{
     return this.client.post<boolean>('http://localhost:50000/api/Flight',flight).pipe(map(i => i ? true : false))
   }

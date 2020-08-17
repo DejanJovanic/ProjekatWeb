@@ -27,21 +27,30 @@ export class SeatsComponent implements OnInit {
     switch(this.state){
       case SeatDisplayState.Reservation:
         this.seatClicked = this.itemClickedReservation;
+        this.seatColor = this.getItemColor
         break;
       case SeatDisplayState.Preview:
         this.seatClicked = (a,b) => {};
+        this.seatColor = this.getItemColor
         break;
       case SeatDisplayState.FastSelector:
         this.seatClicked = this.itemClickedFast;
+        this.seatColor = this.getItemColor
         break;
       case SeatDisplayState.Removal:
         this.seatClicked = this.itemClickedFast;
+        this.seatColor = this.getItemColor
         break;
       case SeatDisplayState.Disable:
         this.seatClicked = this.itemClickedFast;
+        this.seatColor = this.getItemColor
+        break;
+      case SeatDisplayState.Enable:
+        this.seatClicked = this.itemClickedEnable;
+        this.seatColor = this.getItemColorEnable;
         break;
     }
-    this.seatColor = this.getItemColor
+    
   }
   
   public itemClickedReservation(row : number,column : number){
@@ -87,6 +96,41 @@ export class SeatsComponent implements OnInit {
           a.status = SeatStatus.Free;
       }
       
+    }
+  }
+  public itemClickedEnable(row : number,column : number){
+    for(let a of this.seats){
+      if(a.row == row && a.column == column){
+        if(a.status == SeatStatus.Disabled){
+          a.status = SeatStatus.Selected;
+          let temp = new Ticket();
+          temp.row = row;
+          temp.column = column;
+          temp.seatIndex = a.index;
+          this.selectedSeats.push(temp);
+        }
+        else if(a.status == SeatStatus.Selected){
+          a.status = SeatStatus.Free;
+          this.selectedSeats.splice(this.selectedSeats.findIndex(item => item.seatIndex == a.index),1)
+        }
+        continue;
+      }
+      else if(a.status == SeatStatus.Selected){
+        this.selectedSeats.splice(this.selectedSeats.findIndex(item => item.seatIndex == a.index),1)
+          a.status = SeatStatus.Free;
+      }
+      
+    }
+  }
+  
+  getItemColorEnable(status : SeatStatus) : string{
+    switch (status) {
+      case SeatStatus.Selected:
+        return 'green';
+      case SeatStatus.Disabled:
+        return 'white';
+      default :
+        return 'red'
     }
   }
 

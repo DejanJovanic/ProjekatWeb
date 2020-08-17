@@ -27,6 +27,11 @@ namespace BookingAppBackend.Controllers.Login
             if (!ModelState.IsValid)
                 return BadRequest(new { message = "Username and password have to be supplied" });
 
+            if(string.IsNullOrWhiteSpace(credentials.Username))
+                return BadRequest(new { message = "Username not supplied" });
+            if (string.IsNullOrWhiteSpace(credentials.Password))
+                return BadRequest(new { message = "Password not supplied" });
+
             var token = await service.Login(credentials.Username, credentials.Password);
             if (token != "")
                 if (token == "PasswordChangeRequired")

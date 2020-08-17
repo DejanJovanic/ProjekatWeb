@@ -61,9 +61,7 @@ namespace BookingAppBackend.Controllers.Seat
         [Authorize(Roles = "AirlineAdmin")]
         public async Task<IActionResult> RemoveSeat(int flightId,int column,int row)
         {
-
-        
-        var user = await adminService.GetAdminAsync(User.Identity.Name);
+            var user = await adminService.GetAdminAsync(User.Identity.Name);
 
             if (user == null)
                 return BadRequest(new { Message = "User does not exist" });
@@ -87,6 +85,24 @@ namespace BookingAppBackend.Controllers.Seat
                 return BadRequest(new { Message = "User does not exist" });
 
             var ret = await service.DisableSeat(param.Row, param.Column, user.AirlineID, param.FlightId);
+
+            if (ret.Success)
+                return Ok(mapper.Map<FlightResource>(ret.Resource));
+            else
+                return BadRequest(new { Message = ret.Message });
+        }
+
+        [HttpPut]
+        [Authorize(Roles = "AirlineAdmin")]
+        [Route("Enable")]
+        public async Task<IActionResult> EnableSeat(FlightSeatChange param)
+        {
+            var user = await adminService.GetAdminAsync(User.Identity.Name);
+
+            if (user == null)
+                return BadRequest(new { Message = "User does not exist" });
+
+            var ret = await service.EnableSeat(param.Row, param.Column, user.AirlineID, param.FlightId);
 
             if (ret.Success)
                 return Ok(mapper.Map<FlightResource>(ret.Resource));

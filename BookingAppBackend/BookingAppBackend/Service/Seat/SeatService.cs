@@ -54,6 +54,22 @@ namespace BookingAppBackend.Service.Seat
             }
         }
 
+        public async Task<FlightResponse> EnableSeat(int row, int column, int airlineId, int flightId)
+        {
+            try
+            {
+                var temp = await repo.EnableSeat(row, column, airlineId, flightId);
+                if (temp.Success)
+                    await unitOfWork.CompleteAsync();
+                return temp;
+
+            }
+            catch
+            {
+                return new FlightResponse("Something went wrong. Please, try again later.");
+            }
+        }
+
         public async Task<FlightResponse> RemoveSeat(int row, int column, int airlineId, int flightId)
         {
             try

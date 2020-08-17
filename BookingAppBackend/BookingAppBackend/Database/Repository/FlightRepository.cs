@@ -150,6 +150,41 @@ namespace BookingAppBackend.Database.Repository
                 return new FlightResponse("Seat is already reserved.");
         }
 
+        public async Task<FlightResponse> EnableSeat(int row, int column, int airlineId, int flightId)
+        {
+            var airline = await context.Airlines
+                    .Include(i => i.FastFlights).ThenInclude(i => i.Flight)
+                    .Include(i => i.FastFlights).ThenInclude(i => i.User)
+                    .Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight)
+                    .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.RemovedSeats)
+                    .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.DisabledSeats)
+                    .FirstOrDefaultAsync(i => i.Id == airlineId); if (airline == null)
+                return new FlightResponse("Airline does not exist.");
+            var flight = airline.Flights.FirstOrDefault(i => i.Id == flightId);
+            if (flight == null)
+                return new FlightResponse("Flight with given id does not exist.");
+            if (flight.Airplane.Rows <= row)
+                return new FlightResponse("Invalid rows supplied.");
+            if (flight.Airplane.Columns <= column)
+                return new FlightResponse("Invalid columns supplied.");
+            DisabledSeat seat = null;
+            foreach(var a in flight.Airplane.DisabledSeats)
+            {
+                if(a.Row == row && a.Column == column)
+                {
+                    seat = a;
+                    break;
+                }
+            }
+            if (seat != null)
+            {
+                flight.Airplane.DisabledSeats.Remove(seat);
+                return new FlightResponse(flight);
+            }
+            else
+                return new FlightResponse("Seat with given row and column isn't disabled on given flight.");
+        }
+
         public async Task<FlightResponse> AddSeats(int rowsTop, int rowsBottom,int columnsLeft,int columnsRight, int airlineId, int flightId)
         {
             var airline = await context.Airlines

@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card shadow-lg bg-white rounded">
     <div class="card-body">
         <div class="container">
             <div class="row">
@@ -27,6 +27,7 @@
                 <button class="btn btn-secondary mr-2" [routerLink]="['/RemoveSeat/',flight.id]" routerLinkActive="router-link-active">Remove seat</button>
                 <button class="btn btn-secondary mr-2" [routerLink]="['/DisableSeat/',flight.id]" routerLinkActive="router-link-active">Disable seat</button>
                 <button class="btn btn-secondary mr-2" [routerLink]="['/AddSeats/',flight.id]" routerLinkActive="router-link-active">Add seats</button>
+                <button class="btn btn-secondary mr-2" [routerLink]="['/EnableSeat/',flight.id]" routerLinkActive="router-link-active">Enable seat</button>
             </div>
         </div>
     </div>

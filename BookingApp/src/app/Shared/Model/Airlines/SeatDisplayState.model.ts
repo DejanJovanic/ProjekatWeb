@@ -3,5 +3,6 @@ export enum SeatDisplayState{
     Removal,
     FastSelector,
     Disable,
+    Enable,
     Preview
 }

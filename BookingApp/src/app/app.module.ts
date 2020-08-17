@@ -94,6 +94,7 @@ import { UserDetailsEditComponent } from './Users/user-details-edit/user-details
 import { ChangePasswordComponent } from './Users/change-password/change-password.component';
 import { AddSeatsComponent } from './Airline/AirlineAdmin/add-seats/add-seats.component';
 import { AdminAirlineHolderComponent } from './Airline/AirlineAdmin/admin-airline-holder/admin-airline-holder.component';
+import { EnableSeatComponent } from './Airline/AirlineAdmin/enable-seat/enable-seat.component';
 
 
 @NgModule({
@@ -179,7 +180,8 @@ import { AdminAirlineHolderComponent } from './Airline/AirlineAdmin/admin-airlin
     UserDetailsEditComponent,
     ChangePasswordComponent,
     AddSeatsComponent,
-    AdminAirlineHolderComponent
+    AdminAirlineHolderComponent,
+    EnableSeatComponent
   ],
   imports: [
     
