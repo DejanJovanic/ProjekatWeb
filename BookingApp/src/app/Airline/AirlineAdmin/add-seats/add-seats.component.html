@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <app-seats [state]="SeatDisplayState.Preview" [seatsInput]="seats"></app-seats>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md">
+            <form (submit)="OnSubmit()" [formGroup]="form">
+                <div class="form-row">
+                    <div class="col-sm-6 form-group">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <label for="rowsTop">
+                                    Rows top:
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <input type="number" step="1" min="1" id="rowsTop"  formControlName="rowTop" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <label for="rowsBottom">
+                                    Rows bottom:
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input type="number" id="rowsBottom"  formControlName="rowBottom" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-6 form-group">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <label for="columnsLeft">
+                                    Columns left:
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <input type="number" id="columnsLeft"  formControlName="columnLeft" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <label for="columnsRight">
+                                    Columns right:
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input type="number" id="columnsRight"  formControlName="columnRight" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md">
+                        <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

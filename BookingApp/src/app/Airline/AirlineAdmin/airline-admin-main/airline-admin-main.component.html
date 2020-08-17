@@ -1,9 +1,4 @@
 <div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <app-airline-filter (filter)="onFlightFilter($event)"></app-airline-filter>
-        </div>
-    </div>
     <br>
     <div class="row">
         <div class="col-sm-4">
@@ -12,7 +7,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <app-airline-holder [filter] = "filterSubject.asObservable()"></app-airline-holder>
+            <app-admin-airline-holder></app-admin-airline-holder>
         </div>
     </div>
 </div>

@@ -56,6 +56,18 @@ export class AirlineAdminNetworkService {
       params :  new HttpParams().set('flightId',flightId.toString()).set('row',row.toString()).set('column',column.toString())
    })
   }
+
+  public AddSeats(rowTop : number,rowBottom : number, columnLeft : number,columnRight : number, flightId : number){
+    return this.client.post<Flight>('http://localhost:50000/api/Seat',
+      { 
+        rowsTop : rowTop,
+        rowsBottom : rowBottom,
+        ColumnsLeft : columnLeft,
+        ColumnsRight : columnRight,
+        flightId : flightId
+      }
+    )
+  }
   public DisableSeat(row : number,column : number, flightId : number){
     return this.client.put<Flight>('http://localhost:50000/api/Seat',{row:row,column:column,flightId:flightId})
   }

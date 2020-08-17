@@ -22,10 +22,11 @@
             <div class="col-sm-3" *ngIf="role ===  'User'">
                 <button class="btn btn-primary" [routerLink]="['/seats/',flight.id]" routerLinkActive="router-link-active">Set Reservation</button>
             </div>
-            <div class="col-sm-3" *ngIf="role == 'AirlineAdmin'">
-                <button class="btn btn-primary" [routerLink]="['/EditFastReservationSeats/',flight.id]" routerLinkActive="router-link-active">Fast</button>
-                <button class="btn btn-primary" [routerLink]="['/RemoveSeat/',flight.id]" routerLinkActive="router-link-active">Remove seat</button>
-                <button class="btn btn-primary" [routerLink]="['/DisableSeat/',flight.id]" routerLinkActive="router-link-active">Disable seat</button>
+            <div class="col-md btn-group" role="group" *ngIf="role == 'AirlineAdmin'">
+                <button class="btn btn-secondary mr-2" [routerLink]="['/EditFastReservationSeats/',flight.id]" routerLinkActive="router-link-active">Fast</button>
+                <button class="btn btn-secondary mr-2" [routerLink]="['/RemoveSeat/',flight.id]" routerLinkActive="router-link-active">Remove seat</button>
+                <button class="btn btn-secondary mr-2" [routerLink]="['/DisableSeat/',flight.id]" routerLinkActive="router-link-active">Disable seat</button>
+                <button class="btn btn-secondary mr-2" [routerLink]="['/AddSeats/',flight.id]" routerLinkActive="router-link-active">Add seats</button>
             </div>
         </div>
     </div>

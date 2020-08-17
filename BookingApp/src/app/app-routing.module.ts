@@ -41,6 +41,7 @@ import { AirlineStatsResolverService } from './Airline/Resolvers/AirlineStatsRes
 import { UserPreviewComponent } from './Users/user-preview/user-preview.component';
 import { UserDetailsEditComponent } from './Users/user-details-edit/user-details-edit.component';
 import { ChangePasswordComponent } from './Users/change-password/change-password.component';
+import { AddSeatsComponent } from './Airline/AirlineAdmin/add-seats/add-seats.component';
 
 
 const routes: Routes = [
@@ -62,6 +63,7 @@ const routes: Routes = [
   {path : 'UserDetailsEdit', component : UserDetailsEditComponent},
   {path : 'FastFlights/:airlineId', component : FastFlightHolderComponent},
   {path : 'FastFlightConfirmation/:flightId/:fastFlightId', component : FastFlightConfirmationComponent,resolve:{details : SeatResolveService}},
+  {path : 'AddSeats/:id', component: AddSeatsComponent,resolve:{details : SeatResolveService}},
   {path : 'ManageInvitation/:airlineId/:flightId/:ticketId', component : ReservationConfirmationComponent,resolve:{details : SeatResolveService}},
   {path : 'RemoveSeat/:id', component: RemoveSeatComponent,resolve:{details : SeatResolveService}},
   {path : 'DisableSeat/:id', component: DisableSeatComponent,resolve:{details : SeatResolveService}},

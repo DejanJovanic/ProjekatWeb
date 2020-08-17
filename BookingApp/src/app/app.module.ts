@@ -92,6 +92,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { UserPreviewComponent } from './Users/user-preview/user-preview.component';
 import { UserDetailsEditComponent } from './Users/user-details-edit/user-details-edit.component';
 import { ChangePasswordComponent } from './Users/change-password/change-password.component';
+import { AddSeatsComponent } from './Airline/AirlineAdmin/add-seats/add-seats.component';
+import { AdminAirlineHolderComponent } from './Airline/AirlineAdmin/admin-airline-holder/admin-airline-holder.component';
 
 
 @NgModule({
@@ -175,7 +177,9 @@ import { ChangePasswordComponent } from './Users/change-password/change-password
     AirlineRatingsComponent,
     UserPreviewComponent,
     UserDetailsEditComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    AddSeatsComponent,
+    AdminAirlineHolderComponent
   ],
   imports: [
     
