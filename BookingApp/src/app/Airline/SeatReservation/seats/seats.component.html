@@ -1,11 +1,14 @@
-<svg  viewBox="0 0 1300 700" width="2600" height="2500" overflow="auto"> 
-    <g *ngFor="let seat of seats">
-        <rect  rx="5" ry="5" [attr.x] = "seat.offsetX" [attr.y] = "seat.offsetY" width="50" height="50"
-        style="stroke:black;stroke-width:0.5;cursor: pointer;" [ngStyle]="{'display': seat.status == SeatStatus.Removed ? 'none' : 'inline'}" (click)="seatClicked(seat.row,seat.column)" [style.fill] = "seatColor(seat.status)"></rect>
-        <text [ngStyle]="{'display': seat.status == SeatStatus.Removed ? 'none' : 'inline'}"  style="cursor: pointer;" [attr.x] ="seat.offsetX + 25" [attr.y]="seat.offsetY + 25" text-anchor="middle" dominant-baseline="central" (click)="seatClicked(seat.row,seat.column)">
-            {{seat.index}}
-        </text>
-    </g>
-</svg>
+<div class="overflow-auto" style=" height: 500px !important;" [ngStyle]="{'width' : Width + 20 + 'px'}">
+    <svg [attr.height]="Height" [attr.width]="Width" > 
+        <g *ngFor="let seat of seats">
+            <rect  rx="5" ry="5" [attr.x] = "seat.offsetX" [attr.y] = "seat.offsetY" width="50" height="50"
+            style="stroke:black;stroke-width:0.5;cursor: pointer;" [ngStyle]="{'display': seat.status == SeatStatus.Removed ? 'none' : 'inline'}" (click)="seatClicked(seat.row,seat.column)" [style.fill] = "seatColor(seat.status)"></rect>
+            <text [ngStyle]="{'display': seat.status == SeatStatus.Removed ? 'none' : 'inline'}"  style="cursor: pointer;" [attr.x] ="seat.offsetX + 25" [attr.y]="seat.offsetY + 25" text-anchor="middle" dominant-baseline="central" (click)="seatClicked(seat.row,seat.column)">
+                {{seat.index}}
+            </text>
+        </g>
+    </svg>
+</div>
+
 
 

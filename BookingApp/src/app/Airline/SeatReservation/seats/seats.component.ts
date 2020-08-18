@@ -17,13 +17,16 @@ export class SeatsComponent implements OnInit {
   @Input() seatsInput: Seats;
   SeatStatus = SeatStatus;
   seats : SeatDisplay[];
-
+  Width : number;
+  Height : number;
   public seatClicked : any;
   public seatColor : any;
   constructor() { }
 
   ngOnInit(): void {
     this.seats = this.setDisplay(this.seatsInput)
+    this.Width = this.seatsInput.colNum * 50 + (this.seatsInput.colNum - 1) * 10
+    this.Height = this.seatsInput.rowNum * 50 + (this.seatsInput.rowNum - 1) * 15
     switch(this.state){
       case SeatDisplayState.Reservation:
         this.seatClicked = this.itemClickedReservation;
