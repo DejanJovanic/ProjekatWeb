@@ -4,13 +4,18 @@
             <h2 class="Display-4">{{item.name}}</h2>
         </div>
         <div class="col-sm-4">
-            <a (click)="Redirection()" [routerLink]="['/FastFlights', item.id]"
+            <a (click)="Redirection()" [routerLink]="['/FastFlights', item.id]" *ngIf="role != 'AirlineAdmin'"
             routerLinkActive="router-link-active">View fast flights</a>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
             <p class="Display-4 text-muted">{{item.address | Address}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="d-flext justify-content-center col-sm-12">
+            <div #map style="width: 450px; height: 300px"></div>
         </div>
     </div>
     <div class="row">

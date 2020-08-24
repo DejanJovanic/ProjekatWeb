@@ -22,7 +22,7 @@ namespace BookingAppBackend.Model.Airlines
         public string City { get; set; }
         [Required]
         public string Country { get; set; }
-        public int Latitude { get; set; }
-        public int Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

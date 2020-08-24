@@ -7,6 +7,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookingAppBackend.Model.Responses;
 using BookingAppBackend.Model.Airlines.Parameters;
+using System.Net.Http;
+using System.Web;
+using System.Text.Json;
+using BookingAppBackend.Model;
 
 namespace BookingAppBackend.Service.Airline
 {
@@ -76,6 +80,44 @@ namespace BookingAppBackend.Service.Airline
 
         public async Task<BookingAppBackend.Model.Airlines.Airline> EditAirlineAsync(AirlineParameter airline)
         {
+            if(airline.Address != null)
+            {
+                if(!string.IsNullOrWhiteSpace(airline.Address.City) && !string.IsNullOrWhiteSpace(airline.Address.Country) && !string.IsNullOrWhiteSpace(airline.Address.Street) && !string.IsNullOrWhiteSpace(airline.Address.ZipCode))
+                {
+                    HttpClient client = new HttpClient();
+                    
+                    var link = $"qq=city={HttpUtility.UrlEncode(airline.Address.City)};country={HttpUtility.UrlEncode(airline.Address.Country)};street={HttpUtility.UrlEncode(airline.Address.Street)};postalCode={HttpUtility.UrlEncode(airline.Address.ZipCode)};houseNumber={airline.Address.StreetNo}";
+
+                    HttpResponseMessage response = await client.GetAsync("https://geocode.search.hereapi.com/v1/geocode?" + link + "&apiKey=_e_CFfK2-tpCb_Yn48j1u9lqkFVBhEOp2Uf2l_0owqE");
+                    response.EnsureSuccessStatusCode();
+                    var temp3 = await response.Content.ReadAsStringAsync();
+                    var here = await JsonSerializer.DeserializeAsync<HEREMapsResponse>(await response.Content.ReadAsStreamAsync());
+                    if (here != null && here.items != null && here.items.Count > 0)
+                    {
+                        foreach (var a in here.items)
+                        {
+                            if (a.position != null)
+                            {
+                                airline.Address.Latitude = a.position.lat;
+                                airline.Address.Longitude = a.position.lng;
+                            }
+                        }
+
+
+                    }
+                    else
+                    {
+                        airline.Address.Latitude = 0;
+                        airline.Address.Longitude = 0;
+                    }
+
+                }
+                else
+                {
+                    airline.Address.Latitude = 0;
+                    airline.Address.Longitude = 0;
+                }
+            }
             var ret = await repo.EditAirline(airline);
             await unitOfWork.CompleteAsync();
             return ret;

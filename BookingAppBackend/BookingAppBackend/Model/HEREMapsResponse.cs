@@ -7,20 +7,7 @@ namespace BookingAppBackend.Model
 {
     public class HEREMapsResponse
     {
-        public Item[] items { get; set; }
-    }
-
-    public class Item
-    {
-        public string title { get; set; }
-        public string id { get; set; }
-        public string resultType { get; set; }
-        public string houseNumberType { get; set; }
-        public Address address { get; set; }
-        public Position position { get; set; }
-        public Access[] access { get; set; }
-        public Mapview mapView { get; set; }
-        public Scoring scoring { get; set; }
+        public List<Item> items { get; set; }
     }
 
     public class Address
@@ -39,37 +26,49 @@ namespace BookingAppBackend.Model
 
     public class Position
     {
-        public float lat { get; set; }
-        public float lng { get; set; }
-    }
-
-    public class Mapview
-    {
-        public float west { get; set; }
-        public float south { get; set; }
-        public float east { get; set; }
-        public float north { get; set; }
-    }
-
-    public class Scoring
-    {
-        public float queryScore { get; set; }
-        public Fieldscore fieldScore { get; set; }
-    }
-
-    public class Fieldscore
-    {
-        public int country { get; set; }
-        public int city { get; set; }
-        public int[] streets { get; set; }
-        public int houseNumber { get; set; }
-        public float postalCode { get; set; }
+        public double lat { get; set; }
+        public double lng { get; set; }
     }
 
     public class Access
     {
-        public float lat { get; set; }
-        public float lng { get; set; }
+        public double lat { get; set; }
+        public double lng { get; set; }
     }
 
+    public class MapView
+    {
+        public double west { get; set; }
+        public double south { get; set; }
+        public double east { get; set; }
+        public double north { get; set; }
+    }
+
+    public class FieldScore
+    {
+        public double country { get; set; }
+        public double city { get; set; }
+        public List<double> streets { get; set; }
+        public double houseNumber { get; set; }
+        public double postalCode { get; set; }
+    }
+
+    public class Scoring
+    {
+        public double queryScore { get; set; }
+        public FieldScore fieldScore { get; set; }
+    }
+
+    public class Item
+    {
+        public string title { get; set; }
+        public string id { get; set; }
+        public string resultType { get; set; }
+        public string houseNumberType { get; set; }
+        public Address address { get; set; }
+        public Position position { get; set; }
+        public List<Access> access { get; set; }
+        public MapView mapView { get; set; }
+        public Scoring scoring { get; set; }
+    }
 }

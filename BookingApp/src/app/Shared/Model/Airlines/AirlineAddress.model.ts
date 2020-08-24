@@ -4,4 +4,6 @@ export class AirlineAddress{
     city : string
     zipCode: string
     country : string
+    latitude : number
+    longitude : number
 }
