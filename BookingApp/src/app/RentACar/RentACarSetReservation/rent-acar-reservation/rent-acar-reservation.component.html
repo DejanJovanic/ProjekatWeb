@@ -6,39 +6,55 @@
           <div class="row">
   
             <div class="col">
-              <label for="placeFrom">The place where you pick up the car</label>
-                <input type="text" id="place"class="form-control" formControlName="carPlacePickUp" id="placeFrom" placeholder="The place where you pick up the car">
-                  
+              <!--<label for="placeFrom">The place where you pick up the car</label>!-->
+              <input [ngClass] ="{'is-invalid': searchCarsForm.get('carPlacePickUp').touched && searchCarsForm.get('carPlacePickUp').invalid}" placeholder="The place were you pick up the car" type="text" id="place"class="form-control" formControlName="carPlacePickUp" id="placeFrom" >
+              <div *ngIf = "searchCarsForm.get('carPlacePickUp').touched && searchCarsForm.get('carPlacePickUp').invalid" class="invalid-feedback">
+                <div *ngIf = "searchCarsForm.get('carPlacePickUp').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> The place were you pick up the car is required.</div>
+                <div *ngIf = "searchCarsForm.get('carPlacePickUp').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> The place were you pick up the car can only contain letters.</div>
+                
+              </div>    
             </div>
             
             <div class="col">
-              <label for="placeTo">The place where you return the car</label>
-                <input type="text" class="form-control" formControlName="carPlaceReturn" id="placeTo" placeholder="The place where you return the car">
+              <!--<label for="placeTo">The place where you return the car</label>!-->
+                <input [ngClass] ="{'is-invalid': searchCarsForm.get('carPlaceReturn').touched && searchCarsForm.get('carPlaceReturn').invalid}" placeholder="The place where you return the car" type="text" class="form-control" formControlName="carPlaceReturn" id="placeTo" >
+                <div *ngIf = "searchCarsForm.get('carPlaceReturn').touched && searchCarsForm.get('carPlaceReturn').invalid" class="invalid-feedback">
+                  <div *ngIf = "searchCarsForm.get('carPlaceReturn').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> The place where you return the car is required.</div>
+                  <div *ngIf = "searchCarsForm.get('carPlaceReturn').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> The place where you return the car can only contain letters.</div>
                   
+                </div>  
             </div>
           </div>
           <br/>
           <div class="row">
             <div class="col">
-                <label for="dateFrom">Date from when you need the vehicle</label>
+                <!--<label for="dateFrom">Date from when you need the vehicle</label>!-->
                 <div class="input-group form-group">
-                        <input id="dateFrom" class="form-control" [minDate]="minDate" placeholder="Date from when you need the vehicle"
+                        <input readonly [ngClass] ="{'is-invalid': searchCarsForm.get('dateFrom').touched && searchCarsForm.get('dateFrom').invalid}" placeholder="Date from when you need the car" id="dateFrom" class="form-control" [minDate]="minDate" 
                         formControlName="dateFrom" ngbDatepicker #dateFrom="ngbDatepicker" >
                        
                           <button class="btn btn-outline-primary calendar" (click)="dateFrom.toggle()" type="button"><i class="fas fa-calendar "></i></button>
-                     
+                          <div class="invalid-feedback">
+                            <div ><i class="fas fa-times-circle" style="color: red;"></i> Date from when you need the car is required.</div>
+                            
+                            
+                          </div>  
                      </div>
                    
               </div>
   
               <div class="col">
-                <label for="dateTo">The date by which you need the vehicle</label>
+                <!--<label for="dateTo">The date by which you need the vehicle</label>!-->
                 <div class="input-group form-group">
-                      <input id = "dateTo" [minDate]="minDate" class="form-control" placeholder="The date by which you need the vehicle"
+                      <input readonly [ngClass] ="{'is-invalid': searchCarsForm.get('dateTo').touched && searchCarsForm.get('dateTo').invalid}" placeholder="The date by which you need the car" id = "dateTo" [minDate]="minDate" class="form-control" 
                       formControlName="dateTo" ngbDatepicker #dateTo="ngbDatepicker">
                      
                         <button class="btn btn-outline-primary calendar" (click)="dateTo.toggle()" type="button"><i class="fas fa-calendar"></i></button>
-                      
+                        <div class="invalid-feedback">
+                          <div ><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the car is required.</div>
+                          
+                          
+                        </div>  
                     </div>
                  
               </div>
@@ -49,31 +65,57 @@
           <div class="row">
               
             <div class="col">
-                <label for="carTypes">Choose a car type</label>
-                  <select class="form-control" formControlName="carType" id="carTypes">
-                    <option value=""> - </option>
+                <!--<label for="carTypes">Choose a car type</label>!-->
+                  <select [ngClass] ="{'is-invalid': searchCarsForm.get('carType').touched && searchCarsForm.get('carType').invalid}" class="form-control" formControlName="carType" id="carTypes">
+                    <option value="" disabled selected >Select car type</option>
                     <option value="limousine">Limousine</option>
                     <option value="caravan">Caravan</option>
                     <option value="suv">SUV</option>
                  </select>
+                 <div class="invalid-feedback">
+                  <div ><i class="fas fa-times-circle" style="color: red;"></i> Car type is required.</div>
+                  
+                  
+                </div>  
               </div>
               <div class="col">
-                <label for="noPassengers">Number of passengers</label>
-                  <input id="noPassengers" type="number" class="form-control" formControlName="carNumberOfPassengers" min = "1" placeholder="Number of passengers">
+                <!--<label for="noPassengers">Number of passengers</label>!-->
+                <select [ngClass] ="{'is-invalid': searchCarsForm.get('carNumberOfPassengers').touched && searchCarsForm.get('carNumberOfPassengers').invalid}" class="form-control"  formControlName="carNumberOfPassengers" id="carSeats">
+                  <option value="" disabled selected>Select number of passengers</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="5">5</option>
+                  <option value="7">7</option>
+                </select>
+                <div class="invalid-feedback">
+                  <div ><i class="fas fa-times-circle" style="color: red;"></i> Number of passengers is required.</div>
+                  
+                  
+                </div>  
               </div>
   
           </div>
         <br/>
         <div class="row">
           <div class="col">
-            <label for="priceFrom">Price from</label>
-              <input id="priceFrom"type="number" class="form-control" formControlName="carPriceFrom" min = "0" placeholder="Price from">
-          </div>
+            <!--<label for="priceFrom">Price from</label>!-->
+              <input [ngClass] ="{'is-invalid': searchCarsForm.get('carPriceFrom').touched && searchCarsForm.get('carPriceFrom').invalid}" id="priceFrom"type="text" class="form-control" formControlName="carPriceFrom"  placeholder="Car price per day from">
+              <div class="invalid-feedback">
+                <div ><i class="fas fa-times-circle" style="color: red;"></i> Car price from can only contain numbers.</div>
+                
+                
+              </div> 
+            </div>
   
           <div class="col">
-            <label for="priceTo">Price to</label>
-              <input id="priceTo" type="number" class="form-control" formControlName="carPriceTo" min = "1" placeholder="Price to">
-          </div>
+            <!--<label for="priceTo">Price to</label>!-->
+              <input [ngClass] ="{'is-invalid': searchCarsForm.get('carPriceTo').touched && searchCarsForm.get('carPriceTo').invalid}" id="priceTo" type="text" class="form-control" formControlName="carPriceTo"  placeholder="Car price per day to">
+              <div class="invalid-feedback">
+                <div ><i class="fas fa-times-circle" style="color: red;"></i> Car price to can only contain numbers.</div>
+                
+                
+              </div> 
+              </div>
         </div>
   
   

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RentACarEnterprise } from "../../../Shared/Model/RentACars/RentACarEnterprise.model";
 import { RentACarEnterpriseServiceService } from "../../../Shared/Services/rent-acar-enterprise-service.service"
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { DatePipe } from '@angular/common'
+
+
 
 @Component({
   selector: 'app-rent-acar-enterprises',
@@ -45,10 +47,10 @@ export class RentACarEnterprisesComponent implements OnInit {
   setForm(){
 
     this.searchEnterpriseForm = new FormGroup({
-      enterpriseName: new FormControl('', Validators.required),
-      branchLocation: new FormControl('', Validators.required),
-      modelFrom: new FormControl('', Validators.required),
-      modelTo: new FormControl('', Validators.required)
+      enterpriseName: new FormControl(''),
+      branchLocation: new FormControl('', this.lettersValidator),
+      modelFrom: new FormControl(''),
+      modelTo: new FormControl('')
       
     });
   }
@@ -139,6 +141,19 @@ export class RentACarEnterprisesComponent implements OnInit {
   showAllCompanies(){
     
     this.slides = this.chunk(this.RentACarEnterprises, 3);
+  }
+
+  lettersValidator(control: AbstractControl){
+    if(control && control.value !== null || control.value !== undefined){
+      const regex = new RegExp('^[a-zA-Z]+(([a-zA-Z ])?[a-zA-Z]*)*$');
+
+      if(!regex.test(control.value)){
+        return{
+          isError: true
+        };
+      }
+    }
+    return null;
   }
 
 }

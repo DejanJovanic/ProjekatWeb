@@ -14,11 +14,12 @@
 }
     
 .card{
-    height: 550px;
+    height: auto;
     margin-top: 100px;
     margin-bottom: auto;
     width: 400px;
-    background-color: rgba(0,0,0,0.5) !important;
+    background-color: rgba(0, 0, 0, 0.733) !important;
+    
 }
     
 .social_icon span{
@@ -72,3 +73,4 @@ input:focus{
 .links a{
     margin-left: 4px;
 }
+

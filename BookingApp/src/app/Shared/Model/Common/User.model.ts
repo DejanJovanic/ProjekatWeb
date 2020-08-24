@@ -11,7 +11,8 @@ export class User implements IUser{
     public passportNo : string;
     public systemRole : string;
     public friends : Array<User>
-
+    public address : string;
+    public password : string;
     constructor(){
         this.friends = new Array<User>();
     }

@@ -3,6 +3,8 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Car } from 'src/app/Shared/Model/RentACars/Car.model';
 import { RentACarEditCarModalComponent } from '../../RentACarAdmin/rent-acar-edit-car-modal/rent-acar-edit-car-modal.component';
 import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
+import { RentACarDeleteCarModalComponent } from '../../RentACarAdmin/rent-acar-delete-car-modal/rent-acar-delete-car-modal.component';
+import { RentACarSetDiscountModalComponent } from '../../RentACarAdmin/rent-acar-set-discount-modal/rent-acar-set-discount-modal.component';
 
 @Component({
   selector: 'app-rent-acar-details-modal',
@@ -57,6 +59,16 @@ export class RentACarDetailsModalComponent implements OnInit {
 
   openEditCarModal(carId: number){
     const modalRef = this.modalService.open(RentACarEditCarModalComponent);
+    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId);
+  }
+
+  openDeleteCarModal(carId: number){
+    const modalRef = this.modalService.open(RentACarDeleteCarModalComponent);
+    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId);
+  }
+
+  openSetDiscountModal(carId: number){
+    const modalRef = this.modalService.open(RentACarSetDiscountModalComponent);
     modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId);
   }
 }

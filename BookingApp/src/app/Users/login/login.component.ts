@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { UserLoginService } from '../Services/UserLogin/user-login.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { catchError } from 'rxjs/operators';
@@ -14,18 +14,24 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm : FormGroup;
-  constructor(private builder : FormBuilder,private service : UserLoginService, private router : Router, private activeRoute : ActivatedRoute) { }
+  loginForm: FormGroup;
+  
+  constructor(private service : UserLoginService, private router : Router, private activeRoute : ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.loginForm = this.builder.group({
-      username : '',
-      password : ''
-    })
+   this.setForm();
   }
 
+  setForm(){
+    this.loginForm = new FormGroup({
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)])
+  
+    })
+  }
   onSubmit(){
     this.service.username = this.loginForm.value.username;
+
     this.service.Login(this.loginForm.value.username,this.loginForm.value.password).subscribe(i =>{
       if(i != null){
         localStorage["username"] = this.loginForm.value.username;

@@ -14,48 +14,81 @@
    
 <div class="card">
     <div class="card-body">
-      <h6 class="card-price text-center"><span class="period"><i class="fas fa-edit"></i> Edit "{{item.EnterpriseName}}" information <i class="fas fa-edit"></i></span></h6>
+      <h6 class="card-price text-center"><span class="period"><i class="fas fa-edit"></i> Edit "{{item.EnterpriseName}}" informations <i class="fas fa-edit"></i></span></h6>
       <hr>
       <form  [formGroup]="editEnterpriseInfoForm" (ngSubmit)="editProfile()">
         <div class="row">
-          <label for="name">Name</label>
-          <input type="text" formControlName="enterpriseName" id="name" class="form-control">
+          <label for="name">Enterprise name</label>
+          <input [ngClass] ="{'is-invalid': editEnterpriseInfoForm.get('enterpriseName').touched && editEnterpriseInfoForm.get('enterpriseName').invalid}"  type="text" formControlName="enterpriseName" id="name" class="form-control">
+          <div  class="invalid-feedback">
+            <div ><i class="fas fa-times-circle" style="color: red;"></i> Enterprise name is required.</div>
+      
+          </div>
         </div>
 
         <br/>
         <div class="row">
           <label for="country">Country</label>
-          <input type="text" formControlName="enterpriseCountry" id = "country"class="form-control"> 
+          <input [ngClass] ="{'is-invalid': editEnterpriseInfoForm.get('enterpriseCountry').touched && editEnterpriseInfoForm.get('enterpriseCountry').invalid}"  type="text" formControlName="enterpriseCountry" id = "country"class="form-control"> 
+          <div *ngIf = "editEnterpriseInfoForm.get('enterpriseCountry').touched && editEnterpriseInfoForm.get('enterpriseCountry').invalid" class="invalid-feedback">
+            <div *ngIf = "editEnterpriseInfoForm.get('enterpriseCountry').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Enterprise country is required.</div>
+            <div *ngIf = "editEnterpriseInfoForm.get('enterpriseCountry').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Enterprise country can only contain letters.</div>
+            
+          </div>
         </div>
 
         <br/>
         <div class="row">
           <label for="city">City</label>
-          <input type="text" formControlName="enterpriseCity" id = "city" class="form-control"> 
+          <input [ngClass] ="{'is-invalid': editEnterpriseInfoForm.get('enterpriseCity').touched && editEnterpriseInfoForm.get('enterpriseCity').invalid}" type="text" formControlName="enterpriseCity" id = "city" class="form-control"> 
+          <div *ngIf = "editEnterpriseInfoForm.get('enterpriseCity').touched && editEnterpriseInfoForm.get('enterpriseCity').invalid" class="invalid-feedback">
+            <div *ngIf = "editEnterpriseInfoForm.get('enterpriseCity').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Enterprise city is required.</div>
+            <div *ngIf = "editEnterpriseInfoForm.get('enterpriseCity').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Enterprise city can only contain letters.</div>
+            
+          </div>
         </div>
 
         <br/>
         <div class="row">
           <label for="street">Street</label>
-          <input type="text" formControlName="enterpriseStreet"  id = "street" class="form-control"> 
+          <input [ngClass] ="{'is-invalid': editEnterpriseInfoForm.get('enterpriseStreet').touched && editEnterpriseInfoForm.get('enterpriseStreet').invalid}"  type="text" formControlName="enterpriseStreet"  id = "street" class="form-control"> 
+          <div *ngIf = "editEnterpriseInfoForm.get('enterpriseStreet').touched && editEnterpriseInfoForm.get('enterpriseStreet').invalid" class="invalid-feedback">
+            <div *ngIf = "editEnterpriseInfoForm.get('enterpriseStreet').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Enterprise street is required.</div>
+            <div *ngIf = "editEnterpriseInfoForm.get('enterpriseStreet').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Enterprise street can only contain letters and numbers.</div>
+            
+          </div> 
         </div>
 
         <br/>
         <div class="row">
           <label for="streetNo">Street number</label>
-          <input type="text" formControlName="enterpriseStreetNo" id = "streetNo" class="form-control"> 
+          <input [ngClass] ="{'is-invalid': editEnterpriseInfoForm.get('enterpriseStreetNo').touched && editEnterpriseInfoForm.get('enterpriseStreetNo').invalid}" type="text" formControlName="enterpriseStreetNo" id = "streetNo" class="form-control"> 
+          <div *ngIf = "editEnterpriseInfoForm.get('enterpriseStreetNo').touched && editEnterpriseInfoForm.get('enterpriseStreetNo').invalid" class="invalid-feedback">
+            <div *ngIf = "editEnterpriseInfoForm.get('enterpriseStreetNo').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Enterprise street number is required.</div>
+            <div *ngIf = "editEnterpriseInfoForm.get('enterpriseStreetNo').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Enterprise street number can only contain letters and numbers.</div>
+            
+          </div> 
         </div>
 
         <br/>
         <div class="row">
           <label for="zipCode">Zip code</label>
-          <input type="text" formControlName="enterpriseZipCode" id = "zipCode" class="form-control"> 
+          <input [ngClass] ="{'is-invalid': editEnterpriseInfoForm.get('enterpriseZipCode').touched && editEnterpriseInfoForm.get('enterpriseZipCode').invalid}"  type="text" formControlName="enterpriseZipCode" id = "zipCode" class="form-control"> 
+          <div *ngIf = "editEnterpriseInfoForm.get('enterpriseZipCode').touched && editEnterpriseInfoForm.get('enterpriseZipCode').invalid" class="invalid-feedback">
+            <div *ngIf = "editEnterpriseInfoForm.get('enterpriseZipCode').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Enterprise zip code is required.</div>
+            <div *ngIf = "editEnterpriseInfoForm.get('enterpriseZipCode').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Enterprise zip code can only contain numbers.</div>
+            
+          </div> 
         </div>
         
         <br/>
         <div class="row">
           <label for="descrption">Description</label>
-          <textarea id = "descrption"formControlName="enterpriseDescription"  rows="4" cols="50"></textarea>
+          <textarea [ngClass] ="{'is-invalid': editEnterpriseInfoForm.get('enterpriseDescription').touched && editEnterpriseInfoForm.get('enterpriseDescription').invalid}"  id = "descrption"formControlName="enterpriseDescription"  rows="4" cols="50"></textarea>
+          <div  class="invalid-feedback">
+            <div ><i class="fas fa-times-circle" style="color: red;"></i> Enterprise promo description is required.</div>
+      
+          </div>
         </div>
         <hr>
 

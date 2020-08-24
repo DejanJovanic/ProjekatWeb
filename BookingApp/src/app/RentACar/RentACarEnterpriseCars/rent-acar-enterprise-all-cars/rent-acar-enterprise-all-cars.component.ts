@@ -5,7 +5,7 @@ import { RentACarDetailsModalComponent } from '../../RentACarCarDetailsModal/ren
 import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
 import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnterprise.model';
 import { Car } from 'src/app/Shared/Model/RentACars/Car.model';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { RentACarAddCarModalComponent } from '../../RentACarAdmin/rent-acar-add-car-modal/rent-acar-add-car-modal.component';
 
@@ -16,16 +16,16 @@ import { RentACarAddCarModalComponent } from '../../RentACarAdmin/rent-acar-add-
 })
 export class RentACarEnterpriseAllCarsComponent implements OnInit {
   searchCarsForm = new FormGroup({
-    carBrand: new FormControl(''),
-    carModel: new FormControl(''),
+    carBrand: new FormControl('', this.lettersValidator),
+    carModel: new FormControl('', this.lettersAndNumbers),
     carType: new FormControl(''),
     carTransmission: new FormControl(''),
     carFuel: new FormControl(''),
     carNumberOfSeats: new FormControl(''),
-    carYearOfProductionFrom: new FormControl(''),
-    carYearOfProductionTo: new FormControl(''),
-    carPriceFrom: new FormControl(''),
-    carPriceTo: new FormControl('')
+    carYearOfProductionFrom: new FormControl('', [this.yearOfProductionValidator, this.numbersValidator]),
+    carYearOfProductionTo: new FormControl('', [this.yearOfProductionValidator, this.numbersValidator]),
+    carPriceFrom: new FormControl('', this.numbersValidator),
+    carPriceTo: new FormControl('', this.numbersValidator)
     
   });
   
@@ -160,6 +160,56 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
     const modalRef = this.modalService.open(RentACarAddCarModalComponent);
     modalRef.componentInstance.item = this.EnterpriseService.getRentACarEnterprise(enterpriseId);
   }
+  lettersValidator(control: AbstractControl){
+    if(control && control.value !== null || control.value !== undefined){
+      const regex = new RegExp('^[a-zA-Z]*$');
 
+      if(!regex.test(control.value)){
+        return{
+          isError: true
+        };
+      }
+    }
+    return null;
+  }
 
+  numbersValidator(control: AbstractControl){
+    if(control && control.value !== null || control.value !== undefined){
+      const regex = new RegExp('^[0-9]*$');
+
+      if(!regex.test(control.value)){
+        return{
+          isError: true
+        };
+      }
+    }
+    return null;
+  }
+
+  lettersAndNumbers(control: AbstractControl){
+    if(control && control.value !== null || control.value !== undefined){
+      const regex = new RegExp('^(?:[A-Za-z]*)(?:[A-Za-z0-9 _]*)$');
+
+      if(!regex.test(control.value)){
+        return{
+          isError: true
+        };
+      }
+    }
+    return null;
+   
+  }
+
+  yearOfProductionValidator(control: AbstractControl){
+    if(control && control.value !== null || control.value !== undefined){
+      const yearOfProductionValue = control.value;
+
+      if((yearOfProductionValue !== '' && yearOfProductionValue < 1990) || (yearOfProductionValue !== '' &&  yearOfProductionValue > 2020)){
+        return{
+          Error: true
+        };
+      }
+    }
+    return null;
+  }
 }

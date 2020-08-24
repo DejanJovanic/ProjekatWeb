@@ -100,9 +100,17 @@ label{
 }
 
 ::placeholder { 
-    color: white;
+    color: #fcfcfc3a;
     opacity:1;
     
 }
 
+#noButton{
+  float:right;
+    
+}
+
+#yesButton{
+    float:left;
+}
 

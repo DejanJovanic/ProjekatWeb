@@ -13,11 +13,11 @@ align-content: center;
 }
 
 .card{
-height: 320px;
+height: auto;
  margin-top: 150px;
 margin-bottom: auto;
 width: 400px;
-background-color: rgba(15, 14, 14, 0.678) !important;
+background-color: rgba(0, 0, 0, 0.733) !important;
 }
 
 .social_icon span{

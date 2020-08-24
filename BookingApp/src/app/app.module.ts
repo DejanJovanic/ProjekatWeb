@@ -95,6 +95,10 @@ import { ChangePasswordComponent } from './Users/change-password/change-password
 import { AddSeatsComponent } from './Airline/AirlineAdmin/add-seats/add-seats.component';
 import { AdminAirlineHolderComponent } from './Airline/AirlineAdmin/admin-airline-holder/admin-airline-holder.component';
 import { EnableSeatComponent } from './Airline/AirlineAdmin/enable-seat/enable-seat.component';
+import { RentACarDeleteCarModalComponent } from './RentACar/RentACarAdmin/rent-acar-delete-car-modal/rent-acar-delete-car-modal.component';
+import { RentACarDeleteBranchModalComponent } from './RentACar/RentACarAdmin/rent-acar-delete-branch-modal/rent-acar-delete-branch-modal.component';
+import { RentACarDeleteSOModalComponent } from './RentACar/RentACarAdmin/rent-acar-delete-somodal/rent-acar-delete-somodal.component';
+import { RentACarSetDiscountModalComponent } from './RentACar/RentACarAdmin/rent-acar-set-discount-modal/rent-acar-set-discount-modal.component';
 
 
 @NgModule({
@@ -181,7 +185,11 @@ import { EnableSeatComponent } from './Airline/AirlineAdmin/enable-seat/enable-s
     ChangePasswordComponent,
     AddSeatsComponent,
     AdminAirlineHolderComponent,
-    EnableSeatComponent
+    EnableSeatComponent,
+    RentACarDeleteCarModalComponent,
+    RentACarDeleteBranchModalComponent,
+    RentACarDeleteSOModalComponent,
+    RentACarSetDiscountModalComponent
   ],
   imports: [
     

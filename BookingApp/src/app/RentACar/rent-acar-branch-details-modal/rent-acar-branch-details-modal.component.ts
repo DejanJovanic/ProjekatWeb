@@ -3,6 +3,7 @@ import { Branch } from 'src/app/Shared/Model/RentACars/Branch.model';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
 import { RentACarEditBranchModalComponent } from '../RentACarAdmin/rent-acar-edit-branch-modal/rent-acar-edit-branch-modal.component';
+import { RentACarDeleteBranchModalComponent } from '../RentACarAdmin/rent-acar-delete-branch-modal/rent-acar-delete-branch-modal.component';
 
 @Component({
   selector: 'app-rent-acar-branch-details-modal',
@@ -24,6 +25,11 @@ export class RentACarBranchDetailsModalComponent implements OnInit {
 
   openEditBranchModal(branchId: number){
     const modalRef = this.modalService.open(RentACarEditBranchModalComponent);
+    modalRef.componentInstance.item = this.EnterpriseService.getOneBranch(branchId);
+  }
+
+  openDeleteBranchModal(branchId: number){
+    const modalRef = this.modalService.open(RentACarDeleteBranchModalComponent);
     modalRef.componentInstance.item = this.EnterpriseService.getOneBranch(branchId);
   }
 

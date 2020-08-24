@@ -14,18 +14,27 @@
      
   <div class="card">
       <div class="card-body">
-        <h6 class="card-price text-center"><span class="period"> Add special offer </span></h6>
+        <h6 class="card-price text-center"><span class="period"> <i class="fas fa-gift"></i> Add a special offer <i class="fas fa-gift"></i> </span></h6>
         <hr>
         <form  [formGroup]="addEnterpriseSpecialOffer" (ngSubmit)="addOffer()">
           <div class="row">
-            <label for="name">Name</label>
-            <input type="text" formControlName="specialOfferName" id="name" class="form-control">
+            <!--<label for="name">Name</label>!-->
+            <input [ngClass] ="{'is-invalid': addEnterpriseSpecialOffer.get('specialOfferName').touched && addEnterpriseSpecialOffer.get('specialOfferName').invalid}" type="text" placeholder="Special offer name" formControlName="specialOfferName" id="name" class="form-control">
+            <div  class="invalid-feedback">
+              <div ><i class="fas fa-times-circle" style="color: red;"></i> Special offer name is required.</div>
+    
+            </div>
           </div>
   
           <br/>
           <div class="row">
-            <label for="price">Price</label>
-            <input type="text" formControlName="specialOfferPrice" id = "price" class="form-control"> 
+            <!--<label for="price">Price</label>!-->
+            <input [ngClass] ="{'is-invalid': addEnterpriseSpecialOffer.get('specialOfferPrice').touched && addEnterpriseSpecialOffer.get('specialOfferPrice').invalid}" type="text" placeholder="Special offer price" formControlName="specialOfferPrice" id = "price" class="form-control"> 
+            <div *ngIf = "addEnterpriseSpecialOffer.get('specialOfferPrice').touched && addEnterpriseSpecialOffer.get('specialOfferPrice').invalid" class="invalid-feedback">
+              <div *ngIf = "addEnterpriseSpecialOffer.get('specialOfferPrice').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Special offer price is required.</div>
+              <div *ngIf = "addEnterpriseSpecialOffer.get('specialOfferPrice').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Special offer price can only contain numbers.</div>
+              
+            </div>
           </div>
   
           

@@ -14,42 +14,72 @@
      
   <div class="card">
       <div class="card-body">
-        <h6 class="card-price text-center"><span class="period"> Add branch to your enterprise </span></h6>
+        <h6 class="card-price text-center"><span class="period"> <i class="fas fa-building"></i> Add branch to your enterprise <i class="fas fa-building"></i> </span></h6>
         <hr>
         <form  [formGroup]="addBranchForm" (ngSubmit)="addBranch()">
           <div class="row">
-            <label for="name">Name</label>
-            <input type="text" formControlName="branchName" id="name" class="form-control">
+            <!--<label for="name">Name</label>!-->
+            <input [ngClass] ="{'is-invalid': addBranchForm.get('branchName').touched && addBranchForm.get('branchName').invalid}" type="text" placeholder="Branch name" formControlName="branchName" id="name" class="form-control">
+            <div  class="invalid-feedback">
+              <div ><i class="fas fa-times-circle" style="color: red;"></i> Branch name is required.</div>
+        
+              
+            </div>
           </div>
   
           <br/>
           <div class="row">
-            <label for="country">Country</label>
-            <input type="text" formControlName="branchCountry" id = "country"class="form-control"> 
+            <!--<label for="country">Country</label>!-->
+            <input [ngClass] ="{'is-invalid': addBranchForm.get('branchCountry').touched && addBranchForm.get('branchCountry').invalid}" placeholder="Branch country" type="text" formControlName="branchCountry" id = "country"class="form-control"> 
+            <div *ngIf = "addBranchForm.get('branchCountry').touched && addBranchForm.get('branchCountry').invalid" class="invalid-feedback">
+              <div *ngIf = "addBranchForm.get('branchCountry').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Branch country is required.</div>
+              <div *ngIf = "addBranchForm.get('branchCountry').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Branch country can only contain letters.</div>
+              
+            </div>
           </div>
   
           <br/>
           <div class="row">
-            <label for="city">City</label>
-            <input type="text" formControlName="branchCity" id = "city" class="form-control"> 
+            <!--<label for="city">City</label>!-->
+            <input placeholder="Branch city" [ngClass] ="{'is-invalid': addBranchForm.get('branchCity').touched && addBranchForm.get('branchCity').invalid}" type="text" formControlName="branchCity" id = "city" class="form-control">
+            <div *ngIf = "addBranchForm.get('branchCity').touched && addBranchForm.get('branchCity').invalid" class="invalid-feedback">
+              <div *ngIf = "addBranchForm.get('branchCity').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Branch city is required.</div>
+              <div *ngIf = "addBranchForm.get('branchCity').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Branch city can only contain letters.</div>
+              
+            </div> 
           </div>
   
           <br/>
           <div class="row">
-            <label for="street">Street</label>
-            <input type="text" formControlName="branchStreet"  id = "street" class="form-control"> 
+            <!--<label for="street">Street</label>!-->
+            <input placeholder="Branch street"  [ngClass] ="{'is-invalid': addBranchForm.get('branchStreet').touched && addBranchForm.get('branchStreet').invalid}" type="text" formControlName="branchStreet"  id = "street" class="form-control"> 
+            <div *ngIf = "addBranchForm.get('branchStreet').touched && addBranchForm.get('branchStreet').invalid" class="invalid-feedback">
+              <div *ngIf = "addBranchForm.get('branchStreet').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Branch street is required.</div>
+              <div *ngIf = "addBranchForm.get('branchStreet').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Branch street can only contain letters and numbers.</div>
+              
+            </div> 
           </div>
   
           <br/>
           <div class="row">
-            <label for="streetNo">Street number</label>
-            <input type="text" formControlName="branchStreetNo" id = "streetNo" class="form-control"> 
+            <!--<label for="streetNo">Street number</label>!-->
+            <input placeholder="Branch street number"  [ngClass] ="{'is-invalid': addBranchForm.get('branchStreetNo').touched && addBranchForm.get('branchStreetNo').invalid}" type="text" formControlName="branchStreetNo" id = "streetNo" class="form-control"> 
+            <div *ngIf = "addBranchForm.get('branchStreetNo').touched && addBranchForm.get('branchStreetNo').invalid" class="invalid-feedback">
+              <div *ngIf = "addBranchForm.get('branchStreetNo').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Branch street number is required.</div>
+              <div *ngIf = "addBranchForm.get('branchStreetNo').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Branch street number can only contain letters and numbers.</div>
+              
+            </div> 
           </div>
   
           <br/>
           <div class="row">
-            <label for="zipCode">Zip code</label>
-            <input type="text" formControlName="branchZipCode" id = "zipCode" class="form-control"> 
+            <!--<label for="zipCode">Zip code</label>!-->
+            <input placeholder="Branch zip code" [ngClass] ="{'is-invalid': addBranchForm.get('branchZipCode').touched && addBranchForm.get('branchZipCode').invalid}" type="text" formControlName="branchZipCode" id = "zipCode" class="form-control"> 
+            <div *ngIf = "addBranchForm.get('branchZipCode').touched && addBranchForm.get('branchZipCode').invalid" class="invalid-feedback">
+              <div *ngIf = "addBranchForm.get('branchZipCode').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Branch zip code is required.</div>
+              <div *ngIf = "addBranchForm.get('branchZipCode').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Branch zip code can only contain numbers.</div>
+              
+            </div> 
           </div>
           
           <hr>

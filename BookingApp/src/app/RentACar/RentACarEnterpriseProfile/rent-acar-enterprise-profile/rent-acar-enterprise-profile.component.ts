@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
 import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
 import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnterprise.model';
+
 @Component({
   selector: 'app-rent-acar-enterprise-profile',
   templateUrl: './rent-acar-enterprise-profile.component.html',
@@ -16,7 +17,7 @@ export class RentACarEnterpriseProfileComponent implements OnInit {
   isHalf = false;
   address: string;
   role: string;
-  constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute) { 
+  constructor( private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute) { 
     this.role = localStorage["Role"]
   }
 
@@ -48,4 +49,5 @@ export class RentACarEnterpriseProfileComponent implements OnInit {
     }, 50);
   }
 
+ 
 }

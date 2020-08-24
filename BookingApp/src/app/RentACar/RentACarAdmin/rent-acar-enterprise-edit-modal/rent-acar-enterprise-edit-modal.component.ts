@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnterprise.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 @Component({
   selector: 'app-rent-acar-enterprise-edit-modal',
   templateUrl: './rent-acar-enterprise-edit-modal.component.html',
@@ -23,11 +23,11 @@ export class RentACarEnterpriseEditModalComponent implements OnInit {
    
     this.editEnterpriseInfoForm = new FormGroup({
       enterpriseName: new FormControl(this.item.EnterpriseName, Validators.required),
-      enterpriseCountry: new FormControl(this.item.EnterpriseAddress.Country, Validators.required),
-      enterpriseCity: new FormControl(this.item.EnterpriseAddress.City, Validators.required),
-      enterpriseStreet: new FormControl(this.item.EnterpriseAddress.Street, Validators.required),
-      enterpriseStreetNo: new FormControl(this.item.EnterpriseAddress.StreetNo, Validators.required),
-      enterpriseZipCode: new FormControl(this.item.EnterpriseAddress.ZipCode, Validators.required),
+      enterpriseCountry: new FormControl(this.item.EnterpriseAddress.Country, [Validators.required, this.lettersValidator]),
+      enterpriseCity: new FormControl(this.item.EnterpriseAddress.City, [Validators.required, this.lettersValidator] ),
+      enterpriseStreet: new FormControl(this.item.EnterpriseAddress.Street, [Validators.required, this.lettersAndNumbers]),
+      enterpriseStreetNo: new FormControl(this.item.EnterpriseAddress.StreetNo, [Validators.required, this.lettersAndNumbers]),
+      enterpriseZipCode: new FormControl(this.item.EnterpriseAddress.ZipCode, [Validators.required, this.numbersValidator]),
       enterpriseDescription: new FormControl(this.item.EnterpriseDescription, Validators.required)
     });
   }
@@ -49,4 +49,43 @@ export class RentACarEnterpriseEditModalComponent implements OnInit {
     this.alert= false;
   }
 
+  lettersValidator(control: AbstractControl){
+    if(control && control.value !== null || control.value !== undefined){
+      const regex = new RegExp('^[a-zA-Z]+(([a-zA-Z ])?[a-zA-Z]*)*$');
+
+      if(!regex.test(control.value)){
+        return{
+          isError: true
+        };
+      }
+    }
+    return null;
+  }
+
+  numbersValidator(control: AbstractControl){
+    if(control && control.value !== null || control.value !== undefined){
+      const regex = new RegExp('^[0-9]*$');
+
+      if(!regex.test(control.value)){
+        return{
+          isError: true
+        };
+      }
+    }
+    return null;
+  }
+
+  lettersAndNumbers(control: AbstractControl){
+    if(control && control.value !== null || control.value !== undefined){
+      const regex = new RegExp('^(?:[A-Za-z]*)(?:[A-Za-z0-9 _]*)$');
+
+      if(!regex.test(control.value)){
+        return{
+          isError: true
+        };
+      }
+    }
+    return null;
+   
+  }
 }

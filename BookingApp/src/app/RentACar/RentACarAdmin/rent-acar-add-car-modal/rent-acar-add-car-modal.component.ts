@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnterprise.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-rent-acar-add-car-modal',
@@ -33,17 +33,15 @@ export class RentACarAddCarModalComponent implements OnInit {
   setForm(){
    
     this.addCarForm = new FormGroup({
-      CarBrand: new FormControl('', Validators.required),
-      CarModel: new FormControl('', Validators.required),
-      CarYearOfProduction: new FormControl('', Validators.required),
+      CarBrand: new FormControl('', [Validators.required, this.lettersValidator]),
+      CarModel: new FormControl('', [Validators.required, this.lettersAndNumbers]),
+      CarYearOfProduction: new FormControl('', [Validators.required, this.numbersValidator, this.yearOfProductionValidator]),
       CarType: new FormControl('', Validators.required),
       CarFuelType: new FormControl('', Validators.required),
       CarTransmissionType: new FormControl('', Validators.required),
       CarNumberOfSeats: new FormControl('', Validators.required),
-      CarPrice: new FormControl('', Validators.required),
-      CarDiscountDateFrom: new FormControl(''),
-      CarDiscountDateTo: new FormControl(''),
-      CarDiscountPrice: new FormControl('')
+      CarPrice: new FormControl('', [Validators.required, this.numbersValidator])
+      
       
     });
   }
@@ -61,13 +59,62 @@ export class RentACarAddCarModalComponent implements OnInit {
     var transmission = this.addCarForm.value.CarTransmissionType;
     var seatsNo = this.addCarForm.value.CarNumberOfSeats;
     var price = this.addCarForm.value.CarPrice;
-    var dateFrom = this.addCarForm.value.CarDiscountDateFrom;
-    var dateTo = this.addCarForm.value.CarDiscountDateTo;
-    var discountPrice = this.addCarForm.value.CarDiscountPrice;
-
-
    
+
     this.alert = true;
+  }
+
+  lettersValidator(control: AbstractControl){
+    if(control && control.value !== null || control.value !== undefined){
+      const regex = new RegExp('^[a-zA-Z]+(([a-zA-Z ])?[a-zA-Z]*)*$');
+
+      if(!regex.test(control.value)){
+        return{
+          isError: true
+        };
+      }
+    }
+    return null;
+  }
+
+  numbersValidator(control: AbstractControl){
+    if(control && control.value !== null || control.value !== undefined){
+      const regex = new RegExp('^[0-9]*$');
+
+      if(!regex.test(control.value)){
+        return{
+          isError: true
+        };
+      }
+    }
+    return null;
+  }
+
+  lettersAndNumbers(control: AbstractControl){
+    if(control && control.value !== null || control.value !== undefined){
+      const regex = new RegExp('^(?:[A-Za-z]*)(?:[A-Za-z0-9 _]*)$');
+
+      if(!regex.test(control.value)){
+        return{
+          isError: true
+        };
+      }
+    }
+    return null;
+   
+  }
+
+  yearOfProductionValidator(control: AbstractControl){
+    if(control && control.value !== null || control.value !== undefined){
+      const yearOfProductionValue = control.value;
+
+      if((yearOfProductionValue !== '' && yearOfProductionValue < 1990) || (yearOfProductionValue !== '' &&  yearOfProductionValue > 2020)){
+        return{
+          Error: true
+        };
+      }
+    }
+    return null;
   }
 
 }

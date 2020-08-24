@@ -1,114 +1,137 @@
 
 <div class="bg-img">
   <div *ngIf="role !==  'RentACarAdmin'" class="container">
-    <div class="card2" >
-      <form [formGroup]="searchCarsForm" >
-          <div class="row">
+      <div class="card2" >
+        <form [formGroup]="searchCarsForm" >
+            <div class="row">
 
-            <div class="col">
-              <label for="carBrands">Car brand</label>
-                <input type="text" class="form-control" formControlName="carBrand" id="carBrands" placeholder="Car brand">
-                  
-            </div>
+              <div class="col">
+                <!--<label for="carBrands">Car brand</label>!-->
+                  <input [ngClass] ="{'is-invalid': searchCarsForm.get('carBrand').touched && searchCarsForm.get('carBrand').invalid}" type="text" class="form-control" formControlName="carBrand" id="carBrands" placeholder="Car brand">
+                  <div class="invalid-feedback">
+                    <div ><i class="fas fa-times-circle" style="color: red;"></i> Car brand can only contain letters.</div>
+                    
+                  </div>  
+              </div>
 
-            <div class="col">
-              <label for="carModels">Car model</label>
-                <input type="text" class="form-control" formControlName="carModel" id="carModels" placeholder="Car model">
-                  
+              <div class="col">
+                <!--<label for="carModels">Car model</label>!-->
+                  <input [ngClass] ="{'is-invalid': searchCarsForm.get('carModel').touched && searchCarsForm.get('carModel').invalid}" type="text" class="form-control" formControlName="carModel" id="carModels" placeholder="Car model">
+                  <div class="invalid-feedback">
+                    <div ><i class="fas fa-times-circle" style="color: red;"></i> Car model can only contain letters and numbers.</div>
+                    
+                  </div> 
+              </div>
             </div>
-          </div>
+            <br/>
+            <div class="row">
+
+              <div class="col">
+                <!--<label for="carTypes">Choose a car type</label>!-->
+                  <select class="form-control" formControlName="carType" id="carTypes">
+                    <option value="" disabled selected >Select car type</option>
+                    <option value="limousine">Limousine</option>
+                    <option value="caravan">Caravan</option>
+                    <option value="suv">SUV</option>
+                </select>
+              </div>
+
+              <div class="col">
+                <!--<label for="carTransmissions">Choose a transmission type</label>!-->
+                  <select class="form-control" formControlName="carTransmission" id="carTransmissions">
+                    <option value="" disabled selected >Select a transmission type</option>
+                    <option value="automatic">Automatic</option>
+                    <option value="manual">Manual</option>
+                
+                </select>
+              </div>
+            </div>
+            <br/>
+            <div class="row">
+
+              <div class="col">
+                <!--<label for="carFuels">Choose a fuel type</label>!-->
+                  <select class="form-control" formControlName="carFuel" id="carFuels">
+                    <option value="" disabled selected >Select a fuel type</option>
+                    <option value="gasoline">Gasoline</option>
+                    <option value="diesel">Diesel</option>
+                </select>
+              </div>
+
+              <div class="col">
+                <!--<label for="carSeats">Number of seats</label>!-->
+                <select class="form-control" formControlName="carNumberOfSeats" id="carSeats">
+                  <option value="" disabled selected >Select number of seats</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="5">5</option>
+                  <option value="7">7</option>
+                </select>
+                    
+              </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col">
+                  <!--<label for="carYearFrom">Year of production from</label>!-->
+                    <input [ngClass] ="{'is-invalid': searchCarsForm.get('carYearOfProductionFrom').touched && searchCarsForm.get('carYearOfProductionFrom').invalid}" id="carYearFrom" type="text" class="form-control" formControlName="carYearOfProductionFrom"  placeholder="Year of production from">
+                    <div *ngIf = "searchCarsForm.get('carYearOfProductionFrom').touched && searchCarsForm.get('carYearOfProductionFrom').invalid"  class="invalid-feedback">
+                      <div *ngIf = "searchCarsForm.get('carYearOfProductionFrom').errors.Error" ><i class="fas fa-times-circle" style="color: red;"></i> Car year of production can only be between 1990's and 2020's.</div>
+                      <div *ngIf = "searchCarsForm.get('carYearOfProductionFrom').errors.isError" ><i class="fas fa-times-circle" style="color: red;"></i> Car year of production can only contain numbers.</div>
+                    </div> 
+                  </div>
+
+                <div class="col">
+                  <!--<label for="carYearTo">Year of production to</label>!-->
+                    <input [ngClass] ="{'is-invalid': searchCarsForm.get('carYearOfProductionTo').touched && searchCarsForm.get('carYearOfProductionTo').invalid}" id="carYearTo" type="text" class="form-control" formControlName="carYearOfProductionTo"  placeholder="Year of production to">
+                    <div *ngIf = "searchCarsForm.get('carYearOfProductionTo').touched && searchCarsForm.get('carYearOfProductionTo').invalid" class="invalid-feedback">
+                      <div *ngIf = "searchCarsForm.get('carYearOfProductionTo').errors.Error" ><i class="fas fa-times-circle" style="color: red;"></i> Car year of production can only be between 1990's and 2020's.</div>
+                      <div *ngIf = "searchCarsForm.get('carYearOfProductionTo').errors.isError" ><i class="fas fa-times-circle" style="color: red;"></i> Car year of production can only contain numbers.</div>
+                    </div> 
+                  </div>
+            </div>
           <br/>
           <div class="row">
+            <div class="col">
+              <!--<label for="priceFrom">Price per day from</label>!-->
+                <input [ngClass] ="{'is-invalid': searchCarsForm.get('carPriceFrom').touched && searchCarsForm.get('carPriceFrom').invalid}" id="priceFrom"type="text" class="form-control" formControlName="carPriceFrom"   placeholder="Price per day from">
+                <div class="invalid-feedback">
+                  <div ><i class="fas fa-times-circle" style="color: red;"></i> Price per day can only contain numbers.</div>
+                  
+                </div> 
+              </div>
 
             <div class="col">
-              <label for="carTypes">Choose a car type</label>
-                <select class="form-control" formControlName="carType" id="carTypes">
-                  <option value=""> - </option>
-                  <option value="limousine">Limousine</option>
-                  <option value="caravan">Caravan</option>
-                  <option value="suv">SUV</option>
-              </select>
-            </div>
+              <!--<label for="priceTo">Price per day to</label>!-->
+                <input [ngClass] ="{'is-invalid': searchCarsForm.get('carPriceTo').touched && searchCarsForm.get('carPriceTo').invalid}" id="priceTo" type="text" class="form-control" formControlName="carPriceTo"  placeholder="Price per day to">
+                <div class="invalid-feedback">
+                  <div ><i class="fas fa-times-circle" style="color: red;"></i> Price per day can only contain numbers.</div>
+                  
+                </div>
+              </div>
+          </div>
 
-            <div class="col">
-              <label for="carTransmissions">Choose a transmission type</label>
-                <select class="form-control" formControlName="carTransmission" id="carTransmissions">
-                  <option value=""> - </option>
-                  <option value="automatic">Automatic</option>
-                  <option value="manual">Manual</option>
+
+            
+            <br/>
+            <div class="row">
               
-              </select>
-            </div>
-          </div>
-          <br/>
-          <div class="row">
-
-            <div class="col">
-              <label for="carFuels">Choose a fuel type</label>
-                <select class="form-control" formControlName="carFuel" id="carFuels">
-                  <option value=""> - </option>
-                  <option value="gasoline">Gasoline</option>
-                  <option value="diesel">Diesel</option>
-              </select>
-            </div>
-
-            <div class="col">
-              <label for="carSeats">Number of seats</label>
-              <select class="form-control" formControlName="carNumberOfSeats" id="carSeats">
-                <option value=""> - </option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="5">5</option>
-                <option value="7">7</option>
-              </select>
-                  
-            </div>
-          </div>
-          <br/>
-          <div class="row">
               <div class="col">
-                <label for="carYearFrom">Year of production from</label>
-                  <input id="carYearFrom" type="number" class="form-control" formControlName="carYearOfProductionFrom" min="1990" max = "2020" placeholder="Year of production from">
+                <button type="button" class="btn btn-outline-primary btn-rounded " (click)="showAllCars()"><i class="fas fa-car mr-1"></i>Show all cars</button>
               </div>
+              
+              
+                <div class="col">
+                  <button type="button" id="searchButton" class="btn btn-outline-primary btn-rounded " (click)="searchCars()"><i class="fas fa-search mr-1"></i>Search</button>
+                </div>
 
-              <div class="col">
-                <label for="carYearTo">Year of production to</label>
-                  <input id="carYearTo" type="number" class="form-control" formControlName="carYearOfProductionTo" min="1991" max = "2020" placeholder="Year of production to">
-              </div>
-          </div>
-        <br/>
-        <div class="row">
-          <div class="col">
-            <label for="priceFrom">Price per day from</label>
-              <input id="priceFrom"type="number" class="form-control" formControlName="carPriceFrom"  min="0" placeholder="Price per day from">
-          </div>
-
-          <div class="col">
-            <label for="priceTo">Price per day to</label>
-              <input id="priceTo" type="number" class="form-control" formControlName="carPriceTo" min="0" placeholder="Price per day to">
-          </div>
-        </div>
-
-
-          
-          <br/>
-          <div class="row">
-            
-            <div class="col">
-              <button type="button" class="btn btn-outline-primary btn-rounded " (click)="showAllCars()"><i class="fas fa-car mr-1"></i>Show all cars</button>
             </div>
             
-            
-              <div class="col">
-                <button type="button" id="searchButton" class="btn btn-outline-primary btn-rounded " (click)="searchCars()"><i class="fas fa-search mr-1"></i>Search</button>
-              </div>
-
-          </div>
-          
-      </form>
+        </form>
   </div>
 </div>
 <section class="pricing py-5">
+  
   <button *ngIf="role ===  'RentACarAdmin'" (click) = "openCarAddModal(Enterprise.EnterpriseId)" type="button"  class="btn btn-outline-primary btn-rounded "><i class="fas fa-plus mr-1"></i> Add </button>
     <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" [animation]="'fade'">
       <mdb-carousel-item class="d-flex justify-content-center"  *ngFor="let item of slides; let i = index">

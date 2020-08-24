@@ -19,104 +19,110 @@
         <form  [formGroup]="editCarForm" (ngSubmit)="editCar()">
           <div class="row">
             <label for="brand">Car brand</label>
-            <input type="text" formControlName="CarBrand" id="brand" class="form-control">
+            <input  type="text"  formControlName="CarBrand" id="brand" class="form-control" [ngClass] ="{'is-invalid': editCarForm.get('CarBrand').touched && editCarForm.get('CarBrand').invalid}">
+            <div *ngIf = "editCarForm.get('CarBrand').touched && editCarForm.get('CarBrand').invalid" class="invalid-feedback">
+              <div *ngIf = "editCarForm.get('CarBrand').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Car brand is required.</div>
+              <div *ngIf = "editCarForm.get('CarBrand').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Car brand can only contain letters.</div>
+              
+            </div>
           </div>
   
           <br/>
           <div class="row">
-            <label for="model">Car model</label>
-            <input type="text" formControlName="CarModel" id = "model" class="form-control"> 
+           <label for="model">Car model</label>
+           <input [ngClass] ="{'is-invalid': editCarForm.get('CarModel').touched && editCarForm.get('CarModel').invalid}" type="text"  formControlName="CarModel" id = "model" class="form-control">
+           <div *ngIf = "editCarForm.get('CarModel').touched && editCarForm.get('CarModel').invalid" class="invalid-feedback">
+             <div *ngIf = "editCarForm.get('CarModel').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Car model is required.</div>
+             <div *ngIf = "editCarForm.get('CarModel').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Car model can only contain letters and numbers.</div>
+             
+           </div> 
           </div>
   
           <br/>
           <div class="row">
-            <label for="year">Year of production</label>
-            <input id="year" type="number" class="form-control" formControlName="CarYearOfProduction" min="1990" max = "2020">
+         <label for="year">Year of production</label>
+         <input [ngClass] ="{'is-invalid': editCarForm.get('CarYearOfProduction').touched && editCarForm.get('CarYearOfProduction').invalid}" id="year" type="text"  class="form-control" formControlName="CarYearOfProduction" >
+         <div *ngIf = "editCarForm.get('CarYearOfProduction').touched && editCarForm.get('CarYearOfProduction').invalid" class="invalid-feedback">
+           <div *ngIf = "editCarForm.get('CarYearOfProduction').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Year of production is required.</div>
+           <div *ngIf = "editCarForm.get('CarYearOfProduction').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Year of production can only contain numbers.</div>
+           <div *ngIf = "editCarForm.get('CarYearOfProduction').errors.Error"><i class="fas fa-times-circle" style="color: red;"></i> Car year of production can only be between 1990's and 2020's.</div>
+         </div> 
             
           </div>
   
           <br/>
           <div class="row">
-            <label for="typee">Car type</label>
-            <select class="form-control" formControlName="CarType" id="typee">
-              
+            <!--<label for="typee">Car type</label>!-->
+            <select [ngClass] ="{'is-invalid': editCarForm.get('CarType').touched && editCarForm.get('CarType').invalid}" class="form-control" formControlName="CarType" id="typee">
+              <option value="" disabled selected >Select car type, current: {{item.CarType}}</option>
               <option value="limousine">Limousine</option>
-          
               <option value="caravan">Caravan</option>
               <option value="suv">SUV</option>
-          </select>
+            </select>
+            <div *ngIf = "editCarForm.get('CarType').touched && editCarForm.get('CarType').invalid" class="invalid-feedback">
+              <div *ngIf = "editCarForm.get('CarType').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Car type is required.</div>
+      
+            </div> 
             
           </div>
   
           <br/>
           <div class="row">
-            <label for="fuel">Fuel type</label>
-            <select class="form-control" formControlName="CarFuelType" id="fuel">
+            <!--<label for="fuel">Fuel type</label>!-->
+            <select [ngClass] ="{'is-invalid': editCarForm.get('CarFuelType').touched && editCarForm.get('CarFuelType').invalid}" class="form-control" formControlName="CarFuelType" id="fuel">
+              <option value="" disabled selected>Select fuel type, current: {{item.CarFuelType}}</option>
               <option value="gasoline">Gasoline</option>
               <option value="diesel">Diesel</option>
-          </select> 
+            </select> 
+          <div *ngIf = "editCarForm.get('CarFuelType').touched && editCarForm.get('CarFuelType').invalid" class="invalid-feedback">
+            <div *ngIf = "editCarForm.get('CarFuelType').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Car fuel type is required.</div>
+    
+          </div>  
           </div>
   
           <br/>
           <div class="row">
-            <label for="carTransmissions">Transmission type</label>
-            <select class="form-control" formControlName="CarTransmissionType" id="carTransmissions">
+            <!--<label for="carTransmissions">Transmission type</label>!-->
+            <select [ngClass] ="{'is-invalid': editCarForm.get('CarTransmissionType').touched && editCarForm.get('CarTransmissionType').invalid}" class="form-control" formControlName="CarTransmissionType" id="carTransmissions">
+              <option value="" disabled selected>Select transmission type, current: {{item.CarTransmissionType}}</option>
               <option value="automatic">Automatic</option>
               <option value="manual">Manual</option>
           
-          </select>
+            </select>
+            <div *ngIf = "editCarForm.get('CarTransmissionType').touched && editCarForm.get('CarTransmissionType').invalid" class="invalid-feedback">
+              <div *ngIf = "editCarForm.get('CarTransmissionType').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Transmission type is required.</div>
+      
+            </div> 
           </div>
           
           <br/>
           <div class="row">
-            <label for="carSeats">Number of seats</label>
-            <select class="form-control" formControlName="CarNumberOfSeats" id="carSeats">
+             <!--<label for="carSeats">Number of seats</label>!-->
+             <select [ngClass] ="{'is-invalid': editCarForm.get('CarNumberOfSeats').touched && editCarForm.get('CarNumberOfSeats').invalid}" class="form-control"  formControlName="CarNumberOfSeats" id="carSeats">
+              <option value="" disabled selected>Select number of seats, current: {{item.CarNumberOfSeats}}</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="5">5</option>
               <option value="7">7</option>
             </select>
+            <div *ngIf = "editCarForm.get('CarNumberOfSeats').touched && editCarForm.get('CarNumberOfSeats').invalid" class="invalid-feedback">
+              <div *ngIf = "editCarForm.get('CarNumberOfSeats').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Number of seats is required.</div>
+      
+            </div> 
           </div>
 
           <br/>
           <div class="row">
             <label for="price">Price per day</label>
-            <input id="price" type="number" class="form-control" formControlName="CarPrice" min="1" max = "5000">
+            <input [ngClass] ="{'is-invalid': editCarForm.get('CarPrice').touched && editCarForm.get('CarPrice').invalid}" id="price"  type="text" class="form-control" formControlName="CarPrice" >
+            <div *ngIf = "editCarForm.get('CarPrice').touched && editCarForm.get('CarPrice').invalid" class="invalid-feedback">
+              <div *ngIf = "editCarForm.get('CarPrice').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Car price is required.</div>
+              <div *ngIf = "editCarForm.get('CarPrice').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Car price can only contain numbers.</div>
+            </div> 
             
           </div>
-          <br/>
+         
 
-          <div class="row">
-            <label for="dateFrom">Car discount date from</label>
-            <div class="input-group form-group">
-                    <input id="dateFrom" class="form-control" [minDate]="minDate"
-                    formControlName="CarDiscountDateFrom" ngbDatepicker #dateFrom="ngbDatepicker" >
-                   
-                      <button class="btn btn-outline-primary calendar" (click)="dateFrom.toggle()" type="button"><i class="fas fa-calendar "></i></button>
-                 
-                 </div>
-               
-          </div>
-
-          <br/>
-          <div class="row">
-            <label for="dateTo">Car discount date to </label>
-            <div class="input-group form-group">
-                  <input id = "dateTo" [minDate]="minDate" class="form-control"
-                  formControlName="CarDiscountDateTo" ngbDatepicker #dateTo="ngbDatepicker">
-                 
-                    <button class="btn btn-outline-primary calendar" (click)="dateTo.toggle()" type="button"><i class="fas fa-calendar"></i></button>
-                  
-                </div>
-             
-          </div>
-
-          <br/>
-          <div class="row">
-            <label for="discountPrice">Car discount price</label>
-            <input id="discountPrice" type="number" class="form-control" formControlName="CarDiscountPrice" min="1" max = "5000">
-            
-          </div>
           <hr>
   
           <div class="row">

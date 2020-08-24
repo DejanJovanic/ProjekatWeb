@@ -1,12 +1,6 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
-<link rel="stylesheet" type="text/css" href="register.component.css">
 
 <div class="bg-img">
 	<div class="container">
-
 
 		<div class="d-flex justify-content-center h-100">
 			<div class="card">
@@ -15,53 +9,106 @@
 				</div>
 				
 				<div class="card-body">
-					<form>
+					<form name="form" [formGroup] = "registerForm">
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text"> <i class="fa fa-user"></i> </span>
+								<span class="input-group-text"> <i class="fas fa-user-circle"></i> </span>
 							</div>
-							<input name="" class="form-control" placeholder="First name" type="text">
-							<input name="" class="form-control" placeholder="Last name" type="text">
+							<input formControlName="firstName" class="form-control" placeholder="First name" type="text"
+							[ngClass] ="{'is-invalid': registerForm.get('firstName').touched && registerForm.get('firstName').invalid}">
+							<div *ngIf = "registerForm.get('firstName').touched && registerForm.get('firstName').invalid" class="invalid-feedback">
+								<div *ngIf = "registerForm.get('firstName').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> First name is required.</div>
+								<div *ngIf = "registerForm.get('firstName').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> First name can only contain letters.</div>
+								
+							</div>
 						</div> <!-- form-group// -->
+
+							<div class="form-group input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text"> <i class="fas fa-user-circle"></i> </span>
+									</div>
+
+								<input formControlName = "lastName" [ngClass] ="{'is-invalid': registerForm.get('lastName').touched && registerForm.get('lastName').invalid}"class="form-control" placeholder="Last name" type="text" >
+								<div *ngIf = "registerForm.get('lastName').touched && registerForm.get('lastName').invalid" class="invalid-feedback">
+									<div *ngIf = "registerForm.get('lastName').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Last name is required.</div>
+									<div *ngIf = "registerForm.get('lastName').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Last name can only contain letters.</div>
+								</div>
+							</div>
+							
+
+						
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 							</div>
-							<input name="" class="form-control" placeholder="Email address" type="email">
+							<input [ngClass] ="{'is-invalid': registerForm.get('eMail').touched && registerForm.get('eMail').invalid}" formControlName="eMail"  class="form-control" placeholder="E-mail address" type="email">
+							<div *ngIf = "registerForm.get('eMail').touched && registerForm.get('eMail').invalid" class="invalid-feedback">
+								<div *ngIf="registerForm.get('eMail').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> E-mail is required.</div>
+								<div *ngIf="registerForm.get('eMail').errors.email"><i class="fas fa-times-circle" style="color: red;"></i> E-mail must be in valid form.</div>
+							</div>
+
 						</div> <!-- form-group// -->
+
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"> <i class="fa fa-phone"></i> </span>
 							</div>
 							
-							<input name="" class="form-control" placeholder="Phone number" type="text">
+							<input [ngClass] ="{'is-invalid': registerForm.get('phone').touched && registerForm.get('phone').invalid}" formControlName="phone"  class="form-control" placeholder="Phone number" type="text">
+							<div *ngIf="registerForm.get('phone').touched && registerForm.get('phone').invalid" class="invalid-feedback">
+								<div *ngIf="registerForm.get('phone').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Phone number is required.</div>
+								<div *ngIf="registerForm.get('phone').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Phone number must be in valid form. E.g. +(123)-456-78-90</div>
+							</div>
+
 						</div> <!-- form-group// -->
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"> <i class="fa fa-building"></i> </span>
 							</div>
-							<input name="" class="form-control" placeholder="City" type="text">
+							<input [ngClass] ="{'is-invalid': registerForm.get('city').touched && registerForm.get('city').invalid}" formControlName="city"   class="form-control" placeholder="City" type="text">
+							<div *ngIf="registerForm.get('city').touched && registerForm.get('city').invalid" class="invalid-feedback">
+								<div *ngIf="registerForm.get('city').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> City is required.</div>
+								<div *ngIf="registerForm.get('city').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> City can only contain letters.</div>
+							</div>
+
 						</div> <!-- form-group end.// -->
+						
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
-								<span class="input-group-text"> <i class="fa fa-home"></i> </span>
+								<span class="input-group-text"> <i class="fa fa-user"></i> </span>
 							</div>
-							<input name="" class="form-control" placeholder="Address" type="text">
+							<input [ngClass] ="{'is-invalid': registerForm.get('username').touched && registerForm.get('username').invalid}" formControlName="username"   class="form-control" placeholder="Username" type="text">
+							<div *ngIf="registerForm.get('username').touched && registerForm.get('username').invalid" class="invalid-feedback">
+								<div *ngIf="registerForm.get('username').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Username is required.</div>
+								<div *ngIf="registerForm.get('username').errors.minlength"><i class="fas fa-times-circle" style="color: red;"></i> Username must be at least 4 characters long.</div>
+							</div>
+
 						</div> <!-- form-group end.// -->
+
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"> <i class="fa fa-key"></i> </span>
 							</div>
-							<input class="form-control" placeholder="Create password" type="password">
+							<input [ngClass] ="{'is-invalid': registerForm.get('password').touched && registerForm.get('password').invalid}" formControlName="password"  class="form-control" placeholder="Create password" type="password">
+							<div *ngIf="registerForm.get('password').touched && registerForm.get('password').invalid" class="invalid-feedback">
+								<div *ngIf="registerForm.get('password').errors.required" ><i class="fas fa-times-circle" style="color: red;"></i> Password is required.</div>
+								<div *ngIf="registerForm.get('password').errors.minlength"><i class="fas fa-times-circle" style="color: red;"></i> Password must be at least 8 characters long.</div>
+							</div>
+
 						</div> <!-- form-group// -->
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"> <i class="fa fa-key"></i> </span>
 							</div>
-							<input class="form-control" placeholder="Repeat password" type="password">
+							<input [ngClass] ="{'is-invalid': registerForm.get('repeatedPassword').touched && registerForm.get('repeatedPassword').invalid}" formControlName="repeatedPassword" class="form-control" placeholder="Repeat password" type="password">
+							<div  *ngIf="registerForm.get('repeatedPassword').touched && registerForm.get('repeatedPassword').invalid" class="invalid-feedback">
+								<div *ngIf="registerForm.get('repeatedPassword').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Please, repeat password.</div>
+								<div *ngIf="registerForm.get('repeatedPassword').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Password don't match.</div>
+							</div>
+
 						</div> <!-- form-group// -->                                      
 						<div class="form-group">
-							<button type="submit" class="btn float-right reg_btn"> Submit  </button>
+							<button [disabled] = "!registerForm.valid" type="submit" class="btn btn-outline-primary btn-rounded float-right"><i class="fas fa-database"></i> Submit  </button>
 						</div> <!-- form-group// -->   
 					</form>
 				</div> 
@@ -69,6 +116,12 @@
 							<div class="card-footer">
 								<div class="d-flex justify-content-center links">
 							Have an account?<a [routerLink]="['/Login']" routerLinkActive="router-link-active"> Login </a>
+								</div>
+								<div class="d-flex justify-content-center links">
+											or
+								</div>
+								<div class="d-flex justify-content-center links">
+									Go to <a [routerLink]="['/main']" routerLinkActive="router-link-active"> home page </a>
 								</div>
 						
 							</div>

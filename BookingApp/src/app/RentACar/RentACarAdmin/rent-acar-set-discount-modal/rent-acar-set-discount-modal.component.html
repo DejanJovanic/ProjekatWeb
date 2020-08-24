@@ -1,0 +1,78 @@
+
+
+<div class="modal-body" >
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div *ngIf = "alert" class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Success!</strong> You have successfully edited a car.
+      <button (click) = "closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+     
+     
+  <div class="card">
+      <div class="card-body">
+        <h6 class="card-price text-center"><span class="period"><i class="fas fa-percent"></i> Set discount for a "{{item.CarBrand}} {{item.CarModel}}" <i class="fas fa-percent"></i></span></h6>
+        <hr>
+        <form  [formGroup]="setDiscountForm" (ngSubmit)="setDiscount()">
+          
+        <div class="row">
+            <div class="input-group form-group">
+                <input [ngClass] ="{'is-invalid': setDiscountForm.get('DiscountFrom').touched && setDiscountForm.get('DiscountFrom').invalid}" readonly class="form-control" [minDate]="minDate" placeholder="The date from when the car is on sale"
+                formControlName="DiscountFrom" ngbDatepicker #dateFrom="ngbDatepicker" >
+               
+                  <button class="btn btn-outline-primary calendar" (click)="dateFrom.toggle()" type="button"><i class="fas fa-calendar "></i></button>
+                  <div class="invalid-feedback">
+                    <div ><i class="fas fa-times-circle" style="color: red;"></i> The date from when the car is on discount is required.</div>
+                    
+                  </div>
+            </div>
+        </div>
+          <br/>
+          <div class="row">
+            <div class="input-group form-group">
+                <input [ngClass] ="{'is-invalid': setDiscountForm.get('DiscountTo').touched && setDiscountForm.get('DiscountTo').invalid}" readonly class="form-control" [minDate]="minDate" placeholder="The date until the car is on sale"
+                formControlName="DiscountTo" ngbDatepicker #dateTo="ngbDatepicker" >
+               
+                  <button class="btn btn-outline-primary calendar" (click)="dateTo.toggle()" type="button"><i class="fas fa-calendar "></i></button>
+                  <div class="invalid-feedback">
+                    <div ><i class="fas fa-times-circle" style="color: red;"></i> The date until the car is on discount is required.</div>
+                    
+                  </div>
+            </div>
+        </div>
+          <br/>
+        <br/>
+          <div class="row">
+            <input [ngClass] ="{'is-invalid': setDiscountForm.get('DiscountPrice').touched && setDiscountForm.get('DiscountPrice').invalid}" id="price" placeholder="Discount price" type="text" class="form-control" formControlName="DiscountPrice" >
+            <div *ngIf = "setDiscountForm.get('DiscountPrice').touched && setDiscountForm.get('DiscountPrice').invalid" class="invalid-feedback">
+              <div *ngIf = "setDiscountForm.get('DiscountPrice').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Discount price is required.</div>
+              <div *ngIf = "setDiscountForm.get('DiscountPrice').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Discount price can only contain numbers.</div>
+            </div> 
+            
+          </div>
+         
+
+          <hr>
+  
+          <div class="row">
+            
+            <div class="col">
+              <button type="button" (click)="activeModal.close('Close click')" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-times mr-1"></i>Cancel</button>
+            </div>
+            
+            
+            <div class="col">
+                <button [disabled] = "!setDiscountForm.valid" type="submit" id="saveButton" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-save mr-1"></i>Save</button>
+              </div>
+  
+          </div>
+        </form>
+          
+      </div>
+    </div>
+  </div>
+  
+  

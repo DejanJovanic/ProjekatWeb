@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { SpecialOffer } from 'src/app/Shared/Model/RentACars/SpecialOffer.model';
 @Component({
   selector: 'app-rent-acar-edit-special-offers-modal',
@@ -23,7 +23,7 @@ export class RentACarEditSpecialOffersModalComponent implements OnInit {
    
     this.editEnterpriseSpecialOffer = new FormGroup({
       specialOfferName: new FormControl(this.item.OfferName, Validators.required),
-      specialOfferPrice: new FormControl(this.item.OfferPrice, Validators.required)
+      specialOfferPrice: new FormControl(this.item.OfferPrice, [Validators.required, this.numbersValidator])
     });
   }
 
@@ -38,6 +38,19 @@ export class RentACarEditSpecialOffersModalComponent implements OnInit {
 
   closeAlert(){
     this.alert= false;
+  }
+
+  numbersValidator(control: AbstractControl){
+    if(control && control.value !== null || control.value !== undefined){
+      const regex = new RegExp('^[0-9]*$');
+
+      if(!regex.test(control.value)){
+        return{
+          isError: true
+        };
+      }
+    }
+    return null;
   }
 
 }

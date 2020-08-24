@@ -23,11 +23,13 @@
             <button type="button" (click)="activeModal.close('Close click')" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-times mr-1"></i> Close </button>
         </div>
         <div class="col">
+             
             <button *ngIf="role ===  'RentACarAdmin'" (click) = "openSpecialOfferEditModal(item.SpecialOfferId)" type="button" class="btn btn-outline-primary btn-rounded "><i class="fas fa-edit mr-1"></i> Edit </button>
           </div>
 
         <div class="col">
-            <button *ngIf="role ===  'RentACarAdmin'" type="button" (click)="activeModal.close('Close click')" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-trash mr-1"></i> Delete </button>
+            
+            <button *ngIf="role ===  'RentACarAdmin'"  type="button" (click)="openDeleteSpecialOfferModal(item.SpecialOfferId)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-trash mr-1"></i> Delete </button>
         </div>
     </div>
 
