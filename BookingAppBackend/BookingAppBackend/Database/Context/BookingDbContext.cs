@@ -56,6 +56,8 @@ namespace BookingAppBackend.Database.Contex
             builder.Entity<UserReservation>().HasOne(i => i.Reservation).WithMany(i => i.Users).HasForeignKey(i => i.ReservationId);
 
             builder.Entity<User>().HasMany(i => i.MyPendingRequests).WithOne(i => i.SendingUser).OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Ticket>().HasIndex(p => new { p.FlightId, p.Row, p.Column }).IsUnique(true);
         }
    
     }

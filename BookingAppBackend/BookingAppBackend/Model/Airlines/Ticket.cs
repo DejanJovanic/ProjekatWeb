@@ -17,6 +17,7 @@ namespace BookingAppBackend.Model.Airlines
         public int Column { get; set; }
         public double Price { get; set; }
         public Flight Flight { get; set; }
+        public int FlightId { get; set; }
         public Airline Airline { get; set; }
         public User TicketOwner { get; set; }
         public DateTime BookingDate { get; set; }

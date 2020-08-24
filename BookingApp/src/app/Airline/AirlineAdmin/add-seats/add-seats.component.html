@@ -1,6 +1,13 @@
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
+<div class="container-fluid">
+       <div class="row mt-4">
+        <div class="col">
+            <h2>Add seats</h2>
+            <hr>
+            <h3 class="text-muted">Enter number of rows and columns to be added</h3>
+        </div>
+    </div>
+    <div class="row mt-5 mb-4 ">
+        <div class="col d-flex justify-content-center">
             <app-seats [state]="SeatDisplayState.Preview" [seatsInput]="seats"></app-seats>
         </div>
     </div>
@@ -8,67 +15,69 @@
         <div class="col-md">
             <form (submit)="OnSubmit()" [formGroup]="form">
                 <div class="form-row">
-                    <div class="col-sm-6 form-group">
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <label for="rowsTop">
-                                    Rows top:
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm">
-                                <input type="number" step="1" min="1" id="rowsTop"  formControlName="rowTop" />
-                            </div>
-                        </div>
+                    <div class="col-sm-2 mr-2 form-group">
+                        <label for="rowsTop">  Rows top:  </label>                              
+                        <input type="number" class="form-control" (keypress)="keyPress($event)" step="1" min="0" id="rowsTop"  formControlName="rowTop" />
+                        <small *ngIf="rowTop.errors?.required" class="text-danger form-text">
+                            Number of rows required
+                        </small>
+                        <small *ngIf="rowTop.errors?.min" class="text-danger form-text">
+                            Number of rows have to be greater than 0
+                        </small>
+                        <small *ngIf="rowTop.errors?.pattern" class="text-danger form-text">
+                            Only positive whole numbers allowed
+                        </small>
                     </div>
-                    <div class="col-sm-6 form-group">
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <label for="rowsBottom">
-                                    Rows bottom:
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <input type="number" id="rowsBottom"  formControlName="rowBottom" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-sm-6 form-group">
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <label for="columnsLeft">
-                                    Columns left:
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm">
-                                <input type="number" id="columnsLeft"  formControlName="columnLeft" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 form-group">
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <label for="columnsRight">
-                                    Columns right:
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <input type="number" id="columnsRight"  formControlName="columnRight" />
-                            </div>
-                        </div>
+                    <div class="col-sm-2 form-group">
+                        <label for="rowsBottom">
+                            Rows bottom:
+                        </label>
+                        <input type="number" class="form-control" (keypress)="keyPress($event)" id="rowsBottom" step="1" min="0"  formControlName="rowBottom" />
+                        <small *ngIf="rowBottom.errors?.required" class="text-danger form-text">
+                            Number of rows required
+                        </small>
+                        <small *ngIf="rowBottom.errors?.min" class="text-danger form-text">
+                            Number of rows have to be greater than 0
+                        </small>
+                        <small *ngIf="rowBottom.errors?.pattern" class="text-danger form-text">
+                            Only positive whole numbers allowed
+                        </small>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-md">
+                    <div class="col-sm-2 mr-2 form-group">
+                        <label for="columnsLeft">
+                            Columns left:
+                        </label>
+                        <input type="number" class="form-control" (keypress)="keyPress($event)" id="columnsLeft" step="1" min="0"  formControlName="columnLeft" />
+                        <small *ngIf="columnLeft.errors?.required" class="text-danger form-text">
+                            Number of columns required
+                        </small>
+                        <small *ngIf="columnLeft.errors?.min" class="text-danger form-text">
+                            Number of columns have to be greater than 0
+                        </small>
+                        <small *ngIf="columnLeft.errors?.pattern" class="text-danger form-text">
+                            Only positive whole numbers allowed
+                        </small>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <label for="columnsRight">
+                            Columns right:
+                        </label>
+                        <input type="number" class="form-control" (keypress)="keyPress($event)" id="columnsRight" step="1" min="0"  formControlName="columnRight" />
+                        <small *ngIf="columnRight.errors?.required" class="text-danger form-text">
+                            Number of columns required
+                        </small>
+                        <small *ngIf="columnRight.errors?.min" class="text-danger form-text">
+                            Number of columns have to be greater than 0
+                        </small>
+                        <small *ngIf="columnRight.errors?.pattern" class="text-danger form-text">
+                            Only positive whole numbers allowed
+                        </small>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm">
                         <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
