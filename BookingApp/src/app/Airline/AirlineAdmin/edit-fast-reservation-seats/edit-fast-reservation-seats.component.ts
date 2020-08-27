@@ -7,6 +7,9 @@ import { SeatDisplayState } from 'src/app/Shared/Model/Airlines/SeatDisplayState
 import { Subscription } from 'rxjs';
 import { SetFastFlightSeatsService } from '../Services/SetFastFlightSeats/set-fast-flight-seats.service';
 import { FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
+import { BackgroundService } from 'src/app/Shared/Services/Background/background.service';
+import { Background } from 'src/app/Shared/Model/Common/Background.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-fast-reservation-seats',
@@ -28,7 +31,7 @@ export class EditFastReservationSeatsComponent implements OnInit, OnDestroy {
     return  isValid && this.selectedSeats.length > 0 ? null : {notOk : true};
   }
 
-  constructor(private router : Router,private route : ActivatedRoute,private service : SetFastFlightSeatsService,private builder : FormBuilder) { }
+  constructor(private router : Router,private route : ActivatedRoute,private service : SetFastFlightSeatsService,private toast : ToastrService,private builder : FormBuilder,private background : BackgroundService) { }
   ngOnDestroy(): void {
     if(this.sub){
       this.sub.unsubscribe();
@@ -36,8 +39,11 @@ export class EditFastReservationSeatsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.background.SetBackgroud(Background.FlightEdit);
+  });
     this.form = this.builder.group({
-      discountPercentage : [1,[Validators.required,Validators.min(1),Validators.max(100)]]
+      discountPercentage : [1,[Validators.required,Validators.min(1),Validators.max(100),Validators.pattern(/^([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/)]]
     })
     this.route.data.subscribe((data : {details : FlightDetails}) =>{
       this.details = data.details;
@@ -49,6 +55,7 @@ export class EditFastReservationSeatsComponent implements OnInit, OnDestroy {
     if(this.form.valid){
       this.sub = this.service.EditFastReservationSeats(+this.route.snapshot.params.id,+this.form.value.discountPercentage,this.selectedSeats.map(i => ({row : i.row, column : i.column}))[0]).subscribe(i =>{
         if(i){
+          this.toast.success('Seat successfully set as fast reservation seat')
           this.router.navigate(['']);
         }
       })

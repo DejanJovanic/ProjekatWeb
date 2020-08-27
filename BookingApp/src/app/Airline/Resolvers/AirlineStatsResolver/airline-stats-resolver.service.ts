@@ -10,8 +10,6 @@ export class AirlineStatsResolverService implements Resolve<any> {
 
   constructor(private network : AirlineAdminNetworkService,private data : AirlineDataService) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if(this.data.data.getValue() == null){
-      return this.data.GetData()
-    }
+    return this.data.GetData()
   }
 }

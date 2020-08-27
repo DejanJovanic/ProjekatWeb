@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EmptyStringField } from '../../AirlineShared/Validators/EmptyStringField.validator';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Name } from '../../AirlineShared/Validators/Name.validator';
 
 @Component({
   selector: 'app-edit-destinations-modal',
@@ -13,11 +15,11 @@ export class EditDestinationsModalComponent implements OnInit {
   destinations : string[]
 
   form : FormGroup
-  constructor(private builder : FormBuilder) { }
+  constructor(private builder : FormBuilder,private activeModal : NgbActiveModal) { }
 
   ngOnInit(): void {
     this.form = this.builder.group({
-      destination : ['',[Validators.required,Validators.pattern(/^[a-zA-Z- ]+?$/),EmptyStringField]]
+      destination : ['',[Validators.required,Name,EmptyStringField]]
     })
   }
 
@@ -30,5 +32,9 @@ export class EditDestinationsModalComponent implements OnInit {
       this.destinations.push(this.form.value.destination);
       this.form.get('destination').reset()
     }
+  }
+
+  Close(){
+    this.activeModal.close();
   }
 }

@@ -1,38 +1,49 @@
 <div class="modal-body">
     <div class="container">
-        <form  (submit)="AddDestination()">
-            <div class="form-row">
-                <div class="col-sm-5">
-                    <label for="selectedItem">
-                        Select new stop:
-                    </label>
-                </div>
-            </div>
-            <div class="form-row form-group">
-                <div class="col-sm-7">
-                    <select class="form-control" id="selectedItem" name="selectedItem" [(ngModel)]="selectedItem">
-                        <option *ngFor="let item of availablePlaces">{{item}}</option>
-                    </select>
-                </div>
-                <div class="col-sm-3">
-                    <button type="submit" class="btn btn-primary">Add</button>
-                </div>
-            </div>
-        </form>      
-        <div class="row" *ngFor="let item of selectedPlaces;let i = index">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-7">
-                                <p class="text-center">{{item}}</p>
+        <div class="row mb-3">
+            <div class="col">
+                <form  (submit)="AddDestination()">
+                    <div class="form-row">
+                        <div class="col-sm-7 form-group">
+                            <label for="selectedItem">
+                                Select new stop:
+                            </label>
+                            <div class="input-group">
+                                <select class="form-control" id="selectedItem" name="selectedItem" [(ngModel)]="selectedItem">
+                                    <option *ngFor="let item of availablePlaces">{{item}}</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-outline-primary">Add</button>
+                                </div>
                             </div>
-                            <div class="col-sm-4">
-                                <button (click)="RemoveItem(i)" class="btn btn-danger">Remove</button>
-                            </div>
+                           
                         </div>
                     </div>
-                </div>
+                </form>  
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Destination</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of selectedPlaces;let i = index">
+                            <td>
+                                {{i + 1}}
+                            </td>
+                            <td>{{item}}</td>
+                            <td>
+                                <button (click)="RemoveItem(i)" class="btn btn-danger">Remove</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

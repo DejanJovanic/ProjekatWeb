@@ -3,7 +3,8 @@ import { AirlineAdminNetworkService } from '../AirlineAdminNetwork/airline-admin
 import { AirlineCacheService } from 'src/app/Airline/AirlineShared/Services/AirlineCache/airline-cache.service';
 import { AirlineCompany } from 'src/app/Shared/Model/Airlines/AirlineCompany.model';
 import { Flight } from 'src/app/Shared/Model/Airlines/Flight.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class AirlineAdminDataService {
     this.data = new BehaviorSubject(null);
    }
 
-  public GetAirlineData(){
-    this.network.GetAirlineData().subscribe(i =>{
+  public GetAirlineData() : Observable<AirlineCompany>{
+    return this.network.GetAirlineData().pipe(tap(i =>{
       if(i){
         let flights = new Array<Flight>();
         for(let a of i.flights){
@@ -29,14 +30,14 @@ export class AirlineAdminDataService {
       else this.data.next(null);
       
       this.cache.airlines.next([i]);
-    })
+    }))
   }
 
-  public EditCompanyData(company : AirlineCompany){
-    this.network.EditAirlineCompany(company).subscribe(i =>{
+  public EditCompanyData(company : AirlineCompany) : Observable<AirlineCompany>{
+    return this.network.EditAirlineCompany(company).pipe(tap(i =>{
       if(i){
         this.cache.airlines.next([i]);
       }
-    })
+    }))
   }
 }

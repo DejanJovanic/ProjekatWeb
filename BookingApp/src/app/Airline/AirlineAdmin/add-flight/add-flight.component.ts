@@ -4,6 +4,9 @@ import { Flight } from 'src/app/Shared/Model/Airlines/Flight.model';
 import { AirlineAdminNetworkService } from '../Services/AirlineAdminNetwork/airline-admin-network.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { BackgroundService } from 'src/app/Shared/Services/Background/background.service';
+import { Background } from 'src/app/Shared/Model/Common/Background.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-flight',
@@ -15,7 +18,7 @@ export class AddFlightComponent implements OnInit, OnDestroy{
   sub : Subscription;
   isOk : boolean;
   
-  constructor(private network : AirlineAdminNetworkService,private router : Router) { }
+  constructor(private network : AirlineAdminNetworkService,private router : Router,private background : BackgroundService,private toast : ToastrService) { }
   ngOnDestroy(): void {
     if(this.sub){
       this.sub.unsubscribe();
@@ -24,6 +27,9 @@ export class AddFlightComponent implements OnInit, OnDestroy{
 
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.background.SetBackgroud(Background.AirlineAdminMain);
+  });
   }
 
   SetFlight($event : Flight){
@@ -32,6 +38,7 @@ export class AddFlightComponent implements OnInit, OnDestroy{
       error : _ => {},
       complete : () =>{
         if(this.isOk){
+          this.toast.success('Flight successfully added');
           this.router.navigate(['']);
         }
       }

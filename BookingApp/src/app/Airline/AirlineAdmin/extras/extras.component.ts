@@ -3,6 +3,8 @@ import { Extra } from 'src/app/Shared/Model/Airlines/Extra.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmptyStringField } from '../../AirlineShared/Validators/EmptyStringField.validator';
+import { Name } from '../../AirlineShared/Validators/Name.validator';
+import { DecimalNumber } from '../../AirlineShared/Validators/DecimalNumber.validator';
 
 @Component({
   selector: 'app-extras',
@@ -19,9 +21,9 @@ export class ExtrasComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.builder.group({
-      name : ['',[Validators.required,Validators.pattern(/^[a-zA-Z- ]+?$/),EmptyStringField]],
+      name : ['',[Validators.required,Name,EmptyStringField]],
       description : [''],
-      price : ['',[Validators.required,Validators.min(0)]]
+      price : ['',[Validators.required,Validators.min(0),DecimalNumber]]
     })
   }
 

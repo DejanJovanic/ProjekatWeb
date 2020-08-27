@@ -6,6 +6,8 @@ import { UserCacheService } from 'src/app/Users/Services/UserCache/user-cache.se
 import { AirlineAdmin } from 'src/app/Shared/Model/Common/AirlineAdmin.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddFlightComponent } from '../add-flight/add-flight.component';
+import { Background } from 'src/app/Shared/Model/Common/Background.model';
+import { BackgroundService } from 'src/app/Shared/Services/Background/background.service';
 
 @Component({
   selector: 'app-airline-admin-main',
@@ -14,12 +16,15 @@ import { AddFlightComponent } from '../add-flight/add-flight.component';
 })
 export class AirlineAdminMainComponent implements OnInit {
 
-  constructor(private service : AirlineAdminDataService,private cache : UserCacheService) { }
+  constructor(private service : AirlineAdminDataService,private background : BackgroundService) { }
   public filterSubject : Subject<FlightFilterParams> = new Subject<FlightFilterParams>();
   ngOnInit(): void {
+    setTimeout(() => {
+      this.background.SetBackgroud(Background.AirlineAdminMain);
+  });
     if(localStorage["Role"] == "AirlineAdmin"){
       if(localStorage["username"]){
-        this.service.GetAirlineData()
+        this.service.GetAirlineData().subscribe(_ => {})
       }
     }
   }

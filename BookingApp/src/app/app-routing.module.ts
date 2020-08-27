@@ -43,49 +43,52 @@ import { UserDetailsEditComponent } from './Users/user-details-edit/user-details
 import { ChangePasswordComponent } from './Users/change-password/change-password.component';
 import { AddSeatsComponent } from './Airline/AirlineAdmin/add-seats/add-seats.component';
 import { EnableSeatComponent } from './Airline/AirlineAdmin/enable-seat/enable-seat.component';
+import { UserDataResolverService } from './Shared/Resolvers/UserDataResolver/user-data-resolver.service';
+import { AirlineAdminDataResolverService } from './Airline/Resolvers/AirlineAdminDataResolver/airline-admin-data-resolver.service';
 
 
 const routes: Routes = [
-  {path:'',redirectTo: 'main', pathMatch : 'full'},
-  {path : 'main', component : MainComponent, children:[
-    {path : 'Airlines', component: AirlineMainComponent},
-    {path : 'Friends', component: FriendsMainComponent, resolve:{friends : FriensResolverService}},
-    {path : 'AirlineAdmin', component : AirlineAdminMainComponent},
-    {path : 'CompanyPreview', component: AirlineAdminCompanyPreviewComponent},
-    {path : 'Reservations', component: ReservationsMainComponent},
-    {path : 'Stats', component: AirlineDataComponent, resolve:{data : AirlineStatsResolverService},children:[
-      {path : 'AirlineRatings', component: AirlineRatingsComponent},
-      {path : 'AirlineTicketSale', component: AirlineTicketSaleComponent},
-      {path : 'AirlineEarnings', component: AirlineEarningsComponent}
-    ]}
-  ]},
-  {path : 'changePassword', component : ChangePasswordComponent},
-  {path : 'UserPreview', component : UserPreviewComponent},
-  {path : 'UserDetailsEdit', component : UserDetailsEditComponent},
-  {path : 'FastFlights/:airlineId', component : FastFlightHolderComponent},
-  {path : 'FastFlightConfirmation/:flightId/:fastFlightId', component : FastFlightConfirmationComponent,resolve:{details : SeatResolveService}},
-  {path : 'AddSeats/:id', component: AddSeatsComponent,resolve:{details : SeatResolveService}},
-  {path : 'ManageInvitation/:airlineId/:flightId/:ticketId', component : ReservationConfirmationComponent,resolve:{details : SeatResolveService}},
-  {path : 'RemoveSeat/:id', component: RemoveSeatComponent,resolve:{details : SeatResolveService}},
-  {path : 'DisableSeat/:id', component: DisableSeatComponent,resolve:{details : SeatResolveService}},
-  {path : 'EnableSeat/:id', component: EnableSeatComponent,resolve:{details : SeatResolveService}},
-  {path: 'AddFlight', component: AddFlightComponent},
-  {path:'seats/:id', component: SeatReservationComponent, resolve:{details : SeatResolveService}},
-  {path:'seatAssignment/:id', component: SeatAssignmentComponent, resolve:{reservation : ReservationResolverService,friends : FriensResolverService}},
-  {path: 'flightReservationConfirm/:id', component: FlightReservationConfirmationComponent, resolve:{reservation : ReservationResolverService,friends : FriensResolverService,flights : FlightResolverService}},
-  {path: 'Login', component: LoginComponent},
-  {path: 'Register', component: RegisterComponent},
-  {path: 'RentACarEnterprises', component: RentACarEnterprisesComponent},
-  {path: 'EnterpriseProfile/:id', component: RentACarEnterpriseProfileComponent},
-  {path: 'EnterpriseCars/:id', component: RentACarEnterpriseAllCarsComponent},
-  {path: 'EnterpriseSpecialOffers/:id', component: RentACarEnterpriseSpecialServiceComponent},
-  {path: 'EnterpriseLocation/:id', component: RentACarEnterpriseLocationOnMapComponent},
-  {path: 'EnterpriseBranches/:id', component: RentACarBranchesComponent},
-  {path: 'EnterpriseRentACar/:id', component: RentACarReservationComponent},
-  {path: 'EnterpriseDiscounts/:id', component: RentACarDiscountsComponent},
-  {path: 'RentACarEnterpriseAdmin', component: RentACarAdminEnterpriseComponent},
-  {path: 'CompanyEdit', component: CompanyEditComponent},
-  {path: 'EditFastReservationSeats/:id', component: EditFastReservationSeatsComponent, resolve:{details : SeatResolveService}}
+  {path:'', redirectTo: 'main', pathMatch : 'full'},
+    {path : 'main', component : MainComponent, children:[
+      {path : 'Airlines', component: AirlineMainComponent},
+      {path : 'Friends', component: FriendsMainComponent, resolve:{friends : FriensResolverService}},
+      {path : 'AirlineAdmin', component : AirlineAdminMainComponent,resolve:{data : AirlineAdminDataResolverService}},
+      {path : 'CompanyPreview', component: AirlineAdminCompanyPreviewComponent},
+      {path : 'Reservations', component: ReservationsMainComponent},
+      {path : 'Stats', component: AirlineDataComponent, resolve:{data : AirlineStatsResolverService},children:[
+        {path : 'AirlineRatings', component: AirlineRatingsComponent},
+        {path : 'AirlineTicketSale', component: AirlineTicketSaleComponent},
+        {path : 'AirlineEarnings', component: AirlineEarningsComponent}
+      ]}
+    ]},
+    {path : 'changePassword', component : ChangePasswordComponent},
+    {path : 'UserPreview', component : UserPreviewComponent},
+    {path : 'UserDetailsEdit', component : UserDetailsEditComponent},
+    {path : 'FastFlights/:airlineId', component : FastFlightHolderComponent},
+    {path : 'FastFlightConfirmation/:flightId/:fastFlightId', component : FastFlightConfirmationComponent,resolve:{details : SeatResolveService}},
+    {path : 'AddSeats/:id', component: AddSeatsComponent,resolve:{details : SeatResolveService}},
+    {path : 'ManageInvitation/:airlineId/:flightId/:ticketId', component : ReservationConfirmationComponent,resolve:{details : SeatResolveService}},
+    {path : 'RemoveSeat/:id', component: RemoveSeatComponent,resolve:{details : SeatResolveService}},
+    {path : 'DisableSeat/:id', component: DisableSeatComponent,resolve:{details : SeatResolveService}},
+    {path : 'EnableSeat/:id', component: EnableSeatComponent,resolve:{details : SeatResolveService}},
+    {path: 'AddFlight', component: AddFlightComponent},
+    {path:'seats/:id', component: SeatReservationComponent, resolve:{details : SeatResolveService}},
+    {path:'seatAssignment/:id', component: SeatAssignmentComponent, resolve:{reservation : ReservationResolverService,friends : FriensResolverService}},
+    {path: 'flightReservationConfirm/:id', component: FlightReservationConfirmationComponent, resolve:{reservation : ReservationResolverService,friends : FriensResolverService,flights : FlightResolverService}},
+    {path: 'Login', component: LoginComponent},
+    {path: 'Register', component: RegisterComponent},
+    {path: 'RentACarEnterprises', component: RentACarEnterprisesComponent},
+    {path: 'EnterpriseProfile/:id', component: RentACarEnterpriseProfileComponent},
+    {path: 'EnterpriseCars/:id', component: RentACarEnterpriseAllCarsComponent},
+    {path: 'EnterpriseSpecialOffers/:id', component: RentACarEnterpriseSpecialServiceComponent},
+    {path: 'EnterpriseLocation/:id', component: RentACarEnterpriseLocationOnMapComponent},
+    {path: 'EnterpriseBranches/:id', component: RentACarBranchesComponent},
+    {path: 'EnterpriseRentACar/:id', component: RentACarReservationComponent},
+    {path: 'EnterpriseDiscounts/:id', component: RentACarDiscountsComponent},
+    {path: 'RentACarEnterpriseAdmin', component: RentACarAdminEnterpriseComponent},
+    {path: 'CompanyEdit', component: CompanyEditComponent},
+    {path: 'EditFastReservationSeats/:id', component: EditFastReservationSeatsComponent, resolve:{details : SeatResolveService}}
+
 ];
 
 @NgModule({

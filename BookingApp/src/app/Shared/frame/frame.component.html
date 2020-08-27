@@ -1,2 +1,4 @@
-<router-outlet></router-outlet>
-<ngx-spinner></ngx-spinner>
+<div class="bg" [ngStyle]="{'background' : 'url(../../../../assets/' + background.BackgroundName + ') no-repeat center center fixed'}">
+    <router-outlet></router-outlet>
+    <ngx-spinner></ngx-spinner>
+</div>

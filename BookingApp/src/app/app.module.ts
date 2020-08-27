@@ -99,6 +99,11 @@ import { RentACarDeleteCarModalComponent } from './RentACar/RentACarAdmin/rent-a
 import { RentACarDeleteBranchModalComponent } from './RentACar/RentACarAdmin/rent-acar-delete-branch-modal/rent-acar-delete-branch-modal.component';
 import { RentACarDeleteSOModalComponent } from './RentACar/RentACarAdmin/rent-acar-delete-somodal/rent-acar-delete-somodal.component';
 import { RentACarSetDiscountModalComponent } from './RentACar/RentACarAdmin/rent-acar-set-discount-modal/rent-acar-set-discount-modal.component';
+import { ValidationDirective } from './Shared/Directives/ValidationDirective/validation.directive';
+import { FormSubmitDirective } from './Shared/Directives/FormSubmitDirective/form-submit.directive';
+import { ControlErrorComponent } from './Shared/control-error/control-error.component';
+import { ControlErrorContainerDirective } from './Shared/Directives/ControlErrorContainerDirective/control-error-container.directive';
+import { WholeNumberDirective } from './Shared/Directives/WholeNumberDirective/whole-number.directive';
 
 
 @NgModule({
@@ -189,7 +194,12 @@ import { RentACarSetDiscountModalComponent } from './RentACar/RentACarAdmin/rent
     RentACarDeleteCarModalComponent,
     RentACarDeleteBranchModalComponent,
     RentACarDeleteSOModalComponent,
-    RentACarSetDiscountModalComponent
+    RentACarSetDiscountModalComponent,
+    ValidationDirective,
+    FormSubmitDirective,
+    ControlErrorComponent,
+    ControlErrorContainerDirective,
+    WholeNumberDirective
   ],
   imports: [
     

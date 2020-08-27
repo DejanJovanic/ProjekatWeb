@@ -1,237 +1,170 @@
-<div class="container">
-    <form (submit)="Submit()" [formGroup]="flightForm" novalidate>
-        <div class="form-row">
-            <div class="col-sm-6 form-group">
-                <div class="row">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <form (submit)="Submit()" [formGroup]="flightForm" validatableForm>
+                <div class="form-row">
+                    <div class="col-sm-5 form-group">       
+                            <label for="startLocation">
+                                Start:
+                            </label>
+            
+                            <select id="startLocation" class="form-control" formControlName="startLocation">
+                                <option *ngFor="let item of destinations1" [ngValue] = "item">{{item}}</option>
+                            </select>    
+                    </div>
+                    <div class="col-sm-5 form-group">
+                            <label for="finishLocation">
+                                Stop:
+                            </label>
+        
+                            <select id="finishLocation" class="form-control"  formControlName="finishLocation">
+                                <option *ngFor="let item of destinations2" [ngValue] = "item">{{item}}</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="form-row" *ngIf="flightForm.errors?.startEndLocation">
+                    <div class="row">
+                        <div class="col">
+                            <p class="form-text text-danger">
+                                Start and stop location cannot be the same
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
                     <div class="col-sm-5">
-                        <label for="startLocation">
-                            Start:
-                        </label>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <select id="startLocation" class="form-control" formControlName="startLocation">
-                            <option *ngFor="let item of destinations1" [ngValue] = "item">{{item}}</option>
-                        </select>
-                    </div>
-              
-                </div>
-            </div>
-            <div class="col-sm-6 form-group">
-                <div class="row">
-                    <div class="col-sm-5">
-                        <label for="finishLocation">
-                            Stop:
-                        </label>
+                        <div class="form-check">
+                            <input id="isRoundTrip" class="form-check-input" type="checkbox" formControlName="isRoundTrip"/>
+                            <label for="isRoundTrip" class="form-check-label"> Round trip </label> 
+                        </div>   
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <select id="finishLocation" class="form-control"  formControlName="finishLocation">
-                            <option *ngFor="let item of destinations2" [ngValue] = "item">{{item}}</option>
-                        </select>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="col-sm-5">
-                <div class="form-check">
-                    <input id="isRoundTrip" class="form-check-input" type="checkbox" formControlName="isRoundTrip"/>
-                    <label for="isRoundTrip" class="form-check-label"> Round trip </label> 
-                </div>   
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="col-sm-6 form-group">
-                <div class="row">
-                    <div class="col-sm-5">
+        
+                <div class="form-row">
+                    <div class="col-sm-5 form-group">
                         <label for="startDate">
                             Start date and time:
-                        </label> 
+                        </label>
+                        <input formValidation type="datetime-local" id="startDate"  formControlName="startDateTime" />         
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <input type="datetime-local" id="startDate"  formControlName="startDateTime" />
-                    </div>  
-                </div>          
-            </div>
-            <div class="col-sm-6 form-group">
-                <div class="row">
-                    <div class="col-sm-5">
+                    <div class="col-sm-5 form-group">
                         <label for="finishDate">
                             Finish date and time:
+                        </label> 
+                        <input formValidation type="datetime-local" id="finishDate"  formControlName="finishDateTime" />
+                    </div>
+                </div>
+                <div class="form-row" *ngIf="flightForm.errors?.startEndDate">
+                    <div class="row">
+                        <div class="col">
+                            <p class="form-text text-danger">
+                                Start date/time has to be earlier than end date/time
+                            </p>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="form-row" *ngIf="isRoundTrip">
+                    <div class="col-sm-5 form-group">
+                        <label for="startDateBack">
+                            Start date and time back:
+                        </label> 
+                        <input formValidation type="datetime-local" id="startDateBack"  formControlName="startDateTimeBack" />         
+                    </div>
+                    <div class="col-sm-5 form-group">
+                        <label for="finishDateBack">
+                            Finish date and time back:
                         </label>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <input type="datetime-local" id="finishDate"  formControlName="finishDateTime" />
+                        <input formValidation type="datetime-local" id="finishDateBack"  formControlName="finishDateTimeBack" />
+        
                     </div>
                 </div>
-            </div>
-        </div>
-
-       <div class="form-row" *ngIf="isRoundTrip">
-        <div class="col-sm-6 form-group">
-            <div class="row">
-                <div class="col-sm-5">
-                    <label for="startDateBack">
-                        Start date and time back:
-                    </label> 
+                <div class="form-row" *ngIf="flightForm.errors?.startEndDateBack">
+                    <div class="row">
+                        <div class="col">
+                            <p class="form-text text-danger">
+                                Start date/time has to be earlier than end date/time
+                            </p>
+                        </div>
+                    </div>
                 </div>
-
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <input type="datetime-local" id="startDateBack"  formControlName="startDateTimeBack" />
-                </div>  
-            </div>          
-        </div>
-        <div class="col-sm-6 form-group">
-            <div class="row">
-                <div class="col-sm-5">
-                    <label for="finishDateBack">
-                        Finish date and time back:
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <input type="datetime-local" id="finishDateBack"  formControlName="finishDateTimeBack" />
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-row">
-        <div class="col-sm-6 form-group">
-            <div class="row">
-                <div class="col-sm-5">
+        
+            <div class="form-row">
+                <div class="col-sm-5 form-group">
                     <label for="travelDistance">
                         Travel distance(km):
                     </label>
+                    <input  formValidation type="number" id="travelDistance" class="form-control" formControlName="travelDistance"/>
+                </div>
+                <div class="col-sm-5 form-group">
+        
+                            <label for="price">
+                                Price:
+                            </label>
+                            <input formValidation type="number" id="price" class="form-control"  formControlName="price"/>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <input type="text" id="travelDistance" class="form-control" formControlName="travelDistance"/>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 form-group">
-            <div class="row">
-                <div class="col-sm-5">
-                    <label for="price">
-                        Price:
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <input type="text" id="price" class="form-control"  formControlName="price"/>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-row">
-        <div class="col-sm-6 form-group">
-            <div class="row">
-                <div class="col-sm-5">
+        
+            <div class="form-row">
+                <div class="col-sm-5 form-group">
                     <label for="class">
                         Flight class:
                     </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
+
                     <select id="class" class="form-control" formControlName="class">
                         <option [ngValue]="item" *ngFor="let item of classes">
                             {{item}}
                         </option>
                     </select>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col-sm-6 form-group">
-            <div class="row">
-                <div class="col-sm-5">
-                    <label for="rows">
-                        Rows:
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <input type="text" id="rows" class="form-control" formControlName="rows"/>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 form-group">
-            <div class="row">
-                <div class="col-sm-5">
-                    <label for="cols">
-                        Columns:
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <input type="text" id="cols" class="form-control"  formControlName="cols"/>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="form-row">
-        <div class="col-sm-6 form-group">
-            <div class="row">
-                <div class="col-sm-5">
+                <div class="col-sm-5 form-group">     
                     <label for="cols">
                         Max load in cabin(kg):
                     </label>
+                    <input formValidation type="number" id="cols" class="form-control"  formControlName="loadInCabin"/>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <input type="text" id="cols" class="form-control"  formControlName="loadInCabin"/>
+            <div class="form-row">
+                <div class="col-sm-5 form-group">
+                    <label for="rows">
+                        Rows:
+                    </label>
+                    <input formValidation wholeNumber type="number" id="rows" class="form-control" formControlName="rows"/>
+                </div>
+                <div class="col-sm-5 form-group">
+                    <label for="cols">
+                        Columns:
+                    </label>
+        
+                    <input formValidation wholeNumber type="number" id="cols" class="form-control"  formControlName="cols"/>
                 </div>
             </div>
+            <br>
+            <div class="form-row">
+     
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <p class="form-text text-danger" *ngIf="loadWeights.length == 0">
+                        Atleast one weight option has to be set
+                    </p>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col d-inline-flex flex-row">
+                    <button class="btn btn-info mr-1"  type="button" (click)="SetStops()">Set Stops</button>
+                    <button class="btn btn-info mr-1" type="button" (click)="SetLoad()">Set Load weigth groups</button>
+                    <button class="btn btn-info" type="button" (click)="SetExtras()">Set Optional extras</button>
+                </div>
+            </div>
+            <div class="row mb-3 mt-2">
+                <div class="col d-inline-flex flex-row">
+                    <button type="submit" [disabled]="flightForm.invalid || loadWeights.length == 0"  class="btn btn-primary mr-1">Submit</button>
+                    <a [routerLink]="['/main/AirlineAdmin']" class="btn btn-danger" routerLinkActive="router-link-active" >Cancel</a>
+                </div>
+            </div>
+            </form>
         </div>
     </div>
-    <br>
-    <div class="form-row">
-        <div class="col-sm-4">
-            <button class="btn btn-primary" type="button" (click)="SetStops()">Set Stops</button>
-        </div>
-    </div>
-    <br>
-     <div class="form-row">
-        <div class="col-sm-4">
-            <button class="btn btn-primary" type="button" (click)="SetLoad()">Set Load weigth groups</button>
-        </div>
-    </div>
-    <br>
-    <div class="form-row">
-        <div class="col-sm-4">
-            <button class="btn btn-primary" type="button" (click)="SetExtras()">Set Optional extras</button>
-        </div>
-    </div>
-    <br>
-    <div class="form-row">
-        <div class="col-sm-3">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </div>
-    </form>
+   
 </div>

@@ -1,14 +1,11 @@
-<div class="container">
-    <div class="row">
-        <br>
-        <div class="col-sm-12">
-            <app-airline-details [item]="company"></app-airline-details>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-sm-4">
-            <button class="btn btn-primary"  [routerLink]="['/CompanyEdit']" routerLinkActive="router-link-active" >Edit details</button>
+<div class="container" style="background : transparent !important">
+    <div class="card bg-white text-dark rounded">
+        <div class="card-body d-inline-flex ">
+            <div class="flex-column">
+                <app-airline-details [item]="company"></app-airline-details>
+                <a class="btn btn-primary mt-2"  [routerLink]="['/CompanyEdit']" routerLinkActive="router-link-active" >Edit details</a>
+            </div>
+            
         </div>
     </div>
 </div>

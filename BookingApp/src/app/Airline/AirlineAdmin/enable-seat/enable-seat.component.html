@@ -1,13 +1,31 @@
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <app-seats [selectedSeats]="selectedSeats" [state]="SeatDisplayState.Enable" [seatsInput]="seats"></app-seats>
-        </div>
-    </div>
-   
-    <div class="row">
-        <div class="col-sm-3">
-            <button type="button" [disabled]="selectedSeats.length == 0" (click)="OnClick()" class="btn btn-primary">Enable seat</button>
-        </div>
+<div class="container-fluid" style="background : transparent !important">
+    <div class="d-flex justify-content-center">
+            <div class="card shadow-lg rounded  pb-1">
+                <div class="card-body bg-white text-dark ">
+                        <div class="row mt-4">
+                         <div class="col">
+                             <h2>Enable seat</h2>
+                             <hr>
+                             <h3 class="text-muted">Select a seat</h3>
+                         </div>
+                     </div>
+                     <div class="row mt-3 mb-4 ">
+                         <div class="col">         
+                             <app-seats [selectedSeats]="selectedSeats" [state]="SeatDisplayState.Enable" [seatsInput]="seats"></app-seats>
+                         </div>
+                         <div class="col">
+                            <small *ngIf="selectedSeats.length == 0" class="text-danger form-text">
+                                Seat has to be selected
+                            </small>
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="col d-flex flex-row">
+                            <button type="button" [disabled]="selectedSeats.length == 0" (click)="OnClick()" class="btn btn-success mr-3">Enable seat</button>
+                            <button type="button"  class="btn btn-danger" [routerLink]="['/main/Airlines']" routerLinkActive="router-link-active">Cancel</button>
+                         </div>
+                     </div>
+                </div>
+            </div>
     </div>
 </div>

@@ -1,24 +1,27 @@
-<div class="row">
-    <div class="col-md-2">
-        <div class="row">
-            <div class="col-md-12">
-                <a  [routerLink]="['/main/Stats/AirlineRatings']" routerLinkActive="router-link-active">Ratings</a>
+<div class="contanter-fluid" style="background : transparent !important">
+    <div class="card h-100 rounded">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <h2>
+                        Company analysis
+                    </h2>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1 d-flex">
+                    <nav class="nav flex-column">
+                        <a class="nav-link" [routerLink]="['/main/Stats/AirlineRatings']" routerLinkActive="router-link-active">Ratings</a>
+                        <a class="nav-link" [routerLink]="['/main/Stats/AirlineTicketSale']" routerLinkActive="router-link-active">Ticket Sale</a>
+                        <a class="nav-link" [routerLink]="['/main/Stats/AirlineEarnings']" routerLinkActive="router-link-active">Earnings</a> 
+                    </nav>
+                </div>
+                <div class="col-md-11">
+                    <router-outlet></router-outlet>
+                </div>
             </div>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-md-12">
-                <a  [routerLink]="['/main/Stats/AirlineTicketSale']" routerLinkActive="router-link-active">Ticket Sale</a>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-12">
-                <a  [routerLink]="['/main/Stats/AirlineEarnings']" routerLinkActive="router-link-active">Earnings</a> 
-            </div>
-        </div>
-    </div>
-    <div class="col-md-10">
-        <router-outlet></router-outlet>
     </div>
 </div>
+

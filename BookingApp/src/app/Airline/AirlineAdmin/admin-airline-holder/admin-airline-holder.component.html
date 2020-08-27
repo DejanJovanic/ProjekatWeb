@@ -1,4 +1,4 @@
-<div class="container">  
+<div class="container" style="background : transparent !important">  
     <div class="card-deck" *ngIf="(flights | async) != null; else noDisplay" >
         <ng-container *ngFor="let item of flights | async">
             <app-flight-panel  [flight]=item></app-flight-panel>
@@ -9,7 +9,7 @@
         <div class="row" class="text-center text-justify">
             <div class="col-lg" >
                 <h3>
-                    <small>
+                    <small class="text-muted text-white">
                         No flights found, try adding new flight.
                     </small>
                 </h3>

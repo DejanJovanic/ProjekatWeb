@@ -1,0 +1,10 @@
+.bg{
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    
+}

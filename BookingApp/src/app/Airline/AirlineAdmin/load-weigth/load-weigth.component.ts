@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EmptyStringField } from '../../AirlineShared/Validators/EmptyStringField.validator';
 import { LoadWeigth } from 'src/app/Shared/Model/Airlines/LoadWeigth.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { DecimalNumber } from '../../AirlineShared/Validators/DecimalNumber.validator';
 
 @Component({
   selector: 'app-load-weigth',
@@ -19,9 +20,9 @@ export class LoadWeigthComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.builder.group({
-      from : ['',[Validators.required,Validators.min(0)]],
-      to : ['',[Validators.required,Validators.min(0)]],
-      price : ['',[Validators.required,Validators.min(0)]]
+      from : ['',[Validators.required,Validators.min(0),DecimalNumber]],
+      to : ['',[Validators.required,Validators.min(0),DecimalNumber]],
+      price : ['',[Validators.required,Validators.min(0),DecimalNumber]]
     })
   }
 

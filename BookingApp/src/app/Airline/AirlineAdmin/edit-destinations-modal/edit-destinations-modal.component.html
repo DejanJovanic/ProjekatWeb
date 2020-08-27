@@ -1,32 +1,59 @@
 <div class="modal-body">
     <div class="container">
-        <form (submit)="OnSubmit()" [formGroup]="form">
-                <label>
-                    Enter new destination:
-                </label>
-                <div class="row">
-                    <input type="text" class="col-sm-7 form-control" formControlName="destination"/>
-                    <div class="col-sm-2">
-                        <button class="btn btn-primary" type="submit">
-                            Add
-                        </button>
-                    </div>
-                </div> 
-        </form>
-        <br>      
-        <div class="row" *ngFor="let item of destinations">
-            <br>
-            <div class="col-sm-12 card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <p>{{item}}</p>    
+        <div class="row">
+            <div class="col">
+                <form (submit)="OnSubmit()" [formGroup]="form" validatableForm>
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label for="destination">
+                                Enter new destination:
+                            </label>
+                            <div class="input-group">
+                                <input formValidation type="text" id="destination" class="form-control" formControlName="destination"/>
+                                <div class="input-group-append">
+                                    <button [disabled]="form.invalid" class="btn btn-outline-info" type="submit">Add</button>  
+                                </div>
+                            </div>        
                         </div>
-                        <div class="col-sm-3">
-                            <button type="button" class="btn btn-danger" (click)="RemoveDestination(item)">Remove</button>
-                        </div>
-                    </div>                                  
-                </div>
+                    </div>            
+                </form>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Destination
+                            </th>
+                            <th>
+                                &nbsp;
+                            </th>
+                        </tr>
+                    </thead>
+                   <tbody>
+                        <tr *ngFor="let item of destinations; let i = index">
+                            <th>
+                                {{i + 1}}
+                            </th>
+                            <td>
+                                <p>{{item}}</p>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" (click)="RemoveDestination(item)">Remove</button>
+                            </td>
+                        </tr>
+                   </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <button type="button" class="btn btn-outline-danger" (click)="Close()">Exit</button>
             </div>
         </div>
     </div>

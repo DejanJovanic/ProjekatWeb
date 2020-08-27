@@ -11,6 +11,7 @@ import { LoadWeigth } from 'src/app/Shared/Model/Airlines/LoadWeigth.model';
 import { Extra } from 'src/app/Shared/Model/Airlines/Extra.model';
 import { LoadWeigthComponent } from '../load-weigth/load-weigth.component';
 import { ExtrasComponent } from '../extras/extras.component';
+import { DecimalNumber } from '../../AirlineShared/Validators/DecimalNumber.validator';
 
 @Component({
   selector: 'app-flight-form',
@@ -32,6 +33,17 @@ export class FlightFormComponent implements OnInit {
   let temp1 = new Date(start).getTime()
   let temp2 = new Date(end).getTime() 
   return temp1 < temp2 ? null : {startEndDate : true};
+}
+private startFinishDatesBackValidator : ValidatorFn = (fg: FormGroup) => {
+  if(this.isRoundTrip){
+    const start = fg.get('startDateTimeBack').value;
+    const end = fg.get('finishDateTimeBack').value;
+  
+    let temp1 = new Date(start).getTime()
+    let temp2 = new Date(end).getTime() 
+    return temp1 < temp2 ? null : {startEndDateBack : true};
+  }
+  return null;
 }
   @Input()
   flight : Flight
@@ -65,13 +77,13 @@ export class FlightFormComponent implements OnInit {
       finishDateTime : [this.flight ? this.flight.endDate : '',Validators.required],
       startDateTimeBack : [ this.flight ? this.flight.startDate : '',Validators.required],
       finishDateTimeBack : [this.flight ? this.flight.endDate : '',Validators.required],
-      price : [this.flight ? this.flight.price : '',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
-      travelDistance : [this.flight ? this.flight.travelDistance : '',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
+      price : [this.flight ? this.flight.price : '0',[Validators.required,Validators.min(0)]],
+      travelDistance : [this.flight ? this.flight.travelDistance : '0',[Validators.required,Validators.min(0)]],
       class : [this.flight ? FlightClass[this.flight.flightClass] : this.classes[0]],
-      rows : ['',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
-      cols : ['',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
-      loadInCabin : ['',[Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/),Validators.required]],
-    }, {validators : [this.startFinishLocationsValidator,this.startFinishDatesValidator]})
+      rows : ['0',[Validators.required,Validators.min(0)]],
+      cols : ['0',[Validators.required,Validators.min(0)]],
+      loadInCabin : ['0',[Validators.required,Validators.min(0)]],
+    }, {validators : [this.startFinishLocationsValidator,this.startFinishDatesValidator,this.startFinishDatesBackValidator]})
 
     this.flightForm.get('isRoundTrip').valueChanges.subscribe(i =>{
       this.isRoundTrip = i;
@@ -96,7 +108,7 @@ export class FlightFormComponent implements OnInit {
   }
 
   SetLoad(){
-    let ref = this.modalService.open(LoadWeigthComponent)
+    let ref = this.modalService.open(LoadWeigthComponent,{size:'lg'})
     ref.componentInstance.loadOptions = this.loadWeights;
   }
 

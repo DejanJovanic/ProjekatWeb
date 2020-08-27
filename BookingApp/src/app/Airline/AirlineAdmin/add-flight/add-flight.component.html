@@ -1,7 +1,20 @@
-<div class="container">
+<div class="container bg-white text-dark">
     <div class="row">
-        <div class="col-sm-12">
-            <app-flight-form (flightEvent)="SetFlight($event)"></app-flight-form>
+        <div class="col">
+            <h2>
+                Add flight
+            </h2>
+            <hr>
+
+        </div>
+    </div>
+    <div class="row mt-2 mb-3">
+        <div class="col-md-12 h-100">
+
+
+                    <app-flight-form (flightEvent)="SetFlight($event)"></app-flight-form>
+
+
         </div>
     </div>
 </div>
