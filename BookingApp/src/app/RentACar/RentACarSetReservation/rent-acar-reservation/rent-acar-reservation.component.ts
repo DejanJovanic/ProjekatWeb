@@ -7,6 +7,7 @@ import { RentACarDetailsModalComponent } from '../../RentACarCarDetailsModal/ren
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Car } from 'src/app/Shared/Model/RentACars/Car.model';
 import { DatePipe } from '@angular/common'
+import { ValidationService } from '../../Services/ValidationService/validation.service';
 @Component({
   selector: 'app-rent-acar-reservation',
   templateUrl: './rent-acar-reservation.component.html',
@@ -29,7 +30,7 @@ export class RentACarReservationComponent implements OnInit {
   numberOfDays: number;
   searchedCars: Car[] = [];
  
-  constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal, public datepipe: DatePipe) { 
+  constructor(private service: ValidationService, private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal, public datepipe: DatePipe) { 
     const current = new Date();
     this.minDate = {
     year: current.getFullYear(),
@@ -65,14 +66,14 @@ export class RentACarReservationComponent implements OnInit {
     let carPriceTo = "";*/
     
     this.searchCarsForm = new FormGroup({
-      carPlacePickUp: new FormControl('', [Validators.required, this.lettersValidator]),
-      carPlaceReturn: new FormControl('', [Validators.required, this.lettersValidator]),
-      dateFrom: new FormControl('', Validators.required),
-      dateTo: new FormControl('', Validators.required),
+      carPlacePickUp: new FormControl('', [Validators.required, this.service.lettersValidator]),
+      carPlaceReturn: new FormControl('', [Validators.required, this.service.lettersValidator]),
+      dateFrom: new FormControl('', [Validators.required, this.service.firstDateValidator]),
+      dateTo: new FormControl('', [Validators.required, this.service.secondDateValidator]),
       carType: new FormControl('', Validators.required),
       carNumberOfPassengers: new FormControl('', Validators.required),
-      carPriceFrom: new FormControl('', this.numbersValidator),
-      carPriceTo: new FormControl('', this.numbersValidator)
+      carPriceFrom: new FormControl('', this.service.numbersValidator),
+      carPriceTo: new FormControl('', this.service.numbersValidator)
     });
   }
   searchCars(){ 
@@ -184,31 +185,7 @@ export class RentACarReservationComponent implements OnInit {
     modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId);
   }
   
-  lettersValidator(control: AbstractControl){
-    if(control && control.value !== null || control.value !== undefined){
-      const regex = new RegExp('^[a-zA-Z]+(([a-zA-Z ])?[a-zA-Z]*)*$');
-
-      if(!regex.test(control.value)){
-        return{
-          isError: true
-        };
-      }
-    }
-    return null;
-  }
-
-  numbersValidator(control: AbstractControl){
-    if(control && control.value !== null || control.value !== undefined){
-      const regex = new RegExp('^[0-9]*$');
-
-      if(!regex.test(control.value)){
-        return{
-          isError: true
-        };
-      }
-    }
-    return null;
-  }
+  
 
  
 }

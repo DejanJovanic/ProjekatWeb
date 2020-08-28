@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/fo
 import { Params, ActivatedRoute } from '@angular/router';
 import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
 import { SpecialOffer } from 'src/app/Shared/Model/RentACars/SpecialOffer.model';
+import { ValidationService } from '../../Services/ValidationService/validation.service';
 
 @Component({
   selector: 'app-rent-acar-add-special-offer-modal',
@@ -19,7 +20,7 @@ export class RentACarAddSpecialOfferModalComponent implements OnInit {
   obj: SpecialOffer;
    @Input()
   item : RentACarEnterprise
-  constructor(public activeModal : NgbActiveModal, private EnterpriseService: RentACarEnterpriseServiceService) { }
+  constructor(private service: ValidationService, public activeModal : NgbActiveModal, private EnterpriseService: RentACarEnterpriseServiceService) { }
 
   ngOnInit(): void {
    
@@ -30,7 +31,7 @@ export class RentACarAddSpecialOfferModalComponent implements OnInit {
    
     this.addEnterpriseSpecialOffer = new FormGroup({
       specialOfferName: new FormControl('', Validators.required),
-      specialOfferPrice: new FormControl('', [Validators.required, this.numbersValidator])
+      specialOfferPrice: new FormControl('', [Validators.required, this.service.numbersValidator])
     });
   }
 
@@ -46,17 +47,6 @@ export class RentACarAddSpecialOfferModalComponent implements OnInit {
     this.alert= false;
   }
 
-  numbersValidator(control: AbstractControl){
-    if(control && control.value !== null || control.value !== undefined){
-      const regex = new RegExp('^[0-9]*$');
-
-      if(!regex.test(control.value)){
-        return{
-          isError: true
-        };
-      }
-    }
-    return null;
-  }
+  
 
 }

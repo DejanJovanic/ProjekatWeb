@@ -57,68 +57,33 @@ export class RentACarEnterpriseServiceService {
   private SpecialOffers: SpecialOffer[] = [
    new SpecialOffer( 
     0, 
-    "GPS",
-    8,
-    "With this special service you can safely visit any desired location."),
+    "Bronze package",
+    5,
+    "Rent a car for a minimum of 2 days and get a 5% discount on the total price of the reservation."),
 
     new SpecialOffer( 
     1,
-    "Fuel Tank",
+    "Silver package",
     10,
-    "With this special service you can safely drive for miles and miles without thinking about refueling."),
+    "Rent a car for a minimum of 4 days and get a 10% discount on the total price of the reservation."),
 
     new SpecialOffer( 
     2,
-    "Child seat",
-    4,
-    "With this special service you do not have to worry about the safety of children. For us, the safety of your children comes first."),
+    "Gold package",
+    15,
+    "Rent a car for a minimum of 7 days and get a 15% discount on the total price of the reservation."),
     
     new SpecialOffer(
       3,
-      "Winter tires",
-      5,
-      "With this special service, you don't have to worry about snowfall."),
+      "Platinum package",
+      25,
+      "Rent a car for a minimum of 10 days and get a 25% discount on the total price of the reservation."),
 
     new SpecialOffer(
       4,
-      "Summer tires",
-      5,
-      "With this special service you do not have to worry about bad weather."),
-
-    new SpecialOffer(
-      5,
-      "Deep wash",
-      2,
-      "With this special service you don't have to worry about car cleanliness."),
-
-    new SpecialOffer(
-      6,
-      "Polishing wheels",
-      3,
-      "With this special service you get a high gloss for the wheels."),
-    new SpecialOffer( 
-    7,
-    "Travel insurance",
-    10,
-    "With this special service you can drive calmly and carefree. In case of accident and injury, our agency covers all costs."),
-
-    new SpecialOffer( 
-      8,
-      "Car insurance",
-      10,
-      "With this special service, you don't have to worry about car accidents. In case of bad weather or car damage, our agency covers all costs."),
-
-    new SpecialOffer( 
-    9,  
-    "Aluminium wheels",
-    15,
-    "With this special service you get the best wheels. The wheels are resistant to all damage."),
-
-    new SpecialOffer( 
-    10,
-    "Tinted glass",
-    20,
-    "With this special service you can enjoy driving like a real 'boss'.")
+      "Diamond package",
+      35,
+      "Rent a car for a minimum of 15 days and get a 35% discount on the total price of the reservation.")
   ]
   private Branches: Branch[] = [
     new Branch(
@@ -231,9 +196,9 @@ export class RentACarEnterpriseServiceService {
     
     new Car(
       0,
-      ["Sun May 31 2020", "Sat May 30 2020"],
-      "Mon May 18 2020",
-      "Thu May 21 2020",
+      ["Thu Sep 1 2020", "Thu Sep 1 2020"],
+      "Wed Aug 26 2020",
+      "Mon Sep 7 2020",
       0,
       "Audi",
       "R8",
@@ -243,11 +208,11 @@ export class RentACarEnterpriseServiceService {
       "Automatic",
       2,
       1000,
-      5
+      3
     ),
     new Car(
       1,
-      ["Sat May 30 2020", "Fri May 29 2020"],
+      ["Thu Sep 1 2020", "Thu Sep 1 2020"],
       "Fri May 22 2020",
       "Sat May 23 2020",
       0,
@@ -263,7 +228,7 @@ export class RentACarEnterpriseServiceService {
     ),
     new Car(
       2,
-      ["Mon May 18 2020", "Fri Jun 12 2020"],
+      ["Thu Sep 1 2020", "Thu Sep 1 2020"],
       "Thu May 21 2020",
       "Thu May 21 2020",
       0,
@@ -285,11 +250,11 @@ export class RentACarEnterpriseServiceService {
       "Enterprise",
       this.RentACarAddress[0],
       "OUR RESPONSE. OUR RESPONSIBILITY. Why we’re open and what we’re doing to better protect customers and employees.",
-      2,
+      0,
       "../../assets/EnterpriseCarRental.jpg",
       this.RentACars.slice(0, 3),
       this.Branches.slice(0, 3),
-      this.SpecialOffers.slice(0, 10)
+      this.SpecialOffers.slice(0, 5)
     ),
     new RentACarEnterprise(
       1,
@@ -301,7 +266,7 @@ export class RentACarEnterpriseServiceService {
       "../../assets/HertzCarRental.jpg",
       this.RentACars.slice(0, 3) ,
       this.Branches.slice(3, 6),
-      this.SpecialOffers.slice(2, 10)
+      this.SpecialOffers.slice(0, 5)
     ),
     new RentACarEnterprise(
       2,
@@ -313,7 +278,7 @@ export class RentACarEnterpriseServiceService {
       "../../assets/NationalCarRental.jpg",
       this.RentACars.slice(0, 3),
       this.Branches.slice(6, 9),
-      this.SpecialOffers.slice(0, 6)
+      this.SpecialOffers.slice(0, 5)
     ),
     new RentACarEnterprise(
       3,
@@ -325,7 +290,7 @@ export class RentACarEnterpriseServiceService {
       "../../assets/AlamoCarRental.jpg",
       this.RentACars.slice(0, 3),
       this.Branches.slice(9, 12),
-      this.SpecialOffers.slice(1, 8)
+      this.SpecialOffers.slice(0, 5)
     ),
 
     new RentACarEnterprise(
@@ -338,7 +303,7 @@ export class RentACarEnterpriseServiceService {
       "../../assets/BudgetCarRental.jpg",
       this.RentACars.slice(0, 3),
       this.Branches.slice(12, 15),
-      this.SpecialOffers.slice(4, 10)
+      this.SpecialOffers.slice(0, 5)
     ),
 
     new RentACarEnterprise(
@@ -351,7 +316,7 @@ export class RentACarEnterpriseServiceService {
       "../../assets/AvisCarRental.jpg",
       this.RentACars.slice(0, 3) ,
       this.Branches.slice(15, 18),
-      this.SpecialOffers.slice(1, 10)
+      this.SpecialOffers.slice(0, 5)
     )
   ];
   constructor() { }

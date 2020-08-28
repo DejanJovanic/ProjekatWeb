@@ -30,7 +30,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text"> <i class="fa fa-key"></i> </span>
 							</div>
-							<input [ngClass] ="{'is-invalid': loginForm.get('password').touched && loginForm.get('password').invalid}" formControlName="password"  class="form-control" placeholder="Create password" type="password">
+							<input [ngClass] ="{'is-invalid': loginForm.get('password').touched && loginForm.get('password').invalid}" formControlName="password"  class="form-control" placeholder="Enter password" type="password">
 							<div *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid" class="invalid-feedback">
 								<div *ngIf="loginForm.get('password').errors.required" ><i class="fas fa-times-circle" style="color: red;"></i> Password is required.</div>
 								<div *ngIf="loginForm.get('password').errors.minlength"><i class="fas fa-times-circle" style="color: red;"></i> Password must be at least 8 characters long.</div>

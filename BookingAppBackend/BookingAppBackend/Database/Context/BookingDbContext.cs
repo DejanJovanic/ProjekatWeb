@@ -1,6 +1,7 @@
 ﻿using BookingAppBackend.Database.Context;
 using BookingAppBackend.Model.Airlines;
 using BookingAppBackend.Model.AuthentificationAndAuthorization;
+using BookingAppBackend.Model.RentACar;
 using BookingAppBackend.Model.Users;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,13 @@ namespace BookingAppBackend.Database.Contex
 {
     public class BookingAppDbContext : IdentityDbContext<AuthentificationUser, AuthorizationRole, string>
     {
+        public DbSet<Car> Cars { get; set; }
+        public DbSet<CarReservation> Reservations { get; set; }
+        public DbSet<Enterprise> Enterprises { get; set; }
+        public DbSet<SpecialOffer> SpecialOffers { get; set; }
+        public DbSet<RentACarAdmin> RentACarAdmins { get; set; }
+        public DbSet<EnterpriseBranch> EnterpriseBranches { get; set; }
+
         public DbSet<User> RegisteredUsers { get; set; }
         public DbSet<AirlineAdmin> AirlineAdmins { get; set; }
         public DbSet<Airline> Airlines { get; set; }

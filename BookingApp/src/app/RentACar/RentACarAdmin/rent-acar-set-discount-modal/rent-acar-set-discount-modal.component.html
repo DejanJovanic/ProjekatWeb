@@ -24,10 +24,11 @@
                 formControlName="DiscountFrom" ngbDatepicker #dateFrom="ngbDatepicker" >
                
                   <button class="btn btn-outline-primary calendar" (click)="dateFrom.toggle()" type="button"><i class="fas fa-calendar "></i></button>
-                  <div class="invalid-feedback">
-                    <div ><i class="fas fa-times-circle" style="color: red;"></i> The date from when the car is on discount is required.</div>
+                  <div *ngIf="setDiscountForm.get('DiscountFrom').touched && setDiscountForm.get('DiscountFrom').invalid" class="invalid-feedback">
+                    <div *ngIf="setDiscountForm.get('DiscountFrom').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> The date from when the car is on sale is required.</div>
+                    <div *ngIf="setDiscountForm.get('DiscountFrom').errors.isError" ><i class="fas fa-times-circle" style="color: red;"></i> The date from when the car is on sale must be less or equal with second selected date.</div>
                     
-                  </div>
+                  </div> 
             </div>
         </div>
           <br/>
@@ -37,10 +38,11 @@
                 formControlName="DiscountTo" ngbDatepicker #dateTo="ngbDatepicker" >
                
                   <button class="btn btn-outline-primary calendar" (click)="dateTo.toggle()" type="button"><i class="fas fa-calendar "></i></button>
-                  <div class="invalid-feedback">
-                    <div ><i class="fas fa-times-circle" style="color: red;"></i> The date until the car is on discount is required.</div>
+                  <div *ngIf="setDiscountForm.get('DiscountTo').touched && setDiscountForm.get('DiscountTo').invalid" class="invalid-feedback">
+                    <div *ngIf="setDiscountForm.get('DiscountTo').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> The date until the car is on sale is required.</div>
+                    <div *ngIf="setDiscountForm.get('DiscountTo').errors.isError" ><i class="fas fa-times-circle" style="color: red;"></i> The date until the car is on sale must be greater or equal with first selected date.</div>
                     
-                  </div>
+                  </div> 
             </div>
         </div>
           <br/>

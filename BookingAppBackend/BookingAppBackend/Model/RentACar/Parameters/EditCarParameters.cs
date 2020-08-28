@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace BookingAppBackend.Model.RentACar.Parameters
+{
+    public class EditCarParameters
+    {
+        [Required]
+        public int EnterpriseId { get; set; }
+        [Required]
+        public int CarId { get; set; }
+
+        [Required]
+        public string Brand { get; set; }
+
+        [Required]
+        public string Model { get; set; }
+
+        [Required]
+        public int YearOfProduction { get; set; }
+
+        [Required]
+        public string Type { get; set; }
+
+        [Required]
+        public string FuelType { get; set; }
+
+        [Required]
+        public string TransmissionType { get; set; }
+
+        [Required]
+        public int NumberOfSeats { get; set; }
+
+        [Required]
+        public int Price { get; set; }
+    }
+}

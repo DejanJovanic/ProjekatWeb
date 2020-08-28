@@ -20,9 +20,9 @@
           <div class="row">
             <!--<label for="name">Name</label>!-->
             <input [ngClass] ="{'is-invalid': addBranchForm.get('branchName').touched && addBranchForm.get('branchName').invalid}" type="text" placeholder="Branch name" formControlName="branchName" id="name" class="form-control">
-            <div  class="invalid-feedback">
-              <div ><i class="fas fa-times-circle" style="color: red;"></i> Branch name is required.</div>
-        
+            <div *ngIf = "addBranchForm.get('branchName').touched && addBranchForm.get('branchName').invalid"  class="invalid-feedback">
+              <div *ngIf = "addBranchForm.get('branchName').errors.required" ><i class="fas fa-times-circle" style="color: red;"></i> Branch name is required.</div>
+              <div *ngIf = "addBranchForm.get('branchName').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Branch name can only contain letters and numbers.</div>
               
             </div>
           </div>

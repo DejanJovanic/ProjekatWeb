@@ -34,9 +34,9 @@
                         formControlName="dateFrom" ngbDatepicker #dateFrom="ngbDatepicker" >
                        
                           <button class="btn btn-outline-primary calendar" (click)="dateFrom.toggle()" type="button"><i class="fas fa-calendar "></i></button>
-                          <div class="invalid-feedback">
-                            <div ><i class="fas fa-times-circle" style="color: red;"></i> Date from when you need the car is required.</div>
-                            
+                          <div *ngIf="searchCarsForm.get('dateFrom').touched && searchCarsForm.get('dateFrom').invalid" class="invalid-feedback">
+                            <div *ngIf="searchCarsForm.get('dateFrom').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the car is required.</div>
+                            <div *ngIf="searchCarsForm.get('dateFrom').errors.isError" ><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the car must be less or equal with second selected date.</div>
                             
                           </div>  
                      </div>
@@ -49,10 +49,10 @@
                       <input readonly [ngClass] ="{'is-invalid': searchCarsForm.get('dateTo').touched && searchCarsForm.get('dateTo').invalid}" placeholder="The date by which you need the car" id = "dateTo" [minDate]="minDate" class="form-control" 
                       formControlName="dateTo" ngbDatepicker #dateTo="ngbDatepicker">
                      
-                        <button class="btn btn-outline-primary calendar" (click)="dateTo.toggle()" type="button"><i class="fas fa-calendar"></i></button>
-                        <div class="invalid-feedback">
-                          <div ><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the car is required.</div>
-                          
+                        <button  class="btn btn-outline-primary calendar" (click)="dateTo.toggle()" type="button"><i class="fas fa-calendar"></i></button>
+                        <div *ngIf="searchCarsForm.get('dateTo').touched && searchCarsForm.get('dateTo').invalid" class="invalid-feedback">
+                          <div *ngIf="searchCarsForm.get('dateTo').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the car is required.</div>
+                          <div *ngIf="searchCarsForm.get('dateTo').errors.isError" ><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the car must be greater or equal with first selected date.</div>
                           
                         </div>  
                     </div>

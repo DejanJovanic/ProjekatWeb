@@ -5,15 +5,17 @@
           <div class="row">
               <div class="col">
                 <!--<label for="enName">Enterprise name</label>!-->
-                  <input  id="enName" type="text" class="form-control" formControlName="enterpriseName" placeholder="Enterprise name">
-                 
+                  <input [ngClass] ="{'is-invalid': searchEnterpriseForm.get('enterpriseName').touched && searchEnterpriseForm.get('enterpriseName').invalid}" id="enName" type="text" class="form-control" formControlName="enterpriseName" placeholder="Enterprise name">
+                  <div  class="invalid-feedback">
+                    <div ><i class="fas fa-times-circle" style="color: red;"></i> Enterprise name, can only contain letters and numbers.</div>
+                  </div>
                 </div>
 
               <div class="col">
                 <!--<label for="brLocation">Location of the enterprise or enterprise branch</label>!-->
                   <input [ngClass] ="{'is-invalid': searchEnterpriseForm.get('branchLocation').touched && searchEnterpriseForm.get('branchLocation').invalid}" id= "brLocation" type="text" class="form-control" formControlName="branchLocation" placeholder="Branch location">
                   <div  class="invalid-feedback">
-                    <div ><i class="fas fa-times-circle" style="color: red;"></i> Enterprise or branch location, can only contain letters.</div>
+                    <div ><i class="fas fa-times-circle" style="color: red;"></i> Branch location, can only contain letters.</div>
                   </div>
                 </div>
           </div>
@@ -23,14 +25,15 @@
 
               <!--<label for="dateFrom">Date from when you need the vehicle</label>!-->
               <div class="input-group form-group">
-                      <input readonly class="form-control" [minDate]="minDate" placeholder="Date from when you need the vehicle"
+                      <input readonly [ngClass] ="{'is-invalid': searchEnterpriseForm.get('modelFrom').touched && searchEnterpriseForm.get('modelFrom').invalid}" class="form-control" [minDate]="minDate" placeholder="Date from when you need the car"
                       formControlName="modelFrom" ngbDatepicker #dateFrom="ngbDatepicker" >
                      
                         <button class="btn btn-outline-primary calendar" (click)="dateFrom.toggle()" type="button"><i class="fas fa-calendar "></i></button>
-                        <div class="invalid-feedback">
-                          <div ><i class="fas fa-times-circle" style="color: red;"></i> Date from when you need the vehicle can only contain a date.</div>
-                        
-                        </div>
+                        <div *ngIf="searchEnterpriseForm.get('modelFrom').touched && searchEnterpriseForm.get('modelFrom').invalid" class="invalid-feedback">
+                          <div *ngIf="searchEnterpriseForm.get('modelFrom').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Date from when you need the car is required.</div>
+                          <div *ngIf="searchEnterpriseForm.get('modelFrom').errors.isError" ><i class="fas fa-times-circle" style="color: red;"></i> Date from when you need the car must be less or equal with second selected date.</div>
+                          
+                        </div> 
               </div>
              
                  
@@ -40,14 +43,16 @@
             <div class="col">
               <!--<label for="dateTo">The date by which you need the vehicle</label>!-->
               <div class="input-group form-group">
-                    <input readonly id = "dateTo" [minDate]="minDate" class="form-control" placeholder="The date by which you need the vehicle"
+                    <input readonly [ngClass] ="{'is-invalid': searchEnterpriseForm.get('modelTo').touched && searchEnterpriseForm.get('modelTo').invalid}" id = "dateTo" [minDate]="minDate" class="form-control" placeholder="The date by which you need the car"
                     formControlName="modelTo" ngbDatepicker #dateTo="ngbDatepicker">
                    
                       <button class="btn btn-outline-primary calendar" (click)="dateTo.toggle()" type="button"><i class="fas fa-calendar"></i></button>
-                      <div class="invalid-feedback">
-                        <div ><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the vehicle can only contain date.</div>
+                      <div *ngIf="searchEnterpriseForm.get('modelTo').touched && searchEnterpriseForm.get('modelTo').invalid" class="invalid-feedback">
+                        <div *ngIf="searchEnterpriseForm.get('modelTo').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the car is required.</div>
+                        <div *ngIf="searchEnterpriseForm.get('modelTo').errors.isError" ><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the car must be greater or equal with first selected date.</div>
+                        
+                      </div> 
                       
-                      </div>
               </div>
                
             </div>

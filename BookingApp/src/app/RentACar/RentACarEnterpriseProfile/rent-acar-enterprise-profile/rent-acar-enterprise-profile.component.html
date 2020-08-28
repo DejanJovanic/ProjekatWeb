@@ -3,14 +3,14 @@
                 <a class="navbar-brand">{{Enterprise.EnterpriseName}}</a>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                        <li class="nav-item"><a title="Click to see our cars" class="nav-link" [routerLink]="['/EnterpriseCars/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Our cars</a></li>
-                      
-                        <li *ngIf="role ===  'User'" class="nav-item"><a title="Click to rent a car" class="nav-link" [routerLink]="['/EnterpriseRentACar/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Rent a car</a></li>
-                        <li class="nav-item"><a title="Click to see our special offers" class="nav-link" [routerLink]="['/EnterpriseSpecialOffers/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Our special offers</a></li>
-                        
-                        <li *ngIf="role ===  'User'"  class="nav-item"><a [routerLink]="['/EnterpriseDiscounts/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active" title="Click to see our cars on discount" class="nav-link">Our cars on discount</a></li>
+                        <li class="nav-item"><a title="Click to see our cars" class="nav-link" [routerLink]="['/EnterpriseCars/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Cars</a></li>
+                       <!--*ngIf="role ===  'User'" ovo je bilo dole -->
+                        <li    class="nav-item"><a title="Click to rent a car" class="nav-link" [routerLink]="['/EnterpriseRentACar/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Rent a car</a></li>
+                        <li class="nav-item"><a title="Click to see our special offers" class="nav-link" [routerLink]="['/EnterpriseSpecialOffers/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Special offers</a></li>
+                        <!--*ngIf="role ===  'User'" ovo je bilo dole -->
+                        <li   class="nav-item"><a [routerLink]="['/EnterpriseDiscounts/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active" title="Click to see our cars on discount" class="nav-link">Cars on discount</a></li>
                         <li class="nav-item"><a title="Click to see our branches" class="nav-link" [routerLink]="['/EnterpriseBranches/', Enterprise.EnterpriseId]" routerLinkActive="router-link-active">Branches</a></li>
-                        <li class="nav-item"><a  title="Click to see our location on map" class="nav-link" [routerLink]="['/EnterpriseLocation/', Enterprise.EnterpriseAddress.AddressId]" routerLinkActive="router-link-active">Our location on map</a></li>
+                        <li class="nav-item"><a  title="Click to see our location on map" class="nav-link" [routerLink]="['/EnterpriseLocation/', Enterprise.EnterpriseAddress.AddressId]" routerLinkActive="router-link-active">Location on map</a></li>
                      
                     </ul>
                 </div>
@@ -28,7 +28,7 @@
                     <div class="col-lg-8 align-self-baseline">
                         <p class="text-white-75 font-weight-bold mb-5">{{Enterprise.EnterpriseDescription}}</p>
                         <p class="text-white-75 font-weight-bold mb-5">Our address <i class="fas fa-angle-double-right"></i> {{Enterprise.EnterpriseAddress.Street}} {{Enterprise.EnterpriseAddress.StreetNo}}, {{Enterprise.EnterpriseAddress.ZipCode}} {{Enterprise.EnterpriseAddress.City}}, {{Enterprise.EnterpriseAddress.Country}} </p>
-                        <p class="text-white-75 font-weight-bold mb-5">Our clients have evaluated the work of our company with</p>
+                        <p class="text-white-75 font-weight-bold mb-5">Our clients have evaluated the work of our company</p>
 
                         <div class="d-flex align-self-baseline justify-content-center">
                             <div class="item">

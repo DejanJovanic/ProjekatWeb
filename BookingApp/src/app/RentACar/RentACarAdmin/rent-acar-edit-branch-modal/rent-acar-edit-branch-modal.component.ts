@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Branch } from 'src/app/Shared/Model/RentACars/Branch.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ValidationService } from '../../Services/ValidationService/validation.service';
 
 @Component({
   selector: 'app-rent-acar-edit-branch-modal',
@@ -13,7 +14,7 @@ export class RentACarEditBranchModalComponent implements OnInit {
   editBranchForm: FormGroup;
   @Input()
   item : Branch
-  constructor(public activeModal : NgbActiveModal) { }
+  constructor(private service: ValidationService, public activeModal : NgbActiveModal) { }
 
   ngOnInit(): void {
     this.setForm();
@@ -22,11 +23,11 @@ export class RentACarEditBranchModalComponent implements OnInit {
    
     this.editBranchForm = new FormGroup({
       branchName: new FormControl(this.item.BranchName, Validators.required),
-      branchCountry: new FormControl(this.item.BranchAddress.Country, [Validators.required, this.lettersValidator]),
-      branchCity: new FormControl(this.item.BranchAddress.City, [Validators.required, this.lettersValidator] ),
-      branchStreet: new FormControl(this.item.BranchAddress.Street, [Validators.required, this.lettersAndNumbers]),
-      branchStreetNo: new FormControl(this.item.BranchAddress.StreetNo, [Validators.required, this.lettersAndNumbers]),
-      branchZipCode: new FormControl(this.item.BranchAddress.ZipCode, [Validators.required, this.numbersValidator])
+      branchCountry: new FormControl(this.item.BranchAddress.Country, [Validators.required, this.service.lettersValidator]),
+      branchCity: new FormControl(this.item.BranchAddress.City, [Validators.required, this.service.lettersValidator] ),
+      branchStreet: new FormControl(this.item.BranchAddress.Street, [Validators.required, this.service.lettersAndNumbers]),
+      branchStreetNo: new FormControl(this.item.BranchAddress.StreetNo, [Validators.required, this.service.lettersAndNumbers]),
+      branchZipCode: new FormControl(this.item.BranchAddress.ZipCode, [Validators.required, this.service.numbersValidator])
     });
   }
 
@@ -38,43 +39,4 @@ export class RentACarEditBranchModalComponent implements OnInit {
     this.alert= false;
   }
 
-  lettersValidator(control: AbstractControl){
-    if(control && control.value !== null || control.value !== undefined){
-      const regex = new RegExp('^[a-zA-Z]+(([a-zA-Z ])?[a-zA-Z]*)*$');
-
-      if(!regex.test(control.value)){
-        return{
-          isError: true
-        };
-      }
-    }
-    return null;
-  }
-
-  numbersValidator(control: AbstractControl){
-    if(control && control.value !== null || control.value !== undefined){
-      const regex = new RegExp('^[0-9]*$');
-
-      if(!regex.test(control.value)){
-        return{
-          isError: true
-        };
-      }
-    }
-    return null;
-  }
-
-  lettersAndNumbers(control: AbstractControl){
-    if(control && control.value !== null || control.value !== undefined){
-      const regex = new RegExp('^(?:[A-Za-z]*)(?:[A-Za-z0-9 _]*)$');
-
-      if(!regex.test(control.value)){
-        return{
-          isError: true
-        };
-      }
-    }
-    return null;
-   
-  }
 }

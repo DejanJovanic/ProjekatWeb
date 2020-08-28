@@ -15,19 +15,7 @@ import { RentACarAddCarModalComponent } from '../../RentACarAdmin/rent-acar-add-
   styleUrls: ['./rent-acar-enterprise-all-cars.component.css']
 })
 export class RentACarEnterpriseAllCarsComponent implements OnInit {
-  searchCarsForm = new FormGroup({
-    carBrand: new FormControl('', this.lettersValidator),
-    carModel: new FormControl('', this.lettersAndNumbers),
-    carType: new FormControl(''),
-    carTransmission: new FormControl(''),
-    carFuel: new FormControl(''),
-    carNumberOfSeats: new FormControl(''),
-    carYearOfProductionFrom: new FormControl('', [this.yearOfProductionValidator, this.numbersValidator]),
-    carYearOfProductionTo: new FormControl('', [this.yearOfProductionValidator, this.numbersValidator]),
-    carPriceFrom: new FormControl('', this.numbersValidator),
-    carPriceTo: new FormControl('', this.numbersValidator)
-    
-  });
+  searchCarsForm: FormGroup;
   
   Enterprise: RentACarEnterprise;
   id: number;
@@ -47,9 +35,24 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
     
     this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
     this.slides = this.chunk(this.Enterprise.EnterpriseCars, 3);
+    this.setForm();
   }
 
-  
+  setForm(){
+    this.searchCarsForm = new FormGroup({
+      carBrand: new FormControl('', this.lettersValidator),
+      carModel: new FormControl('', this.lettersAndNumbers),
+      carType: new FormControl(''),
+      carTransmission: new FormControl(''),
+      carFuel: new FormControl(''),
+      carNumberOfSeats: new FormControl(''),
+      carYearOfProductionFrom: new FormControl('', [this.yearOfProductionValidator, this.numbersValidator]),
+      carYearOfProductionTo: new FormControl('', [this.yearOfProductionValidator, this.numbersValidator]),
+      carPriceFrom: new FormControl('', this.numbersValidator),
+      carPriceTo: new FormControl('', this.numbersValidator)
+      
+    });
+  }
   openCarDetailsModal(carId: number){
     const modalRef = this.modalService.open(RentACarDetailsModalComponent);
     modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId);
@@ -144,7 +147,8 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
   }
 
   showAllCars(){
-    
+    this.searchCarsForm.reset();
+    this.setForm();
     this.slides = this.chunk(this.Enterprise.EnterpriseCars, 3);
   }
 
