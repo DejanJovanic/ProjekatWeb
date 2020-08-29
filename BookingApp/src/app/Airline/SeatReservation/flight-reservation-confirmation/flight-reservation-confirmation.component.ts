@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs';
 import { User } from 'src/app/Shared/Model/Common/User.model';
 import { switchMap } from 'rxjs/operators';
 import { UserNetworkService } from 'src/app/Users/Services/UserNetwork/user-network.service';
+import { BackgroundService } from 'src/app/Shared/Services/Background/background.service';
+import { Background } from 'src/app/Shared/Model/Common/Background.model';
 
 @Component({
   selector: 'app-flight-reservation-confirmation',
@@ -22,7 +24,7 @@ export class FlightReservationConfirmationComponent implements OnInit, OnDestroy
   private sub : Subscription
   public tickets : Ticket[]
   public points : number
-  constructor(private userNetwork : UserNetworkService,private cache : AirlineCacheService,public route : ActivatedRoute,private router : Router,private service : FlightReservationService,private bookingService : SetBookingServiceService,private userService : UserCacheService) { 
+  constructor(private background : BackgroundService,private userNetwork : UserNetworkService,private cache : AirlineCacheService,public route : ActivatedRoute,private router : Router,private service : FlightReservationService,private bookingService : SetBookingServiceService,private userService : UserCacheService) { 
      this.tickets = service.reservation.tickets;
      this.points = userService.currentUser.points;
     let flights = this.cache.airlines.getValue().map(i =>{
@@ -51,7 +53,9 @@ export class FlightReservationConfirmationComponent implements OnInit, OnDestroy
   }
 
   ngOnInit(): void {
-     
+    setTimeout(() => {
+      this.background.SetBackgroud(Background.ReservationConfirmation);
+  });
   }
 
   Cancel(){

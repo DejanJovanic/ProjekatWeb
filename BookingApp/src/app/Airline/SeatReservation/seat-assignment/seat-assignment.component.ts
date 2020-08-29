@@ -4,6 +4,8 @@ import { FlightReservation } from 'src/app/Shared/Model/Airlines/FlightReservati
 import { Ticket } from 'src/app/Shared/Model/Airlines/Ticket.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserCacheService } from 'src/app/Users/Services/UserCache/user-cache.service';
+import { BackgroundService } from 'src/app/Shared/Services/Background/background.service';
+import { Background } from 'src/app/Shared/Model/Common/Background.model';
 
 @Component({
   selector: 'app-seat-assignment',
@@ -16,7 +18,8 @@ export class SeatAssignmentComponent implements OnInit {
   public reservation : FlightReservation;
   public tickets : Ticket[]
   public currentUserSelected : {isSelected : boolean}
-  constructor(private service : FlightReservationService,private cache : UserCacheService,private router : Router,public route : ActivatedRoute) {
+  public flightId : number;
+  constructor(private service : FlightReservationService,private cache : UserCacheService,private router : Router,public route : ActivatedRoute,private background : BackgroundService) {
     let meIn = false;
     if(localStorage["choosenFriends"] != null){
       let temp = JSON.parse(localStorage["choosenFriends"]);
@@ -47,6 +50,10 @@ export class SeatAssignmentComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.background.SetBackgroud(Background.SeatReservation);
+  });
+    this.flightId = this.route.snapshot.params.id;
     this.reservation = this.service.reservation;
     this.tickets = this.reservation.tickets;
   }

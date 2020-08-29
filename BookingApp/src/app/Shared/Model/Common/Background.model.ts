@@ -1,5 +1,8 @@
 export enum Background{
     None,
     FlightEdit,
-    AirlineAdminMain
+    AirlineAdminMain,
+    AirlineMain,
+    SeatReservation,
+    ReservationConfirmation
 }

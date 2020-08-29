@@ -11,6 +11,8 @@ import { Flight } from 'src/app/Shared/Model/Airlines/Flight.model';
 import { AirlineCacheService } from '../../AirlineShared/Services/AirlineCache/airline-cache.service';
 import { Seats } from 'src/app/Shared/Model/Airlines/Seats.model';
 import { SeatDisplayState } from 'src/app/Shared/Model/Airlines/SeatDisplayState.model';
+import { BackgroundService } from 'src/app/Shared/Services/Background/background.service';
+import { Background } from 'src/app/Shared/Model/Common/Background.model';
 
 @Component({
   selector: 'app-seat-reservation',
@@ -28,13 +30,16 @@ export class SeatReservationComponent implements OnInit, OnDestroy {
   SeatDisplayState = SeatDisplayState;
   constructor(private route : ActivatedRoute,
     private reservationService : FlightReservationService, private router : Router
-    ,private cache : AirlineCacheService) {
+    ,private background : BackgroundService) {
     this.reservation = new FlightReservation()
   }
   ngOnDestroy(): void {
     if(this.obs) this.obs.unsubscribe()
   }
   ngOnInit(): void {
+    setTimeout(() => {
+      this.background.SetBackgroud(Background.SeatReservation);
+  });
     this.obs = this.route.data.subscribe((data : {details : FlightDetails}) =>{
       this.details = data.details;
       this.seats = this.details.seats;

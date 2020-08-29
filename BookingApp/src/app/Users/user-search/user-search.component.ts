@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormBuilder, ValidatorFn } from '@angular/forms';
+import { FormGroup, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
 import { Name } from 'src/app/Airline/AirlineShared/Validators/Name.validator';
 
 @Component({
@@ -19,10 +19,12 @@ export class UserSearchComponent implements OnInit {
   @Output()
   searchEvent : EventEmitter<{username : string, name : string, lastName : string}> = new EventEmitter()
   constructor(private builder : FormBuilder) { }
-
+  customErrors = {
+    pattern : `'Only letters, numbers, ' , - and spaces are allowed'`
+  }
   ngOnInit(): void {
     this.searchForm = this.builder.group({
-      username : ['',Name],
+      username : ['',Validators.pattern(/^[a-zA-Z-'0-9 ]+?$/)],
       name : ['',Name],
       lastName : ['',Name]
     },{validators : this.oneValidator})

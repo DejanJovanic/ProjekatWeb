@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     },
       error =>{
         if(error instanceof HttpErrorResponse && error.error.message == "PasswordChangeRequired")
-          this.router.navigate(['/changePassword']);
+          this.router.navigate(['/changePassword/',this.loginForm.value.username]);
       }
     )
   }

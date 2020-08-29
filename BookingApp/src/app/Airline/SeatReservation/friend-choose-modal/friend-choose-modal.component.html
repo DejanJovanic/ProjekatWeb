@@ -1,29 +1,42 @@
 <div class="modal-body">
-    <div class="container">
-        <div class="row" *ngFor="let friend of friends | async">
-            <div class="col-sm-12">
-                <div class="card" >
-                    <div class="card-body">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <p>
-                                        Username:
-                                    </p>
-                                </div>
-                                <div class="col-sm-5">
-                                    <p>
-                                        {{friend.username}}
-                                    </p>
-                                </div>
-                                <div class="col-sm-2">
-                                    <button class="btn btn-primary btn-sm" (click)="onFriendClick(friend.username)">Select</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>     
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Username
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Last name
+                            </th>
+                            <th>
+                                &nbsp;
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let friend of friends | async">
+                            <td>
+                                {{friend.username}}
+                            </td>
+                            <td>
+                                {{friend.name}}
+                            </td>
+                            <td>
+                                {{friend.lastName}}
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" (click)="onFriendClick(friend.username)">Select</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

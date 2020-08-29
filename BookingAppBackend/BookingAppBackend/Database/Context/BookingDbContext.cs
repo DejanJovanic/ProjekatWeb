@@ -30,6 +30,7 @@ namespace BookingAppBackend.Database.Contex
         public DbSet<Reservation> Reservation { get; set; }
         public DbSet<FastFlightPaidExtra> FastFlightPaidExtras { get; set; }
         public DbSet<UserReservation> UserReservations { get; set; }
+        public DbSet<Friend> Friend { get; set; }
         public BookingAppDbContext(DbContextOptions options) : base(options) { }
  
 

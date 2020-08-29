@@ -104,6 +104,8 @@ import { FormSubmitDirective } from './Shared/Directives/FormSubmitDirective/for
 import { ControlErrorComponent } from './Shared/control-error/control-error.component';
 import { ControlErrorContainerDirective } from './Shared/Directives/ControlErrorContainerDirective/control-error-container.directive';
 import { WholeNumberDirective } from './Shared/Directives/WholeNumberDirective/whole-number.directive';
+import { FlightDetailsComponent } from './Airline/AirlineShared/flight-details/flight-details.component';
+import { ResetPasswordComponent } from './Users/reset-password/reset-password.component';
 
 
 
@@ -200,7 +202,9 @@ import { WholeNumberDirective } from './Shared/Directives/WholeNumberDirective/w
     FormSubmitDirective,
     ControlErrorComponent,
     ControlErrorContainerDirective,
-    WholeNumberDirective
+    WholeNumberDirective,
+    FlightDetailsComponent,
+    ResetPasswordComponent
   ],
   imports: [
     

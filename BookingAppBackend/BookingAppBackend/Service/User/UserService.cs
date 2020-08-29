@@ -14,6 +14,7 @@ using System.Net.Mail;
 using System.Security.Policy;
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
+using BookingAppBackend.Utils.EMailSender;
 
 namespace BookingAppBackend.Service.User
 {
@@ -55,6 +56,7 @@ namespace BookingAppBackend.Service.User
             temp2.LastName = data.LastName;
             temp1.Email = data.Email;
             temp2.IsEnabled = false;
+            temp1.IsPasswordOk = true;
             if (!string.IsNullOrWhiteSpace(data.City))
                 temp2.City = data.City;
             if (!string.IsNullOrWhiteSpace(data.PhoneNumber))
@@ -73,29 +75,8 @@ namespace BookingAppBackend.Service.User
                             ////Deo za slanje konfirmacionog mail-a korisniku
                             string token = await manager.GenerateEmailConfirmationTokenAsync(temp1);
 
-                            //string link = urlHelper.Action("ConfirmEmail", "VerifyAccount", new { username = data.Username, token = token },
-                            //    protocol: urlHelper.ActionContext.HttpContext.Request.Scheme);
-
-                            //MimeMessage message = new MimeMessage();
-
-                            //MailboxAddress to = new MailboxAddress("User", data.Email);
-                            //MailboxAddress from = new MailboxAddress("BookingAppTeam", "deki.jovanic@gmail.com");
-                            //message.Subject = "Account Verification";
-                            //message.From.Add(from);
-                            //message.To.Add(to);
-                            //var body = new BodyBuilder();
-                            //body.HtmlBody = $@"<p>To verify your account, please follow the link: {link} </p>";
-                            //body.TextBody = $"To verify your account, please follow the link: {link} ";
-                            //message.Body = body.ToMessageBody();
-
-                            //using (var client = new MailKit.Net.Smtp.SmtpClient())
-                            //{
-                            //    client.Connect("smtp.gmail.com", 465);
-                            //    client.Authenticate("bookingappweb2@gmail.com", "bookingapp123");
-                            //    client.Send(message);
-                            //    client.Disconnect(true);
-                            //}
-                            await manager.ConfirmEmailAsync(temp1, token);
+                            var sender = new EmailSender();
+                            sender.SendConfirmEMail(data.Email, token, data.Username);
                             try
                             {
                                 var a = await repo.InsertUser(temp2);

@@ -115,9 +115,54 @@ namespace BookingAppBackend.Database.Repository
             }
             else
                 return new UserResponse("No friend request found.");
+            
+        }
 
-            
-            
+        public async Task<UserResponse> DeleteFriend(string username, string friendUsername)
+        {
+            var user = await context.RegisteredUsers
+      .Include(i => i.MyFriends)
+      .Include(i => i.MyPendingRequests)
+      .FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
+            if (user == null)
+                return new UserResponse("User with username: " + username + " does not exist.");
+            var friend = await context.RegisteredUsers
+                .Include(i => i.MyFriends)
+                .Include(i => i.MyPendingRequests)
+                .FirstOrDefaultAsync(i => i.Username.ToLower().Equals(friendUsername.ToLower()));
+            if (friend == null)
+                return new UserResponse("User with username: " + friendUsername + " hasn't sent friend request.");
+            Friend friendUser = null;
+            Friend friendFriend = null;
+            foreach (var a in user.MyFriends)
+            {
+                if (a.FriendUsername.ToLower() == friendUsername.ToLower())
+                {
+                    friendUser = a;
+                    break;
+                }
+            }
+            foreach (var a in friend.MyFriends)
+            {
+                if (a.FriendUsername.ToLower() == username.ToLower())
+                {
+                    friendFriend = a;
+                    break;
+                }
+            }
+            if (friendUser != null && friendFriend != null)
+            {
+                user.MyFriends.Remove(friendUser);
+                friend.MyFriends.Remove(friendFriend);
+                context.Friend.Remove(friendUser);
+                context.Friend.Remove(friendFriend);
+                return new UserResponse(user);
+            }
+            else
+            {
+                return new UserResponse("You are not friend with given user.");
+            }
+
         }
 
         public async Task<UserResponse> SendRequest(string username, string friendUsername)

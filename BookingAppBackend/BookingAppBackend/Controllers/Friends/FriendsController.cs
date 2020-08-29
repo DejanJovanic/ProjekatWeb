@@ -31,5 +31,18 @@ namespace BookingAppBackend.Controllers.Friends
             var ret = await service.GetFriends(User.Identity.Name);
             return Ok(mapper.Map<IEnumerable<UserResource>>(ret));
         }
+
+        [HttpDelete]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> DeleteFriend(string friendUsername)
+        {
+            var ret = await service.DeleteFriend(User.Identity.Name, friendUsername);
+            if (ret.Success)
+            {         
+                return Ok(mapper.Map<UserResource>(ret.Resource));
+            }
+            else
+                return BadRequest(new { Message = ret.Message });
+        }
     }
 }
