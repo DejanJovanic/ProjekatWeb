@@ -1,7 +1,12 @@
-<div class="card" *ngFor="let request of pendingRequests | async">
-    <div class="card-body">
-        <span>{{request.username}} sent you a friend request</span>
-        <button class="btn btn-success" (click)="Accept(request)">Accept</button>
-        <button class="btn btn-danger" (click)="Decline(request)">Decline</button>
+<div class="container-fluid" style="background : transparent !important">
+    <div class="row bg-primary" *ngFor="let request of pendingRequests | async">
+        <div class="col d-flex">
+            <div class="text-white mr-auto" style="background : transparent !important">
+                {{request.username}} sent you a friend request
+            </div>
+            <button class="btn btn-success" (click)="Accept(request)">Accept</button>
+            <button class="btn btn-danger" (click)="Decline(request)">Decline</button>
+        </div>
     </div>
 </div>
+

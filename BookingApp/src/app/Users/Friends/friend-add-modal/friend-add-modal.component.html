@@ -1,43 +1,53 @@
 <div class="modal-body">
-    <app-user-search (searchEvent)="onSearch($event)"></app-user-search>
-    <br>
-    <div class="row">
-        <div class="col-sm-3">
-            <p>Username:</p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <app-user-search (searchEvent)="onSearch($event)"></app-user-search>
+            </div>
         </div>
-        <div class="col-sm-3">
-            <p>Name:</p>
-        </div>
-        <div class="col-sm-3">
-            <p>Last name:</p>
+        <div class="row">
+            <div class="col">
+                <table class="table mt-2">
+                    <thead>
+                        <tr>
+                            <th>
+                                Username
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Last name
+                            </th>
+                            <th>
+                                &nbsp;
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of searchItems | async">
+                            <td>
+                                {{item.username}}
+                            </td>
+                            <td>
+                                {{item.name}}
+                            </td>
+                            <td>
+                                {{item.lastName}}
+                            </td>
+                            <td  *ngIf="!IsInFriends(item.username); else alreadyIn">
+                                <button type="button" class="btn btn-primary btm-sm" (click)="SendRequest(item.username)">Add</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    <hr>
-    <ng-container  *ngFor="let item of searchItems | async">
-        <br>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p>{{item.username}}</p>
-                    </div>
-                    <div class="col-sm-3">
-                        <p>{{item.name}}</p>
-                    </div>
-                    <div class="col-sm-3">
-                        <p>{{item.lastName}}</p>
-                    </div>
-                    <div class="col-sm-3" *ngIf="!IsInFriends(item.username); else alreadyIn">
-                        <button type="button" class="btn btn-primary btm-sm" (click)="SendRequest(item.username)">Add</button>
-                    </div>
-                </div>
-            </div>
-        </div>       
-    </ng-container>
 </div>
 <ng-template #alreadyIn>
-    <div class="col-sm-3">
-        <p>Friends</p>
-    </div>
+    <td >
+        Friends
+    </td>
 </ng-template>
 

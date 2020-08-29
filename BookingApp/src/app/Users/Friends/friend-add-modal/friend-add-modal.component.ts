@@ -3,6 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { UserNetworkService } from '../../Services/UserNetwork/user-network.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserCacheService } from '../../Services/UserCache/user-cache.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-friend-add-modal',
@@ -12,7 +13,7 @@ import { UserCacheService } from '../../Services/UserCache/user-cache.service';
 export class FriendAddModalComponent implements OnInit {
 
   public searchItems : Observable<{username : string, name: string, lastName : string}[]>
-  constructor(private service : UserNetworkService,private modal : NgbActiveModal,private cache : UserCacheService) { }
+  constructor(private service : UserNetworkService,private modal : NgbActiveModal,private toast : ToastrService,private cache : UserCacheService) { }
 
   ngOnInit(): void {
   }
@@ -24,7 +25,10 @@ export class FriendAddModalComponent implements OnInit {
   }
   SendRequest(username : string){
     this.service.SendFriendRequest(username).subscribe(i =>{
-      if(i) this.modal.close();
+      if(i){
+        this.toast.success('Request successfully sent')
+        this.modal.close();
+      } 
     });
   }
 
