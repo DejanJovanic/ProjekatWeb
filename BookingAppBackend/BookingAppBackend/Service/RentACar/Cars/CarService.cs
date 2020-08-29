@@ -15,9 +15,9 @@ namespace BookingAppBackend.Service.RentACar.Cars
         private IEnterpriseRepository repo2;
         private IUnitOfWork unitOfWork;
 
-        public CarService(ICarRepository repo, IUnitOfWork unitOfWork)
+        public CarService(IEnterpriseRepository ep, ICarRepository repo, IUnitOfWork unitOfWork)
         {
-
+            this.repo2 = ep;
             this.repo = repo;
             this.unitOfWork = unitOfWork;
         }

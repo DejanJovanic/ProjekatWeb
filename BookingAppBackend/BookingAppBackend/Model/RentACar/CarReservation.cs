@@ -14,7 +14,6 @@ namespace BookingAppBackend.Model.RentACar
         public int Id { get; set; }
         public Car SelectedCar { get; set; }
         public Enterprise SelectedEnterprise { get; set; }
-        public string Username { get; set; }
         public int NumberOfDays { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }

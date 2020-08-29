@@ -46,7 +46,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\RentACar\" />
     <Folder Include="Model\Users\Resources\" />
   </ItemGroup>
 

@@ -41,7 +41,7 @@ namespace BookingAppBackend.Database.Repository.RentACar
 
         public async Task<Enterprise> GetOneEnterprise(int enterpriseId)
         {
-            return await context.Enterprises.Include(i=> i.Rating).FirstOrDefaultAsync(i => i.Id == enterpriseId);
+            return await context.Enterprises.Include(i=> i.Rating).Include(i => i.Address).FirstOrDefaultAsync(i => i.Id == enterpriseId);
         }
 
         public async Task<Enterprise> GetCarsOfCompanyForRent(int enterpriseId)

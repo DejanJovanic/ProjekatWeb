@@ -135,4 +135,17 @@ export class ValidationService {
       }
       return null;
     }
+
+    percentageValidator(control: AbstractControl){
+      if(control && control.value !== null || control.value !== undefined){
+        const specialOfferPercentage = control.value;
+
+        if(specialOfferPercentage > 100){
+          return{
+            Errorr:true
+          };
+        }
+      }
+      return null;
+    }
 }

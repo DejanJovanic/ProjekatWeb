@@ -10,6 +10,7 @@ namespace BookingAppBackend.Model.RentACar.Parameters
     {
         [Required]
         public int ObjectId { get; set; }
+        [Required]
         public int EnterpriseId { get; set; }
     }
 }

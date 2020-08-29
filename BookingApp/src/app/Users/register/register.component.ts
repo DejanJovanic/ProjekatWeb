@@ -12,13 +12,14 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   constructor(private service: ValidationService) { 
-    this.registerForm.controls.password.valueChanges.subscribe(
-      x=> this.registerForm.controls.repeatedPassword.updateValueAndValidity()
-    )
+    
   }
 
   ngOnInit(): void {
     this.setForm();
+    this.registerForm.controls.password.valueChanges.subscribe(
+      x=> this.registerForm.controls.repeatedPassword.updateValueAndValidity()
+    )
   }
 
   setForm(){

@@ -5,7 +5,8 @@ export class SpecialOffer{
         public SpecialOfferId: number,
         public OfferName: string,
         public OfferDiscount: number,
-        public OfferDescription: string
+        public OfferDescription: string,
+        public NumberOfDays: number
         
     ){}
 }

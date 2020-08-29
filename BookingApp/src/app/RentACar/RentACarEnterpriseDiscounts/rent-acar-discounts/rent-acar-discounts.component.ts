@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Params, ActivatedRoute } from '@angular/router';
+import { Params, ActivatedRoute, Router } from '@angular/router';
 import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
 import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnterprise.model';
 import { Car } from 'src/app/Shared/Model/RentACars/Car.model';
@@ -18,13 +18,16 @@ export class RentACarDiscountsComponent implements OnInit {
   slides: any = [[]];
   carsOnDiscount: Car[] = [];
 
-  constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal) { }
+  constructor(private routeService: Router, private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal) { }
 
   ngOnInit(): void{
     this.route.params.subscribe((params: Params) => {
       this.id = +params["id"];
       this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
      
+      setTimeout(() => {
+        this.routeService.navigate(['/EnterpriseProfile/', this.id]);
+    }, 5000);  //5s
       
     });
 

@@ -24,7 +24,9 @@ export class RentACarEditSpecialOffersModalComponent implements OnInit {
    
     this.editEnterpriseSpecialOffer = new FormGroup({
       specialOfferName: new FormControl(this.item.OfferName, Validators.required),
-      specialOfferPrice: new FormControl(this.item.OfferDiscount, [Validators.required, this.service.numbersValidator])
+      specialOfferPrice: new FormControl(this.item.OfferDiscount, [Validators.required, this.service.numbersValidator, this.service.percentageValidator]),
+      specialOfferDescription: new FormControl(this.item.OfferDescription, Validators.required),
+      specialOfferNumberOfDays: new FormControl(this.item.NumberOfDays, [Validators.required, this.service.numbersValidator])
     });
   }
 

@@ -13,6 +13,7 @@
     <hr>
     <ul class="fa-ul">
         <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Discount: {{item.OfferDiscount}}%</li>
+        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Minimum booking days: {{item.NumberOfDays}}</li>
         <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Description: {{item.OfferDescription}}</li>
    
        
@@ -23,8 +24,8 @@
             <button type="button" (click)="activeModal.close('Close click')" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-times mr-1"></i> Close </button>
         </div>
         <div class="col">
-             
-            <button *ngIf="role ===  'RentACarAdmin'" (click) = "openSpecialOfferEditModal(item.SpecialOfferId)" type="button" class="btn btn-outline-primary btn-rounded "><i class="fas fa-edit mr-1"></i> Edit </button>
+             <!--*ngIf="role ===  'RentACarAdmin'"  ovo je bilo dole-->
+            <button (click) = "openSpecialOfferEditModal(item.SpecialOfferId)" type="button" class="btn btn-outline-primary btn-rounded "><i class="fas fa-edit mr-1"></i> Edit </button>
           </div>
 
         <div class="col">

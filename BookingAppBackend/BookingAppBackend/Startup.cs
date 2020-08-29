@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BookingAppBackend.Database.Contex;
 using BookingAppBackend.Database.Interfaces;
+using BookingAppBackend.Database.Interfaces.RentACar;
 using BookingAppBackend.Database.Repository;
+using BookingAppBackend.Database.Repository.RentACar;
 using BookingAppBackend.Model;
 using BookingAppBackend.Model.AuthentificationAndAuthorization;
 using BookingAppBackend.Model.Users;
@@ -21,6 +23,11 @@ using BookingAppBackend.Service.Flight;
 using BookingAppBackend.Service.FriendRequests;
 using BookingAppBackend.Service.Friends;
 using BookingAppBackend.Service.GeneralUser;
+using BookingAppBackend.Service.RentACar.Admins;
+using BookingAppBackend.Service.RentACar.Branch;
+using BookingAppBackend.Service.RentACar.Cars;
+using BookingAppBackend.Service.RentACar.Enterprises;
+using BookingAppBackend.Service.RentACar.SpecialOffers;
 using BookingAppBackend.Service.Seat;
 using BookingAppBackend.Service.User;
 using BookingAppBackend.Utils.EMailSender;
@@ -119,6 +126,18 @@ namespace BookingAppBackend
             services.AddScoped<IFriendsService, FriendsService>();
             services.AddScoped<ISeatService, SeatService>();
             services.AddScoped<IAirlineReservationService, AirlineReservationService>();
+            //rent a car
+            services.AddScoped<ICarRepository, CarRepository>();
+            services.AddScoped<IEnterpriseBranchRepository, EnterpriseBranchRepository>();
+            services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
+            services.AddScoped<IRentACarAdminRepository, RentACarAdminRepository>();
+            services.AddScoped<ISpecialOfferRepository, SpecialOfferRepository>();
+            services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IBranchService, BranchService>();
+            services.AddScoped<ICarService, CarService>();
+            services.AddScoped<IEnterpriseService, EnterpriseService>();
+            services.AddScoped<ISpecialOfferService, SpecialOfferService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -167,7 +186,7 @@ namespace BookingAppBackend
             var userManager = serviceProvider.GetRequiredService<UserManager<AuthentificationUser>>();
             Task<IdentityResult> roleResult;
             string email = "admin@admin.com";
-            string[] roles = { "Admin", "AirlineAdmin", "User" };
+            string[] roles = { "Admin", "AirlineAdmin", "User","RentACarAdmin" };
             //Check that there is an Administrator role and create if not
 
             foreach(var a in roles)

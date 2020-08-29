@@ -31,7 +31,9 @@ export class RentACarAddSpecialOfferModalComponent implements OnInit {
    
     this.addEnterpriseSpecialOffer = new FormGroup({
       specialOfferName: new FormControl('', Validators.required),
-      specialOfferPrice: new FormControl('', [Validators.required, this.service.numbersValidator])
+      specialOfferPrice: new FormControl('', [Validators.required, this.service.numbersValidator, this.service.percentageValidator]),
+      specialOfferDescription: new FormControl('', Validators.required),
+      specialOfferNumberOfDays: new FormControl('', [Validators.required, this.service.numbersValidator])
     });
   }
 

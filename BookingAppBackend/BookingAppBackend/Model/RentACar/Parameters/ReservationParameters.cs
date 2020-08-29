@@ -14,8 +14,7 @@ namespace BookingAppBackend.Model.RentACar.Parameters
         [Required]
         public Enterprise SelectedEnterprise { get; set; }
 
-        [Required]
-        public string Username { get; set; }
+        
 
         [Required]
         public int NumberOfDays { get; set; }

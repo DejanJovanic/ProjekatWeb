@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserReservation } from '../Model/Common/UserReservation.model';
 import { FlightReservation } from '../Model/Airlines/FlightReservation.model';
-import { CarReservation } from '../Model/RentACars/CarReservation.model';
+import { CarReservation } from '../Model/RentACars/Models/CarReservation.model';
 import { SetFlightReservationService } from './SetFlightReservationService';
 import { AirlineDatabaseService } from '../Model/Airlines/Database/airline-database.service';
 import { SeatStatus } from '../Model/Airlines/SeatStatus.model';

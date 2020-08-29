@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookingAppBackend.Database.Contex;
 using BookingAppBackend.Model.RentACar.Parameters;
 using BookingAppBackend.Service.RentACar.Enterprises;
 using Microsoft.AspNetCore.Authorization;
@@ -39,15 +40,16 @@ namespace BookingAppBackend.Controllers.RentACar
         }
 
         [HttpGet]
-        [Route("GetAllEnterprises")]
+        [Route("GetAll")]
         public async Task<IActionResult> GetAllEnterprises()
         {
-            
+                
+                
                 var temp = await enterpriseService.GetAllEnterprises();
-                if (temp != null)
+               if (temp != null)
                     return Ok(temp);
-                else
-                    return BadRequest(new { Message = "Something went wrong. Please, try again later." });
+               else
+                   return BadRequest(new { Message = "Something went wrong. Please, try again later." });
            
         }
 

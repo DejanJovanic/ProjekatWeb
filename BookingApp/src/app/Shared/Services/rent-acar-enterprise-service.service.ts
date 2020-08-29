@@ -12,46 +12,46 @@ export class RentACarEnterpriseServiceService {
 
   private RentACarAddress: RentACarEnterpriseAddress[] = [
   
-    new RentACarEnterpriseAddress(0, "Bosnia & Herzegovina", "Tuzla", "Aleja Alije Izetbegovića", "3", "75000"),
-    new RentACarEnterpriseAddress(1, "Serbia", "Belgrade", "Đorđa Stanojevića", "14", "11070"),
+    new RentACarEnterpriseAddress(0, "Bosnia & Herzegovina", "Tuzla", "Aleja Alije Izetbegovića", "3", "75000"), //dodato u bazu
+    new RentACarEnterpriseAddress(1, "Serbia", "Belgrade", "Đorđa Stanojevića", "14", "11070"), //dodato u bazu
     new RentACarEnterpriseAddress(2, "United Arab Emirates", "Dubai", "Al TwarAl Twar", "3", "0"),
-    new RentACarEnterpriseAddress(3, "United States", "Alamo", "US-83 BUS", "143", "78537"),
+    new RentACarEnterpriseAddress(3, "United States", "Alamo", "US-83 BUS", "143", "78537"), //dodato u bazu
     new RentACarEnterpriseAddress(4, "United States", "Weslaco", "2401 E Expressway", "83", "78599"),
-    new RentACarEnterpriseAddress(5, "United States", "McAllen", "S Bicentennial Blvd", "2500", "78503"),
+    new RentACarEnterpriseAddress(5, "United States", "McAllen", "S Bicentennial Blvd", "2500", "78503"), //dodato u bazu
  
 
    //Enterprise filijale
-    new RentACarEnterpriseAddress(6, "Serbia", "Belgrade", "Aerodrom Beograd", "59", "11180"),
-    new RentACarEnterpriseAddress(7, "France", "Amiens", "Rue Saint-Fuscien", "29", "80000"),
+    new RentACarEnterpriseAddress(6, "Serbia", "Belgrade", "Aerodrom Beograd", "59", "11180"), //dodato u bazu za Enterprise firmu
+    new RentACarEnterpriseAddress(7, "France", "Amiens", "Rue Saint-Fuscien", "29", "80000"), //dodato u bazu za Enterprise firmu
     new RentACarEnterpriseAddress(8, "Germany", "München", "Terminalstraße Mitte Mietwagenzentrum", "0", "85356"),
 
 
     //Hertz filijale (London, Moskva, Tuzla)
-    new RentACarEnterpriseAddress(9, "United Kingdom", "Chester", "Sealand Rd", "0", "19013"),
-    new RentACarEnterpriseAddress(10, "Russia", "Samara", "Ulitsa Osipenko", "3", "443110"),
-    new RentACarEnterpriseAddress(11, "Austria", "Salzburg", "Innsbrucker Bundesstraße", "95", "5020"),
+    new RentACarEnterpriseAddress(9, "United Kingdom", "Chester", "Sealand Rd", "0", "19013"), //dodato u bazu za Hertz firmu
+    new RentACarEnterpriseAddress(10, "Russia", "Samara", "Ulitsa Osipenko", "3", "443110"), //dodato u bazu za Hertz firmu
+    new RentACarEnterpriseAddress(11, "Austria", "Salzburg", "Innsbrucker Bundesstraße", "95", "5020"), //dodato u bazu za Alamo firmu
     //////////////////////////////////////////////
 
     //National filijale (Bec, Prag, Budimpesta)
     new RentACarEnterpriseAddress(12, "Köln", "Frankfurt am Main", "Kennedystrasse Mietwagenzentr", "59", "51147"),
     new RentACarEnterpriseAddress(13, "Zaventem", "Belgium", "National Airport Arrival Hall - Box/Bus", "88", "1930"),
-    new RentACarEnterpriseAddress(14, "France", "Caen", "Aeroport De Caen Carpiquet", "0", "14000" ),
+    new RentACarEnterpriseAddress(14, "France", "Caen", "Aeroport De Caen Carpiquet", "0", "14000" ), //dodato u bazu za Alamo firmu
     /////////////////////////////////////////////
 
     //Alamo filijale (Madrid, Barselona, Valencia)
-    new RentACarEnterpriseAddress(15, "Netherlands", "Amsterdam", "Harry Banninkstraat", "129", "1011"),
-    new RentACarEnterpriseAddress(16, "Spain", "Sevilla", "Aeropuerto De San Pablo", "0", "41001"),
+    new RentACarEnterpriseAddress(15, "Netherlands", "Amsterdam", "Harry Banninkstraat", "129", "1011"), //dodato u bazu za Alamo firmu
+    new RentACarEnterpriseAddress(16, "Spain", "Sevilla", "Aeropuerto De San Pablo", "0", "41001"), //dodato u bazu za BUdget firmu
     new RentACarEnterpriseAddress(17, "Spain", "Ourense", "Estacion De Tren", "0", "32001"),
 
     //Budget filijale (Kijev, Sao Paulo, Buenos ajres)
     new RentACarEnterpriseAddress(18, "Romania", "Timișoara", "Airport Street Ghiroda, Timisoara Airport", "0", "307200"),
-    new RentACarEnterpriseAddress(19, "Croatia", "Kaštel Kambelovac", "Cesta Dr. Franje Tuđmana", "96", "21214"),
-    new RentACarEnterpriseAddress(20, "Slovenia", "Ljubljana", "Miklošičeva cesta", "3", "1000"),
+    new RentACarEnterpriseAddress(19, "Croatia", "Kaštel Kambelovac", "Cesta Dr. Franje Tuđmana", "96", "21214"), //dodato u bazu za BUdget firmu
+    new RentACarEnterpriseAddress(20, "Slovenia", "Ljubljana", "Miklošičeva cesta", "3", "1000"), //dodato u bazu za Budget firmu
 
     //Avis filijale (Nju jork, Cikago, Toronto)
     new RentACarEnterpriseAddress(21, "Switzerland", "Biel", "Zollhaus Automobiel Sarl, Solothurnstrasse", "79", "2504"),
-    new RentACarEnterpriseAddress(22, "Italy", "Napoli", "Aeroporto Di", "0", "80144"),
-    new RentACarEnterpriseAddress(23, "Italy", "Sanremo", "Via XX Settembre", "17", "18038"),
+    new RentACarEnterpriseAddress(22, "Italy", "Napoli", "Aeroporto Di", "0", "80144"), // Dodato u bazu za enterprise firmu
+    new RentACarEnterpriseAddress(23, "Italy", "Sanremo", "Via XX Settembre", "17", "18038"), //dodato u bazu za Hertz firmu
     
   ]
   private SpecialOffers: SpecialOffer[] = [
@@ -59,31 +59,38 @@ export class RentACarEnterpriseServiceService {
     0, 
     "Bronze package",
     5,
-    "Rent a car for a minimum of 2 days and get a 5% discount on the total price of the reservation."),
+    "Rent a car for a minimum of specified days and get a specified discount on the total price of the reservation.",
+    2),
+    
 
     new SpecialOffer( 
     1,
     "Silver package",
     10,
-    "Rent a car for a minimum of 4 days and get a 10% discount on the total price of the reservation."),
+    "Rent a car for a minimum of specified days and get a specified discount on the total price of the reservation.",
+    4),
+    
 
     new SpecialOffer( 
     2,
     "Gold package",
     15,
-    "Rent a car for a minimum of 7 days and get a 15% discount on the total price of the reservation."),
+    "Rent a car for a minimum of specified days and get a specified discount on the total price of the reservation.",
+    7),
     
     new SpecialOffer(
       3,
       "Platinum package",
       25,
-      "Rent a car for a minimum of 10 days and get a 25% discount on the total price of the reservation."),
+      "Rent a car for a minimum of specified days and get a specified discount on the total price of the reservation.",
+      10),
 
     new SpecialOffer(
       4,
       "Diamond package",
       35,
-      "Rent a car for a minimum of 15 days and get a 35% discount on the total price of the reservation.")
+      "Rent a car for a minimum of specified days and get a specified discount on the total price of the reservation.",
+      15)
   ]
   private Branches: Branch[] = [
     new Branch(
@@ -311,7 +318,7 @@ export class RentACarEnterpriseServiceService {
       "Avis",
       this.RentACarAddress[5],
      
-      "Avis is here for you. Experience Avis with our car rental offers just for you.",
+      "Budget is here for you. Experience Budget with our car rental offers just for you.",
       1.5,
       "../../assets/AvisCarRental.jpg",
       this.RentACars.slice(0, 3) ,

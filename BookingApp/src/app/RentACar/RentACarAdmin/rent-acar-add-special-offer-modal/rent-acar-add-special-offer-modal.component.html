@@ -29,15 +29,32 @@
           <br/>
           <div class="row">
             <!--<label for="price">Price</label>!-->
-            <input [ngClass] ="{'is-invalid': addEnterpriseSpecialOffer.get('specialOfferPrice').touched && addEnterpriseSpecialOffer.get('specialOfferPrice').invalid}" type="text" placeholder="Special offer price" formControlName="specialOfferPrice" id = "price" class="form-control"> 
+            <input [ngClass] ="{'is-invalid': addEnterpriseSpecialOffer.get('specialOfferPrice').touched && addEnterpriseSpecialOffer.get('specialOfferPrice').invalid}" type="text" placeholder="Special offer discount" formControlName="specialOfferPrice" id = "price" class="form-control"> 
             <div *ngIf = "addEnterpriseSpecialOffer.get('specialOfferPrice').touched && addEnterpriseSpecialOffer.get('specialOfferPrice').invalid" class="invalid-feedback">
-              <div *ngIf = "addEnterpriseSpecialOffer.get('specialOfferPrice').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Special offer price is required.</div>
-              <div *ngIf = "addEnterpriseSpecialOffer.get('specialOfferPrice').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Special offer price can only contain numbers.</div>
+              <div *ngIf = "addEnterpriseSpecialOffer.get('specialOfferPrice').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Special offer discount is required.</div>
+              <div *ngIf = "addEnterpriseSpecialOffer.get('specialOfferPrice').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Special offer discount can only contain numbers.</div>
+              <div *ngIf = "addEnterpriseSpecialOffer.get('specialOfferPrice').errors.Errorr"><i class="fas fa-times-circle" style="color: red;"></i>Special offer discount value can be between 0% and 100%.</div>
+            </div>
+          </div>
+          <br/>
+          <div class="row">
+           
+            <textarea placeholder = "Special offer promo description"[ngClass] ="{'is-invalid': addEnterpriseSpecialOffer.get('specialOfferDescription').touched && addEnterpriseSpecialOffer.get('specialOfferDescription').invalid}"  id = "descrption"formControlName="specialOfferDescription"  rows="4" cols="50"></textarea>
+            <div  class="invalid-feedback">
+              <div ><i class="fas fa-times-circle" style="color: red;"></i> Special offer promo description is required.</div>
+        
+            </div>
+          </div>
+          <br/>
+          <div class="row">
+            <!--<label for="price">Price</label>!-->
+            <input [ngClass] ="{'is-invalid': addEnterpriseSpecialOffer.get('specialOfferNumberOfDays').touched && addEnterpriseSpecialOffer.get('specialOfferNumberOfDays').invalid}" type="text" placeholder="Required number of booking days for special offer" formControlName="specialOfferNumberOfDays" id = "price" class="form-control"> 
+            <div *ngIf = "addEnterpriseSpecialOffer.get('specialOfferNumberOfDays').touched && addEnterpriseSpecialOffer.get('specialOfferNumberOfDays').invalid" class="invalid-feedback">
+              <div *ngIf = "addEnterpriseSpecialOffer.get('specialOfferNumberOfDays').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Required number of booking days for special offer is required.</div>
+              <div *ngIf = "addEnterpriseSpecialOffer.get('specialOfferNumberOfDays').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Required number of booking days for special offer can only contain numbers.</div>
               
             </div>
           </div>
-  
-          
           <hr>
   
           <div class="row">

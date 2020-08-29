@@ -33,6 +33,12 @@ export class RentACarEnterprisesComponent implements OnInit {
   };
    
   this.RentACarEnterprises = EnterpriseService.getRentACarEnterprises();
+ /*.subscribe(i =>{
+    this.RentACarEnterprises = i;
+    this.toaster.success("yaya",'success')
+  }
+  
+) */
   }
  
   ngOnInit() {
