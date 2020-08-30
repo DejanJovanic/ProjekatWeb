@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Passport } from '../../AirlineShared/Validators/Passport.validator';
 
 @Component({
   selector: 'app-enter-passport',
@@ -17,13 +18,16 @@ export class EnterPassportComponent implements OnInit {
   ngOnInit(): void {
 
     this.form = this.builder.group({
-      passportNum:['',[Validators.required,Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/)]]
+      passportNum:['',[Validators.required,Passport]]
     })
   }
 
   Finish(){
-    this.returnValue.emit(this.form.value.passportNum);
-    this.activeModal.close();
+    if(this.form.valid){
+      this.returnValue.emit(this.form.value.passportNum);
+      this.activeModal.close();
+    }
+   
   }
 
 }

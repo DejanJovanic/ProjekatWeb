@@ -3,7 +3,7 @@
         <div class="form-row">
             <div class="col form-group">
                 <label for="username" class="col-form-label">Username : </label>
-                <input formValidation type="text" id="username" class="form-control" formControlName="username"/>
+                <input formValidation [customErrors]="customErrors" type="text" id="username" class="form-control" formControlName="username"/>
             </div>
         </div>
         <div class="form-group form-row">

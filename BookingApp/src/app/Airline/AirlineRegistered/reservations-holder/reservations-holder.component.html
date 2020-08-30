@@ -1,8 +1,28 @@
-<div class="container">  
-    <div class="card-deck">
-        <br>
-        <ng-container *ngFor="let item of reservations | async">
-            <app-reservations-panel  [reservation]=item></app-reservations-panel>
-        </ng-container>
+<div class="container-fluid" style="background : transparent !important">  
+    <div *ngIf="(reservations | async) != null && (reservations | async)?.length > 0; else nothingFound">
+        
+            <div class="row mb-2" *ngFor="let item of reservations | async">
+                <div class="col">
+                    <app-reservations-panel  [reservation]=item></app-reservations-panel>
+                </div>
+            </div>
+
     </div>
 </div>
+
+<ng-template #nothingFound >
+    <div class="row">
+        <div class="col" >
+            <div class="card">
+                <div class="card-body text-center text-justify">
+                    <h3>
+                        <small>
+                            No reservations to display
+                        </small>
+                    </h3>
+                </div>
+            </div>
+         
+        </div>
+    </div>
+</ng-template>

@@ -24,6 +24,25 @@ export class UserNetworkService {
   public ChangePassword(username,oldPassword,newPassword) : Observable<boolean>{
     return this.client.put<boolean>('http://localhost:50000/api/Login/ChangePassword',{username : username, password : oldPassword, newPassword : newPassword})
   }
+  public DeletFriend(username) : Observable<User>{
+    let param = new HttpParams()
+    param = param.append('friendUsername',username)
+
+    return this.client.delete<User>('http://localhost:50000/api/Friends',{ params :  param})
+}
+  public ResetPassword(token,password,username) : Observable<boolean>{
+      let param = new HttpParams()
+     param = param.append('username',username)
+    param = param.append('token',token)
+    param.append('password',password)
+    return this.client.put<boolean>('http://localhost:50000/api/VerifyAccount/ResetPassword',{ params :  param})
+  }
+  public ValidateUser(token,username) : Observable<boolean>{
+    let param = new HttpParams()
+    param = param.append('username',username)
+    param = param.append('token',token)
+    return this.client.put<boolean>('http://localhost:50000/api/VerifyAccount/ChangePassword',{ params :  param})
+  }
 
   public Login(username : string, password : string) : Observable<string>{
     return this.client.post<{token:string}>('http://localhost:50000/api/Login',{username : username, password : password}).pipe(

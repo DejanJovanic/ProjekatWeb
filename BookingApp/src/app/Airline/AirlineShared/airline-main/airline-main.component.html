@@ -1,17 +1,17 @@
+<div class="container-fluid" style="background : transparent !important">
+    <div class = "row">
+        <div class="col">
+            <app-airline-search (search)="onFlightSearch($event)"></app-airline-search>
+        </div>
+        <div class="col">
+            <app-airline-filter (filter)="onFlightFilter($event)"></app-airline-filter>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <app-airline-holder [filter] = "filterSubject.asObservable()"></app-airline-holder>
+        </div>
+    </div>
+</div>
 
-<div class = "row">
-    <div class="col-sm">
-        <app-airline-search (search)="onFlightSearch($event)"></app-airline-search>
-    </div>
-    <div class="col-sm">
-        <app-airline-filter (filter)="onFlightFilter($event)"></app-airline-filter>
-    </div>
-</div>
-<br>
-<br>
-<div class="row">
-    <div class="col-lg">
-        <app-airline-holder [filter] = "filterSubject.asObservable()"></app-airline-holder>
-    </div>
-</div>
 

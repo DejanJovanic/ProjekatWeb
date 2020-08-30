@@ -44,5 +44,35 @@ namespace BookingAppBackend.Controllers.VerifyAccount
             else
                 return null;
         }
+
+        [HttpPost]
+        [Route("ResetPassword")]
+        public async Task<IActionResult> ResetPassword(string username, string token,string password)
+        {
+            if (username == null || token == null)
+                return null;
+            var user = await manager.FindByNameAsync(username);
+            if (user != null)
+            {
+                var temp = await manager.GetRolesAsync(user);
+                if (temp.Contains("AirlineAdmin") || temp.Contains("RentACarAdmin"))
+                {
+                    var res = await manager.ResetPasswordAsync(user, token, password);
+                    if (res.Succeeded)
+                    {
+                        await userService.EnableUser(username);
+                        return Ok(true);
+
+                    }
+                    else
+                        return BadRequest(false);
+                }
+                else
+                    return BadRequest(false);
+            
+            }
+            else
+                return BadRequest(false);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BookingAppBackend.Model;
 using Microsoft.Extensions.Options;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,54 +10,64 @@ using System.Threading.Tasks;
 
 namespace BookingAppBackend.Utils.EMailSender
 {
-    public class EmailSender : IEmailSender
+    public class EmailSender
     {
-        private readonly EMailSettings _emailSettings;
 
-        public EmailSender(IOptions<EMailSettings> emailSettings)
+        public EmailSender()
         {
-            _emailSettings = emailSettings.Value;
+          
         }
-
-        public Task SendEmailAsync(string email, string subject, string message)
+        public void SendResetPasswordMail(string email,string token, string username)
         {
-            try
+            string link = "http://localhost:4000/PasswordReset/" + token + "/" + username;
+
+            MimeMessage message = new MimeMessage();
+
+            MailboxAddress to = new MailboxAddress("User", email);
+            MailboxAddress from = new MailboxAddress("BookingAppTeam", "bookingappweb2@gmail.com");
+            message.Subject = "Account Verification";
+            message.From.Add(from);
+            message.To.Add(to);
+            var body = new BodyBuilder();
+            body.HtmlBody = $@"<p>To change your account's password, please follow the link: {link} </p>";
+            body.TextBody = $"To change your account's password, please follow the link: {link} ";
+            message.Body = body.ToMessageBody();
+
+            using (var client = new MailKit.Net.Smtp.SmtpClient())
             {
-                // Credentials
-                var credentials = new NetworkCredential(_emailSettings.Sender, _emailSettings.Password);
-
-                // Mail message
-                var mail = new MailMessage()
-                {
-                    From = new MailAddress(_emailSettings.Sender, _emailSettings.SenderName),
-                    Subject = subject,
-                    Body = message,
-                    IsBodyHtml = true
-                };
-
-                mail.To.Add(new MailAddress(email));
-
-                // Smtp client
-                var client = new SmtpClient()
-                {
-                    Port = _emailSettings.MailPort,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Host = _emailSettings.MailServer,
-                    EnableSsl = true,
-                    Credentials = credentials
-                };
-
-                // Send it...         
-                client.Send(mail);
-            }
-            catch (Exception ex)
-            {
-                // TODO: handle exception
-                throw new InvalidOperationException(ex.Message);
+                client.Connect("smtp.gmail.com", 465);
+                client.Authenticate("bookingappweb2@gmail.com", "bookingapp123");
+                client.Send(message);
+                client.Disconnect(true);
             }
 
-            return Task.CompletedTask;
         }
+
+        public void SendConfirmEMail(string email,string token, string username)
+        {
+            string link = "http://localhost:4000/EMailVerification/" + token + "/" + username;
+
+            MimeMessage message = new MimeMessage();
+
+            MailboxAddress to = new MailboxAddress("User", email);
+            MailboxAddress from = new MailboxAddress("BookingAppTeam", "bookingappweb2@gmail.com");
+            message.Subject = "Account Verification";
+            message.From.Add(from);
+            message.To.Add(to);
+            var body = new BodyBuilder();
+            body.HtmlBody = $@"<p>To verify your account, please follow the link: {link} </p>";
+            body.TextBody = $"To verify your account, please follow the link: {link} ";
+            message.Body = body.ToMessageBody();
+
+            using (var client = new MailKit.Net.Smtp.SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 465);
+                client.Authenticate("bookingappweb2@gmail.com", "bookingapp123");
+                client.Send(message);
+                client.Disconnect(true);
+            }
+
+        }
+
     }
 }

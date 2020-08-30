@@ -10,8 +10,8 @@ export const defaultErrors = {
   emptyString : ({isEmpty}) => `Needs to have atleats one letter`,
   wholeNumber : ({isWholeNumber}) => `Only integers are allowed`,
   decimalNumber : ({isdecimalNumber}) => `Only decimal numbers are allowed`,
-  name : ({invalidName}) => `Only letters, ' , - and spaces are allowed`
-
+  name : ({invalidName}) => `Only letters, ' , - and spaces are allowed`,
+  passport : ({invalidPassport}) => `Needs to contain maximum 13 letters and numbers`
 }
 
 export const FORM_ERRORS = new InjectionToken('FORM_ERRORS', {

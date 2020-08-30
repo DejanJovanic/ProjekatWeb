@@ -7,6 +7,7 @@ using BookingAppBackend.Database.Repository;
 using BookingAppBackend.Model.AuthentificationAndAuthorization;
 using BookingAppBackend.Model.Users;
 using BookingAppBackend.Service.GeneralUser;
+using BookingAppBackend.Utils.EMailSender;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -66,6 +67,36 @@ namespace BookingAppBackend.Controllers.UserGeneral
             {
                 return BadRequest(new { message = response.Message });
             }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "User,AirlineAdmin")]
+        [Route("ResetPassword")]
+        public async Task<IActionResult> ResetPassword()
+        {
+
+            try
+            {
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                if(user != null)
+                {
+                    var token = await userManager.GeneratePasswordResetTokenAsync(user);
+                    var temp = userManager.RemovePasswordAsync(user);
+                    var sender = new EmailSender();
+                    sender.SendResetPasswordMail(user.Email, token, user.UserName);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+             
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+
         }
     }
 }

@@ -106,6 +106,8 @@ import { ControlErrorContainerDirective } from './Shared/Directives/ControlError
 import { WholeNumberDirective } from './Shared/Directives/WholeNumberDirective/whole-number.directive';
 import { RentACarBranchLocationOnMapComponent } from './RentACar/rent-acar-branch-location-on-map/rent-acar-branch-location-on-map.component';
 import { RentACarReservationPreviewModalComponent } from './RentACar/rent-acar-reservation-preview-modal/rent-acar-reservation-preview-modal.component';
+import { FlightDetailsComponent } from './Airline/AirlineShared/flight-details/flight-details.component';
+import { ResetPasswordComponent } from './Users/reset-password/reset-password.component';
 
 
 
@@ -204,7 +206,9 @@ import { RentACarReservationPreviewModalComponent } from './RentACar/rent-acar-r
     ControlErrorContainerDirective,
     WholeNumberDirective,
     RentACarBranchLocationOnMapComponent,
-    RentACarReservationPreviewModalComponent
+    RentACarReservationPreviewModalComponent,
+    FlightDetailsComponent,
+    ResetPasswordComponent
   ],
   imports: [
     

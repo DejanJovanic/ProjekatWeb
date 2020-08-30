@@ -6,6 +6,8 @@ import { FlightSearchService } from '../../AirlineRegistered/Services/FlightSear
 import { AirlineGetterService } from '../Services/AirlineGetter/airline-getter.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SortParameter } from 'src/app/Shared/Model/Airlines/SortParameter.model';
+import { BackgroundService } from 'src/app/Shared/Services/Background/background.service';
+import { Background } from 'src/app/Shared/Model/Common/Background.model';
 
 
 
@@ -17,7 +19,7 @@ import { SortParameter } from 'src/app/Shared/Model/Airlines/SortParameter.model
 })
 export class AirlineMainComponent implements OnInit, OnDestroy {
 
-  constructor(private searchService: FlightSearchService,private getter : AirlineGetterService) { }
+  constructor(private searchService: FlightSearchService,private getter : AirlineGetterService,private background : BackgroundService) { }
   searchSub : Subscription
 
   sub : Subscription
@@ -33,7 +35,9 @@ export class AirlineMainComponent implements OnInit, OnDestroy {
     this.filterSubject.next(null);
   }
   ngOnInit(): void {
-    
+    setTimeout(() => {
+      this.background.SetBackgroud(Background.AirlineMain);
+  });
   }
   onFlightSearch(event : FlightSearchParams){
     if(this.searchSub)

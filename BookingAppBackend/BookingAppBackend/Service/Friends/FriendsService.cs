@@ -1,4 +1,5 @@
 ﻿using BookingAppBackend.Database.Interfaces;
+using BookingAppBackend.Model.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,14 @@ namespace BookingAppBackend.Service.Friends
         {
             return await repo.GetFriends(username);
         }
+        public async Task<UserResponse> DeleteFriend(string username, string friendUsername)
+        {
+            var ret = await repo.DeleteFriend(username, friendUsername);
+            if (ret.Success)
+                await this.unitOfWork.CompleteAsync();
+            return ret;
+        }
 
-       
+
     }
 }

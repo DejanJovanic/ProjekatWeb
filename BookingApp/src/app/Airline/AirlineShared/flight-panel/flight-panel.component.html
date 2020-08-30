@@ -19,8 +19,8 @@
     </div>
     <div class="card-footer">
         <div class="row">
-            <div class="col-sm-3" *ngIf="role ===  'User'">
-                <button class="btn btn-primary" [routerLink]="['/seats/',flight.id]" routerLinkActive="router-link-active">Set Reservation</button>
+            <div class="col-sm-3" *ngIf="role !=  'AirlineAdmin'">
+                <button class="btn btn-primary" [routerLink]="['/FlightDetails/',flight.id]" routerLinkActive="router-link-active">Set Reservation</button>
             </div>
             <div class="col-md btn-group" role="group" *ngIf="role == 'AirlineAdmin'">
                 <button class="btn btn-secondary mr-2" [routerLink]="['/EditFastReservationSeats/',flight.id]" routerLinkActive="router-link-active">Fast</button>

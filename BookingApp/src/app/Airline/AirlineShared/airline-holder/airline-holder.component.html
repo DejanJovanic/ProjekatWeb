@@ -1,50 +1,64 @@
-<div class="container">  
+<div class="container-fluid" style="background : transparent !important">  
     <div *ngIf="(flights | async) != null; else searchForItems" >
-        <form [formGroup]="form">
-            <div class="row">
-                <div class="col-sm-3">
-                    <label>
-                        Sort by :
-                    </label>
+        <div *ngIf="(flights | async)?.length > 0; else nothingFound">
+            <div class="row mb-3" style="background : transparent !important">
+                <div class="col d-flex flex-row justify-content-right">
+                    <div class="card text-dark">
+                        <div class="card-body bg-white">
+                            <form [formGroup]="form">
+                                <label>
+                                    Sort by :
+                                </label>
+                                <select formControlName="sort">
+                                    <option value="AirlineAZ">Airline A-Z</option>
+                                    <option value="AirlineZA">Airline Z-A</option>
+                                    <option value="PriceAsc">Price ascending</option>
+                                    <option value="PriceDesc">Price descending</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-5">
-                    <select formControlName="sort">
-                        <option value="AirlineAZ">Airline A-Z</option>
-                        <option value="AirlineZA">Airline Z-A</option>
-                        <option value="PriceAsc">Price ascending</option>
-                        <option value="PriceDesc">Price descending</option>
-                    </select>
+            </div>
+            <div class="row mb-2" *ngFor="let item of flights | async">
+                <div class="col">
+                    <app-flight-panel  [flight]=item></app-flight-panel>
                 </div>
-            </div>       
-        </form>
-        <br>
-        <div class="card-deck" *ngIf="(flights | async)?.length > 0; else nothingFound">
-            <ng-container *ngFor="let item of flights | async">
-                <app-flight-panel  [flight]=item></app-flight-panel>
-            </ng-container>
+            </div>
         </div>
+  
       
     </div>
 
     <ng-template #searchForItems >
-        <div class="row" class="text-center text-justify">
-            <div class="col-lg" >
-                <h3>
-                    <small>
-                        To display flight, please search for flights.
-                    </small>
-                </h3>
+        <div class="row">
+            <div class="col" >
+                <div class="card">
+                    <div class="card-body text-center text-justify">
+                        <h3>
+                            <small>
+                                To display flight, please search for flights.
+                            </small>
+                        </h3>
+                    </div>
+                </div>
+       
             </div>
         </div>
     </ng-template>
     <ng-template #nothingFound >
-        <div class="row" class="text-center text-justify">
-            <div class="col-lg" >
-                <h3>
-                    <small>
-                        No flights that match search criteria found!
-                    </small>
-                </h3>
+        <div class="row">
+            <div class="col" >
+                <div class="card">
+                    <div class="card-body text-center text-justify">
+                        <h3>
+                            <small>
+                                No flights that match search criteria found!
+                            </small>
+                        </h3>
+                    </div>
+                </div>
+             
             </div>
         </div>
     </ng-template>

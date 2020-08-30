@@ -25,7 +25,17 @@ export class BackgroundService {
         case Background.AirlineAdminMain:
           this.BackgroundName = 'AirlineAdminMain.jfif'
           break;
+        case Background.AirlineMain:
+          this.BackgroundName = 'AirlineMain.jpg'
+          break;
+        case Background.SeatReservation:
+          this.BackgroundName = 'SeatReservation.jpg'
+          break;
+        case Background.ReservationConfirmation:
+          this.BackgroundName = 'ReservationConfirmation.jpg'
+          break;
       }
+      this.CurrentBackground = background
     }   
   }
 }

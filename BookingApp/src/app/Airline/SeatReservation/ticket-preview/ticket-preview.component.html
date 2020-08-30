@@ -1,9 +1,4 @@
 <div class="card">
-    <div class="card-header">
-        <h4>
-            Flight Reservation
-        </h4>
-    </div>
     <div class="card-body">
         <div class="container">
             <div class="row">
@@ -11,44 +6,44 @@
                     <div class="row">
                        
                         <div class="col-sm-2">
-                            <p> Row: </p>
+                             Row: 
                         </div>
                         <div class="col-sm-4">
-                            <p> {{ticket.row}}  </p>
+                            {{ticket.row}} 
                         </div>
                         <div class="col-sm-2">
-                            <p> Name: </p>    
+                             Name:   
                         </div>
                         <div class="col-sm-4" *ngIf="ticket.details">
-                            <p> {{ticket.details.name}} </p>
+                             {{ticket.details.name}} 
                         </div>
                     </div>
                     <div class="row">      
                         <div class="col-sm-2">
-                            <p> Column: </p>      
+                             Column:       
                         </div>
                         <div class="col-sm-4">
-                            <p> {{ticket.column}} </p>
+                             {{ticket.column}} 
                         </div>
                         <div class="col-sm-2">
-                            <p>  Last Name: </p>      
+                              Last Name:  
                         </div>
                         <div class="col-sm-4" *ngIf="ticket.details">
-                            <p> {{ticket.details.lastName}} </p>  
+                            {{ticket.details.lastName}} 
                         </div>
                     </div>
                     <div class="row">     
                         <div class="col-sm-2">
-                            <p>  Seat Index: </p>   
+                             Seat Index:   
                         </div>
                         <div class="col-sm-4">
-                            <p> {{ticket.seatIndex}} </p>
+                             {{ticket.seatIndex}} 
                         </div>
                         <div class="col-sm-2">
-                            <p> Passport number: </p> 
+                             Passport number: 
                         </div>
                         <div class="col-sm-4" *ngIf="ticket.details">
-                            <p> {{ticket.details.passportNum}}  </p>         
+                             {{ticket.details.passportNum}}         
                         </div>
                     </div>
                 </div>
@@ -67,37 +62,29 @@
                     </div>
                 </div>
             </div>
+            <div class="row" *ngIf="isAssignment; else assignment">
+                <div class="col d-inline-flex flex-row" *ngIf="!ticket.details; else clearData">
+                    <button (click)="EnterData()" class="btn btn-primary mr-2">Enter data</button>
+                    <button (click)="ChooseFriend()" class="btn btn-primary mr-2">Choose Friend</button>
+                    <button (click)="ChooseMe()" class="btn btn-primary mr-2" *ngIf="!currentUserSelected.isSelected">Choose Me</button>
+                </div>
+            </div>
         </div>   
     </div>
-    <div class="card-footer">
-        <div class="container" *ngIf="isAssignment; else assignment">
-            <div class="row">
-                <div class="col-sm-12"*ngIf="!ticket.details; else clearData" >
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <button (click)="EnterData()" class="btn btn-primary">Enter data</button>
-                        </div>
-                        <div class="col-sm-4">
-                            <button (click)="ChooseFriend()" class="btn btn-primary">Choose Friend</button>
-                        </div>
-                        <div class="col-sm-4">
-                            <button (click)="ChooseMe()" class="btn btn-primary" *ngIf="!currentUserSelected.isSelected">Choose Me</button>
-                        </div>
-                    </div>         
-                </div>
-                <ng-template #clearData>
-                    <div class="col-sm-12">
-                        <button (click)="ClearData()" class="btn btn-danger">Clear data</button>
-                    </div>
-                </ng-template>
-            </div>
-        </div>
-        <ng-template #assignment>
-            <div class="container">
-                <div class="col-sm-12" *ngIf="ticket.details.passportNum">
-                    <button (click)="SetDetails()" class="btn btn-primary">Set details</button>
-                </div>
-            </div>
-        </ng-template>      
+</div> 
+                
+<ng-template #clearData>
+    <div class="col d-inline-flex flex-row">
+        <button (click)="ClearData()" class="btn btn-danger">Clear data</button>
     </div>
-</div>    
+</ng-template>
+
+<ng-template #assignment>
+    <div class="row">
+        <div class="col d-inline-flex flex-row" *ngIf="ticket.details.passportNum">
+            <button (click)="SetDetails()" class="btn btn-primary">Set details</button>
+        </div>
+    </div>
+</ng-template>      
+    
+   

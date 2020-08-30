@@ -4,6 +4,8 @@ import { UserFlightDetails } from 'src/app/Shared/Model/Common/UserFlightDetails
 import { UserFlightDetailsModal } from 'src/app/Shared/Model/Airlines/UserFlightDetailsModal.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Name } from '../../AirlineShared/Validators/Name.validator';
+import { Passport } from '../../AirlineShared/Validators/Passport.validator';
 
 @Component({
   selector: 'app-flight-user-details',
@@ -23,17 +25,19 @@ export class FlightUserDetailsComponent implements OnInit {
     this.details = new UserFlightDetailsModal();
     this.details.index = this.index;
     this.form = this.builder.group({
-      name:['',[Validators.required,Validators.pattern(/^[a-zA-Z- ]+$/)]],
-      lastName:['',[Validators.required,Validators.pattern(/^[a-zA-Z- ]+$/)]],
-      passportNum:['',[Validators.required,Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/)]]
+      name:['',[Validators.required,Name]],
+      lastName:['',[Validators.required,Name]],
+      passportNum:['',[Validators.required,Passport]]
     })
   }
 
   Finish(){
-    this.details.lastName = this.form.value.lastName;
-    this.details.name = this.form.value.name;
-    this.details.passportNum = this.form.value.passportNum;
-    this.returnValue.emit(this.details);
-    this.activeModal.close();
+    if(this.form.valid){
+      this.details.lastName = this.form.value.lastName;
+      this.details.name = this.form.value.name;
+      this.details.passportNum = this.form.value.passportNum;
+      this.returnValue.emit(this.details);
+      this.activeModal.close();
+    }
   }
 }

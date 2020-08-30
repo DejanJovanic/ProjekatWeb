@@ -46,6 +46,8 @@ import { EnableSeatComponent } from './Airline/AirlineAdmin/enable-seat/enable-s
 import { UserDataResolverService } from './Shared/Resolvers/UserDataResolver/user-data-resolver.service';
 import { AirlineAdminDataResolverService } from './Airline/Resolvers/AirlineAdminDataResolver/airline-admin-data-resolver.service';
 import { RentACarBranchLocationOnMapComponent } from './RentACar/rent-acar-branch-location-on-map/rent-acar-branch-location-on-map.component';
+import { FlightDetailsComponent } from './Airline/AirlineShared/flight-details/flight-details.component';
+
 
 
 const routes: Routes = [
@@ -62,7 +64,7 @@ const routes: Routes = [
         {path : 'AirlineEarnings', component: AirlineEarningsComponent}
       ]}
     ]},
-    {path : 'changePassword', component : ChangePasswordComponent},
+    {path : 'changePassword/:username', component : ChangePasswordComponent},
     {path : 'UserPreview', component : UserPreviewComponent},
     {path : 'UserDetailsEdit', component : UserDetailsEditComponent},
     {path : 'FastFlights/:airlineId', component : FastFlightHolderComponent},
@@ -73,6 +75,7 @@ const routes: Routes = [
     {path : 'DisableSeat/:id', component: DisableSeatComponent,resolve:{details : SeatResolveService}},
     {path : 'EnableSeat/:id', component: EnableSeatComponent,resolve:{details : SeatResolveService}},
     {path: 'AddFlight', component: AddFlightComponent},
+    {path: 'FlightDetails/:id',component: FlightDetailsComponent,resolve: {details : SeatResolveService}},
     {path:'seats/:id', component: SeatReservationComponent, resolve:{details : SeatResolveService}},
     {path:'seatAssignment/:id', component: SeatAssignmentComponent, resolve:{reservation : ReservationResolverService,friends : FriensResolverService}},
     {path: 'flightReservationConfirm/:id', component: FlightReservationConfirmationComponent, resolve:{reservation : ReservationResolverService,friends : FriensResolverService,flights : FlightResolverService}},
