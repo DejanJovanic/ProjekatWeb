@@ -8,4 +8,6 @@ export class SearchCarsForRentParameters{
     numberOfPassengers: string;
     priceFrom: string;
     priceTo: string;
+
+    constructor(){}
 }

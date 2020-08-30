@@ -122,9 +122,7 @@
           
           <br/>
           <div class="row">
-            <div class="col">
-              <button type="reset" id="resetButton" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-undo mr-1"></i>Reset search form</button>
-            </div>
+            
               <div class="col">
                 <button [disabled] = "!searchCarsForm.valid" type="button" id="searchButton" class="btn btn-outline-primary btn-rounded " (click)="searchCars()"><i class="fas fa-search mr-1"></i>Search</button>
               </div>
@@ -139,12 +137,11 @@
         <mdb-carousel-item class="d-flex justify-content-center"  *ngFor="let item of slides; let i = index">
               
                 <div class="col-md-4" *ngFor="let car of item; let carIndex = index">
-                  <div class="card" (click) = "openCarDetailsModal(car.CarId)">
+                  <div class="card" title="Click for reservation preview" (click) = "openCarDetailsModal(car.id)">
                     <div class="card-body">
-                      <h5 class="card-title text-muted text-uppercase text-center">{{car.CarBrand}} {{car.CarModel}}</h5>
-                      <h6 class="card-price text-center">{{car.CarPrice}}$<span class="period">/day</span></h6>
-                      <hr>
-                      <button type="button" id="reservationBtn" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-car mr-1"></i>Reservation details</button>
+                      <h5 class="card-title text-muted text-uppercase text-center">{{car.brand}} {{car.model}}</h5>
+                      <h6 class="card-price text-center">{{car.price}}$<span class="period">/day</span></h6>
+                      
                     
                     </div>
                   </div>

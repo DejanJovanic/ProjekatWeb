@@ -18,7 +18,7 @@ namespace BookingAppBackend.Model.RentACar.Parameters
         public string Model { get; set; }
 
         [Required]
-        public int YearOfProduction { get; set; }
+        public string YearOfProduction { get; set; }
 
         [Required]
         public string Type { get; set; }
@@ -30,9 +30,9 @@ namespace BookingAppBackend.Model.RentACar.Parameters
         public string TransmissionType { get; set; }
 
         [Required]
-        public int NumberOfSeats { get; set; }
+        public string NumberOfSeats { get; set; }
 
         [Required]
-        public int Price { get; set; }
+        public string Price { get; set; }
     }
 }

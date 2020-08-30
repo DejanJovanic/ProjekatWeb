@@ -1,8 +1,10 @@
 export class SpecialOffer{
     id : number;
+    enterpriseId: number;
     name : string;
-    discountPercentage : number;
+    discount : number;
     description : string;
     numberOfDays : number;
-  
+    
+    constructor(){}
 }

@@ -41,11 +41,11 @@ namespace BookingAppBackend.Controllers.RentACar
         [HttpDelete]
         [Authorize(Roles = "RentACarAdmin")]
         [Route("DeleteSpecialOffer")]
-        public async Task<IActionResult> DeleteSpecialOffer(GetAndDeleteParameters gadp)
+        public async Task<IActionResult> DeleteSpecialOffer(int enterpriseId, int specialOfferId)
         {
             if (ModelState.IsValid)
             {
-                var temp = await specialOfferService.DeleteSpecialOffer(gadp);
+                var temp = await specialOfferService.DeleteSpecialOffer(enterpriseId, specialOfferId);
                 if (temp != null)
                     return Ok(temp);
                 else
@@ -87,11 +87,11 @@ namespace BookingAppBackend.Controllers.RentACar
 
         [HttpGet]
         [Route("GetOneSpecialOffer")]
-        public async Task<IActionResult> GetOneSpecialOffer(GetAndDeleteParameters gadp)
+        public async Task<IActionResult> GetOneSpecialOffer(int enterpriseId, int specialOfferId)
         {
             if (ModelState.IsValid)
             {
-                var temp = await specialOfferService.GetOneSpecialOffer(gadp);
+                var temp = await specialOfferService.GetOneSpecialOffer(enterpriseId, specialOfferId);
                 if (temp != null)
                     return Ok(temp);
                 else

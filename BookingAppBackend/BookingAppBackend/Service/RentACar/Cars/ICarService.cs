@@ -10,13 +10,14 @@ namespace BookingAppBackend.Service.RentACar.Cars
     public interface ICarService
     {
         Task<IEnumerable<Car>> GetAllCars(int enterpriseId);
-        Task<Car> GetOneCar(GetAndDeleteParameters gadp);
+        Task<Car> GetOneCar(int enterpriseId, int carId);
         Task<Car> AddCar(AddCarParameters car);
         Task<Car> EditCar(EditCarParameters car);
-        Task<Car> DeleteCar(GetAndDeleteParameters gadp);
+        Task<Car> DeleteCar(int enterpriseId, int carId);
         Task<IEnumerable<Car>> SearchAllCars(SearchCarParameters scp);
         Task<IEnumerable<Car>> SearchCarsForRent(SearchCarsForRentParameters scfrp);
         Task<IEnumerable<Car>> GetCarsOnDiscount(int enterpriseId);
         Task<Car> SetCarOnDiscount(SetDiscountParameters sdp);
+        Task<CarReservation> CreateReservation(ReservationParameters paramss);
     }
 }

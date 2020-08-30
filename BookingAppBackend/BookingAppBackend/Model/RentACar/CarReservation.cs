@@ -18,7 +18,7 @@ namespace BookingAppBackend.Model.RentACar
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
         public int Price { get; set; }
-        public SpecialOffer RealizedPackage;
+        public SpecialOffer RealizedPackage { get; set; }
         public bool IsRated { get; set; }
     }
 }

@@ -8,6 +8,12 @@ import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/fo
 import { Car } from 'src/app/Shared/Model/RentACars/Car.model';
 import { DatePipe } from '@angular/common'
 import { ValidationService } from '../../Services/ValidationService/validation.service';
+import { ToastrService } from 'ngx-toastr';
+import { CarService } from '../../Services/CarService/car.service';
+import { SearchCarsForRentParameters } from 'src/app/Shared/Model/RentACars/Models/Parameters/SearchCarsForRentParameters.model';
+import { RentACarReservationPreviewModalComponent } from '../../rent-acar-reservation-preview-modal/rent-acar-reservation-preview-modal.component';
+import { CarReservation } from 'src/app/Shared/Model/RentACars/Models/CarReservation.model';
+import { CarReservationParameters } from 'src/app/Shared/Model/RentACars/Models/Parameters/CarReservationParameters.model';
 @Component({
   selector: 'app-rent-acar-reservation',
   templateUrl: './rent-acar-reservation.component.html',
@@ -15,22 +21,15 @@ import { ValidationService } from '../../Services/ValidationService/validation.s
 })
 export class RentACarReservationComponent implements OnInit {
   searchCarsForm: FormGroup;
-  
-  Enterprise: RentACarEnterprise;
+  Cars;
+  CarReservation;
+  CarReservationParam: CarReservationParameters;
   id: number;
   minDate = undefined;
   slides: any = [[]];
-  companyLocationFrom: boolean = false;
-  companyLocationTo: boolean = false;
-  branchLocationFrom: boolean = false;
-  branchLocationTo: boolean = false;
-  formatedDates: string[] = []; //ovo koristim sada samo zbog lakse provere kod rezervacije, kasnije ce biti niz tipa Date
  
-  datesBetween: Date[] = [];
-  numberOfDays: number;
-  searchedCars: Car[] = [];
  
-  constructor(private service: ValidationService, private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal, public datepipe: DatePipe) { 
+  constructor(private toaster: ToastrService, private carService: CarService, private service: ValidationService, private route: ActivatedRoute, private modalService : NgbModal, public datepipe: DatePipe) { 
     const current = new Date();
     this.minDate = {
     year: current.getFullYear(),
@@ -44,7 +43,7 @@ export class RentACarReservationComponent implements OnInit {
       this.id = +params["id"];
      
     });
-    this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
+
     this.setForm();
   }
   
@@ -56,14 +55,7 @@ export class RentACarReservationComponent implements OnInit {
     return R;
   }
   setForm(){
-    /*let carPlacePickUp = "";
-    let carPlaceReturn = "";
-    let dateFrom = "";
-    let dateTo = "";
-    let carType = "";
-    let carNumberOfPassengers = "";
-    let carPriceFrom = "";
-    let carPriceTo = "";*/
+    
     
     this.searchCarsForm = new FormGroup({
       carPlacePickUp: new FormControl('', [Validators.required, this.service.lettersValidator]),
@@ -77,112 +69,54 @@ export class RentACarReservationComponent implements OnInit {
     });
   }
   searchCars(){ 
-    var carPlacePickUp = this.searchCarsForm.value.carPlacePickUp;
-    var carPlaceReturn = this.searchCarsForm.value.carPlaceReturn;
-    var carType = this.searchCarsForm.value.carType; 
-    var carNumberOfPassengers = this.searchCarsForm.value.carNumberOfPassengers; 
-    var carPriceFrom = this.searchCarsForm.value.carPriceFrom; 
-    var carPriceTo = this.searchCarsForm.value.carPriceTo;
+    var parameters = new SearchCarsForRentParameters();
 
-   
-    var dateFrom = new Date(this.searchCarsForm.value.dateFrom.year,this.searchCarsForm.value.dateFrom.month -1,
+    parameters.enterpriseId = this.id;
+    parameters.numberOfPassengers = this.searchCarsForm.value.carNumberOfPassengers; 
+    parameters.pickUpPlace = this.searchCarsForm.value.carPlacePickUp;
+    parameters.returnPlace = this.searchCarsForm.value.carPlaceReturn;
+    parameters.carType = this.searchCarsForm.value.carType; 
+    parameters.priceFrom = this.searchCarsForm.value.carPriceFrom;
+    parameters.priceTo = this.searchCarsForm.value.carPriceTo;
+    parameters.dateFrom = new Date(this.searchCarsForm.value.dateFrom.year,this.searchCarsForm.value.dateFrom.month -1,
       this.searchCarsForm.value.dateFrom.day);
-    
-
-   
-    var dateTo = new Date(this.searchCarsForm.value.dateTo.year,this.searchCarsForm.value.dateTo.month -1,
+    parameters.dateTo = new Date(this.searchCarsForm.value.dateTo.year,this.searchCarsForm.value.dateTo.month -1,
       this.searchCarsForm.value.dateTo.day);
+    
+      this.carService.searchCarsForRent(parameters).subscribe(i =>{
+        this.Cars = i;
+        
+        this.slides = this.chunk(this.Cars, 3);
+        this.toaster.success("Your search request has been successfully executed",'Free cars',{
+          timeOut : 3000
+        })
+      
+      })
   
    
-    var MS_PER_DAY = 1000 * 60 * 60 * 24;
-    var start  = dateFrom.getTime();
-    var end = dateTo.getTime();
-    var numberOfDays = Math.ceil((end - start) / MS_PER_DAY);
-
-
-    this.datesBetween = Array.from(new Array(numberOfDays + 1), 
-    (v, i) => new Date(start + (i * MS_PER_DAY)));
-    
-
-    //ovaj for ispod, sa formatiranim datumima, koristim samo zbog lakseg testiranja
-    for(let i: number = 0; i < this.datesBetween.length; i++){
-        this.formatedDates.push(this.datesBetween[i].toDateString());
-    }
-
-    
-    if(this.Enterprise.EnterpriseAddress.City.toLowerCase() == carPlacePickUp.toLowerCase()){
-      this.companyLocationFrom = true;   
-    }
-
-    if(this.Enterprise.EnterpriseAddress.City.toLowerCase() == carPlaceReturn.toLowerCase()){
-      this.companyLocationTo = true;
-    }
-
-    for(let i: number = 0; i < this.Enterprise.EnterpriseBranchs.length; i++){
-      if(this.Enterprise.EnterpriseBranchs[i].BranchAddress.City.toLowerCase() == carPlacePickUp.toLowerCase()){
-        this.branchLocationFrom = true;
-      }
-      if(this.Enterprise.EnterpriseBranchs[i].BranchAddress.City.toLowerCase() == carPlaceReturn.toLowerCase()){
-        this.branchLocationTo = true;
-      }
-    }
-
-    if((this.companyLocationFrom == true || this.branchLocationFrom == true) && (this.companyLocationTo == true || this.branchLocationTo == true)){
-      for(let i: number = 0; i < this.Enterprise.EnterpriseCars.length; i++){
-        if((carType.toLowerCase() != this.Enterprise.EnterpriseCars[i].CarType.toLowerCase()) || parseInt(carNumberOfPassengers) > this.Enterprise.EnterpriseCars[i].CarNumberOfSeats){
-          continue;
-        }
-        
-        for(let j: number = 0; j < this.Enterprise.EnterpriseCars[i].CarRentedDates.length; j++){
-          for(let k: number = 0; k < this.formatedDates.length; k++){
-            if(Date.parse(this.Enterprise.EnterpriseCars[i].CarRentedDates[j]) == Date.parse(this.formatedDates[k])){
-              var rented = true;
-            }
-          }
-        }
-    
-        if(rented){
-          rented = false;
-          continue;
-        }
-        
-        if (carPriceFrom != "" || carPriceFrom != null){
-          if(parseInt(carPriceFrom) > this.Enterprise.EnterpriseCars[i].CarPrice){
-              continue;
-          }
-        }
-      
-        if(carPriceTo != "" || carPriceTo != null){
-          if(parseInt(carPriceTo) < this.Enterprise.EnterpriseCars[i].CarPrice){
-              continue;
-          }
-        }
-        var today = new Date();
-        var d1 = today.toDateString();
-        
-        if((Date.parse(d1) < Date.parse(this.Enterprise.EnterpriseCars[i].CarDiscountDateFrom)) || (Date.parse(d1) > Date.parse(this.Enterprise.EnterpriseCars[i].CarDiscountDateTo)) ){
-          this.searchedCars.push(this.Enterprise.EnterpriseCars[i]);
-        }
-        
-        
-      }
-    }
-  
-
-    this.slides = this.chunk(this.searchedCars, 3);
-    this.searchedCars = [];
-    this.companyLocationFrom = false;
-    this.companyLocationTo = false;
-    this.branchLocationFrom = false;
-    this.branchLocationTo = false;
-    this.datesBetween = [];
-    this.formatedDates = [];
   
   }
 
   openCarDetailsModal(carId: number){
-    const modalRef = this.modalService.open(RentACarDetailsModalComponent);
-    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId);
+    this.CarReservationParam = new CarReservationParameters();
+    
+    this.CarReservationParam.dateFrom = new Date(this.searchCarsForm.value.dateFrom.year,this.searchCarsForm.value.dateFrom.month - 1,
+      this.searchCarsForm.value.dateFrom.day+1);
+    this.CarReservationParam.dateTo = new Date(this.searchCarsForm.value.dateTo.year,this.searchCarsForm.value.dateTo.month -1,
+      this.searchCarsForm.value.dateTo.day+1);
+    this.CarReservationParam.carId = carId;
+    this.CarReservationParam.enterpriseId = this.id
+    this.carService.createReservation(this.CarReservationParam).subscribe(i =>{
+      const modalRef = this.modalService.open(RentACarReservationPreviewModalComponent);
+      this.CarReservation = i;
+
+      
+      this.toaster.success("Your request has been successfully executed",'Reservation details',{
+        timeOut : 3000
+      })
+
+      modalRef.componentInstance.item = this.CarReservation;
+    })
   }
   
   

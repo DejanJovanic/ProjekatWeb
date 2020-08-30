@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Car } from 'src/app/Shared/Model/RentACars/Car.model';
 import { RentACarEditCarModalComponent } from '../../RentACarAdmin/rent-acar-edit-car-modal/rent-acar-edit-car-modal.component';
 import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
 import { RentACarDeleteCarModalComponent } from '../../RentACarAdmin/rent-acar-delete-car-modal/rent-acar-delete-car-modal.component';
 import { RentACarSetDiscountModalComponent } from '../../RentACarAdmin/rent-acar-set-discount-modal/rent-acar-set-discount-modal.component';
+
+import { Car } from 'src/app/Shared/Model/RentACars/Models/Car.model';
 
 @Component({
   selector: 'app-rent-acar-details-modal',
@@ -25,13 +26,21 @@ export class RentACarDetailsModalComponent implements OnInit {
   counter;
   isHalf = false;
   ngOnInit(): void {
+  
     this.checkRentedDates();
     this.updateStars();
     this.getArrayValues(0);
   }
   updateStars() {
-    this.isHalf = this.item.CarRating %1 !== 0? true : false;
-    for(let i=0; i<this.item.CarRating;i++){
+
+    var rating = 0;
+    for(let j = 0; j < this.item.ratings.length; j++){
+      rating = rating + this.item.ratings[j].rating;
+    }
+   
+    rating = Math.ceil(rating / this.item.ratings.length);
+    this.isHalf = rating %1 !== 0? true : false;
+    for(let i=0; i<rating;i++){
       this.CarRatingArr.push(i)
     }
    
@@ -47,10 +56,10 @@ export class RentACarDetailsModalComponent implements OnInit {
 
   checkRentedDates(){
     var today = new Date();
-    var d1 = today.toDateString();
     
-    for(let i: number = 0; i < this.item.CarRentedDates.length; i++){
-      if((Date.parse(d1) <= Date.parse(this.item.CarRentedDates[i]))){
+    
+    for(let i: number = 0; i < this.item.reservations.length; i++){
+      if((today.getTime() <= this.item.reservations[i].dateTo.getTime()) && (today.getTime() >= this.item.reservations[i].dateFrom.getTime())){
             this.disableButtons = true;
               break;
       }
@@ -59,16 +68,16 @@ export class RentACarDetailsModalComponent implements OnInit {
 
   openEditCarModal(carId: number){
     const modalRef = this.modalService.open(RentACarEditCarModalComponent);
-    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId);
+    modalRef.componentInstance.item = this.item;
   }
 
   openDeleteCarModal(carId: number){
     const modalRef = this.modalService.open(RentACarDeleteCarModalComponent);
-    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId);
+    modalRef.componentInstance.item = this.item;
   }
 
   openSetDiscountModal(carId: number){
     const modalRef = this.modalService.open(RentACarSetDiscountModalComponent);
-    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId);
+    modalRef.componentInstance.item = this.item;
   }
 }

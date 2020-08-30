@@ -15,12 +15,12 @@ namespace BookingAppBackend.Model.RentACar.Parameters
         public string Name { get; set; }
 
         [Required]
-        public int Discount { get; set; }
+        public string Discount { get; set; }
 
         [Required]
         public string Description { get; set; }
 
         [Required]
-        public int NumberOfDays { get; set; }
+        public string NumberOfDays { get; set; }
     }
 }

@@ -34,6 +34,10 @@ namespace BookingAppBackend.Database.Repository.RentACar
             return await context.Enterprises.ToListAsync();
         }
 
+        public async Task<Enterprise> GetEnterpriseAddress(int enterpriseId)
+        {
+            return await context.Enterprises.Include(i => i.Address).FirstOrDefaultAsync(i => i.Id == enterpriseId);
+        }
         public async Task<IEnumerable<Enterprise>> GetAllEnterprisesForSearch()
         {
             return await context.Enterprises.Include(i => i.Cars).ThenInclude(i => i.Reservations).Include(i => i.Address).Include(i => i.Branches).ToListAsync();

@@ -43,6 +43,9 @@ input{
 #searchButton{
     float:right;
 }
+#resetButton{
+    float: right;
+}
 .card{
     
     background-color: rgba(0, 0, 0, 0.733) !important;

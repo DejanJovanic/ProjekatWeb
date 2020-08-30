@@ -65,6 +65,7 @@
               <button type="button" class="btn btn-outline-primary btn-rounded waves-effect" (click)="showAllCompanies()"><i class="fas fa-car mr-1"></i>Show all enterprises</button>
             </div>
 
+            
               <div class="col">
                 <button type="button" [disabled] = "!searchEnterpriseForm.valid" id="searchButton" class="btn btn-outline-primary btn-rounded waves-effect" (click)="searchCompanies()"><i class="fas fa-search mr-1"></i>Search</button>
               </div>
@@ -74,25 +75,21 @@
         </form>
     </div>
   </div>
-
+  <section class="pricing py-5">
   <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" [animation]="'fade'">
     <mdb-carousel-item class="d-flex justify-content-center" *ngFor="let item of slides; let i = index">
         
             <div class="col-md-4" *ngFor="let enterprise of item; let enterpriseIndex = index">
-              <mdb-card title="Click for more details" [routerLink]="['/EnterpriseProfile/', enterprise.EnterpriseId]" routerLinkActive="router-link-active" class="my-1">
-                <mdb-card-img [src]="enterprise.EnterpriseImage" ></mdb-card-img>
-                <mdb-card-body>
-                  <mdb-card-title>
-                    <h4>{{ enterprise.EnterpriseName }}</h4>
-                  </mdb-card-title>
-                  
-                </mdb-card-body>
               
-              </mdb-card>
-              <br/>
-              <br/>
+            <div class="card" title="Click for more details" [routerLink]="['/EnterpriseProfile/', enterprise.id]" routerLinkActive="router-link-active" class="my-1">
+                <div class="card-body">
+                  <h4 class="card-title text-muted text-uppercase text-center">{{enterprise.name}} </h4>
+                </div>
+            </div> 
+               
             </div>
          
     </mdb-carousel-item>
   </mdb-carousel>
+</section>
 </div>

@@ -53,6 +53,20 @@ namespace BookingAppBackend.Service.RentACar.Enterprises
             }
         }
 
+        public async Task<EnterpriseAddress> GetEnterpriseAddress(int enterpriseId)
+        {
+            try
+            {
+                var temp = await repo.GetEnterpriseAddress(enterpriseId);
+
+                return temp.Address;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public async Task<Enterprise> GetOneEnterprise(int enterpriseId)
         {
             try
@@ -75,11 +89,11 @@ namespace BookingAppBackend.Service.RentACar.Enterprises
             
             foreach (var enterprise in temp)
             {
-                if(sep.EnterpriseName != "" || sep.EnterpriseName != null)
+                if(sep.EnterpriseName != "" && sep.EnterpriseName != null)
                 {
                     if(enterprise.Name == sep.EnterpriseName || enterprise.Name.ToLower() == sep.EnterpriseName.ToLower())
                     {
-                        if(sep.BranchLocation != "" || sep.BranchLocation != null)
+                        if(sep.BranchLocation != "" && sep.BranchLocation != null)
                         {
                             var found = 0;
                             foreach (var branch in enterprise.Branches)
@@ -137,66 +151,62 @@ namespace BookingAppBackend.Service.RentACar.Enterprises
                             }
                         }
                     }
-                    else
+                    
+                }
+                else if(sep.BranchLocation != "" && sep.BranchLocation != null)
+                {
+                    var found = 0;
+                    foreach (var branch in enterprise.Branches)
                     {
-                        if (sep.BranchLocation != "" || sep.BranchLocation != null)
+                        if (branch.City.ToLower() == sep.BranchLocation.ToLower() || enterprise.Address.City.ToLower() == sep.BranchLocation.ToLower())
                         {
-                            var found = 0;
-                            foreach (var branch in enterprise.Branches)
+                            found++;
+                            break;
+                        }
+                    }
+                    if (found != 0)
+                    {
+                        foreach (var car in enterprise.Cars)
+                        {
+                            foreach (var reservation in car.Reservations)
                             {
-                                if (branch.City.ToLower() == sep.BranchLocation.ToLower() || enterprise.Address.City.ToLower() == sep.BranchLocation.ToLower())
-                                {
-                                    found++;
-                                    break;
-                                }
+                                if (reservation.DateFrom >= sep.RentFrom && reservation.DateTo <= sep.RentTo)
+                                    rented = true;
                             }
-                            if (found != 0)
+
+                            if (rented)
                             {
-                                foreach (var car in enterprise.Cars)
-                                {
-                                    foreach (var reservation in car.Reservations)
-                                    {
-                                        if (reservation.DateFrom >= sep.RentFrom && reservation.DateTo <= sep.RentTo)
+                                rented = false;
+                                continue;
+                            }
+                            else
+                            {
+                                retValue.Add(enterprise);
+                                break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var car in enterprise.Cars)
+                    {
+                        foreach (var reservation in car.Reservations)
+                        {
+                            if (reservation.DateFrom >= sep.RentFrom && reservation.DateTo <= sep.RentTo)
                                             rented = true;
-                                    }
-
-                                    if (rented)
-                                    {
-                                        rented = false;
-                                        continue;
-                                    }
-                                    else
-                                    {
-                                        retValue.Add(enterprise);
-                                        break;
-                                    }
-                                }
-                            }
-
-                        }
-                        else
-                        {
-                            foreach (var car in enterprise.Cars)
-                            {
-                                foreach (var reservation in car.Reservations)
-                                {
-                                    if (reservation.DateFrom >= sep.RentFrom && reservation.DateTo <= sep.RentTo)
-                                        rented = true;
-                                }
-
-                                if (rented)
-                                {
-                                    rented = false;
-                                    continue;
-                                }
-                                else
-                                {
-                                    retValue.Add(enterprise);
-                                    break;
-                                }
-                            }
                         }
 
+                         if (rented)
+                         {
+                            rented = false;
+                            continue;
+                         }
+                         else
+                         {
+                            retValue.Add(enterprise);
+                            break;
+                         }
                     }
                 }
             }

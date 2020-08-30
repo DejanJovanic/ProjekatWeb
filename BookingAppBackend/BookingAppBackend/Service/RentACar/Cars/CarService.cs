@@ -13,13 +13,15 @@ namespace BookingAppBackend.Service.RentACar.Cars
     {
         private ICarRepository repo;
         private IEnterpriseRepository repo2;
+        private ISpecialOfferRepository repo3;
         private IUnitOfWork unitOfWork;
 
-        public CarService(IEnterpriseRepository ep, ICarRepository repo, IUnitOfWork unitOfWork)
+        public CarService(IEnterpriseRepository ep, ICarRepository repo, ISpecialOfferRepository aaa, IUnitOfWork unitOfWork)
         {
             this.repo2 = ep;
             this.repo = repo;
             this.unitOfWork = unitOfWork;
+            this.repo3 = aaa;
         }
         public async Task<Car> AddCar(AddCarParameters car)
         {
@@ -38,11 +40,11 @@ namespace BookingAppBackend.Service.RentACar.Cars
             }
         }
 
-        public async Task<Car> DeleteCar(GetAndDeleteParameters gadp)
+        public async Task<Car> DeleteCar(int enterpriseId, int carId)
         {
             try
             {
-                var temp = await repo.DeleteCar(gadp);
+                var temp = await repo.DeleteCar(enterpriseId, carId);
                 if (temp != null)
                 {
                     await unitOfWork.CompleteAsync();
@@ -86,11 +88,11 @@ namespace BookingAppBackend.Service.RentACar.Cars
             }
         }
 
-        public async Task<Car> GetOneCar(GetAndDeleteParameters gadp)
+        public async Task<Car> GetOneCar(int enterpriseId, int carId)
         {
             try
             {
-                var temp = await repo.GetOneCar(gadp);
+                var temp = await repo.GetOneCar(enterpriseId, carId);
                
                 return temp;
             }
@@ -109,61 +111,61 @@ namespace BookingAppBackend.Service.RentACar.Cars
 
             foreach(var car in temp)
             {
-                if(scp.PriceFrom != "" || scp.PriceFrom != null)
+                if(scp.PriceFrom != "" && scp.PriceFrom != null)
                 {
                     if (Int32.Parse(scp.PriceFrom) > car.Price)
                         continue;
                 }
 
-                if(scp.PriceTo != "" || scp.PriceTo != null)
+                if(scp.PriceTo != "" && scp.PriceTo != null)
                 {
                     if (Int32.Parse(scp.PriceTo) < car.Price)
                         continue;
                 }
 
-                if(scp.YearOfProductionFrom != "" || scp.YearOfProductionFrom != null)
+                if(scp.YearOfProductionFrom != "" && scp.YearOfProductionFrom != null)
                 {
                     if (Int32.Parse(scp.YearOfProductionFrom) > car.YearOfProduction)
                         continue;
                 }
 
-                if(scp.YearOfProductionTo != "" || scp.YearOfProductionTo != null)
+                if(scp.YearOfProductionTo != "" && scp.YearOfProductionTo != null)
                 {
                     if (Int32.Parse(scp.YearOfProductionTo) < car.YearOfProduction)
                         continue;
                 }
 
-                if(scp.NumberOfSeats != "" || scp.NumberOfSeats != null)
+                if(scp.NumberOfSeats != "" && scp.NumberOfSeats != null)
                 {
                     if (Int32.Parse(scp.NumberOfSeats) != car.NumberOfSeats)
                         continue;
                 }
 
-                if(scp.FuelType != "" || scp.FuelType != null)
+                if(scp.FuelType != "" && scp.FuelType != null)
                 {
                     if (scp.FuelType.ToLower() != car.FuelType.ToLower())
                         continue;
                 }
 
-                if(scp.TransmissionType != "" || scp.TransmissionType != null)
+                if(scp.TransmissionType != "" && scp.TransmissionType != null)
                 {
                     if (scp.TransmissionType.ToLower() != car.TransmissionType.ToLower())
                         continue;
                 }
 
-                if(scp.Brand != "" || scp.Brand != null)
+                if(scp.Brand != "" && scp.Brand != null)
                 {
                     if (scp.Brand.ToLower() != car.Brand.ToLower())
                         continue;
                 }
 
-                if(scp.Type != "" || scp.Type != null)
+                if(scp.Type != "" && scp.Type != null)
                 {
                     if (scp.Type.ToLower() != car.Type.ToLower())
                         continue;
                 }
 
-                if(scp.Model != "" || scp.Model != null)
+                if(scp.Model != "" && scp.Model != null)
                 {
                     if (scp.Model.ToLower() != car.Model.ToLower())
                         continue;
@@ -222,26 +224,31 @@ namespace BookingAppBackend.Service.RentACar.Cars
                         continue;
                     }
 
-                    if(scfrp.PriceFrom != "" || scfrp.PriceFrom != null)
+                    if(scfrp.PriceFrom != "" && scfrp.PriceFrom != null)
                     {
                         if (Int32.Parse(scfrp.PriceFrom) > car.Price)
                             continue;
                     }
 
-                    if(scfrp.PriceTo != "" || scfrp.PriceTo != null)
+                    if(scfrp.PriceTo != "" && scfrp.PriceTo != null)
                     {
                         if (Int32.Parse(scfrp.PriceTo) < car.Price)
                             continue;
                     }
 
-                    foreach (var discountPeriod in car.Discounts)
+                    if (car.Discounts.Count() != 0)
                     {
-                        if ((DateTime.Today < discountPeriod.DiscountFrom) || (DateTime.Today > discountPeriod.DiscountTo))
+                        foreach (var discountPeriod in car.Discounts)
                         {
-                            retValue.Add(car);
+                            if ((DateTime.Today < discountPeriod.DiscountFrom) || (DateTime.Today > discountPeriod.DiscountTo))
+                            {
+                                retValue.Add(car);
+                            }
+
                         }
-                         
                     }
+                    else
+                        retValue.Add(car);
 
                 }
                 
@@ -270,24 +277,6 @@ namespace BookingAppBackend.Service.RentACar.Cars
             return retVal;
         }
 
-       /* public async Task<IEnumerable<Car>> GetCarsOnDiscountOnDateLocation(int enterpriseId,DateTime date,string location)
-        {
-            var temp = await repo2.GetCarsOnDiscount(enterpriseId);
-            List<Car> retVal = new List<Car>();
-
-            foreach (var car in temp.Cars)
-            {
-                foreach (var discountPeriod in car.Discounts)
-                {
-                    if ((DateTime.Today >= discountPeriod.DiscountFrom) && (DateTime.Today <= discountPeriod.DiscountTo))
-                    {
-                        retVal.Add(car);
-                    }
-                }
-            }
-            return retVal;
-        }*/
-
         public async Task<Car> SetCarOnDiscount(SetDiscountParameters sdp)
         {
             try
@@ -305,5 +294,68 @@ namespace BookingAppBackend.Service.RentACar.Cars
             }
         }
 
+        public async Task<CarReservation> CreateReservation(ReservationParameters paramss)
+        {
+            var enterprise = await repo2.GetOneEnterprise(paramss.EnterpriseId);
+            var car = await repo.GetOneCar(paramss.EnterpriseId, paramss.CarId);
+            var specialOfferss = await repo3.GetAllSpecialOffers(paramss.EnterpriseId);
+
+            
+            int numberOfDays = (paramss.DateTo - paramss.DateFrom).Days + 1;
+
+            int price = numberOfDays * car.Price;
+
+            CarReservation retValue = new CarReservation();
+            retValue.IsRated = false;
+            retValue.NumberOfDays = numberOfDays;
+            retValue.SelectedCar = car;
+            retValue.SelectedEnterprise = enterprise;
+            retValue.DateFrom = paramss.DateFrom;
+            retValue.DateTo = paramss.DateTo;
+            bool found = false;
+            List<SpecialOffer> specialOffers = specialOfferss.OrderBy(i => i.NumberOfDays).ToList();
+            for(int i = 0; i < specialOffers.Count()-2; i++)
+            {
+                if (!found)
+                {
+                    if(numberOfDays == specialOffers[i].NumberOfDays)
+                    {
+                        retValue.RealizedPackage = specialOffers[i];
+                        break;
+                    }
+                }
+                for(int j = i+1; j <= specialOffers.Count()-1; j++)
+                {
+                    if(numberOfDays > specialOffers[i].NumberOfDays && numberOfDays < specialOffers[j].NumberOfDays)
+                    {
+                        retValue.RealizedPackage = specialOffers[i];
+                        found = true;
+                        break;
+                    }
+                    else if(numberOfDays == specialOffers[j].NumberOfDays)
+                    {
+                        retValue.RealizedPackage = specialOffers[j];
+                        found = true;
+                        break;
+                    }
+                    else if(numberOfDays > specialOffers[i].NumberOfDays && numberOfDays >= specialOffers[j].NumberOfDays)
+                    {
+                        retValue.RealizedPackage = specialOffers[j];
+                        found = true;
+                        break;
+                    }
+                }
+            }
+
+            if(retValue.RealizedPackage != null) { 
+                price = price - ((price * retValue.RealizedPackage.Discount) / 100);
+                retValue.Price = price;
+            }
+            else
+                retValue.Price = price;
+            
+
+            return retValue;
+        }
     }
 }

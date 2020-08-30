@@ -10,7 +10,8 @@ export class ValidationService {
 
     secondDateValidator(control: AbstractControl){
       if(control && control.value !== null || control.value !== undefined || control.value !== ''){
-      
+        
+        
         var dateTo = new Date(control.value.year,control.value.month -1,control.value.day);
         const dateFrom = control.root.get('modelFrom');
 
@@ -75,7 +76,18 @@ export class ValidationService {
       }
       return null;
     }
+    letters2Validator(control: AbstractControl){
+      if(control && control.value !== null || control.value !== undefined){
+        const regex = new RegExp('^[a-zA-Z]*(([a-zA-Z ])?[a-zA-Z]*)*$');
 
+        if(!regex.test(control.value)){
+          return{
+            isError: true
+          };
+        }
+      }
+      return null;
+    }
     passwordValidator(control: AbstractControl){
       if(control && control.value !== null || control.value !== undefined){
         const repeatedPassword = control.value;

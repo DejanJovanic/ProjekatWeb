@@ -3,6 +3,10 @@ import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnter
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { ValidationService } from '../../Services/ValidationService/validation.service';
+import { Enterprise } from 'src/app/Shared/Model/RentACars/Models/Enterprise.model';
+import { AddCarParameters } from 'src/app/Shared/Model/RentACars/Models/Parameters/AddCarParameters.model';
+import { CarService } from '../../Services/CarService/car.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-rent-acar-add-car-modal',
@@ -14,11 +18,12 @@ export class RentACarAddCarModalComponent implements OnInit {
   alert: boolean = false;
   addCarForm: FormGroup;
   minDate = undefined;
+  return;
   @Input()
-  item : RentACarEnterprise
+  item : number
 
   
-  constructor(public activeModal : NgbActiveModal, private service: ValidationService) {
+  constructor(private toaster: ToastrService,private carService: CarService, public activeModal : NgbActiveModal, private service: ValidationService) {
     const current = new Date();
     this.minDate = {
     year: current.getFullYear(),
@@ -47,22 +52,32 @@ export class RentACarAddCarModalComponent implements OnInit {
     });
   }
 
-  closeAlert(){
-    this.alert= false;
-  }
+
 
   addCar(){
-    var brand = this.addCarForm.value.CarBrand;
-    var model = this.addCarForm.value.CarModel;
-    var year = this.addCarForm.value.CarYearOfProduction;
-    var type = this.addCarForm.value.CarType;
-    var fuel = this.addCarForm.value.CarFuelType;
-    var transmission = this.addCarForm.value.CarTransmissionType;
-    var seatsNo = this.addCarForm.value.CarNumberOfSeats;
-    var price = this.addCarForm.value.CarPrice;
-   
-
-    this.alert = true;
+  
+    var parameters = new AddCarParameters();
+    parameters.enterpriseId = this.item;
+    
+    parameters.brand = this.addCarForm.value.CarBrand;
+    parameters.fuelType = this.addCarForm.value.CarFuelType;
+    parameters.model = this.addCarForm.value.CarModel;
+  
+    parameters.type = this.addCarForm.value.CarType;
+    parameters.yearOfProduction = this.addCarForm.value.CarYearOfProduction;
+    parameters.transmissionType = this.addCarForm.value.CarTransmissionType;
+    parameters.numberOfSeats = this.addCarForm.value.CarNumberOfSeats;
+    parameters.price = this.addCarForm.value.CarPrice;
+    console.log(parameters);
+    this.carService.addCar(parameters).subscribe(i =>{
+      this.return = i;
+      
+      this.toaster.success("Add car has been successfully executed",'Add a car',{
+        timeOut : 3000
+      })
+    
+    })
+    
   }
 
  

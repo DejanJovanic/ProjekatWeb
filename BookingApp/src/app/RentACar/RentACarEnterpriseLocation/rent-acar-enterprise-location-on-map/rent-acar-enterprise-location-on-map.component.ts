@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RentACarEnterpriseAddress } from 'src/app/Shared/Model/RentACars/RentACarEnterpriseAddress.model';
+import { EnterpriseService } from '../../Services/EnterpriseService/enterprise.service';
 
 declare var H: any;
 @Component({
@@ -12,7 +13,7 @@ declare var H: any;
 export class RentACarEnterpriseLocationOnMapComponent implements OnInit {
 
   id: number
-  Address: RentACarEnterpriseAddress
+  Address;
   private platform: any;
   geocoder: any;
   query: string;
@@ -21,7 +22,7 @@ export class RentACarEnterpriseLocationOnMapComponent implements OnInit {
     @ViewChild("map")
     public mapElement: ElementRef;
 
-  constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute) { 
+  constructor(private enterpriseService: EnterpriseService, private route: ActivatedRoute) { 
      this.platform = new H.service.Platform({
       'apikey': '_e_CFfK2-tpCb_Yn48j1u9lqkFVBhEOp2Uf2l_0owqE'
   });
@@ -37,13 +38,11 @@ export class RentACarEnterpriseLocationOnMapComponent implements OnInit {
      
     });
 
-    this.Address = this.EnterpriseService.getAddress(this.id);
-      
-      
-    this.query = this.Address.Street + " " + this.Address.StreetNo + ", " + this.Address.ZipCode + " " + this.Address.City + ", " + this.Address.Country;
-  }
-
-  public ngAfterViewInit() {
+    this.enterpriseService.getEnterpriseLocationOnMap(this.id).subscribe(i =>{
+      this.Address = i;
+          
+    this.query = this.Address.street + " " + this.Address.streetNo + ", " + this.Address.zipCode + " " + this.Address.city + ", " + this.Address.country;
+    
     let defaultLayers = this.platform.createDefaultLayers();
     let map = new H.Map(
         this.mapElement.nativeElement,
@@ -63,8 +62,11 @@ export class RentACarEnterpriseLocationOnMapComponent implements OnInit {
         map.addObject(new H.map.Marker( result.items[0].position));
       
     }, alert);
-}
+  })
+    
+      
+  
+  }
 
   
-
 }

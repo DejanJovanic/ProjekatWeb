@@ -12,10 +12,10 @@ namespace BookingAppBackend.Database.Interfaces.RentACar
     {
 
         Task<IEnumerable<Car>> GetAllCars(int enterpriseId);
-        Task <Car> GetOneCar(GetAndDeleteParameters gadp);
+        Task <Car> GetOneCar(int enterpriseId, int carId);
         Task <Car> AddCar(AddCarParameters car);
         Task <Car> EditCar(EditCarParameters car);
-        Task <Car> DeleteCar(GetAndDeleteParameters gadp);
+        Task <Car> DeleteCar(int enterpriseId, int carId);
         Task<Car> SetCarOnDiscount(SetDiscountParameters sdp);
 
 

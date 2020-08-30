@@ -7,4 +7,5 @@ export class AddBranchParameters{
     streetNo: string;
     zipCode: string;
 
+    constructor(){}
 }

@@ -1,8 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { Car } from 'src/app/Shared/Model/RentACars/Car.model';
+import { Car } from 'src/app/Shared/Model/RentACars/Models/Car.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ValidationService } from '../../Services/ValidationService/validation.service';
+import { CarService } from '../../Services/CarService/car.service';
+import { ToastrService } from 'ngx-toastr';
+import { EditCarparameters } from 'src/app/Shared/Model/RentACars/Models/Parameters/EditCarParameters.model';
 
 @Component({
   selector: 'app-rent-acar-edit-car-modal',
@@ -10,12 +13,13 @@ import { ValidationService } from '../../Services/ValidationService/validation.s
   styleUrls: ['./rent-acar-edit-car-modal.component.css']
 })
 export class RentACarEditCarModalComponent implements OnInit {
-  alert: boolean = false;
+  
   editCarForm: FormGroup;
   minDate = undefined;
+  return;
   @Input()
   item : Car
-  constructor(private service: ValidationService, public activeModal : NgbActiveModal) { 
+  constructor(private toaster: ToastrService, private carService: CarService,private service: ValidationService, public activeModal : NgbActiveModal) { 
     const current = new Date();
     this.minDate = {
     year: current.getFullYear(),
@@ -31,38 +35,43 @@ export class RentACarEditCarModalComponent implements OnInit {
   setForm(){
    
     this.editCarForm = new FormGroup({
-      CarBrand: new FormControl(this.item.CarBrand, [Validators.required, this.service.lettersValidator]),
-      CarModel: new FormControl(this.item.CarModel, [Validators.required, this.service.lettersAndNumbers]),
-      CarYearOfProduction: new FormControl(this.item.CarYearOfProduction, [Validators.required, this.service.numbersValidator, this.service.yearOfProductionValidator]),
+      CarBrand: new FormControl(this.item.brand, [Validators.required, this.service.lettersValidator]),
+      CarModel: new FormControl(this.item.model, [Validators.required, this.service.lettersAndNumbers]),
+      CarYearOfProduction: new FormControl(this.item.yearOfProduction, [Validators.required, this.service.numbersValidator, this.service.yearOfProductionValidator]),
       CarType: new FormControl('', Validators.required),
       CarFuelType: new FormControl('', Validators.required),
       CarTransmissionType: new FormControl('', Validators.required),
       CarNumberOfSeats: new FormControl('', Validators.required),
-      CarPrice: new FormControl(this.item.CarPrice, [Validators.required, this.service.numbersValidator])
+      CarPrice: new FormControl(this.item.price, [Validators.required, this.service.numbersValidator])
   
       
     });
   }
 
-  closeAlert(){
-    this.alert= false;
-  }
-
-
   editCar(){
-    var brand = this.editCarForm.value.CarBrand;
-    var model = this.editCarForm.value.CarModel;
-    var year = this.editCarForm.value.CarYearOfProduction;
-    var type = this.editCarForm.value.CarType;
-    var fuel = this.editCarForm.value.CarFuelType;
-    var transmission = this.editCarForm.value.CarTransmissionType;
-    var seatsNo = this.editCarForm.value.CarNumberOfSeats;
-    var price = this.editCarForm.value.CarPrice;
     
+    var parameters = new EditCarparameters();
+    parameters.enterpriseId = this.item.enterpriseId;
+    parameters.carId = this.item.id;
+    parameters.brand = this.editCarForm.value.CarBrand;
+    parameters.fuelType = this.editCarForm.value.CarFuelType;
+    parameters.model = this.editCarForm.value.CarModel;
+  
+    parameters.type = this.editCarForm.value.CarType;
+    parameters.yearOfProduction = this.editCarForm.value.CarYearOfProduction;
+    parameters.transmissionType = this.editCarForm.value.CarTransmissionType;
+    parameters.numberOfSeats = this.editCarForm.value.CarNumberOfSeats;
+    parameters.price = this.editCarForm.value.CarPrice;
 
-
+    this.carService.editCar(parameters).subscribe(i =>{
+      this.return = i;
+      
+      this.toaster.success("Edit car has been successfully executed",'Edit a car',{
+        timeOut : 3000
+      })
+    
+    })
    
-    this.alert = true;
   }
 
 }

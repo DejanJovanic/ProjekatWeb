@@ -38,11 +38,11 @@ namespace BookingAppBackend.Service.RentACar.Branch
             }
         }
 
-        public async Task<EnterpriseBranch> DeleteBranch(GetAndDeleteParameters gadp)
+        public async Task<EnterpriseBranch> DeleteBranch(int enterpriseId, int branchId)
         {
             try
             {
-                var temp = await repo.DeleteBranch(gadp);
+                var temp = await repo.DeleteBranch(enterpriseId, branchId);
                 if (temp != null)
                 {
                     await unitOfWork.CompleteAsync();
@@ -86,11 +86,25 @@ namespace BookingAppBackend.Service.RentACar.Branch
             }
         }
 
-        public async Task<EnterpriseBranch> GetOneBranch(GetAndDeleteParameters gadp)
+        public async Task<EnterpriseBranch> GetBranchAddress(int branchId)
         {
             try
             {
-                var temp = await repo.GetOneBranch(gadp);
+                var temp = await repo.GetBranchAddress(branchId);
+
+                return temp;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public async Task<EnterpriseBranch> GetOneBranch(int enterpriseId, int branchId)
+        {
+            try
+            {
+                var temp = await repo.GetOneBranch(enterpriseId, branchId);
                 
                 return temp;
             }

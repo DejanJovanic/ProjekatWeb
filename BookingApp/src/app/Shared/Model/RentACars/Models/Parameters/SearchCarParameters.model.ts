@@ -10,4 +10,6 @@ export class SearchCarParameters{
     numberOfSeats: string;
     priceFrom: string;
     priceTo: string;
+
+    constructor(){}
 }

@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { SearchCarsForRentParameters } from 'src/app/Shared/Model/RentACars/Models/Parameters/SearchCarsForRentParameters.model';
+import { CarReservation } from 'src/app/Shared/Model/RentACars/Models/CarReservation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,7 @@ export class ReservationService {
   constructor() { }
 
   //metoda koja kreira rezervaciju
-  setReservation(){}
+  setReservation(parameters: CarReservation){}
 
   //metoda koja racuna ukupan broj dana za rezervaciju automobila
   calculateNumberOfDays(){}
@@ -20,5 +22,5 @@ export class ReservationService {
   calculateSum(){}
 
   //metoda koja vraca automobile koji ispunjavaju kriterijum pretrage, koju korisnik prvo mora da izvrsi
-  searchAllCars(){}
+  searchCarsForRent(scfrp: SearchCarsForRentParameters){}
 }

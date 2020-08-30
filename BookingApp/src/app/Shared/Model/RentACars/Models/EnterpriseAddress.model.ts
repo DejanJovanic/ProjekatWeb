@@ -6,4 +6,5 @@ export class EnterpriseAddress{
     streetNo: string;
     zipCode: string;
 
+    constructor(){}
 }

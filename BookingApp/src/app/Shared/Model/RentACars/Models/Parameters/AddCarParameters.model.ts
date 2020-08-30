@@ -2,11 +2,12 @@ export class AddCarParameters{
     enterpriseId : number;
     brand : string;
     model : string;
-    yearOfProduction : number;
+    yearOfProduction : string;
     type : string;
     fuelType : string;
     transmissionType : string;
-    numberOfSeats : number;
-    price : number;
-   
+    numberOfSeats : string;
+    price : string;
+    
+    constructor(){}
 }

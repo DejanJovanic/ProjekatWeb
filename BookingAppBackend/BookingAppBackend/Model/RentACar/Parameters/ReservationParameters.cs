@@ -9,15 +9,11 @@ namespace BookingAppBackend.Model.RentACar.Parameters
     public class ReservationParameters
     {
         [Required]
-        public Car SelectedCar { get; set; }
+        public int CarId { get; set; }
 
         [Required]
-        public Enterprise SelectedEnterprise { get; set; }
+        public int EnterpriseId { get; set; }
 
-        
-
-        [Required]
-        public int NumberOfDays { get; set; }
 
         [Required]
         public DateTime DateFrom { get; set; }
@@ -25,13 +21,6 @@ namespace BookingAppBackend.Model.RentACar.Parameters
         [Required]
         public DateTime DateTo { get; set; }
 
-        [Required]
-        public int Price { get; set; }
-
-        [Required]
-        public SpecialOffer RealizedPackage;
-
-        [Required]
-        public bool IsRated { get; set; }
+       
     }
 }

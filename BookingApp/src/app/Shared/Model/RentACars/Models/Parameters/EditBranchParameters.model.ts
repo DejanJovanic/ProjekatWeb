@@ -8,4 +8,5 @@ export class EditBranchParameters{
     streetNo: string;
     zipCode: string;
 
+    constructor(){}
 }

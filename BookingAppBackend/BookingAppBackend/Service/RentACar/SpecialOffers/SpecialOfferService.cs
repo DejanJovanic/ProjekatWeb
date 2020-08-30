@@ -37,11 +37,11 @@ namespace BookingAppBackend.Service.RentACar.SpecialOffers
             }
         }
 
-        public async Task<SpecialOffer> DeleteSpecialOffer(GetAndDeleteParameters gadp)
+        public async Task<SpecialOffer> DeleteSpecialOffer(int enterpriseId, int specialOfferId)
         {
             try
             {
-                var temp = await repo.DeleteSpecialOffer(gadp);
+                var temp = await repo.DeleteSpecialOffer(enterpriseId, specialOfferId);
                 if (temp != null)
                 {
                     await unitOfWork.CompleteAsync();
@@ -85,11 +85,11 @@ namespace BookingAppBackend.Service.RentACar.SpecialOffers
             }
         }
 
-        public async Task<SpecialOffer> GetOneSpecialOffer(GetAndDeleteParameters gadp)
+        public async Task<SpecialOffer> GetOneSpecialOffer(int enterpriseId, int specialOfferId)
         {
             try
             {
-                var temp = await repo.GetOneSpecialOffer(gadp);
+                var temp = await repo.GetOneSpecialOffer(enterpriseId, specialOfferId);
                 
                 return temp;
             }

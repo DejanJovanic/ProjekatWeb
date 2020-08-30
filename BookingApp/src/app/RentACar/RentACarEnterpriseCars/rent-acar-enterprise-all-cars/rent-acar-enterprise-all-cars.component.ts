@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RentACarDetailsModalComponent } from '../../RentACarCarDetailsModal/rent-acar-details-modal/rent-acar-details-modal.component'
-import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
-import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnterprise.model';
-import { Car } from 'src/app/Shared/Model/RentACars/Car.model';
+import { Car } from 'src/app/Shared/Model/RentACars/Models/Car.model';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { RentACarAddCarModalComponent } from '../../RentACarAdmin/rent-acar-add-car-modal/rent-acar-add-car-modal.component';
+import { CarService } from '../../Services/CarService/car.service';
+import { ToastrService } from 'ngx-toastr';
+import { ValidationService } from '../../Services/ValidationService/validation.service';
+import { SearchCarParameters } from 'src/app/Shared/Model/RentACars/Models/Parameters/SearchCarParameters.model';
+import { EnterpriseService } from '../../Services/EnterpriseService/enterprise.service';
+
 
 @Component({
   selector: 'app-rent-acar-enterprise-all-cars',
@@ -16,14 +20,16 @@ import { RentACarAddCarModalComponent } from '../../RentACarAdmin/rent-acar-add-
 })
 export class RentACarEnterpriseAllCarsComponent implements OnInit {
   searchCarsForm: FormGroup;
-  
-  Enterprise: RentACarEnterprise;
+  Car;
+  Enterprise;
+  //CarDetails;
   id: number;
   RentACarSearchedCars: Car[] = [];
   role: string;
   slides: any = [[]];
-  Cars: Car[] = [];
-  constructor(private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal, public datepipe: DatePipe) { 
+  Cars;
+  
+  constructor(private enterpriseService: EnterpriseService, private validationService: ValidationService, private toaster: ToastrService, private carService: CarService, private route: ActivatedRoute, private modalService : NgbModal, public datepipe: DatePipe) { 
     this.role = localStorage["Role"]
   }
   
@@ -33,123 +39,85 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
       
     });
     
-    this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
-    this.slides = this.chunk(this.Enterprise.EnterpriseCars, 3);
+    this.carService.getAllCars(this.id).subscribe(i =>{
+      this.Cars = i;
+      this.slides = this.chunk(this.Cars, 3);
+      this.toaster.success("Your request has been successfully executed",'Cars',{
+        timeOut : 3000
+      })
+    })
+    
     this.setForm();
   }
 
   setForm(){
     this.searchCarsForm = new FormGroup({
-      carBrand: new FormControl('', this.lettersValidator),
-      carModel: new FormControl('', this.lettersAndNumbers),
+      carBrand: new FormControl('', this.validationService.letters2Validator),
+      carModel: new FormControl('', this.validationService.lettersAndNumbers),
       carType: new FormControl(''),
       carTransmission: new FormControl(''),
       carFuel: new FormControl(''),
       carNumberOfSeats: new FormControl(''),
-      carYearOfProductionFrom: new FormControl('', [this.yearOfProductionValidator, this.numbersValidator]),
-      carYearOfProductionTo: new FormControl('', [this.yearOfProductionValidator, this.numbersValidator]),
-      carPriceFrom: new FormControl('', this.numbersValidator),
-      carPriceTo: new FormControl('', this.numbersValidator)
+      carYearOfProductionFrom: new FormControl('', [this.validationService.yearOfProductionValidator, this.validationService.numbersValidator]),
+      carYearOfProductionTo: new FormControl('', [this.validationService.yearOfProductionValidator, this.validationService.numbersValidator]),
+      carPriceFrom: new FormControl('', this.validationService.numbersValidator),
+      carPriceTo: new FormControl('', this.validationService.numbersValidator)
       
     });
   }
   openCarDetailsModal(carId: number){
-    const modalRef = this.modalService.open(RentACarDetailsModalComponent);
-    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId);
+   
+   
+    this.carService.getOneCar(this.id, carId).subscribe(i =>{
+      const modalRef = this.modalService.open(RentACarDetailsModalComponent);
+      this.Car = i;
+      this.toaster.success("Your request has been successfully executed",'Car details',{
+        timeOut : 3000
+      })
+      this.Car.enterpriseId = this.id;
+      
+      modalRef.componentInstance.item = this.Car;
+    })
+    
   }
   searchCars(){
-    var carBrand = this.searchCarsForm.value.carBrand;
-    var carModel = this.searchCarsForm.value.carModel;
-    var carType = this.searchCarsForm.value.carType; 
-    var carTransmission = this.searchCarsForm.value.carTransmission; 
-    var carFuel = this.searchCarsForm.value.carFuel; 
-    var carNumberOfSeats = this.searchCarsForm.value.carNumberOfSeats; 
-    var carYearOfProductionFrom = this.searchCarsForm.value.carYearOfProductionFrom; 
-    var carYearOfProductionTo = this.searchCarsForm.value.carYearOfProductionTo; 
-    var carPriceFrom = this.searchCarsForm.value.carPriceFrom; 
-    var carPriceTo = this.searchCarsForm.value.carPriceTo;
    
-    for(let i: number = 0; (i < this.Enterprise.EnterpriseCars.length); i++){
-      
-      if (carPriceFrom != ""){
-          if(parseInt(carPriceFrom) > this.Enterprise.EnterpriseCars[i].CarPrice){
-            
-              continue;
-          }
-      }
-      
-      if(carPriceTo != ""){
-          if(parseInt(carPriceTo) < this.Enterprise.EnterpriseCars[i].CarPrice){
-            
-              continue;
-          }
-      }
-
-      if (carYearOfProductionFrom != ""){
-        if(parseInt(carYearOfProductionFrom) > this.Enterprise.EnterpriseCars[i].CarYearOfProduction){
-         
-          continue;
-        }
-      }
-
-      if(carYearOfProductionTo != ""){
-        if(parseInt(carYearOfProductionTo) < this.Enterprise.EnterpriseCars[i].CarYearOfProduction){
-        
-          continue;
-        }
-      }
-
-      if(carNumberOfSeats != ""){
-        if(parseInt(carNumberOfSeats) != this.Enterprise.EnterpriseCars[i].CarNumberOfSeats){
-     
-          continue;
-        }
-      }
-
-      if(carFuel != ""){
-        if(carFuel.toLowerCase()  != this.Enterprise.EnterpriseCars[i].CarFuelType.toLowerCase() ){
-         
-          continue;
-        }
-      }
-
-      if(carTransmission != ""){
-        if(carTransmission.toLowerCase()  != this.Enterprise.EnterpriseCars[i].CarTransmissionType.toLowerCase() ){
-         
-          continue;
-        }
-      }
-
-      if(carType != ""){
-        if(carType.toLowerCase()  != this.Enterprise.EnterpriseCars[i].CarType.toLowerCase() ){
-          
-          continue;
-        }
-      }
-
-      if(carBrand != ""){
-        if(carBrand.toLowerCase() != this.Enterprise.EnterpriseCars[i].CarBrand.toLowerCase() ){
-          continue;
-        }
-      }
-
-      if(carModel != ""){
-        if(carModel.toLowerCase()  != this.Enterprise.EnterpriseCars[i].CarModel.toLowerCase() ){
-          continue;
-        }
-      }
-
-      this.RentACarSearchedCars.push(this.Enterprise.EnterpriseCars[i]);  
-    }
+    var parameters = new SearchCarParameters();
+    parameters.brand = this.searchCarsForm.value.carBrand;
+    parameters.model = this.searchCarsForm.value.carModel;
+    parameters.fuelType = this.searchCarsForm.value.carFuel; 
+    parameters.type = this.searchCarsForm.value.carType; 
+    parameters.yearOfProductionFrom = this.searchCarsForm.value.carYearOfProductionFrom; 
+    parameters.yearOfProductionTo =this.searchCarsForm.value.carYearOfProductionTo;
+    parameters.transmissionType = this.searchCarsForm.value.carTransmission; 
+    parameters.enterpriseId = this.id;
+    parameters.numberOfSeats = this.searchCarsForm.value.carNumberOfSeats; 
+    parameters.priceFrom = this.searchCarsForm.value.carPriceFrom;
+    parameters.priceTo = this.searchCarsForm.value.carPriceTo;
     
-    this.slides = this.chunk(this.RentACarSearchedCars, 3);
-    this.RentACarSearchedCars = [];
+    this.carService.searchAllCars(parameters).subscribe(i =>{
+      this.Cars = i;
+      
+      this.slides = this.chunk(this.Cars, 3);
+      this.toaster.success("Your search request has been successfully executed",'Searched cars',{
+        timeOut : 3000
+      })
+    
+    })
+    
   }
 
   showAllCars(){
     this.searchCarsForm.reset();
     this.setForm();
-    this.slides = this.chunk(this.Enterprise.EnterpriseCars, 3);
+    this.carService.getAllCars(this.id).subscribe(i =>{
+      this.Cars = i;
+      this.slides = this.chunk(this.Cars, 3);
+      this.toaster.success("Your request has been successfully executed",'Cars',{
+        timeOut : 3000
+      })
+    })
+    
   }
 
   chunk(arr, chunkSize) {
@@ -162,58 +130,7 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
 
   openCarAddModal(enterpriseId: number){
     const modalRef = this.modalService.open(RentACarAddCarModalComponent);
-    modalRef.componentInstance.item = this.EnterpriseService.getRentACarEnterprise(enterpriseId);
+    modalRef.componentInstance.item = enterpriseId;
   }
-  lettersValidator(control: AbstractControl){
-    if(control && control.value !== null || control.value !== undefined){
-      const regex = new RegExp('^[a-zA-Z]*$');
-
-      if(!regex.test(control.value)){
-        return{
-          isError: true
-        };
-      }
-    }
-    return null;
-  }
-
-  numbersValidator(control: AbstractControl){
-    if(control && control.value !== null || control.value !== undefined){
-      const regex = new RegExp('^[0-9]*$');
-
-      if(!regex.test(control.value)){
-        return{
-          isError: true
-        };
-      }
-    }
-    return null;
-  }
-
-  lettersAndNumbers(control: AbstractControl){
-    if(control && control.value !== null || control.value !== undefined){
-      const regex = new RegExp('^(?:[A-Za-z]*)(?:[A-Za-z0-9 _]*)$');
-
-      if(!regex.test(control.value)){
-        return{
-          isError: true
-        };
-      }
-    }
-    return null;
-   
-  }
-
-  yearOfProductionValidator(control: AbstractControl){
-    if(control && control.value !== null || control.value !== undefined){
-      const yearOfProductionValue = control.value;
-
-      if((yearOfProductionValue !== '' && yearOfProductionValue < 1990) || (yearOfProductionValue !== '' &&  yearOfProductionValue > 2020)){
-        return{
-          Error: true
-        };
-      }
-    }
-    return null;
-  }
+  
 }

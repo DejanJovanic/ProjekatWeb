@@ -4,12 +4,7 @@
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
-    <div *ngIf = "alert" class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong>Success!</strong> You have successfully edited a car.
-      <button (click) = "closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
+    
      
      
   <div class="card">
@@ -54,10 +49,10 @@
           <div class="row">
             <!--<label for="typee">Car type</label>!-->
             <select [ngClass] ="{'is-invalid': editCarForm.get('CarType').touched && editCarForm.get('CarType').invalid}" class="form-control" formControlName="CarType" id="typee">
-              <option value="" disabled selected >Select car type, current: {{item.CarType}}</option>
-              <option value="limousine">Limousine</option>
-              <option value="caravan">Caravan</option>
-              <option value="suv">SUV</option>
+              <option value="" disabled selected >Select car type, current: {{item.type}}</option>
+              <option value="Limousine">Limousine</option>
+              <option value="Caravan">Caravan</option>
+              <option value="SUV">SUV</option>
             </select>
             <div *ngIf = "editCarForm.get('CarType').touched && editCarForm.get('CarType').invalid" class="invalid-feedback">
               <div *ngIf = "editCarForm.get('CarType').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Car type is required.</div>
@@ -70,9 +65,9 @@
           <div class="row">
             <!--<label for="fuel">Fuel type</label>!-->
             <select [ngClass] ="{'is-invalid': editCarForm.get('CarFuelType').touched && editCarForm.get('CarFuelType').invalid}" class="form-control" formControlName="CarFuelType" id="fuel">
-              <option value="" disabled selected>Select fuel type, current: {{item.CarFuelType}}</option>
-              <option value="gasoline">Gasoline</option>
-              <option value="diesel">Diesel</option>
+              <option value="" disabled selected>Select fuel type, current: {{item.fuelType}}</option>
+              <option value="Gasoline">Gasoline</option>
+              <option value="Diesel">Diesel</option>
             </select> 
           <div *ngIf = "editCarForm.get('CarFuelType').touched && editCarForm.get('CarFuelType').invalid" class="invalid-feedback">
             <div *ngIf = "editCarForm.get('CarFuelType').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Car fuel type is required.</div>
@@ -84,9 +79,9 @@
           <div class="row">
             <!--<label for="carTransmissions">Transmission type</label>!-->
             <select [ngClass] ="{'is-invalid': editCarForm.get('CarTransmissionType').touched && editCarForm.get('CarTransmissionType').invalid}" class="form-control" formControlName="CarTransmissionType" id="carTransmissions">
-              <option value="" disabled selected>Select transmission type, current: {{item.CarTransmissionType}}</option>
-              <option value="automatic">Automatic</option>
-              <option value="manual">Manual</option>
+              <option value="" disabled selected>Select transmission type, current: {{item.transmissionType}}</option>
+              <option value="Automatic">Automatic</option>
+              <option value="Manual">Manual</option>
           
             </select>
             <div *ngIf = "editCarForm.get('CarTransmissionType').touched && editCarForm.get('CarTransmissionType').invalid" class="invalid-feedback">
@@ -99,7 +94,7 @@
           <div class="row">
              <!--<label for="carSeats">Number of seats</label>!-->
              <select [ngClass] ="{'is-invalid': editCarForm.get('CarNumberOfSeats').touched && editCarForm.get('CarNumberOfSeats').invalid}" class="form-control"  formControlName="CarNumberOfSeats" id="carSeats">
-              <option value="" disabled selected>Select number of seats, current: {{item.CarNumberOfSeats}}</option>
+              <option value="" disabled selected>Select number of seats, current: {{item.numberOfSeats}}</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="5">5</option>

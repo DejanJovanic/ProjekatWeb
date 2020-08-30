@@ -104,6 +104,8 @@ import { FormSubmitDirective } from './Shared/Directives/FormSubmitDirective/for
 import { ControlErrorComponent } from './Shared/control-error/control-error.component';
 import { ControlErrorContainerDirective } from './Shared/Directives/ControlErrorContainerDirective/control-error-container.directive';
 import { WholeNumberDirective } from './Shared/Directives/WholeNumberDirective/whole-number.directive';
+import { RentACarBranchLocationOnMapComponent } from './RentACar/rent-acar-branch-location-on-map/rent-acar-branch-location-on-map.component';
+import { RentACarReservationPreviewModalComponent } from './RentACar/rent-acar-reservation-preview-modal/rent-acar-reservation-preview-modal.component';
 
 
 
@@ -200,7 +202,9 @@ import { WholeNumberDirective } from './Shared/Directives/WholeNumberDirective/w
     FormSubmitDirective,
     ControlErrorComponent,
     ControlErrorContainerDirective,
-    WholeNumberDirective
+    WholeNumberDirective,
+    RentACarBranchLocationOnMapComponent,
+    RentACarReservationPreviewModalComponent
   ],
   imports: [
     

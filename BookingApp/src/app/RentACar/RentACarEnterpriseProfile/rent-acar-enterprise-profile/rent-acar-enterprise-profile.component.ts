@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
-import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
-import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnterprise.model';
+import { EnterpriseService } from '../../Services/EnterpriseService/enterprise.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-rent-acar-enterprise-profile',
@@ -9,15 +10,16 @@ import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnter
   styleUrls: ['./rent-acar-enterprise-profile.component.css']
 })
 export class RentACarEnterpriseProfileComponent implements OnInit {
-  Enterprise: RentACarEnterprise;
+  Enterprise;
   id: number;
   EnterpriseRatingArr=[];
   animeArr=[];
   counter;
+  rating: number;
   isHalf = false;
-  address: string;
+ 
   role: string;
-  constructor( private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute) { 
+  constructor(private toaster: ToastrService, private enterpriseService: EnterpriseService, private route: ActivatedRoute) { 
     this.role = localStorage["Role"]
   }
 
@@ -26,16 +28,31 @@ export class RentACarEnterpriseProfileComponent implements OnInit {
       this.id = +params["id"];
 
     });
+    this.enterpriseService.getOneEnterprise(this.id).subscribe(i =>{
+      this.Enterprise = i;
+     
+    this.rating = 0;
+    for(let j = 0; j < this.Enterprise.rating.length; j++){
+      this.rating = this.rating + this.Enterprise.rating[j].rating;
+    }
+
+    this.rating = Math.ceil(this.rating / this.Enterprise.rating.length);
+   
+      this.updateStars();
+      this.getArrayValues(0);
+      
+      this.toaster.success("Your request has been successfully executed",'Enterprise profile',{
+        timeOut : 3000
+      })
     
-    this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
-    this.address = this.Enterprise.EnterpriseAddress.Street + " " + this.Enterprise.EnterpriseAddress.StreetNo + ", " + this.Enterprise.EnterpriseAddress.ZipCode + " " + this.Enterprise.EnterpriseAddress.City + ", " + this.Enterprise.EnterpriseAddress.Country;
-    this.updateStars();
-    this.getArrayValues(0);
+    })
+    
     
   }
   updateStars() {
-    this.isHalf = this.Enterprise.EnterpriseRating %1 !== 0? true : false;
-    for(let i=0; i<this.Enterprise.EnterpriseRating;i++){
+    
+    this.isHalf = this.rating %1 !== 0? true : false;
+    for(let i=0; i<this.rating;i++){
       this.EnterpriseRatingArr.push(i)
     }
    

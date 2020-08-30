@@ -9,16 +9,16 @@
     
     <div class="card">
         <div class="card-body">
-        <h6 class="card-price text-center"><span class="period">{{item.CarPrice}}$/day</span></h6>
+        <h6 class="card-price text-center"><span class="period">{{item.price}}$/day</span></h6>
         <hr>
         <ul class="fa-ul">
-            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Brand: {{item.CarBrand}}</li>
-            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Model: {{item.CarModel}}</li>
-            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Year of production: {{item.CarYearOfProduction}}</li>
-            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Type: {{item.CarType}}</li>
-            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Number of seats: {{item.CarNumberOfSeats}}</li>
-            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Fuel: {{item.CarFuelType}}</li>
-            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Transmission type: {{item.CarTransmissionType}}</li>
+            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Brand: {{item.brand}}</li>
+            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Model: {{item.model}}</li>
+            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Year of production: {{item.yearOfProduction}}</li>
+            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Type: {{item.type}}</li>
+            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Number of seats: {{item.numberOfSeats}}</li>
+            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Fuel: {{item.fuelType}}</li>
+            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Transmission type: {{item.transmissionType}}</li>
             <hr>
             <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Rating: 
                 <div class="d-flex justify-content-center">
@@ -45,18 +45,18 @@
             </div>
 
             <div class="col">
-                
-                <button *ngIf="role ===  'RentACarAdmin'"  [disabled] = "disableButtons" type="button" (click)="openEditCarModal(item.CarId)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-edit mr-1"></i> Edit </button>
+                <!--*ngIf="role ===  'RentACarAdmin'" bilo dole-->
+                <button   [disabled] = "disableButtons" type="button" (click)="openEditCarModal(item.id)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-edit mr-1"></i> Edit </button>
             </div>
 
             <div class="col">
-               
-                <button *ngIf="role ===  'RentACarAdmin'" [disabled] = "disableButtons"type="button" (click)="openDeleteCarModal(item.CarId)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-trash mr-1"></i> Delete </button>
+                <!--*ngIf="role ===  'RentACarAdmin'" bilo dole-->
+                <button  [disabled] = "disableButtons"type="button" (click)="openDeleteCarModal(item.id)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-trash mr-1"></i> Delete </button>
             </div>
 
             <div class="col">
-                
-                <button *ngIf="role ===  'RentACarAdmin'"   [disabled] = "disableButtons"type="button" (click)="openSetDiscountModal(item.CarId)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-percent mr-1"></i> Sale </button>
+                 <!--*ngIf="role ===  'RentACarAdmin'" bilo dole-->
+                <button   [disabled] = "disableButtons"type="button" (click)="openSetDiscountModal(item.id)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-percent mr-1"></i> Sale </button>
             </div>
         </div>
 

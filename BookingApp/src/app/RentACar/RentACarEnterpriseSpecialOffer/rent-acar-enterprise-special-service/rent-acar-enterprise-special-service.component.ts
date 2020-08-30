@@ -5,19 +5,22 @@ import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnter
 import { RentACarEditSpecialOffersModalComponent } from '../../RentACarAdmin/rent-acar-edit-special-offers-modal/rent-acar-edit-special-offers-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RentACarAddSpecialOfferModalComponent } from '../../RentACarAdmin/rent-acar-add-special-offer-modal/rent-acar-add-special-offer-modal.component';
-import { SpecialOffer } from 'src/app/Shared/Model/RentACars/SpecialOffer.model';
+
 import { RentACarSpecialOfferDetailsModalComponent } from '../../rent-acar-special-offer-details-modal/rent-acar-special-offer-details-modal.component';
+import { SpecialOfferService } from '../../Services/SpecialOfferService/special-offer.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-rent-acar-enterprise-special-service',
   templateUrl: './rent-acar-enterprise-special-service.component.html',
   styleUrls: ['./rent-acar-enterprise-special-service.component.css']
 })
 export class RentACarEnterpriseSpecialServiceComponent implements OnInit {
-  Enterprise: RentACarEnterprise;
+  SpecialOffers;
+  SpecialOffer;
   id: number;
   slides: any = [[]];
   role: string;
-  constructor(private modalService : NgbModal, private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute) { 
+  constructor(private specialOfferService: SpecialOfferService, private toaster: ToastrService, private modalService : NgbModal, private route: ActivatedRoute) { 
     this.role = localStorage["Role"]
   }
 
@@ -26,9 +29,15 @@ export class RentACarEnterpriseSpecialServiceComponent implements OnInit {
       this.id = +params["id"];
    
     });
-
-    this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
-    this.slides = this.chunk(this.Enterprise.EnterpriseOffers, 3);
+    this.specialOfferService.getAllSpecialOffers(this.id).subscribe(i =>{
+      this.SpecialOffers = i;
+      this.slides = this.chunk(this.SpecialOffers, 3);
+      this.toaster.success("Your request has been successfully executed.",'Special offers',{
+        timeOut : 3000
+      })
+    })
+    
+    
   }
 
   chunk(arr, chunkSize) {
@@ -42,12 +51,21 @@ export class RentACarEnterpriseSpecialServiceComponent implements OnInit {
 
   openSpecialOfferAddModal(enterpriseId: number){
     const modalRef = this.modalService.open(RentACarAddSpecialOfferModalComponent);
-    modalRef.componentInstance.item = this.EnterpriseService.getRentACarEnterprise(enterpriseId);
+    modalRef.componentInstance.item = enterpriseId;
   }
 
   openSpecialOfferDetails(specialOfferId: number){
-    const modalRef = this.modalService.open(RentACarSpecialOfferDetailsModalComponent);
-    modalRef.componentInstance.item = this.EnterpriseService.getOneSpecialOffer(specialOfferId);
+    this.specialOfferService.getOneSpecialOffer(this.id, specialOfferId).subscribe(i =>{
+      const modalRef = this.modalService.open(RentACarSpecialOfferDetailsModalComponent);
+      this.SpecialOffer = i;
+      this.toaster.success("Your request has been successfully executed",'Special offer details',{
+        timeOut : 3000
+      })
+      this.SpecialOffer.enterpriseId = this.id;
+      
+      modalRef.componentInstance.item = this.SpecialOffer;
+    })
+    
   }
 
 

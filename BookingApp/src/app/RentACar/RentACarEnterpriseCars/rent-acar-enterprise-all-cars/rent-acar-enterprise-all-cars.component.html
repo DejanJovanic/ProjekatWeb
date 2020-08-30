@@ -131,15 +131,15 @@
   </div>
 </div>
 <section class="pricing py-5">
-  
-  <button *ngIf="role ===  'RentACarAdmin'" (click) = "openCarAddModal(Enterprise.EnterpriseId)" type="button"  class="btn btn-outline-primary btn-rounded "><i class="fas fa-plus mr-1"></i> Add </button>
+  <!--*ngIf="role ===  'RentACarAdmin'" bilo dole -->
+  <button  (click) = "openCarAddModal(id)" type="button"  class="btn btn-outline-primary btn-rounded "><i class="fas fa-plus mr-1"></i> Add </button>
     <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" [animation]="'fade'">
       <mdb-carousel-item class="d-flex justify-content-center"  *ngFor="let item of slides; let i = index">
               <div class="col-md-4" *ngFor="let car of item; let carIndex = index">
-                  <div class="card" (click) = "openCarDetailsModal(car.CarId)" title="Click for more car details">
+                  <div class="card" (click) = "openCarDetailsModal(car.id)" title="Click for more car details">
                     <div class="card-body">
-                      <h5 class="card-title text-muted text-uppercase text-center">{{car.CarBrand}} {{car.CarModel}}</h5>
-                      <h6 class="card-price text-center">{{car.CarPrice}}$<span class="period">/day</span></h6>
+                      <h5 class="card-title text-muted text-uppercase text-center">{{car.brand}} {{car.model}}</h5>
+                      <h6 class="card-price text-center">{{car.price}}$<span class="period">/day</span></h6>
                     </div>
                   </div>
                   <br/>

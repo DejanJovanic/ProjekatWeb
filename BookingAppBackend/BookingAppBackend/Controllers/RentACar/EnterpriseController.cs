@@ -66,7 +66,7 @@ namespace BookingAppBackend.Controllers.RentACar
            
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("SearchEnterprises")]
         public async Task<IActionResult> SearchEnterprises(SearchEnterpriseParameters sep)
         {
@@ -81,6 +81,17 @@ namespace BookingAppBackend.Controllers.RentACar
             else
                 return BadRequest(new { Message = "Invalid parameters supplied." });
 
+        }
+
+        [HttpGet]
+        [Route("GetEnterpriseAddress")]
+        public async Task<IActionResult> GetEnterpriseAddress(int enterpriseId)
+        {
+            var temp = await enterpriseService.GetEnterpriseAddress(enterpriseId);
+            if (temp != null)
+                return Ok(temp);
+            else
+                return BadRequest(new { Message = "Something went wrong. Please, try again later." });
         }
     }
 }

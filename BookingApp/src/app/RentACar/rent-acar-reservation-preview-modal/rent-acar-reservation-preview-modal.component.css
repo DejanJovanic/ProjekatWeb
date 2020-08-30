@@ -1,0 +1,120 @@
+#confButton{
+    float:right;
+}
+
+
+.card{
+    margin:auto;
+    border: none;
+    border-radius: 1rem;
+    margin-top:50px;
+    height:auto;
+    background-color: rgba(0, 0, 0, 0.733) !important;
+}
+
+li {
+    color: white;
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 1rem;
+}
+
+ul{
+    color: white;
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 1rem; 
+}
+  
+.text-muted {
+    opacity: 1;
+}
+
+.card-price {
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 3rem;
+    margin: 0;
+}
+
+.period {
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+}
+
+.card-title{
+    color: white;
+    font-family: "Roboto", sans-serif;
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+}
+
+.fav-star {
+    
+    height: 45px;
+    width: 64px; 
+    background-image: url("../../../assets/RatingStar.png");
+   background-position: right;
+    animation: zoetrope 1s steps(55)  1;
+  }
+  .fav-star-default {
+    background-image: url("../../../assets/RatingStar.png");
+    height: 45px;
+    width: 64px; 
+     background-position: left;  
+  }
+  
+  @keyframes zoetrope {
+    from { background-position: left;  }
+    to   { background-position: right; }
+  }
+  
+  
+  .item{
+        position:absolute;
+        left:auto;
+        display: flex;
+        margin-top:-35px;
+  }
+  
+  .halfstar1 {
+      position: absolute;
+   
+      right: 15px;
+      width: 34px; 
+      font-size: 40px;   
+      color: rgb(202, 202, 202);
+      overflow: hidden;
+      z-index:1;
+  }
+  
+  .halfstar2 {
+      position: absolute;
+
+      right: 32px;
+      width: 17px; 
+      font-size: 40px;   
+      color: rgb(252, 173, 3);
+      overflow: hidden;
+      z-index:2;
+  }
+  
+.header{
+    color: white;
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+}
+hr {
+    color: white;
+   
+    margin: 1.5rem 0;
+}
+.modal-body{
+  
+    background: linear-gradient(to bottom, #5c4d42cc 0%, rgba(92, 77, 66, 0.8) 100%),url('../../../assets/RentACarEnterpriseBackgroundForProfile.jpg')  no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}

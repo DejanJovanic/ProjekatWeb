@@ -4,4 +4,6 @@ export class SetDiscountParameters{
     discountFrom: Date;
     discountTo: Date;
     discountPercentage: number;
+
+    constructor(){}
 }

@@ -9,12 +9,12 @@
 
 <div class="card">
     <div class="card-body">
-    <h6 class="card-price text-center"><span class="period">{{item.OfferName}}</span></h6>
+    <h6 class="card-price text-center"><span class="period">{{item.name}}</span></h6>
     <hr>
     <ul class="fa-ul">
-        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Discount: {{item.OfferDiscount}}%</li>
-        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Minimum booking days: {{item.NumberOfDays}}</li>
-        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Description: {{item.OfferDescription}}</li>
+        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Discount: {{item.discount}}%</li>
+        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Minimum booking days: {{item.numberOfDays}}</li>
+        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Description: {{item.description}}</li>
    
        
     <hr>
@@ -25,12 +25,12 @@
         </div>
         <div class="col">
              <!--*ngIf="role ===  'RentACarAdmin'"  ovo je bilo dole-->
-            <button (click) = "openSpecialOfferEditModal(item.SpecialOfferId)" type="button" class="btn btn-outline-primary btn-rounded "><i class="fas fa-edit mr-1"></i> Edit </button>
+            <button (click) = "openSpecialOfferEditModal(item.id)" type="button" class="btn btn-outline-primary btn-rounded "><i class="fas fa-edit mr-1"></i> Edit </button>
           </div>
 
         <div class="col">
-            
-            <button *ngIf="role ===  'RentACarAdmin'"  type="button" (click)="openDeleteSpecialOfferModal(item.SpecialOfferId)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-trash mr-1"></i> Delete </button>
+             <!--*ngIf="role ===  'RentACarAdmin'"  ovo je bilo dole-->
+            <button type="button" (click)="openDeleteSpecialOfferModal(item.id)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-trash mr-1"></i> Delete </button>
         </div>
     </div>
 

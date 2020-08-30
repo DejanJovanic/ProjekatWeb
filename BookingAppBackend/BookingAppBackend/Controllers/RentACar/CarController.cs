@@ -26,7 +26,7 @@ namespace BookingAppBackend.Controllers.RentACar
         }
 
         [HttpPost]
-        [Authorize(Roles = "RentACarAdmin")]
+        //[Authorize(Roles = "RentACarAdmin")]
         [Route("AddCar")]
         public async Task<IActionResult> AddCar(AddCarParameters car)
         {
@@ -43,13 +43,13 @@ namespace BookingAppBackend.Controllers.RentACar
         }
 
         [HttpDelete]
-        [Authorize(Roles = "RentACarAdmin")]
+        //[Authorize(Roles = "RentACarAdmin")]
         [Route("DeleteCar")]
-        public async Task<IActionResult> DeleteCar(GetAndDeleteParameters gadp)
+        public async Task<IActionResult> DeleteCar(int enterpriseId, int carId)
         {
             if (ModelState.IsValid)
             {
-                var temp = await carService.DeleteCar(gadp);
+                var temp = await carService.DeleteCar(enterpriseId, carId);
                 if (temp != null)
                     return Ok(temp);
                 else
@@ -59,8 +59,8 @@ namespace BookingAppBackend.Controllers.RentACar
                 return BadRequest(new { Message = "Invalid parameters supplied." });
         }
 
-        [HttpPut]
-        [Authorize(Roles = "RentACarAdmin")]
+        [HttpPost]
+        //[Authorize(Roles = "RentACarAdmin")]
         [Route("EditCar")]
         public async Task<IActionResult> EditCar(EditCarParameters car)
         {
@@ -90,11 +90,11 @@ namespace BookingAppBackend.Controllers.RentACar
 
         [HttpGet]
         [Route("GetOneCar")]
-        public async Task<IActionResult> GetOneCar(GetAndDeleteParameters gadp)
+        public async Task<IActionResult> GetOneCar(int enterpriseId, int carId)
         {
             if (ModelState.IsValid)
             {
-                var temp = await carService.GetOneCar(gadp);
+                var temp = await carService.GetOneCar(enterpriseId, carId);
                 if (temp != null)
                     return Ok(temp);
                 else
@@ -104,7 +104,7 @@ namespace BookingAppBackend.Controllers.RentACar
                 return BadRequest(new { Message = "Invalid parameters supplied." });
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("SearchAllCars")]
         public async Task<IActionResult> SearchAllCars(SearchCarParameters scp)
         {
@@ -120,8 +120,8 @@ namespace BookingAppBackend.Controllers.RentACar
                 return BadRequest(new { Message = "Invalid parameters supplied." });
         }
 
-        [HttpGet]
-        [Authorize(Roles = "User")]
+        [HttpPost]
+       // [Authorize(Roles = "User")]
         [Route("SearchCarsForRent")]
         public async Task<IActionResult> SearchCarsForRent(SearchCarsForRentParameters scfrp)
         {
@@ -151,12 +151,28 @@ namespace BookingAppBackend.Controllers.RentACar
 
         [HttpPost]
         [Authorize(Roles = "RentACarAdmin")]
-        [Route("SetCarOnDiscount")]
+        [Route("SetCarOnDiscount")] 
         public async Task<IActionResult> SetCarOnDiscount(SetDiscountParameters sdp)
         {
             if (ModelState.IsValid)
             {
                 var temp = await carService.SetCarOnDiscount(sdp);
+                if (temp != null)
+                    return Ok(temp);
+                else
+                    return BadRequest(new { Message = "Something went wrong. Please, try again later." });
+            }
+            else
+                return BadRequest(new { Message = "Invalid parameters supplied." });
+        }
+        [HttpPost]
+        // [Authorize(Roles = "User")]
+        [Route("CreateReservation")]
+        public async Task<IActionResult> CreateReservation(ReservationParameters paramss)
+        {
+            if (ModelState.IsValid)
+            {
+                var temp = await carService.CreateReservation(paramss);
                 if (temp != null)
                     return Ok(temp);
                 else

@@ -45,6 +45,7 @@ import { AddSeatsComponent } from './Airline/AirlineAdmin/add-seats/add-seats.co
 import { EnableSeatComponent } from './Airline/AirlineAdmin/enable-seat/enable-seat.component';
 import { UserDataResolverService } from './Shared/Resolvers/UserDataResolver/user-data-resolver.service';
 import { AirlineAdminDataResolverService } from './Airline/Resolvers/AirlineAdminDataResolver/airline-admin-data-resolver.service';
+import { RentACarBranchLocationOnMapComponent } from './RentACar/rent-acar-branch-location-on-map/rent-acar-branch-location-on-map.component';
 
 
 const routes: Routes = [
@@ -82,6 +83,7 @@ const routes: Routes = [
     {path: 'EnterpriseCars/:id', component: RentACarEnterpriseAllCarsComponent},
     {path: 'EnterpriseSpecialOffers/:id', component: RentACarEnterpriseSpecialServiceComponent},
     {path: 'EnterpriseLocation/:id', component: RentACarEnterpriseLocationOnMapComponent},
+    {path: 'BranchLocation/:id', component: RentACarBranchLocationOnMapComponent},
     {path: 'EnterpriseBranches/:id', component: RentACarBranchesComponent},
     {path: 'EnterpriseRentACar/:id', component: RentACarReservationComponent},
     {path: 'EnterpriseDiscounts/:id', component: RentACarDiscountsComponent},

@@ -4,6 +4,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
 import { RentACarEditBranchModalComponent } from '../RentACarAdmin/rent-acar-edit-branch-modal/rent-acar-edit-branch-modal.component';
 import { RentACarDeleteBranchModalComponent } from '../RentACarAdmin/rent-acar-delete-branch-modal/rent-acar-delete-branch-modal.component';
+import { EnterpriseBranch } from 'src/app/Shared/Model/RentACars/Models/EnterpriseBranch.model';
 
 @Component({
   selector: 'app-rent-acar-branch-details-modal',
@@ -15,7 +16,7 @@ export class RentACarBranchDetailsModalComponent implements OnInit {
   role: string;
 
   @Input()
-   item: Branch;
+   item: EnterpriseBranch;
   constructor(public activeModal : NgbActiveModal, private modalService : NgbModal, private EnterpriseService: RentACarEnterpriseServiceService) { 
     this.role = localStorage["Role"]
   }

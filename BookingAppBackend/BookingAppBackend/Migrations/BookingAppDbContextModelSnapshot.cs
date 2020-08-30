@@ -699,6 +699,9 @@ namespace BookingAppBackend.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
+                    b.Property<int?>("RealizedPackageId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("SelectedCarId")
                         .HasColumnType("int");
 
@@ -706,6 +709,8 @@ namespace BookingAppBackend.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RealizedPackageId");
 
                     b.HasIndex("SelectedCarId");
 
@@ -1285,6 +1290,10 @@ namespace BookingAppBackend.Migrations
 
             modelBuilder.Entity("BookingAppBackend.Model.RentACar.CarReservation", b =>
                 {
+                    b.HasOne("BookingAppBackend.Model.RentACar.SpecialOffer", "RealizedPackage")
+                        .WithMany()
+                        .HasForeignKey("RealizedPackageId");
+
                     b.HasOne("BookingAppBackend.Model.RentACar.Car", "SelectedCar")
                         .WithMany("Reservations")
                         .HasForeignKey("SelectedCarId");

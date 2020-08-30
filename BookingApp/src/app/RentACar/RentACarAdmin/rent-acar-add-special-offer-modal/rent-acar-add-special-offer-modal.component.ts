@@ -6,6 +6,9 @@ import { Params, ActivatedRoute } from '@angular/router';
 import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
 import { SpecialOffer } from 'src/app/Shared/Model/RentACars/SpecialOffer.model';
 import { ValidationService } from '../../Services/ValidationService/validation.service';
+import { SpecialOfferService } from '../../Services/SpecialOfferService/special-offer.service';
+import { AddSpecialOfferParameters } from 'src/app/Shared/Model/RentACars/Models/Parameters/AddSpecialOfferParameters.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-rent-acar-add-special-offer-modal',
@@ -16,11 +19,11 @@ export class RentACarAddSpecialOfferModalComponent implements OnInit {
 
   alert: boolean = false;
   addEnterpriseSpecialOffer: FormGroup;
-  id: number;
-  obj: SpecialOffer;
+  
+  offer;
    @Input()
-  item : RentACarEnterprise
-  constructor(private service: ValidationService, public activeModal : NgbActiveModal, private EnterpriseService: RentACarEnterpriseServiceService) { }
+   id : number
+  constructor(private toaster: ToastrService,private service: ValidationService, public activeModal : NgbActiveModal, private specialOfferService: SpecialOfferService) { }
 
   ngOnInit(): void {
    
@@ -39,15 +42,23 @@ export class RentACarAddSpecialOfferModalComponent implements OnInit {
 
   addOffer(){
     
-    var OfferName = this.addEnterpriseSpecialOffer.value.specialOfferName;
-    var OfferPrice = this.addEnterpriseSpecialOffer.value.specialOfferPrice;
-    
-    this.alert = true;
+  
+    var parameters = new AddSpecialOfferParameters();
+    parameters.name = this.addEnterpriseSpecialOffer.value.specialOfferName;
+    parameters.discountPercentage = this.addEnterpriseSpecialOffer.value.specialOfferPrice;
+    parameters.enterpriseId = this.id;
+    parameters.description = this.addEnterpriseSpecialOffer.value.specialOfferDescription;
+    parameters.numberOfDays = this.addEnterpriseSpecialOffer.value.specialOfferNumberOfDays;
+   
+    this.specialOfferService.addSpecialOffer(parameters).subscribe(i =>{
+        this.offer = i;
+        this.toaster.success("Add special offer has been successfully executed",'Add a special offer',{
+          timeOut : 3000
+        })
+    })
   }
 
-  closeAlert(){
-    this.alert= false;
-  }
+ 
 
   
 

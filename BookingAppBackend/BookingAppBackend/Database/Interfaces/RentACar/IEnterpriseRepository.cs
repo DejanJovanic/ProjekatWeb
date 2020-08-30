@@ -16,5 +16,6 @@ namespace BookingAppBackend.Database.Interfaces.RentACar
 
         Task<Enterprise> GetCarsOfCompanyForRent(int enterpriseId);
         Task<Enterprise> GetCarsOnDiscount(int enterpriseId);
+        Task<Enterprise> GetEnterpriseAddress(int enterpriseId);
     }
 }

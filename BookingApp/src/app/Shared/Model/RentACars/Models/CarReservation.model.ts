@@ -1,10 +1,10 @@
-import { Carr } from './Carr.model';
+import { Car } from './Car.model'
 import { SpecialOffer } from './SpecialOffer.model';
 import { Enterprise } from './Enterprise.model';
 
 export class CarReservation{
     id : number;
-    selectedCar : Carr;
+    selectedCar : Car;
     selectedEnterprise : Enterprise;
     numberOfDays : number;
     price : number;

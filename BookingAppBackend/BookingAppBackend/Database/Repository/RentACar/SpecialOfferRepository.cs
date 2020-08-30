@@ -20,18 +20,18 @@ namespace BookingAppBackend.Database.Repository.RentACar
             var tempSpecialOffer = new SpecialOffer();
             tempSpecialOffer.Name = specialOffer.Name;
             tempSpecialOffer.Description = specialOffer.Description;
-            tempSpecialOffer.Discount = specialOffer.Discount;
-            tempSpecialOffer.NumberOfDays = specialOffer.NumberOfDays;
+            tempSpecialOffer.Discount = Int32.Parse(specialOffer.Discount);
+            tempSpecialOffer.NumberOfDays = Int32.Parse(specialOffer.NumberOfDays);
 
             temp.SpecialOffers.Add(tempSpecialOffer);
 
             return tempSpecialOffer;
         }
 
-        public async Task<SpecialOffer> DeleteSpecialOffer(GetAndDeleteParameters gadp)
+        public async Task<SpecialOffer> DeleteSpecialOffer(int enterpriseId, int specialOfferId)
         {
-            var specialOffer = (await context.Enterprises.Include(i => i.SpecialOffers).FirstOrDefaultAsync(enterprise => enterprise.Id == gadp.EnterpriseId)).SpecialOffers.Where(i => i.Id == gadp.ObjectId).FirstOrDefault();
-            var enterprise = await context.Enterprises.Include(i => i.SpecialOffers).FirstOrDefaultAsync(i => i.Id == gadp.EnterpriseId);
+            var specialOffer = (await context.Enterprises.Include(i => i.SpecialOffers).FirstOrDefaultAsync(enterprise => enterprise.Id == enterpriseId)).SpecialOffers.Where(i => i.Id == specialOfferId).FirstOrDefault();
+            var enterprise = await context.Enterprises.Include(i => i.SpecialOffers).FirstOrDefaultAsync(i => i.Id == enterpriseId);
 
             var tempSpecialOffer = specialOffer;
             enterprise.SpecialOffers.Remove(specialOffer);
@@ -45,8 +45,8 @@ namespace BookingAppBackend.Database.Repository.RentACar
             
             specialOfferr.Name = specialOffer.Name;
             specialOfferr.Description = specialOffer.Description;
-            specialOfferr.Discount = specialOffer.Discount;
-            specialOfferr.NumberOfDays = specialOffer.NumberOfDays;
+            specialOfferr.Discount = Int32.Parse(specialOffer.Discount);
+            specialOfferr.NumberOfDays = Int32.Parse(specialOffer.NumberOfDays);
             
             return specialOfferr;
         }
@@ -58,9 +58,9 @@ namespace BookingAppBackend.Database.Repository.RentACar
             return specialOffers;
         }
 
-        public async Task<SpecialOffer> GetOneSpecialOffer(GetAndDeleteParameters gadp)
+        public async Task<SpecialOffer> GetOneSpecialOffer(int enterpriseId, int specialOfferId)
         {
-            return (await context.Enterprises.Include(i => i.SpecialOffers).FirstOrDefaultAsync(enterprise => enterprise.Id == gadp.EnterpriseId)).SpecialOffers.Where(i => i.Id == gadp.ObjectId).FirstOrDefault();
+            return (await context.Enterprises.Include(i => i.SpecialOffers).FirstOrDefaultAsync(enterprise => enterprise.Id == enterpriseId)).SpecialOffers.Where(i => i.Id == specialOfferId).FirstOrDefault();
         }
     }
 }

@@ -41,11 +41,11 @@ namespace BookingAppBackend.Controllers.RentACar
         [HttpDelete]
         [Authorize(Roles = "RentACarAdmin")]
         [Route("DeleteBranch")]
-        public async Task<IActionResult> DeleteBranch(GetAndDeleteParameters gadp)
+        public async Task<IActionResult> DeleteBranch(int enterpriseId, int branchId)
         {
             if (ModelState.IsValid)
             {
-                var temp = await branchService.DeleteBranch(gadp);
+                var temp = await branchService.DeleteBranch(enterpriseId, branchId);
                 if (temp != null)
                     return Ok(temp);
                 else
@@ -87,11 +87,11 @@ namespace BookingAppBackend.Controllers.RentACar
 
         [HttpGet]
         [Route("GetOneBranch")]
-        public async Task<IActionResult> GetOneBranch(GetAndDeleteParameters gadp)
+        public async Task<IActionResult> GetOneBranch(int enterpriseId, int branchId)
         {
             if (ModelState.IsValid)
             {
-                var temp = await branchService.GetOneBranch(gadp);
+                var temp = await branchService.GetOneBranch(enterpriseId, branchId);
                 if (temp != null)
                     return Ok(temp);
                 else
@@ -99,6 +99,19 @@ namespace BookingAppBackend.Controllers.RentACar
             }
             else
                 return BadRequest(new { Message = "Invalid parameters supplied." });
+        }
+
+        [HttpGet]
+        [Route("GetBranchAddress")]
+        public async Task<IActionResult> GetBranchAddress(int branchId)
+        {
+
+            var temp = await branchService.GetBranchAddress(branchId);
+            if (temp != null)
+                return Ok(temp);
+            else
+                return BadRequest(new { Message = "Something went wrong. Please, try again later." });
+
         }
     }
 }

@@ -1,4 +1,4 @@
-export class CarDiscount{
+export class Discount{
     id : number;
     discountPercentage : number;
     discountFrom : Date;

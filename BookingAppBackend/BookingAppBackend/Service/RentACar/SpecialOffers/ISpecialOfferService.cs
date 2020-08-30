@@ -10,9 +10,9 @@ namespace BookingAppBackend.Service.RentACar.SpecialOffers
     public interface ISpecialOfferService
     {
         Task<IEnumerable<SpecialOffer>> GetAllSpecialOffers(int enterpriseId);
-        Task<SpecialOffer> GetOneSpecialOffer(GetAndDeleteParameters gadp);
+        Task<SpecialOffer> GetOneSpecialOffer(int enterpriseId, int specialOfferId);
         Task<SpecialOffer> AddSpecialOffer(AddSpecialOfferParameters specialOffer);
         Task<SpecialOffer> EditSpecialOffer(EditSpecialOfferParameters specialOffer);
-        Task<SpecialOffer> DeleteSpecialOffer(GetAndDeleteParameters gadp);
+        Task<SpecialOffer> DeleteSpecialOffer(int enterpriseId, int specialOfferId);
     }
 }

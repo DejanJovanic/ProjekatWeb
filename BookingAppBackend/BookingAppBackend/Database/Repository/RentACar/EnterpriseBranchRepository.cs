@@ -31,10 +31,10 @@ namespace BookingAppBackend.Database.Repository.RentACar
             return tempBranch;
         }
 
-        public async Task<EnterpriseBranch> DeleteBranch(GetAndDeleteParameters gadp)
+        public async Task<EnterpriseBranch> DeleteBranch(int enterpriseId, int branchId)
         {
-            var branch = (await context.Enterprises.Include(i => i.Branches).FirstOrDefaultAsync(enterprise => enterprise.Id == gadp.EnterpriseId)).Branches.Where(i => i.Id == gadp.ObjectId).FirstOrDefault();
-            var enterprise = await context.Enterprises.Include(i => i.Branches).FirstOrDefaultAsync(i => i.Id == gadp.EnterpriseId);
+            var branch = (await context.Enterprises.Include(i => i.Branches).FirstOrDefaultAsync(enterprise => enterprise.Id == enterpriseId)).Branches.Where(i => i.Id == branchId).FirstOrDefault();
+            var enterprise = await context.Enterprises.Include(i => i.Branches).FirstOrDefaultAsync(i => i.Id == enterpriseId);
 
             var tempBranch = branch;
             enterprise.Branches.Remove(branch);
@@ -65,9 +65,14 @@ namespace BookingAppBackend.Database.Repository.RentACar
             return branches;
         }
 
-        public async Task<EnterpriseBranch> GetOneBranch(GetAndDeleteParameters gadp)
+        public async Task<EnterpriseBranch> GetOneBranch(int enterpriseId, int branchId)
         {
-            return (await context.Enterprises.Include(i => i.Branches).FirstOrDefaultAsync(enterprise => enterprise.Id == gadp.EnterpriseId)).Branches.Where(i => i.Id == gadp.ObjectId).FirstOrDefault();
+            return (await context.Enterprises.Include(i => i.Branches).FirstOrDefaultAsync(enterprise => enterprise.Id == enterpriseId)).Branches.Where(i => i.Id == branchId).FirstOrDefault();
+        }
+
+        public async Task<EnterpriseBranch> GetBranchAddress(int branchId)
+        {
+            return await context.EnterpriseBranches.FirstOrDefaultAsync(i => i.Id == branchId);
         }
     }
 }

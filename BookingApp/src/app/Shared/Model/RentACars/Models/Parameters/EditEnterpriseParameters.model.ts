@@ -5,4 +5,6 @@ export class EditEnterpriseParameters{
     name: string;
     description: string;
     address: EnterpriseAddress;
+
+    constructor(){}
 }

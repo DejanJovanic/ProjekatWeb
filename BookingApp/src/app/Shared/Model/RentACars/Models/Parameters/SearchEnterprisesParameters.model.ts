@@ -3,4 +3,6 @@ export class SearchEnterprisesParameters{
     branchLocation: string;
     rentFrom: Date;
     rentTo: Date;
+
+    constructor(){}
 }

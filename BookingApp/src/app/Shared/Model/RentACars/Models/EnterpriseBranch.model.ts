@@ -1,5 +1,6 @@
 export class EnterpriseBranch{
     id : number;
+    enterpriseId: number;
     name: string;
     country: string;
     city: string;
@@ -7,4 +8,5 @@ export class EnterpriseBranch{
     streetNo: string;
     zipCode: string;
 
+    constructor(){}
 }
