@@ -29,43 +29,86 @@ namespace BookingAppBackend.Service.AirlineReservation
 
         public async Task<AirlineReservationResponse> Add(ICollection<TicketParameter> tickets,bool ownerInvestingPoints)
         {
+            bool isOk = true;
+            var ret = new AirlineReservationResponse("Error");
             try
             {
-                var temp = await reservationRepo.Add(tickets);
-                if (temp.Success)
+                await unitOfWork.StartTransaction(Database.Repository.TransactionType.Normal);
+              
+                if(tickets != null)
                 {
-                    //await unitOfWork.CompleteAsync();
-                    CalculatePrices(temp.Resource);
-                   
-
-                    //await unitOfWork.CompleteAsync();
-
-                    if (ownerInvestingPoints)
+                    ret = await reservationRepo.Add(tickets);
+                    if (ret.Success)
                     {
-                        var temp4 = ReducePrice(temp.Resource, temp.Resource.SettingUser.Username);
-                        if (temp4.Success)
-                        {
-                            var points = CalculatePoints(temp.Resource.AirlineTickets.First().Flight.Distance);
-                            temp4.Resource.SettingUser.Points += points;
 
+                        CalculatePrices(ret.Resource);
+
+                        if (ownerInvestingPoints)
+                        {
+                            var temp4 = ReducePrice(ret.Resource, ret.Resource.SettingUser.Username);
+                            ret = temp4;
+                            if (temp4.Success)
+                            {
+                                var points = CalculatePoints(ret.Resource.AirlineTickets.First().Flight.Distance);
+                                temp4.Resource.SettingUser.Points += points;
+                               
+                                await unitOfWork.CompleteAsync();
+
+                            }
+                            else
+                            {
+                                isOk = false;
+                                await unitOfWork.Rollback();
+                            }
+                            
+                        }
+                        else
+                        {
+                            var points2 = CalculatePoints(ret.Resource.AirlineTickets.First().Flight.Distance);
+                            ret.Resource.SettingUser.Points += points2;
                             await unitOfWork.CompleteAsync();
+                        }
+                    
+                        if (ret.Success)
+                        {
+                            foreach (var a in ret.Resource.AirlineTickets)
+                            {
+                                if (flightRepo.IsSeatRemovedOrChanged(a.Row, a.Column, a.Airline, a.Flight))
+                                {
+                                    isOk = false;
+                                    ret = new AirlineReservationResponse("Seat is not available");
+                                    await unitOfWork.Rollback();
+
+                                }
+                            }
 
                         }
-                        return temp4;
-                    }
 
-                        var points2 = CalculatePoints(temp.Resource.AirlineTickets.First().Flight.Distance);
-                        temp.Resource.SettingUser.Points += points2;
-                        await unitOfWork.CompleteAsync();
-      
+                        //Logika za rezervacije automobila uz rezervaciju aviona
+
+                    }
+                    else
+                    {
+                        isOk = false;
+                        await unitOfWork.Rollback();
+                    }
                 }
 
-                return temp;
+                //Logika za rezervaciju samo automobila
+
             }
             catch(Exception e)
             {
-                return new AirlineReservationResponse(e.Message);
+                ret = new AirlineReservationResponse(e.Message);
+                await unitOfWork.Rollback();
+                isOk = false;
             }
+
+            if (isOk)
+                await unitOfWork.Commit();
+
+            await unitOfWork.EndTransaction();
+            return ret;
         }
 
         public async Task<AirlineReservationResponse> AcceptReservation(ReservationOptionsParameter param,string username, bool investingPoints)

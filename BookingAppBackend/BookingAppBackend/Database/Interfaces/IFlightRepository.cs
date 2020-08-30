@@ -19,5 +19,6 @@ namespace BookingAppBackend.Database.Interfaces
         Task<FlightResponse> RemoveSeat(int row, int column, int airlineId, int flightId);
         bool IsSeatTaken(int row, int column, Airline airline, Flight flight, bool checkRemoved, bool checkDisabled);
         bool IsSeatOkForChange(int row, int column, Airline airline, Flight flight, bool checkRemoved, bool checkDisabled);
+        bool IsSeatRemovedOrChanged(int row, int column, Airline airline, Flight flight);
     }
 }

@@ -30,7 +30,7 @@ namespace BookingAppBackend.Database.Repository
                 var reservation = new Reservation();
                 var airlineId = tickets.First().AirlineId;
                 var flightId = tickets.First().FlightId;
-                var airline = await context.Airlines.Include(i => i.FastFlights).ThenInclude(i => i.Flight).Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight)
+                var airline = await context.Airlines.Include(i => i.FastFlights).ThenInclude(i => i.Flight).Include(i => i.Tickets).ThenInclude(i => i.Flight)
                       .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.RemovedSeats)
                       .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.DisabledSeats)
                       .Include(i => i.Flights).ThenInclude(i => i.PaidExtras)
@@ -97,8 +97,8 @@ namespace BookingAppBackend.Database.Repository
                             }
                             ticket.Passport = a.Passport;
                             reservation.AirlineTickets.Add(ticket);
-                            
-                       
+                            airline.Tickets.Add(ticket);
+
                         }
                         else
                             return new AirlineReservationResponse("Inviter with given username does not exist.");
@@ -106,7 +106,7 @@ namespace BookingAppBackend.Database.Repository
                     else
                         return new AirlineReservationResponse("Owner with given username does not exist.");     
                 }
-                airline.Reservations.Add(reservation);
+                context.Reservation.Add(reservation);
                 foreach(var a in users)
                 {
                    var temp = await userRepo.AddReservation(a, reservation);
@@ -119,22 +119,23 @@ namespace BookingAppBackend.Database.Repository
                 return new AirlineReservationResponse("No tickets given.");
         }
 
-        public async Task<AirlineReservationResponse> EditPrices(int airlineId,int reservationId, ICollection<(int,double)> prices)
+        public async Task<AirlineReservationResponse> EditPrices(int airlineId,Reservation reservation, ICollection<(int,double)> prices)
         {
-            var airline = await context.Airlines.Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).FirstOrDefaultAsync(i => i.Id == airlineId);
+            var airline = await context.Airlines.Include(i => i.Tickets).FirstOrDefaultAsync(i => i.Id == airlineId);
 
 
             if (airline == null)
                 return new AirlineReservationResponse("Airline with given id does not exist.");
 
-            var reservation = airline.Reservations.FirstOrDefault(i => i.Id == reservationId);
-            if (reservation == null)
-                return new AirlineReservationResponse("Reservation with given id does not exist.");
+            //var reservation = airline.Reservations.FirstOrDefault(i => i.Id == reservationId);
+            //if (reservation == null)
+            //    return new AirlineReservationResponse("Reservation with given id does not exist.");
 
-            foreach(var a in reservation.AirlineTickets)
+            foreach(var a in prices)
             {
-                var temp = prices.FirstOrDefault(i => i.Item1 == a.Id);
-                a.Price = temp.Item2;
+                var ticket = airline.Tickets.FirstOrDefault(i => i.Id == a.Item1);
+                if (ticket != null)
+                    ticket.Price = a.Item2;
             }
 
             return new AirlineReservationResponse(reservation);
