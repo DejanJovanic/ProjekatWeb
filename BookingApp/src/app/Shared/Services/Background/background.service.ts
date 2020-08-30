@@ -34,6 +34,9 @@ export class BackgroundService {
         case Background.ReservationConfirmation:
           this.BackgroundName = 'ReservationConfirmation.jpg'
           break;
+        case Background.UserRegistration:
+          this.BackgroundName = 'RegistrationBackground.jpg'
+          break;
       }
       this.CurrentBackground = background
     }   

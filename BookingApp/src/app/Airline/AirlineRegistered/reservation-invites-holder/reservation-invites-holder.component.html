@@ -1,7 +1,7 @@
 <div class="container-fluid" style="background : transparent !important">  
     <div class="row">
         <div class="col">
-            <div *ngIf="(reservations | async)?.length > 0; else nothingFound">
+            <div *ngIf="(reservations | async) != null && (reservations | async)?.length > 0; else nothingFound">
         
                 <div class="row mb-2" *ngFor="let item of reservations | async">
                     <div class="col">
@@ -28,3 +28,4 @@
     </div>
  
 </ng-template>
+

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookingAppBackend.Model;
 using BookingAppBackend.Model.AuthentificationAndAuthorization;
 using BookingAppBackend.Service.User;
 using Microsoft.AspNetCore.Http;
@@ -23,20 +24,23 @@ namespace BookingAppBackend.Controllers.VerifyAccount
             this.userService = userService;
         }
 
-        [HttpGet]   
-        public async Task<IActionResult> ConfirmEmail(string username, string token)
+        [HttpPost]   
+        public async Task<IActionResult> ConfirmEmail(ValidationModel param)
         {
-            if (username == null || token == null)
-                return null;
-            var user = await manager.FindByNameAsync(username);
+            if (param.Username == null || param.Token == null)
+                return BadRequest(new { Message = "Invalid parameters supplied" });
+            var user = await manager.FindByNameAsync(param.Username);
             if (user != null)
             {
-                var res = await manager.ConfirmEmailAsync(user, token);
+                var res = await manager.ConfirmEmailAsync(user, param.Token);
                 if (res.Succeeded)
                 {
-                    await userService.EnableUser(username);
-                    return Redirect("localhost:4200/Login");
-                   
+                   var temp = await userService.EnableUser(param.Username);
+                    if(temp.Success)
+                        return Ok(true);
+                    else
+                        return BadRequest(false);
+
                 }
                 else
                     return BadRequest(false);

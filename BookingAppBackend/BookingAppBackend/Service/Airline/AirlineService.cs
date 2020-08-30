@@ -49,7 +49,7 @@ namespace BookingAppBackend.Service.Airline
                 return new AirlineAdminResponse("Admin with given name does not exist.");
         }
 
-        public async Task<IEnumerable<BookingAppBackend.Model.Airlines.Airline>> GetAirlines(AirlineSearchParameters param)
+        public async Task<IEnumerable<Model.Airlines.Airline>> GetAirlines(AirlineSearchParameters param)
         {
 
             var airlines = repo.GetAirlines();
@@ -60,7 +60,7 @@ namespace BookingAppBackend.Service.Airline
                 {
                     if (i.StartDate < temp.StartDate)
                         return false;
-                    if (i.EndDate > temp.EndDate)
+                    if (i.StartDate > temp.EndDate)
                         return false;
                     if (i.StartLocation.ToLower() != temp.StartLocation.ToLower())
                         return false;

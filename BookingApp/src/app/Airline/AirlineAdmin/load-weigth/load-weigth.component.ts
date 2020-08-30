@@ -14,7 +14,7 @@ export class LoadWeigthComponent implements OnInit {
 
   @Input()
   loadOptions : LoadWeigth[]
-
+  loadError : boolean;
   form : FormGroup
   constructor(private builder : FormBuilder,public activeModal : NgbActiveModal) { }
 
@@ -32,14 +32,28 @@ export class LoadWeigthComponent implements OnInit {
 
   OnSubmit(){
     if(this.form.valid){
-      var load = new LoadWeigth();
-      load.from = this.form.value.from
-      load.to = this.form.value.to
-      load.price = this.form.value.price
-      this.loadOptions.push(load);
-      this.form.get('from').reset()
-      this.form.get('to').reset()
-      this.form.get('price').reset()
+      let isOk = true
+      let from = parseFloat(this.form.value.from)
+      let to  = parseFloat(this.form.value.to)
+      let price = parseFloat(this.form.value.price)
+      for(let a of this.loadOptions){
+        if((a.from <= from && a.to >= from) || (a.from <= to && a.to >= to)){
+          isOk = false;
+          this.loadError = true;
+        }
+      }
+      if(isOk){
+        this.loadError = false;
+        var load = new LoadWeigth();
+        load.from = from
+        load.to = to
+        load.price = price 
+        this.loadOptions.push(load);
+        this.form.get('from').reset()
+        this.form.get('to').reset()
+        this.form.get('price').reset()
+      }
+
     }
   }
 

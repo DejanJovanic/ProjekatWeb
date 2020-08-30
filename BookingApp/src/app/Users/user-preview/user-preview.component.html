@@ -1,112 +1,134 @@
-<div class="container">
-    <div class="d-flex justify-content-center h-100">
+<div class="container-fluid">
+    <div class="row">
+    <div class=" col d-flex justify-content-center">
         <div class="card">
-            <div class="card-header text-center">
-                <h3> Account preview </h3>
-            </div> 
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-4">
-                        <label>
-                            Username:
-                        </label>
+                    <div class="col">
+                        <h2>User preview</h2>
+                        <hr>
                     </div>
-                    <div class="col-sm-8">
-                        <p>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        
+                            Username:
+                        
+                    </div>
+                    <div class="col">
+                        
                             {{user.username}}
-                        </p>
+                       
                     </div>
                 </div>
                 <div class="row" *ngIf="isAirlineAdmin">
-                    <div class="col-md-4">
-                        <label>
+                    <div class="col">
+                       
                             Company id:
-                        </label>
+                       
                     </div>
-                    <div class="col-sm-8">
-                        <p>
+                    <div class="col">
+                       
                             {{user.airlineID}}
-                        </p>
+                        
+                    </div>
+                </div>
+                <div class="row" *ngIf="isRentACarAdmin">
+                    <div class="col">
+                        
+                            Company id:
+                       
+                    </div>
+                    <div class="col">
+                        
+                            {{user.RentACarEnterpriseId}}
+                        
                     </div>
                 </div>
                 <div class="row" *ngIf="!isAirlineAdmin && !isRentACarAdmin">
-                    <div class="col-md-4">
-                        <label>
+                    <div class="col">
+                       
                             Points:
-                        </label>
+                     
                     </div>
-                    <div class="col-sm-8">
-                        <p>
+                    <div class="col">
+                        
                             {{user.points}}
-                        </p>
+                        
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
-                        <label>
+                    <div class="col">
+                   
                             Name:
-                        </label>
+                     
                     </div>
-                    <div class="col-sm-8">
-                        <p>
+                    <div class="col">
+                        
                             {{user.name}}
-                        </p>
+                       
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
-                        <label>
+                    <div class="col">
+                     
                             Last name:
-                        </label>
+                   
                     </div>
-                    <div class="col-sm-8">
-                        <p>
+                    <div class="col">
+                        
                             {{user.lastName}}
-                        </p>
+                        
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
-                        <label>
+                    <div class="col">
+                      
                             E-mail:
-                        </label>
+                      
                     </div>
-                    <div class="col-sm-8">
-                        <p>
+                    <div class="col">
+                     
                             {{user.email}}
-                        </p>
+                      
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
-                        <label>
+                    <div class="col">
+                      
                             City:
-                        </label>
+                       
                     </div>
-                    <div class="col-sm-8">
-                        <p>
+                    <div class="col">
+                       
                             {{user.city}}
-                        </p>
+                      
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
-                        <label>
+                    <div class="col">
+                       
                             Phone:
-                        </label>
+                      
                     </div>
-                    <div class="col-sm-8">
-                        <p>
+                    <div class="col">
+                      
                             {{user.phoneNumber}}
-                        </p>
+                       
                     </div>
                 </div>
             </div>
-            <div class="card-footer">
-                <div class="d-flex justify-content-center links">
+            <div class="row">
+                <div class="col d-flex flex-row justify-content-center">
                     <a [routerLink]="['/UserDetailsEdit']" routerLinkActive="router-link-active"> Edit details</a>
+                </div>
+            </div>
+            <div *ngIf="isAirlineAdmin || isRentACarAdmin" class="row">
+                <div class="col d-flex flex-row justify-content-center">
+                    <a  [routerLink]="['/changePassword',user.username]" routerLinkActive="router-link-active"> Change password</a>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>

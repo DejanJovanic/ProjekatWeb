@@ -45,7 +45,9 @@ namespace BookingAppBackend.Utils.EMailSender
 
         public void SendConfirmEMail(string email,string token, string username)
         {
-            string link = "http://localhost:4000/EMailVerification/" + token + "/" + username;
+            string tokenEncoded = System.Web.HttpUtility.UrlEncode(token);
+            string usernameEncoded = System.Web.HttpUtility.UrlEncode(username);
+            string link = "http://localhost:4200/AccountVerification?token=" + tokenEncoded + "&username=" + usernameEncoded;
 
             MimeMessage message = new MimeMessage();
 

@@ -85,6 +85,16 @@ private startFinishDatesBackValidator : ValidatorFn = (fg: FormGroup) => {
       loadInCabin : ['0',[Validators.required,Validators.min(0)]],
     }, {validators : [this.startFinishLocationsValidator,this.startFinishDatesValidator,this.startFinishDatesBackValidator]})
 
+    this.flightForm.get('startLocation').valueChanges.subscribe(i =>{
+      if(this.destinationOptions.find(j => j ==i)){
+        this.destinationOptions.splice(this.destinationOptions.indexOf(i),1)
+      }
+    })
+    this.flightForm.get('finishLocation').valueChanges.subscribe(i =>{
+      if(this.destinationOptions.find(j => j ==i)){
+        this.destinationOptions.splice(this.destinationOptions.indexOf(i),1)
+      }
+    })
     this.flightForm.get('isRoundTrip').valueChanges.subscribe(i =>{
       this.isRoundTrip = i;
       if(!i){

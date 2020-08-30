@@ -20,6 +20,11 @@
                             <button class="btn btn-outline-primary" [disabled]="form.invalid" type="submit">Add </button>
                         </div>
                     </div> 
+                    <div class="form-row" *ngIf="loadError">
+                        <div class="col form-text text-danger">
+                            Given range is already in loads weights.
+                        </div>
+                    </div>
                 </form>
             </div>   
         </div>

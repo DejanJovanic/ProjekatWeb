@@ -37,11 +37,9 @@ export class UserNetworkService {
     param.append('password',password)
     return this.client.put<boolean>('http://localhost:50000/api/VerifyAccount/ResetPassword',{ params :  param})
   }
-  public ValidateUser(token,username) : Observable<boolean>{
-    let param = new HttpParams()
-    param = param.append('username',username)
-    param = param.append('token',token)
-    return this.client.put<boolean>('http://localhost:50000/api/VerifyAccount/ChangePassword',{ params :  param})
+  public ValidateUser(token,username) : Observable<boolean>{    
+   
+    return this.client.post<boolean>('http://localhost:50000/api/VerifyAccount',{ token :  token, username : username})
   }
 
   public Login(username : string, password : string) : Observable<string>{

@@ -108,6 +108,9 @@ import { RentACarBranchLocationOnMapComponent } from './RentACar/rent-acar-branc
 import { RentACarReservationPreviewModalComponent } from './RentACar/rent-acar-reservation-preview-modal/rent-acar-reservation-preview-modal.component';
 import { FlightDetailsComponent } from './Airline/AirlineShared/flight-details/flight-details.component';
 import { ResetPasswordComponent } from './Users/reset-password/reset-password.component';
+import { ValidateAccountComponent } from './Users/validate-account/validate-account.component';
+import { ReservationInvitesMainComponent } from './Airline/AirlineRegistered/reservation-invites-main/reservation-invites-main.component';
+import { ReservationInvitesHolderComponent } from './Airline/AirlineRegistered/reservation-invites-holder/reservation-invites-holder.component';
 
 
 
@@ -208,7 +211,10 @@ import { ResetPasswordComponent } from './Users/reset-password/reset-password.co
     RentACarBranchLocationOnMapComponent,
     RentACarReservationPreviewModalComponent,
     FlightDetailsComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ValidateAccountComponent,
+    ReservationInvitesMainComponent,
+    ReservationInvitesHolderComponent
   ],
   imports: [
     
