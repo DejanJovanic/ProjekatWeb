@@ -19,6 +19,8 @@ namespace BookingAppBackend.Database.Interfaces.RentACar
         Task<Enterprise> GetEnterpriseAddress(int enterpriseId);
         Task<Enterprise> AddEnterprise(EditEnterpriseParameters enterprise);
 
+        Task<BookingAppBackend.Model.Users.User> GetReservations(string username);
+
 
 
     }

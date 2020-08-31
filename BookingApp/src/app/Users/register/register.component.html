@@ -9,7 +9,7 @@
 				</div>
 				
 				<div class="card-body">
-					<form name="form" [formGroup] = "registerForm">
+					<form name="form" [formGroup] = "registerForm" (ngSubmit)="OnSubmit()">
 						<div class="form-group input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"> <i class="fas fa-user-circle"></i> </span>

@@ -45,8 +45,9 @@
           <div class="row">
             <input [ngClass] ="{'is-invalid': setDiscountForm.get('DiscountPrice').touched && setDiscountForm.get('DiscountPrice').invalid}" id="price" placeholder="Discount percentage" type="text" class="form-control" formControlName="DiscountPrice" >
             <div *ngIf = "setDiscountForm.get('DiscountPrice').touched && setDiscountForm.get('DiscountPrice').invalid" class="invalid-feedback">
-              <div *ngIf = "setDiscountForm.get('DiscountPrice').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Discount price is required.</div>
-              <div *ngIf = "setDiscountForm.get('DiscountPrice').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Discount price can only contain numbers.</div>
+              <div *ngIf = "setDiscountForm.get('DiscountPrice').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Discount  is required.</div>
+              <div *ngIf = "setDiscountForm.get('DiscountPrice').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Discount  can only contain numbers.</div>
+              <div *ngIf = "setDiscountForm.get('DiscountPrice').errors.Errorr"><i class="fas fa-times-circle" style="color: red;"></i>Discount value can be between 0% and 100%.</div>
             </div> 
             
           </div>

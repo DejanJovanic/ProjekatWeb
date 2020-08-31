@@ -17,12 +17,14 @@ namespace BookingAppBackend.Service.GeneralUser
         private IUserRepository userRepository;
         private IAirlineAdminRepository airlineAdminRepository;
         private IRentACarAdminRepository repo;
+        private IAdminRepository repo2;
 
-        public GeneralUserService(IUserRepository userRepository, IAirlineAdminRepository airlineAdminRepository, IRentACarAdminRepository repo)
+        public GeneralUserService(IAdminRepository repo1, IUserRepository userRepository, IAirlineAdminRepository airlineAdminRepository, IRentACarAdminRepository repo)
         {
             this.userRepository = userRepository;
             this.airlineAdminRepository = airlineAdminRepository;
             this.repo = repo;
+            this.repo2 = repo1;
         }
 
         public async Task<GeneralUserResponse> GetUserAsync(string username)
@@ -41,6 +43,11 @@ namespace BookingAppBackend.Service.GeneralUser
 
             if (admin != null)
                 return new GeneralUserResponse((admin, "RentACarAdmin"));
+
+            var generalAdmin = await repo2.GetAdminAsync(username);
+
+            if (generalAdmin != null)
+                return new GeneralUserResponse((generalAdmin, "Admin"));
 
             return new GeneralUserResponse("User with given username does not exist.");
 

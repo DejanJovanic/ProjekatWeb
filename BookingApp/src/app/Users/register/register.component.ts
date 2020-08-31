@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
       this.client.post('http://localhost:50000/api/User',{
         username : this.registerForm.value.username,
         lastName : this.registerForm.value.lastName,
-        name : this.registerForm.value.rname,
+        name : this.registerForm.value.firstName,
         city : this.registerForm.value.city,
         password : this.registerForm.value.password,
         phoneNumber : this.registerForm.value.phone,

@@ -1,7 +1,9 @@
 ﻿using BookingAppBackend.Database.Contex;
+using BookingAppBackend.Database.Interfaces;
 using BookingAppBackend.Database.Interfaces.RentACar;
 using BookingAppBackend.Model.RentACar;
 using BookingAppBackend.Model.RentACar.Parameters;
+using BookingAppBackend.Model.Users;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ namespace BookingAppBackend.Database.Repository.RentACar
 {
     public class EnterpriseRepository : Repository, IEnterpriseRepository
     {
+       
         public EnterpriseRepository(BookingAppDbContext context) : base(context) { }
         public async Task<Enterprise> EditEnterpriseProfile(EditEnterpriseParameters enterprise)
         {
@@ -45,7 +48,11 @@ namespace BookingAppBackend.Database.Repository.RentACar
             context.Enterprises.Add(enterprisee);
             return enterprisee;
         }
-
+        public async  Task<User> GetReservations(string username)
+        {
+            if (string.IsNullOrWhiteSpace(username)) return null;
+            return await context.RegisteredUsers.Include(i => i.CarReservations).ThenInclude(i => i.SelectedCar).Include(i => i.CarReservations).ThenInclude (i => i.SelectedEnterprise).FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
+        }
         public async Task<IEnumerable<Enterprise>> GetAllEnterprises()
         {
             return await context.Enterprises.ToListAsync();

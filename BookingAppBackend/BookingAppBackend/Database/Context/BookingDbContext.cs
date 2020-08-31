@@ -21,7 +21,8 @@ namespace BookingAppBackend.Database.Contex
         public DbSet<SpecialOffer> SpecialOffers { get; set; }
         public DbSet<RentACarAdmin> RentACarAdmins { get; set; }
         public DbSet<EnterpriseBranch> EnterpriseBranches { get; set; }
-
+        public DbSet<DiscountBasedOnPoints> DiscountsBasedOnPoints { get; set; }
+        public DbSet<Admin> Admins { get; set; }
         public DbSet<User> RegisteredUsers { get; set; }
         public DbSet<AirlineAdmin> AirlineAdmins { get; set; }
         public DbSet<Airline> Airlines { get; set; }

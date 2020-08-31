@@ -1,5 +1,6 @@
 ﻿using BookingAppBackend.Database.Contex;
 using BookingAppBackend.Database.Interfaces.RentACar;
+using BookingAppBackend.Model.RentACar;
 using BookingAppBackend.Model.RentACar.Parameters;
 using BookingAppBackend.Model.Users;
 using Microsoft.EntityFrameworkCore;
@@ -44,6 +45,16 @@ namespace BookingAppBackend.Database.Repository.RentACar
             }
             else
                 return null;
+        }
+
+        public async Task<DiscountBasedOnPoints> AddDiscountBasedOnPoints(DiscountBasedOnPoints parameters)
+        {
+            var temp = new DiscountBasedOnPoints();
+            temp.Discount = parameters.Discount;
+
+            context.DiscountsBasedOnPoints.Add(temp);
+
+            return temp;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace BookingAppBackend.Database.Repository
         public async Task<User> GetUserAsync(string username)
         {
             if (string.IsNullOrWhiteSpace(username)) return null;
-            return await context.RegisteredUsers.FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
+            return await context.RegisteredUsers.Include(i => i.CarReservations).FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
         }
 
         public async Task<User> GetUserWithFastFlightsAsync(string username)

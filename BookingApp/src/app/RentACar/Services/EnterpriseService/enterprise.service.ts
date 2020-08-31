@@ -153,4 +153,10 @@ export class EnterpriseService {
     }
     return ret;
   }
+
+  getCarReservations(username: string){
+    return this.client.get('http://localhost:50000/api/Enterprise/GetReservations',{
+      params: new HttpParams().set('username', username.toString())
+    })
+  }
 }

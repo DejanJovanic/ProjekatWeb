@@ -75,8 +75,9 @@ namespace BookingAppBackend.Service.User
                             ////Deo za slanje konfirmacionog mail-a korisniku
                             string token = await manager.GenerateEmailConfirmationTokenAsync(temp1);
 
-                            var sender = new EmailSender();
-                            sender.SendConfirmEMail(data.Email, token, data.Username);
+                            //var sender = new EmailSender();
+                            //sender.SendConfirmEMail(data.Email, token, data.Username);
+                            await manager.ConfirmEmailAsync(temp1, token);
                             try
                             {
                                 var a = await repo.InsertUser(temp2);

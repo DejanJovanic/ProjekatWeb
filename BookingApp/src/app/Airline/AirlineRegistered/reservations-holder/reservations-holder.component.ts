@@ -29,5 +29,5 @@ export class ReservationsHolderComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  
 }

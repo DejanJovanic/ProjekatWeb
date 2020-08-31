@@ -403,6 +403,9 @@ namespace BookingAppBackend.Service.RentACar.Cars
 
             var temp = new ReservationCar();
             var temp2 = new UserCarReservation();
+            temp2.SelectedEnterprise = new Enterprise();
+            temp2.SelectedCar = new Car();
+            temp2.RealizedPackage = new SpecialOffer();
 
             temp2.IsRated = parameters.IsRated;
             temp2.NumberOfDays = parameters.NumberOfDays;
@@ -420,17 +423,20 @@ namespace BookingAppBackend.Service.RentACar.Cars
             temp.DateTo = parameters.DateTo;
             temp.DateFrom = parameters.DateFrom;
             temp.RentedDay = parameters.RentedDay;
+            temp2.SelectedCar = parameters.SelectedCar;
+            temp2.SelectedEnterprise = parameters.SelectedEnterprise;
+            
             car.Reservations.Add(temp);
-            user.CarReservations.Add(temp2);
-            try
-            {
+           
+            //try
+            //{
                await unitOfWork.CompleteAsync();
-            }
-            catch
-            {
-                return null;
-            }
-
+            // }
+            //catch
+            //{
+            //return null;
+            //}
+            var ret = SetForUser(temp2, user);
             return temp;
         }
 
@@ -521,6 +527,15 @@ namespace BookingAppBackend.Service.RentACar.Cars
 
 
             return retValue;
+        }
+
+        public async Task<UserCarReservation> SetForUser(UserCarReservation parameters, BookingAppBackend.Model.Users.User userr)
+        {
+            userr.CarReservations.Add(parameters);
+
+            await unitOfWork.CompleteAsync();
+
+            return parameters;
         }
     }
 }

@@ -54,6 +54,21 @@ namespace BookingAppBackend.Controllers.RentACar
         }
 
         [HttpGet]
+        [Route("GetReservations")]
+        [Authorize(Roles ="User")]
+        public async Task<IActionResult> GetReservations(string username)
+        {
+
+
+            var temp = await enterpriseService.GetReservations(username);
+            if (temp != null)
+                return Ok(temp);
+            else
+                return BadRequest(new { Message = "Something went wrong. Please, try again later." });
+
+        }
+
+        [HttpGet]
         [Route("GetOneEnterprise")]
         public async Task<IActionResult> GetOneEnterprise(int enterpriseId)
         {

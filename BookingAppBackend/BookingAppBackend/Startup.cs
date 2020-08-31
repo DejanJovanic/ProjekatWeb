@@ -102,7 +102,8 @@ namespace BookingAppBackend
             {
                 config.AddPolicy(Policies.AirlineAdmin, Policies.AirlineAdminPolicy());
                 config.AddPolicy(Policies.User, Policies.UserPolicy());
-                config.AddPolicy(Policies.User, Policies.RentACarAdminPolicy());
+                config.AddPolicy(Policies.RentACarAdmin, Policies.RentACarAdminPolicy());
+                config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
             });
 
             //DI services
@@ -127,6 +128,7 @@ namespace BookingAppBackend
             services.AddScoped<IFriendsService, FriendsService>();
             services.AddScoped<ISeatService, SeatService>();
             services.AddScoped<IAirlineReservationService, AirlineReservationService>();
+            services.AddScoped<IAdminRepository, AdminRepository>();
             //rent a car
             services.AddScoped<ICarRepository, CarRepository>();
             services.AddScoped<IEnterpriseBranchRepository, EnterpriseBranchRepository>();

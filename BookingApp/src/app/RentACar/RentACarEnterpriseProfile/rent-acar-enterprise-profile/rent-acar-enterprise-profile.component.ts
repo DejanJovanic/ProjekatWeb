@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { RentACarEnterpriseEditModalComponent } from '../../RentACarAdmin/rent-acar-enterprise-edit-modal/rent-acar-enterprise-edit-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RentACarAddRentACarAdminModalComponent } from '../../RentACarAdmin/rent-acar-add-rent-acar-admin-modal/rent-acar-add-rent-acar-admin-modal.component';
+import { AdminDefineDiscountModalComponent } from '../../RentACarAdmin/admin-define-discount-modal/admin-define-discount-modal.component';
+import { AddSystemAdminModalComponent } from '../../RentACarAdmin/add-system-admin-modal/add-system-admin-modal.component';
 
 
 @Component({
@@ -80,5 +82,13 @@ export class RentACarEnterpriseProfileComponent implements OnInit {
     modalRef.componentInstance.item = this.id;
   }
 
+  defineDiscount(){
+    const modalRef = this.modalService.open(AdminDefineDiscountModalComponent);
+   
+  }
+
+  defineNewAdmin(){
+    const modalRef = this.modalService.open(AddSystemAdminModalComponent);
+  }
  
 }

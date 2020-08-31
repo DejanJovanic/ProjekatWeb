@@ -8,6 +8,7 @@ import { map, tap } from 'rxjs/operators';
 import { IUser } from 'src/app/Shared/Model/Common/IUser.model';
 import { AirlineAdmin } from 'src/app/Shared/Model/Common/AirlineAdmin.model';
 import { RentACarAdmin } from 'src/app/Shared/Model/RentACars/RentACarAdmin.model';
+import { Admin } from 'src/app/Shared/Model/Common/Admin.model';
 
 @Injectable({
   providedIn: 'root'
@@ -94,6 +95,17 @@ export class UserNetworkService {
             admin2.systemRole = "RentACarAdmin";
             admin2.enterpriseId = i.user.enterpriseId;
             return admin2;
+          case "Admin":
+            let admin3 = new Admin();
+            admin3.name = i.user.name;
+            admin3.lastName = i.user.lastName;
+            admin3.phoneNumber = i.user.phoneNumber;
+            admin3.city = i.user.city;
+            admin3.email = i.user.email;
+            admin3.username = i.user.username;
+            admin3.systemRole = "Admin";
+           
+            return admin3;
           default:
             return null
         }
