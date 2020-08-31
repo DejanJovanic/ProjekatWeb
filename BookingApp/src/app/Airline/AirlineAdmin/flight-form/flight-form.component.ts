@@ -45,6 +45,24 @@ private startFinishDatesBackValidator : ValidatorFn = (fg: FormGroup) => {
   }
   return null;
 }
+
+private startFinishDatesBackValidator2 : ValidatorFn = (fg: FormGroup) => {
+  if(this.isRoundTrip){
+    const end2 = fg.get('finishDateTime').value;
+    const start = fg.get('startDateTimeBack').value;
+    const end = fg.get('finishDateTimeBack').value;
+  
+    let temp1 = new Date(start).getTime()
+    let temp2 = new Date(end).getTime() 
+    let temp3 = new Date(end2).getTime();
+    if(temp3 >= temp1 || temp3 >= temp2){
+      return {startEndDateBack2 : true}
+    }
+    else
+      return null
+  }
+  return null;
+}
   @Input()
   flight : Flight
 
@@ -83,7 +101,7 @@ private startFinishDatesBackValidator : ValidatorFn = (fg: FormGroup) => {
       rows : ['0',[Validators.required,Validators.min(0)]],
       cols : ['0',[Validators.required,Validators.min(0)]],
       loadInCabin : ['0',[Validators.required,Validators.min(0)]],
-    }, {validators : [this.startFinishLocationsValidator,this.startFinishDatesValidator,this.startFinishDatesBackValidator]})
+    }, {validators : [this.startFinishLocationsValidator,this.startFinishDatesValidator,this.startFinishDatesBackValidator,this.startFinishDatesBackValidator2]})
 
     this.flightForm.get('startLocation').valueChanges.subscribe(i =>{
       if(this.destinationOptions.find(j => j ==i)){

@@ -22,14 +22,22 @@ namespace BookingAppBackend.Service.FastFlight
         {
             try
             {
-                var temp = await repo.Add(airlineId,flightId,row,column,discountPercentage);
+                await unitOfWork.StartTransaction(Database.Repository.TransactionType.Serializible);
+                var temp = await repo.Add(airlineId, flightId, row, column, discountPercentage);
+                await unitOfWork.CompleteAsync();
+
                 if (temp.Success)
                 {
-                    await unitOfWork.CompleteAsync();
+                    await unitOfWork.Commit();
                 }
+                else
+                {
+                    await unitOfWork.Rollback();
+                }
+                await unitOfWork.EndTransaction();
 
                 return temp;
-
+              
             }
             catch
             {

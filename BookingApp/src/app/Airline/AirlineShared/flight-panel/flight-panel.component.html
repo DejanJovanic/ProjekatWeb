@@ -1,34 +1,96 @@
-<div class="card shadow-lg bg-white rounded">
-    <div class="card-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-2">
-                    <button (click) = "OpenModal()" class="btn btn-primary">Company details</button>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-lg bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col d-flex flex-row justify-content-center">
+                                    <h5 class="mr-3">
+                                        {{flight.startLocation}}
+                                    </h5 >
+                                    <h5  class="mr-3">
+                                        <i class="fas fa-angle-double-right"></i>
+                                    </h5 >
+                                    <h5 >
+                                        {{flight.endLocation}}
+                                    </h5 >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col d-flex flex-row ">
+                                            <h4 class=" mr-3">
+                                                {{flight.startDate | date : 'MMMM d,y, hh:mm'}}
+                                            </h4>
+                                            <h3 class="mr-3">
+                                                <i class="fas fa-angle-double-right"></i>
+                                            </h3>
+                                            <h4 class="mr-3">
+                                                {{flight.endDate | date : 'MMMM d,y, hh:mm'}}
+                                            </h4>
+                                        </div>
+
+                                    </div>
+                                    <div class="row" *ngIf="flight.isRoundTrip">
+                                        <div class="col d-flex flex-row ">
+                                            <h4 class=" mr-3">
+                                                {{flight.endDateBack | date : 'MMMM d,y, hh:mm'}}
+                                            </h4>
+                                            <h3  class="mr-3">
+                                                <i class="fas fa-angle-double-left"></i>
+                                            </h3 >
+                                            <h4 class="mr-3" >
+                                                {{flight.startDateBack | date : 'MMMM d,y, hh:mm'}}
+                                            </h4>
+                                        </div>                       
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col d-inline-flex flex-column">
+                                            <h3>
+                                                Stops:
+                                            </h3>
+                                            <h3 class="text-muted">
+                                                {{flight.numberOfStops}}
+                                            </h3>
+                                            <button *ngIf="role != 'AirlineAdmin'" class="btn btn-link btn-lg mt-3" (click)="OpenModal()">{{flight.airline.name}}</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col d-flex flex-row justify-content-right" *ngIf="role != 'AirlineAdmin' && flight.isFromSearch">
+                                    <button class="btn btn-primary"  [routerLink]="['/FlightDetails/',flight.id]" routerLinkActive="router-link-active">Details</button>
+                                </div>
+                                <div class="col-md btn-group" role="group" *ngIf="role == 'AirlineAdmin'">
+                                    <button class="btn btn-primary " [routerLink]="['/EditFastReservationSeats/',flight.id]" routerLinkActive="router-link-active">Fast</button>
+                                    <button class="btn btn-primary" [routerLink]="['/RemoveSeat/',flight.id]" routerLinkActive="router-link-active">Remove seat</button>
+                                    <button class="btn btn-primary " [routerLink]="['/DisableSeat/',flight.id]" routerLinkActive="router-link-active">Disable seat</button>
+                                    <button class="btn btn-primary " [routerLink]="['/AddSeats/',flight.id]" routerLinkActive="router-link-active">Add seats</button>
+                                    <button class="btn btn-primary " [routerLink]="['/EnableSeat/',flight.id]" routerLinkActive="router-link-active">Enable seat</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-flex flex-column">
+                            <h3>
+                                Price:
+                            </h3>
+                            <h1 class="text-muted">
+                                {{flight.price}} &euro;
+                            </h1>
+                        </div>
+                    </div>
+
+                    
                 </div>
-                <div class="col-sm-3">
-                    {{flight.startDate}}
-                </div>
-                <div class="col-sm-3">
-                    {{flight.endDate}}
-                </div>
-                <div class="col-sm-3">
-                    {{flight.price}}
-                </div>         
-            </div>
-        </div>     
-    </div>
-    <div class="card-footer">
-        <div class="row">
-            <div class="col-sm-3" *ngIf="role !=  'AirlineAdmin'">
-                <button class="btn btn-primary" [routerLink]="['/FlightDetails/',flight.id]" routerLinkActive="router-link-active">Set Reservation</button>
-            </div>
-            <div class="col-md btn-group" role="group" *ngIf="role == 'AirlineAdmin'">
-                <button class="btn btn-secondary mr-2" [routerLink]="['/EditFastReservationSeats/',flight.id]" routerLinkActive="router-link-active">Fast</button>
-                <button class="btn btn-secondary mr-2" [routerLink]="['/RemoveSeat/',flight.id]" routerLinkActive="router-link-active">Remove seat</button>
-                <button class="btn btn-secondary mr-2" [routerLink]="['/DisableSeat/',flight.id]" routerLinkActive="router-link-active">Disable seat</button>
-                <button class="btn btn-secondary mr-2" [routerLink]="['/AddSeats/',flight.id]" routerLinkActive="router-link-active">Add seats</button>
-                <button class="btn btn-secondary mr-2" [routerLink]="['/EnableSeat/',flight.id]" routerLinkActive="router-link-active">Enable seat</button>
-            </div>
+
+            </div>  
         </div>
     </div>
-</div>    
+</div>
+  

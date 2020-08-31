@@ -57,7 +57,7 @@
 							<input [ngClass] ="{'is-invalid': registerForm.get('phone').touched && registerForm.get('phone').invalid}" formControlName="phone"  class="form-control" placeholder="Phone number" type="text">
 							<div *ngIf="registerForm.get('phone').touched && registerForm.get('phone').invalid" class="invalid-feedback">
 								<div *ngIf="registerForm.get('phone').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Phone number is required.</div>
-								<div *ngIf="registerForm.get('phone').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Phone number must be in valid form. E.g. +(123)-456-78-90</div>
+								<div *ngIf="registerForm.get('phone').errors.pattern"><i class="fas fa-times-circle" style="color: red;"></i> Invalid phone number supplied</div>
 							</div>
 
 						</div> <!-- form-group// -->

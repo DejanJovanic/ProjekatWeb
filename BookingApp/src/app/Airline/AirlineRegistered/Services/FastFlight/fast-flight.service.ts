@@ -4,7 +4,7 @@ import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { AirlineNetworkService } from 'src/app/Airline/AirlineShared/Services/AirlineNetwork/airline-network.service';
 import { Extra } from 'src/app/Shared/Model/Airlines/Extra.model';
 import { UserCacheService } from 'src/app/Users/Services/UserCache/user-cache.service';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,19 @@ export class FastFlightService {
    }
 
   public GetFastFlights(airlineId : number){
-    this.network.getFastFlights(airlineId).subscribe(i => this.fastFlights.next(i));
+    this.network.getFastFlights(airlineId).subscribe(i =>{
+      for(let a of i){
+        a.flight.isFromSearch = false;
+          if(a.flight.stopsLocations){
+            a.flight.numberOfStops = a.flight.stopsLocations.length
+          }
+          else{
+            a.flight.numberOfStops = 0
+            a.flight.stopsLocations = []
+          }
+      }
+      this.fastFlights.next(i)
+    } );
   }
 
   SendFastFlightReservation(airlineId : number,username : string,fastFlightId : number,extras : Extra[],loadWeight : number,passportNumber : string) : Observable<FastFlight>{
@@ -26,7 +38,20 @@ export class FastFlightService {
   }
 
   public GetFastFlightReservations(){
-    return this.network.GetFastFlightReservations().pipe(tap(i => this.user.fastFlightReservations.next(i)));
+    return this.network.GetFastFlightReservations().pipe(map(i =>{
+      for(let a of i){
+        a.flight.isFromSearch = false;
+        
+        if(a.flight.stopsLocations){
+          a.flight.numberOfStops = a.flight.stopsLocations.length
+        }
+        else{
+          a.flight.numberOfStops = 0
+          a.flight.stopsLocations = []
+        }
+      }
+      return i;
+    }),tap(i => this.user.fastFlightReservations.next(i)));
   }
 
   public CancelFastFlightReservation(airlineId : number,fastFlightId : number){

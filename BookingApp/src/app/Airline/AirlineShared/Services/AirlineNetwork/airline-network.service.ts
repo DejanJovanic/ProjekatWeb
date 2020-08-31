@@ -59,6 +59,13 @@ export class AirlineNetworkService {
       for(let a of i.airlines){
         for(let b of a.flights){
           b.airline = a;
+          if(b.stopsLocations){
+            b.numberOfStops = b.stopsLocations.length
+          }
+          else{
+            b.numberOfStops = 0
+            b.stopsLocations = []
+          }
         }
       }
       return i.airlines;

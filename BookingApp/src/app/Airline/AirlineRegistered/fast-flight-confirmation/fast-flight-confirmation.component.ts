@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
 import { Extra } from 'src/app/Shared/Model/Airlines/Extra.model';
 import { FlightDetails } from 'src/app/Shared/Model/Airlines/FlightDetails.model';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FastFlightService } from '../Services/FastFlight/fast-flight.service';
 import { UserCacheService } from 'src/app/Users/Services/UserCache/user-cache.service';
+import { Passport } from '../../AirlineShared/Validators/Passport.validator';
 
 @Component({
   selector: 'app-fast-flight-confirmation',
@@ -32,7 +33,15 @@ export class FastFlightConfirmationComponent implements OnInit,OnDestroy {
     if(this.sub) this.sub.unsubscribe();
     if(this.subNetwork) this.subNetwork.unsubscribe();
   }
-
+  private luggageValidator : ValidatorFn = (fg: FormGroup) => {
+    const weigth = fg.get('luggageWeigth').value;
+    for(let a of this.details.luggageOptions){
+      if(a.from <= weigth && a.to >= weigth){
+        return null
+      }
+    }
+    return {notInRange : true}
+  }
   ngOnInit(): void {
     this.obs = this.route.data.subscribe((data : {details : FlightDetails}) =>{
       this.details = data.details;
@@ -49,12 +58,11 @@ export class FastFlightConfirmationComponent implements OnInit,OnDestroy {
       }
       this.form = this.builder.group({
         luggageWeigth:[0,[Validators.required,Validators.min(0),Validators.max(this.maxWeight)]],
-        passportNum:['',[Validators.required,Validators.pattern(/^[0-9]+$/)]]
-      })
+        passportNum:['',[Validators.required,Passport]]
+      },{validators : this.luggageValidator})
       this.sub = this.form.get('luggageWeigth').valueChanges.subscribe(i =>{
-        if(i > this.maxWeight)
-          this.form.value.luggageWeigth = this.maxWeight
-        this.CalculatePrice()
+        if(i)
+          this.CalculatePrice()
       } );
     })
     

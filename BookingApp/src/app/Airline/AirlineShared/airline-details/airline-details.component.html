@@ -13,6 +13,11 @@
             <p class="Display-4 text-muted">{{item.address | Address}}</p>
         </div>
     </div>
+     <div class="row">
+        <div class="col-sm-12">
+           <ngb-rating [(rate)]="rate"></ngb-rating>
+        </div>
+    </div>
     <div class="row">
         <div class="d-flext justify-content-center col-sm-12">
             <div #map style="width: 450px; height: 300px"></div>

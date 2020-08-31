@@ -95,6 +95,8 @@ namespace BookingAppBackend.Database.Repository
                         var user = await userRepo.GetUserWithFastFlightsAsync(username);
                         if (user != null)
                         {
+                            if (a.Flight.StartDate.AddHours(-3) >= DateTime.Now)
+                                return new FastFlightResponse("Unable to cancel flight due to time.");
                             if (a.User == null)
                                 return new FastFlightResponse("Seat isn't reserved");
                             if (a.User.Username.ToLower() != username.ToLower())
@@ -137,6 +139,8 @@ namespace BookingAppBackend.Database.Repository
                 {
                     if(a.Id == fastFlightId)
                     {
+                        if (a.Flight.StartDate.AddHours(-3) >= DateTime.Now)
+                            return new FastFlightResponse("Unable to set flight due to time.");
                         var user = await userRepo.GetUserWithFastFlightsAsync(username);
                         if (user != null)
                         {

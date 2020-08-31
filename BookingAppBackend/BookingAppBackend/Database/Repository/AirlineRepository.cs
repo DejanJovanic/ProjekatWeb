@@ -17,7 +17,7 @@ namespace BookingAppBackend.Database.Repository
 
         public IEnumerable<Airline> GetAirlines()
         {
-            return context.Airlines.Include(i => i.Address).Include(i => i.Flights).ToList();
+            return context.Airlines.Include(i => i.Address).Include(i => i.Flights).Include(i => i.Ratings).ToList();
 
         }
 
@@ -32,6 +32,7 @@ namespace BookingAppBackend.Database.Repository
                 .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.RemovedSeats)
                 .Include(i => i.Flights).ThenInclude(i => i.PaidExtras)
                 .Include(i => i.Flights).ThenInclude(i => i.WeightPricings)
+                .Include(i => i.Ratings)
                 .FirstOrDefaultAsync(i => i.Id == id);
         }
 
@@ -104,6 +105,7 @@ namespace BookingAppBackend.Database.Repository
             return await context.Airlines.Include(i => i.Tickets).ThenInclude(i => i.Flight).Include(i => i.FastFlights).ThenInclude(i => i.Flight)
                .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.DisabledSeats)
                .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.RemovedSeats)
+               .Include(i => i.Ratings)
                .FirstOrDefaultAsync(i => i.Flights.Count(j => j.Id == flightId) > 0);
         }
 

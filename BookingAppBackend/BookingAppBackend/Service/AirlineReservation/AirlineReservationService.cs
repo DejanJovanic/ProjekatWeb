@@ -217,22 +217,26 @@ namespace BookingAppBackend.Service.AirlineReservation
 
         public AirlineReservationResponse ReducePrice(Reservation reservation, string username)
         {
+            double rate = 1;
+            double value = 1;
             foreach(var ticket in reservation.AirlineTickets)
             {
                 if (ticket.TicketOwner != null && ticket.TicketOwner.Username == username)
                 {
+                   
                     if (ticket.TicketOwner.Points > 0)
                     {
-                        if (ticket.TicketOwner.Points >= ticket.Price)
+                        value = rate * ticket.TicketOwner.Points;
+                        if (value >= ticket.Price)
                         {
-                            
-                            ticket.NumberOfPointsInvested =  ticket.Price;
-                            ticket.TicketOwner.Points -= ticket.Price;
+                            int pointsInvested = Convert.ToInt32(ticket.Price / rate);
+                            ticket.NumberOfPointsInvested =  pointsInvested;
+                            ticket.TicketOwner.Points -= pointsInvested;
                             ticket.Price = 0;
                         }
                         else
                         {
-                            ticket.Price -= ticket.TicketOwner.Points;
+                            ticket.Price -= value;
                             ticket.NumberOfPointsInvested = ticket.TicketOwner.Points;
                             ticket.TicketOwner.Points = 0;
                         }

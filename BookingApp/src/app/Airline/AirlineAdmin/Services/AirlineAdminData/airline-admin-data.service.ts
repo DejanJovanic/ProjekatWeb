@@ -19,10 +19,17 @@ export class AirlineAdminDataService {
   public GetAirlineData() : Observable<AirlineCompany>{
     return this.network.GetAirlineData().pipe(tap(i =>{
       if(i){
-        let flights = new Array<Flight>();
+        let flights = [];
         for(let a of i.flights){
-          if(a)
+          if(a){
+            if(a.stopsLocations){
+              a.numberOfStops = a.stopsLocations.length
+            }
+            else
+              a.numberOfStops = 0
             flights.push(a);
+          }
+           
           
         }
         this.data.next(flights);

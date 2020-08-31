@@ -11,7 +11,7 @@ export class AirlineCompany{
     name : string;
     description : string;
     address : AirlineAddress;
-    grade : number;
+    rating : number;
     destinations : Array<string>;
     flights : Array<Flight>;
     airplanes : Array<Airplane>

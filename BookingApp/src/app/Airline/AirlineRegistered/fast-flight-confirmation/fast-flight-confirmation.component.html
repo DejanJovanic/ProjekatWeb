@@ -1,73 +1,94 @@
-<form (submit)="Accept()" [formGroup]="form" novalidate>
-    <div class="form-group row">
-        <label for="name" class="col-sm-2 col-form-label">Passport Number: </label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text" name="passportNum" formControlName="passportNum"/>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="luggageWeigth" class="col-sm-2 col-form-label">Luggage weight: </label>
-        <div class="col-sm-10">
-            <input class="form-control" type="number" name="luggageWeigth" formControlName="luggageWeigth"/>
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-3">
-            Name:
-        </div>
-        <div class="col-sm-3">
-            Description:
-        </div>
-        <div class="col-sm-3">
-            Price:
-        </div>
-    </div>
-    <div *ngFor="let item of details.extras" class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
+<div class="container-fluid" style="background : transparent !important">
+    <div class="row">
+        <div class="col d-flex justify-content-center align-content-center">
+            <div class="card bg-white">
+                <div class="card-body text-dark">
                     <div class="row">
-                        <div class="col-sm-3">
-                            {{item.name}}
+                        <div class="col">
+                            <h2>Reservation confirmation</h2>
+                            <hr>
+                            <h3 class="text-muted">Please enter flight details</h3>  
                         </div>
-                        <div class="col-sm-3">
-                            {{item.description}}
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <form (submit)="Accept()" [formGroup]="form" validatableForm>
+                                <div class="form-row">
+                                    <div class="col form-group">
+                                        <label for="name" class="col-form-label">Passport Number: </label>
+                                        <input formValidation class="form-control" type="text" name="passportNum" formControlName="passportNum"/>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col form-group">
+                                        <label for="luggageWeigth" class="col-form-label">Luggage weight: </label>
+                                        <input formValidation class="form-control" type="number" name="luggageWeigth" formControlName="luggageWeigth"/>
+                                        <div *ngIf="form.errors?.notInRange" class="form-text text-danger">
+                                            Luggage weigth is not available
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Name
+                                                    </th>
+                                                    <th>
+                                                        Description
+                                                    </th>
+                                                    <th>
+                                                        Price
+                                                    </th>
+                                                    <th>
+                                                        &nbsp;
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of details.extras">
+                                                    <td>
+                                                        {{item.name}}
+                                                    </td>
+                                                    <td>
+                                                        {{item.description}}
+                                                    </td>
+                                                    <td>
+                                                        {{item.price}}
+                                                    </td>
+                                                    <td *ngIf="ShouldBeDisplayed(item); else addExtra " >
+                                                        <button class="btn btn-danger" type="button" (click)="RemoveExtra(item)">Remove</button>
+                                                    </td>
+                                                    <ng-template #addExtra>
+                                                        <td class="col-sm-3">
+                                                            <button class="btn btn-primary" type="button" (click)="AddExtra(item)">Add</button>
+                                                        </td>           
+                                                    </ng-template>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <h4>
+                                            Price:  {{price}}
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-flex flex-row">
+                                        <button class="btn btn-primary mr-1"  [disabled]="form.invalid" type="submit">Accept</button>
+                                        <button class="btn btn-danger" (click)="Reject()"  type="button">Reject</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="col-sm-3">
-                            {{item.price}}
-                        </div>
-                        <div *ngIf="ShouldBeDisplayed(item); else addExtra " class="col-sm-3">
-                            <button class="btn btn-danger" type="button" (click)="RemoveExtra(item)">Remove</button>
-                        </div>
-                        <ng-template #addExtra>
-                            <div class="col-sm-3">
-                                <button class="btn btn-primary" type="button" (click)="AddExtra(item)">Add</button>
-                            </div>           
-                        </ng-template>
-                    </div>      
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-3">
-            <h4>
-                Price:
-            </h4>
-        </div>
-        <div class="col-sm-4">
-            <h3>
-                {{price}}
-            </h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            <button class="btn btn-primary"  [disabled]="form.invalid" type="submit">Accept</button>
-        </div>
-
-        <div class="col-sm-3">
-            <button class="btn btn-danger" (click)="Reject()"  type="button">Reject</button>
-        </div>
-    </div>
-</form>
+</div>

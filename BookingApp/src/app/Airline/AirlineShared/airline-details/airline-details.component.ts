@@ -11,7 +11,7 @@ export class AirlineDetailsComponent implements OnInit, AfterViewInit {
 
   @ViewChild("map")
   public mapElement: ElementRef;
-
+  rate : number
   role : string;
   @Input()
   item : AirlineCompany
@@ -43,7 +43,11 @@ export class AirlineDetailsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-  
+    if(this.item.rating){
+      this.rate = this.item.rating
+    }
+    else
+      this.rate = 0
 
   }
 

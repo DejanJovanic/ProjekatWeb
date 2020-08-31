@@ -35,6 +35,7 @@ namespace BookingAppBackend.Database.Repository
                       .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.DisabledSeats)
                       .Include(i => i.Flights).ThenInclude(i => i.PaidExtras)
                       .Include(i => i.Flights).ThenInclude(i => i.WeightPricings)
+                      .Include(i => i.Ratings)
                       .FirstOrDefaultAsync(i => i.Id == airlineId);
                 if (airline == null)                    
                     return new AirlineReservationResponse("Airline with given id does not exist.");
@@ -42,6 +43,8 @@ namespace BookingAppBackend.Database.Repository
                 var flight = airline.Flights.FirstOrDefault(i => i.Id == flightId);
                 if (flight == null)
                     return new AirlineReservationResponse("Flight with given id does not exist.");
+                if (flight.StartDate.AddHours(-3) <= DateTime.Now)
+                    return new AirlineReservationResponse("Unable to set flight, due to time.");
                 foreach (var a in tickets)
                 {
                     if (flightRepo.IsSeatTaken(a.Row, a.Column, airline, flight, true, true))
@@ -151,6 +154,7 @@ namespace BookingAppBackend.Database.Repository
               .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).ThenInclude(i => i.PaidExtras)
               .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).ThenInclude(i => i.WeightPricings)
               .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Airline).ThenInclude(i => i.Address)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Airline).ThenInclude(i => i.Ratings)
               .FirstOrDefaultAsync(i => i.Username.ToLower() == username.ToLower());
             if (temp != null)
             {
@@ -159,6 +163,8 @@ namespace BookingAppBackend.Database.Repository
                     var ticket = b.Reservation.AirlineTickets.FirstOrDefault(i => i.Id == param.TicketId);
                     if(ticket != null)
                     {
+                        if (ticket.Flight.StartDate.AddHours(-3) <= DateTime.Now)
+                            return new AirlineReservationResponse("Unable to accept flight, due to time.");
                         ticket.IsApproved = true;
                         ticket.LoadWeight = param.LuggageWeight;
                         ticket.Passport = param.PassportNumber;
@@ -193,6 +199,7 @@ namespace BookingAppBackend.Database.Repository
               .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).ThenInclude(i => i.PaidExtras)
               .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).ThenInclude(i => i.WeightPricings)
               .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Airline).ThenInclude(i => i.Address)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Airline).ThenInclude(i => i.Ratings)
               .FirstOrDefaultAsync(i => i.Username.ToLower() == username.ToLower());
             if (temp != null)
             {
@@ -201,6 +208,8 @@ namespace BookingAppBackend.Database.Repository
                     var ticket = b.Reservation.AirlineTickets.FirstOrDefault(i => i.Id == param.TicketId);
                     if (ticket != null)
                     {
+                        if (ticket.IsApproved)
+                            return new AirlineReservationResponse("Ticket is already approved");
                         b.Reservation.AirlineTickets.Remove(ticket);
                         b.Reservation.Users.Remove(b);
                         temp.MyReservations.Remove(b);
@@ -228,6 +237,7 @@ namespace BookingAppBackend.Database.Repository
               .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).ThenInclude(i => i.PaidExtras)
               .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).ThenInclude(i => i.WeightPricings)
               .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Airline).ThenInclude(i => i.Address)
+              .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Airline).ThenInclude(i => i.Ratings)
               .FirstOrDefaultAsync(i => i.Username.ToLower() == username.ToLower());
             if (temp != null)
             {
@@ -236,7 +246,10 @@ namespace BookingAppBackend.Database.Repository
                     var ticket = b.Reservation.AirlineTickets.FirstOrDefault(i => i.Id == param.TicketId);
                     if (ticket != null)
                     {
-
+                        if (ticket.Flight.StartDate.AddHours(-3) <= DateTime.Now)
+                            return new AirlineReservationResponse("Unable to cancel flight, due to time.");
+                        if (!ticket.IsApproved)
+                            return new AirlineReservationResponse("Ticket is not approved");
                         foreach(var a in ticket.SelectedExtras)
                         {
                             context.TicketPaidExtras.Remove(a);
@@ -304,6 +317,7 @@ namespace BookingAppBackend.Database.Repository
                .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.SettingUser)
                .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).ThenInclude(i => i.PaidExtras)
                .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Airline).ThenInclude(i => i.Address)
+                         .Include(i => i.MyReservations).ThenInclude(i => i.Reservation).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Airline).ThenInclude(i => i.Ratings)
                .FirstOrDefaultAsync(i => i.Username.ToLower() == username.ToLower());
                 if (temp != null)
                 {

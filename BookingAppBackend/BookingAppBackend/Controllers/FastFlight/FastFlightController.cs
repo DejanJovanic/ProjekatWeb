@@ -31,7 +31,18 @@ namespace BookingAppBackend.Controllers.FastFlight
         [HttpGet]
         public async Task<IActionResult> GetFlights(int airlineId)
         {
-            return  Ok(mapper.Map<IEnumerable<FastFlightResource>>(await service.Get(airlineId)));
+            var ret = await service.Get(airlineId);
+            var temp = mapper.Map<IEnumerable<FastFlightResource>>(ret);
+            foreach (var a in temp)
+            {
+                var b = ret.First(i => i.Id == a.Id);
+                if(b.Airline.Ratings.Count > 0)
+                    a.Airline.Rating = b.Airline.Ratings.Sum(i => i.Rate) / b.Airline.Ratings.Count;
+                else
+                    a.Airline.Rating = 0;
+
+            }
+            return  Ok(temp);
         }
 
         [HttpPost]
