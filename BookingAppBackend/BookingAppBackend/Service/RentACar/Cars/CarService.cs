@@ -102,6 +102,21 @@ namespace BookingAppBackend.Service.RentACar.Cars
             }
         }
 
+        public async Task<Car> GetOneCarOnDiscount(int enterpriseId, int carId)
+        {
+           
+         var temp = await repo.GetOneCarOnDiscount(enterpriseId, carId);
+
+            foreach(var discount in temp.Discounts.ToList())
+            {
+                if (DateTime.Now > discount.DiscountTo)
+                    temp.Discounts.Remove(discount);
+            }
+
+            return temp;
+              
+        }
+
         //Our cars u HTML
         public async Task<IEnumerable<Car>> SearchAllCars(SearchCarParameters scp)
         {
@@ -183,13 +198,16 @@ namespace BookingAppBackend.Service.RentACar.Cars
             var temp = await repo2.GetCarsOfCompanyForRent(scfrp.EnterpriseId);
             
             List<Car> retValue = new List<Car>();
+            List<DateTime> datesBetween2 = new List<DateTime>();
+            for (var date = scfrp.DateFrom; date <= scfrp.DateTo; date = date.AddDays(1))
+                datesBetween2.Add(date);
 
             bool enterpriseLocationFrom = false;
             bool enterpriseLocationTo = false;
             bool branchLocationFrom = false;
             bool branchLocationTo = false;
             bool rented = false;
-           
+            bool found = false;
             if (temp.Address.City.ToLower() == scfrp.PickUpPlace.ToLower())
                 enterpriseLocationFrom = true;
 
@@ -209,13 +227,21 @@ namespace BookingAppBackend.Service.RentACar.Cars
             {
                 foreach(var car in temp.Cars)
                 {
+                    List<DateTime> datesBetween = new List<DateTime>();
+                    foreach(var res in car.Reservations)
+                    {
+                        for (var date = res.DateFrom; date <= res.DateTo; date = date.AddDays(1))
+                            datesBetween.Add(date);
+                    }
                     if (car.Type.ToLower() != scfrp.CarType.ToLower() || Int32.Parse(scfrp.NumberOfpassengers) > car.NumberOfSeats)
                         continue;
 
-                    foreach(var reservation in car.Reservations)
+                    foreach(var date in datesBetween)
                     {
-                        if (reservation.DateFrom >= scfrp.DateFrom && reservation.DateTo <= scfrp.DateTo)
+                        foreach(var date2 in datesBetween2) { 
+                        if (date2 == date)
                             rented = true;
+                        }
                     }
 
                     if (rented)
@@ -238,13 +264,26 @@ namespace BookingAppBackend.Service.RentACar.Cars
 
                     if (car.Discounts.Count() != 0)
                     {
-                        foreach (var discountPeriod in car.Discounts)
+                        List<DateTime> datesBetween3 = new List<DateTime>();
+                        foreach (var res in car.Discounts)
                         {
-                            if ((DateTime.Today < discountPeriod.DiscountFrom) || (DateTime.Today > discountPeriod.DiscountTo))
+                            for (var date = res.DiscountFrom; date <= res.DiscountTo; date = date.AddDays(1))
+                                datesBetween3.Add(date);
+                        }
+                        foreach (var date1 in datesBetween3)
+                        {
+                            foreach(var date2 in datesBetween2) 
                             {
-                                retValue.Add(car);
+                                if (date1 != date2)
+                                    found = true;
+                                
+                               
                             }
 
+                        }
+                        if (found) { 
+                            retValue.Add(car);
+                            found = false;
                         }
                     }
                     else
@@ -263,14 +302,24 @@ namespace BookingAppBackend.Service.RentACar.Cars
         {
             var temp = await repo2.GetCarsOnDiscount(enterpriseId);
             List<Car> retVal = new List<Car>();
+           
+
 
             foreach(var car in temp.Cars)
             {
-                foreach(var discountPeriod in car.Discounts)
+                List<string> datesBetween = new List<string>();
+                foreach (var discountPeriod in car.Discounts)
                 {
-                    if ((DateTime.Today >= discountPeriod.DiscountFrom) && (DateTime.Today <= discountPeriod.DiscountTo))
+                    for (var date = discountPeriod.DiscountFrom; date <= discountPeriod.DiscountTo; date = date.AddDays(1))
+                        datesBetween.Add(date.ToShortDateString());
+                }
+
+                foreach (var a in datesBetween)
+                {
+                    if (DateTime.Now.ToShortDateString() == a)
                     {
                         retVal.Add(car);
+                        break;
                     }
                 }
             }
@@ -312,38 +361,25 @@ namespace BookingAppBackend.Service.RentACar.Cars
             retValue.SelectedEnterprise = enterprise;
             retValue.DateFrom = paramss.DateFrom;
             retValue.DateTo = paramss.DateTo;
-            bool found = false;
+            retValue.RentedDay = paramss.RentedDay;
             List<SpecialOffer> specialOffers = specialOfferss.OrderBy(i => i.NumberOfDays).ToList();
             for(int i = 0; i < specialOffers.Count()-2; i++)
             {
-                if (!found)
-                {
+                
                     if(numberOfDays == specialOffers[i].NumberOfDays)
-                    {
-                        retValue.RealizedPackage = specialOffers[i];
-                        break;
-                    }
-                }
+                         retValue.RealizedPackage = specialOffers[i];
+                    
                 for(int j = i+1; j <= specialOffers.Count()-1; j++)
                 {
                     if(numberOfDays > specialOffers[i].NumberOfDays && numberOfDays < specialOffers[j].NumberOfDays)
-                    {
                         retValue.RealizedPackage = specialOffers[i];
-                        found = true;
-                        break;
-                    }
+                      
                     else if(numberOfDays == specialOffers[j].NumberOfDays)
-                    {
                         retValue.RealizedPackage = specialOffers[j];
-                        found = true;
-                        break;
-                    }
+                       
                     else if(numberOfDays > specialOffers[i].NumberOfDays && numberOfDays >= specialOffers[j].NumberOfDays)
-                    {
                         retValue.RealizedPackage = specialOffers[j];
-                        found = true;
-                        break;
-                    }
+                      
                 }
             }
 
@@ -354,6 +390,121 @@ namespace BookingAppBackend.Service.RentACar.Cars
             else
                 retValue.Price = price;
             
+
+            return retValue;
+        }
+
+        public async Task<ReservationCar> SetReservation(CarReservation parameters)
+        {
+            
+            var car = await repo.GetOneCar(parameters.SelectedEnterprise.Id, parameters.SelectedCar.Id);
+
+            var temp = new ReservationCar();
+            temp.IsRated = parameters.IsRated;
+            temp.NumberOfDays = parameters.NumberOfDays;
+            temp.Price = parameters.Price;
+          
+            temp.RealizedPackage = parameters.RealizedPackage;
+            temp.DateTo = parameters.DateTo;
+            temp.DateFrom = parameters.DateFrom;
+            temp.RentedDay = parameters.RentedDay;
+            car.Reservations.Add(temp);
+            try
+            {
+               await unitOfWork.CompleteAsync();
+            }
+            catch
+            {
+                return null;
+            }
+
+            return temp;
+        }
+
+        public async Task<ReservationCar> SetReservationForDiscount(CarReservation parameters)
+        {
+
+            var car = await repo.GetOneCar(parameters.SelectedEnterprise.Id, parameters.SelectedCar.Id);
+
+            var temp = new ReservationCar();
+            temp.IsRated = parameters.IsRated;
+            temp.NumberOfDays = parameters.NumberOfDays;
+            temp.Price = parameters.Price;
+
+            temp.RealizedPackage = parameters.RealizedPackage;
+            temp.DateTo = parameters.DateTo;
+            temp.DateFrom = parameters.DateFrom;
+            temp.RentedDay = parameters.RentedDay;
+          
+
+            foreach(var discount in car.Discounts.ToList())
+            {
+                if (temp.DateFrom == discount.DiscountFrom && temp.DateTo == discount.DiscountTo)
+                    car.Discounts.Remove(discount);
+            }
+
+            car.Reservations.Add(temp);
+            try
+            {
+                await unitOfWork.CompleteAsync();
+            }
+            catch
+            {
+                return null;
+            }
+
+            return temp;
+        }
+
+        public async Task<CarReservation> CreateReservationForCarOnDiscount(DiscountDetails paramss)
+        {
+            var enterprise = await repo2.GetOneEnterprise(paramss.EnterpriseId);
+            var car = await repo.GetOneCar(paramss.EnterpriseId, paramss.CarId);
+            var specialOfferss = await repo3.GetAllSpecialOffers(paramss.EnterpriseId);
+
+
+            int numberOfDays = (paramss.DateTo - paramss.DateFrom).Days + 1;
+
+            int price = numberOfDays * car.Price;
+
+            CarReservation retValue = new CarReservation();
+            retValue.IsRated = false;
+            retValue.NumberOfDays = numberOfDays;
+            retValue.SelectedCar = car;
+            retValue.SelectedEnterprise = enterprise;
+            retValue.DateFrom = paramss.DateFrom;
+            retValue.DateTo = paramss.DateTo;
+            retValue.RentedDay = paramss.RentedDay;
+            List<SpecialOffer> specialOffers = specialOfferss.OrderBy(i => i.NumberOfDays).ToList();
+            for (int i = 0; i < specialOffers.Count() - 2; i++)
+            {
+
+                if (numberOfDays == specialOffers[i].NumberOfDays)
+                    retValue.RealizedPackage = specialOffers[i];
+
+                for (int j = i + 1; j <= specialOffers.Count() - 1; j++)
+                {
+                    if (numberOfDays > specialOffers[i].NumberOfDays && numberOfDays < specialOffers[j].NumberOfDays)
+                        retValue.RealizedPackage = specialOffers[i];
+
+                    else if (numberOfDays == specialOffers[j].NumberOfDays)
+                        retValue.RealizedPackage = specialOffers[j];
+
+                    else if (numberOfDays > specialOffers[i].NumberOfDays && numberOfDays >= specialOffers[j].NumberOfDays)
+                        retValue.RealizedPackage = specialOffers[j];
+
+                }
+            }
+
+            if (retValue.RealizedPackage != null)
+            {
+                price = price - ((price * retValue.RealizedPackage.Discount) / 100);
+                retValue.Price = price - ((price * paramss.Percentage) / 100);
+            }
+            else { 
+                retValue.Price = price - ((price * paramss.Percentage) / 100);
+            }
+
 
             return retValue;
         }

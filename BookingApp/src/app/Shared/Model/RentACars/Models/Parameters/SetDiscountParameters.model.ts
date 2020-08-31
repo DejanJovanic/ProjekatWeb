@@ -3,7 +3,7 @@ export class SetDiscountParameters{
     carId: number;
     discountFrom: Date;
     discountTo: Date;
-    discountPercentage: number;
+    discount: string;
 
     constructor(){}
 }

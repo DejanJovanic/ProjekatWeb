@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
 import { EnterpriseService } from '../../Services/EnterpriseService/enterprise.service';
 import { ToastrService } from 'ngx-toastr';
+import { RentACarEnterpriseEditModalComponent } from '../../RentACarAdmin/rent-acar-enterprise-edit-modal/rent-acar-enterprise-edit-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RentACarAddRentACarAdminModalComponent } from '../../RentACarAdmin/rent-acar-add-rent-acar-admin-modal/rent-acar-add-rent-acar-admin-modal.component';
 
 
 @Component({
@@ -11,7 +14,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RentACarEnterpriseProfileComponent implements OnInit {
   Enterprise;
+  Enterprise2;
   id: number;
+  name: string;
+  description: string;
+  address: string;
   EnterpriseRatingArr=[];
   animeArr=[];
   counter;
@@ -19,7 +26,7 @@ export class RentACarEnterpriseProfileComponent implements OnInit {
   isHalf = false;
  
   role: string;
-  constructor(private toaster: ToastrService, private enterpriseService: EnterpriseService, private route: ActivatedRoute) { 
+  constructor(private modalService : NgbModal,private toaster: ToastrService, private enterpriseService: EnterpriseService, private route: ActivatedRoute) { 
     this.role = localStorage["Role"]
   }
 
@@ -35,7 +42,9 @@ export class RentACarEnterpriseProfileComponent implements OnInit {
     for(let j = 0; j < this.Enterprise.rating.length; j++){
       this.rating = this.rating + this.Enterprise.rating[j].rating;
     }
-
+    this.name = this.Enterprise.name;
+    this.description = this.Enterprise.description;
+    this.address = this.Enterprise.address.street + " " + this.Enterprise.address.streetNo + " " + this.Enterprise.address.zipCode + " " + this.Enterprise.address.city + ", " + this.Enterprise.address.country;
     this.rating = Math.ceil(this.rating / this.Enterprise.rating.length);
    
       this.updateStars();
@@ -64,6 +73,11 @@ export class RentACarEnterpriseProfileComponent implements OnInit {
       this.animeArr.push(this.EnterpriseRatingArr[index]);
       index++;
     }, 50);
+  }
+
+  openAddAdminModal(){
+    const modalRef = this.modalService.open(RentACarAddRentACarAdminModalComponent);
+    modalRef.componentInstance.item = this.id;
   }
 
  

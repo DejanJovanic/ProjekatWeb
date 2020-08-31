@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace BookingAppBackend.Controllers.UserGeneral
 {
@@ -31,7 +32,7 @@ namespace BookingAppBackend.Controllers.UserGeneral
         }
 
         [HttpGet]
-        [Authorize(Roles ="User,AirlineAdmin")]
+        [Authorize(Roles ="User,AirlineAdmin,RentACarAdmin")]
         public async Task<IActionResult> GetUser()
         {
             
@@ -53,6 +54,10 @@ namespace BookingAppBackend.Controllers.UserGeneral
                             var aaRet = mapper.Map<AirlineAdminResource>((BookingAppBackend.Model.Users.AirlineAdmin)response.Resource.Item);
                             aaRet.Email = email;
                             return Ok(new { User = aaRet});
+                        case "RentACarAdmin":
+                            var racr = mapper.Map<RentACarAdminResource>((BookingAppBackend.Model.Users.RentACarAdmin)response.Resource.Item);
+                            racr.Email = email;
+                            return Ok(new { User = racr });
                         default:
                             return StatusCode(500);
                     }

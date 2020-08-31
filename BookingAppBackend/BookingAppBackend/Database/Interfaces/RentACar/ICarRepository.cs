@@ -17,7 +17,7 @@ namespace BookingAppBackend.Database.Interfaces.RentACar
         Task <Car> EditCar(EditCarParameters car);
         Task <Car> DeleteCar(int enterpriseId, int carId);
         Task<Car> SetCarOnDiscount(SetDiscountParameters sdp);
-
+        Task<Car> GetOneCarOnDiscount(int enterpriseId, int carId);
 
     }
 }

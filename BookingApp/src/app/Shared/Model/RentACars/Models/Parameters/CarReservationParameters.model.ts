@@ -8,7 +8,7 @@ export class CarReservationParameters{
     enterpriseId : number;
     dateFrom : Date;
     dateTo : Date;
-    
+    rentedDay: Date;
 
     constructor (){  }
  

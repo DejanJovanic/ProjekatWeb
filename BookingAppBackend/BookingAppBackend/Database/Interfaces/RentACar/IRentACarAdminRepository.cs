@@ -9,6 +9,8 @@ namespace BookingAppBackend.Database.Interfaces.RentACar
     public interface IRentACarAdminRepository
     {
         Task<RentACarAdmin> GetRentACarAdminAsync(string username);
-        
+        Task<RentACarAdmin> AddRentACarAdmin(RentACarAdmin admin);
+
+
     }
 }

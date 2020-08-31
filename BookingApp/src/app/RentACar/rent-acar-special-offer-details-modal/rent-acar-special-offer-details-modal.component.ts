@@ -22,14 +22,18 @@ export class RentACarSpecialOfferDetailsModalComponent implements OnInit {
   }
 
   
-  openSpecialOfferEditModal(offerId: number){
+  openSpecialOfferEditModal(){
     const modalRef = this.modalService.open(RentACarEditSpecialOffersModalComponent);
     modalRef.componentInstance.item = this.item;
+
+    this.activeModal.close();
   }
 
-  openDeleteSpecialOfferModal(offerId: number){
+  openDeleteSpecialOfferModal(){
     const modalRef = this.modalService.open(RentACarDeleteSOModalComponent);
     modalRef.componentInstance.item =  this.item;
+
+    this.activeModal.close();
   }
 
 }

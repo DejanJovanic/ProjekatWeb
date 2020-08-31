@@ -22,7 +22,11 @@ export class SpecialOfferService {
   }
 
   //metoda za brisanje specijalne usluge, koju poziva rentACar admin odredjene kompanije
-  deleteSpecialOffer(enterpriseId: number, specialOfferId: number){}
+  deleteSpecialOffer(enterpriseId: number, specialOfferId: number){
+    return this.client.delete('http://localhost:50000/api/SpecialOffer/DeleteSpecialOffer', {
+      params: new HttpParams().set('enterpriseId', enterpriseId.toString()).set('specialOfferId', specialOfferId.toString())
+    });;
+  }
 
   //metoda koja pribavlja sve specijalne usluge
   getAllSpecialOffers(enterpriseId: number){

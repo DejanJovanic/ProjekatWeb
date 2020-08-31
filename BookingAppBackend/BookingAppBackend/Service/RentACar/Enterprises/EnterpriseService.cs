@@ -15,12 +15,14 @@ namespace BookingAppBackend.Service.RentACar.Enterprises
     public class EnterpriseService : IEnterpriseService
     {
         private IEnterpriseRepository repo;
+        private ICarRepository repo2;
         private IUnitOfWork unitOfWork;
 
-        public EnterpriseService(IEnterpriseRepository repo, IUnitOfWork unitOfWork)
+        public EnterpriseService(IEnterpriseRepository repo, IUnitOfWork unitOfWork, ICarRepository repo2)
         {
             this.repo = repo;
             this.unitOfWork = unitOfWork;
+            this.repo2 = repo2;
         }
         public async Task<Enterprise> EditEnterpriseProfile(EditEnterpriseParameters enterprise)
         {
@@ -39,6 +41,22 @@ namespace BookingAppBackend.Service.RentACar.Enterprises
             }
         }
 
+        public async Task<Enterprise> AddEnterprise(EditEnterpriseParameters enterprise)
+        {
+            try
+            {
+                var temp = await repo.AddEnterprise(enterprise);
+                if (temp != null)
+                {
+                    await unitOfWork.CompleteAsync();
+                }
+                return temp;
+            }
+            catch
+            {
+                return null;
+            }
+        }
         public async Task<IEnumerable<Enterprise>> GetAllEnterprises()
         {
             try
@@ -86,7 +104,9 @@ namespace BookingAppBackend.Service.RentACar.Enterprises
             var temp = await repo.GetAllEnterprisesForSearch();
             List<Enterprise> retValue = new List<Enterprise>();
             bool rented = false;
-            
+            List<DateTime> datesBetween2 = new List<DateTime>();
+            for (var date = sep.RentFrom; date <= sep.RentTo; date = date.AddDays(1))
+                datesBetween2.Add(date);
             foreach (var enterprise in temp)
             {
                 if(sep.EnterpriseName != "" && sep.EnterpriseName != null)
@@ -108,11 +128,23 @@ namespace BookingAppBackend.Service.RentACar.Enterprises
                             {
                                 foreach (var car in enterprise.Cars)
                                 {
-                                    foreach (var reservation in car.Reservations)
+                                    List<DateTime> datesBetween = new List<DateTime>();
+
+                                    foreach(var reservation in car.Reservations)
                                     {
-                                        if (reservation.DateFrom >= sep.RentFrom && reservation.DateTo <= sep.RentTo)
-                                            rented = true;
+                                        for (var date = reservation.DateFrom; date <= reservation.DateTo; date = date.AddDays(1))
+                                            datesBetween.Add(date);
                                     }
+
+                                    foreach(var date1 in datesBetween)
+                                    {
+                                        foreach(var date2 in datesBetween2)
+                                        {
+                                            if (date1 == date2)
+                                                rented = true;
+                                        }
+                                    }
+                                   
 
                                     if (rented)
                                     {
@@ -132,10 +164,21 @@ namespace BookingAppBackend.Service.RentACar.Enterprises
                         {
                             foreach (var car in enterprise.Cars)
                             {
+                                List<DateTime> datesBetween = new List<DateTime>();
+
                                 foreach (var reservation in car.Reservations)
                                 {
-                                    if (reservation.DateFrom >= sep.RentFrom && reservation.DateTo <= sep.RentTo)
-                                        rented = true;
+                                    for (var date = reservation.DateFrom; date <= reservation.DateTo; date = date.AddDays(1))
+                                        datesBetween.Add(date);
+                                }
+
+                                foreach (var date1 in datesBetween)
+                                {
+                                    foreach (var date2 in datesBetween2)
+                                    {
+                                        if (date1 == date2)
+                                            rented = true;
+                                    }
                                 }
 
                                 if (rented)
@@ -168,10 +211,21 @@ namespace BookingAppBackend.Service.RentACar.Enterprises
                     {
                         foreach (var car in enterprise.Cars)
                         {
+                            List<DateTime> datesBetween = new List<DateTime>();
+
                             foreach (var reservation in car.Reservations)
                             {
-                                if (reservation.DateFrom >= sep.RentFrom && reservation.DateTo <= sep.RentTo)
-                                    rented = true;
+                                for (var date = reservation.DateFrom; date <= reservation.DateTo; date = date.AddDays(1))
+                                    datesBetween.Add(date);
+                            }
+
+                            foreach (var date1 in datesBetween)
+                            {
+                                foreach (var date2 in datesBetween2)
+                                {
+                                    if (date1 == date2)
+                                        rented = true;
+                                }
                             }
 
                             if (rented)
@@ -191,13 +245,24 @@ namespace BookingAppBackend.Service.RentACar.Enterprises
                 {
                     foreach (var car in enterprise.Cars)
                     {
+                        List<DateTime> datesBetween = new List<DateTime>();
+
                         foreach (var reservation in car.Reservations)
                         {
-                            if (reservation.DateFrom >= sep.RentFrom && reservation.DateTo <= sep.RentTo)
-                                            rented = true;
+                            for (var date = reservation.DateFrom; date <= reservation.DateTo; date = date.AddDays(1))
+                                datesBetween.Add(date);
                         }
 
-                         if (rented)
+                        foreach (var date1 in datesBetween)
+                        {
+                            foreach (var date2 in datesBetween2)
+                            {
+                                if (date1 == date2)
+                                    rented = true;
+                            }
+                        }
+
+                        if (rented)
                          {
                             rented = false;
                             continue;
@@ -212,6 +277,33 @@ namespace BookingAppBackend.Service.RentACar.Enterprises
             }
 
             return retValue;
+
+        }
+
+        public async Task<RatingParameters> SetRating(RatingParameters rating)
+        {
+            var temp = await repo.GetOneEnterprise(rating.EnterpriseId);
+            var car = await repo2.GetOneCar(rating.EnterpriseId, rating.CarId);
+
+            var rating1 = new EnterpriseRating();
+            var rating2 = new CarRating();
+            rating1.Rating = rating.EnterpriseRating;
+            rating2.Rating = rating.CarRating;
+
+            temp.Rating.Add(rating1);
+            car.Ratings.Add(rating2);
+            try
+            {
+                await unitOfWork.CompleteAsync(); 
+
+                
+            }
+            catch
+            {
+                return null;
+            }
+
+            return rating;
 
         }
     }

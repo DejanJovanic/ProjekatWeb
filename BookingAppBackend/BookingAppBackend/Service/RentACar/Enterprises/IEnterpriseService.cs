@@ -15,5 +15,7 @@ namespace BookingAppBackend.Service.RentACar.Enterprises
 
         Task<IEnumerable<Enterprise>> SearchEnterprises(SearchEnterpriseParameters sep);
         Task<EnterpriseAddress> GetEnterpriseAddress(int enterpriseId);
+        Task<RatingParameters> SetRating(RatingParameters rating);
+        Task<Enterprise> AddEnterprise(EditEnterpriseParameters enterprise);
     }
 }

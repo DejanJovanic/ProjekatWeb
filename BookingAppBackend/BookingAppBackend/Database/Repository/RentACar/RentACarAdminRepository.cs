@@ -16,5 +16,17 @@ namespace BookingAppBackend.Database.Repository.RentACar
         {
             return await context.RentACarAdmins.FirstOrDefaultAsync(i => i.Username.ToLower().Equals(username.ToLower()));
         }
+
+        public async Task<RentACarAdmin> AddRentACarAdmin(RentACarAdmin admin)
+        {
+            var temp = await context.RentACarAdmins.FindAsync(admin.Username);
+            if (temp == null)
+            {
+                context.RentACarAdmins.Add(admin);
+                return admin;
+            }
+            else
+                return null;
+        }
     }
 }

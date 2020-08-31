@@ -1,7 +1,7 @@
 export class AddSpecialOfferParameters{
     enterpriseId : number;
     name : string;
-    discountPercentage : string;
+    discount : string;
     description : string;
     numberOfDays : string;
     

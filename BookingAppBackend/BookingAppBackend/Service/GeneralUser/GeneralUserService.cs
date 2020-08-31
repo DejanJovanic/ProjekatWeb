@@ -1,4 +1,5 @@
 ﻿using BookingAppBackend.Database.Interfaces;
+using BookingAppBackend.Database.Interfaces.RentACar;
 using BookingAppBackend.Database.Repository;
 using BookingAppBackend.Model.AuthentificationAndAuthorization;
 using BookingAppBackend.Model.Responses;
@@ -15,11 +16,13 @@ namespace BookingAppBackend.Service.GeneralUser
     {
         private IUserRepository userRepository;
         private IAirlineAdminRepository airlineAdminRepository;
+        private IRentACarAdminRepository repo;
 
-        public GeneralUserService(IUserRepository userRepository, IAirlineAdminRepository airlineAdminRepository)
+        public GeneralUserService(IUserRepository userRepository, IAirlineAdminRepository airlineAdminRepository, IRentACarAdminRepository repo)
         {
             this.userRepository = userRepository;
             this.airlineAdminRepository = airlineAdminRepository;
+            this.repo = repo;
         }
 
         public async Task<GeneralUserResponse> GetUserAsync(string username)
@@ -33,6 +36,11 @@ namespace BookingAppBackend.Service.GeneralUser
 
             if (user != null)
                 return new GeneralUserResponse((user, "User"));
+
+            var admin = await repo.GetRentACarAdminAsync(username);
+
+            if (admin != null)
+                return new GeneralUserResponse((admin, "RentACarAdmin"));
 
             return new GeneralUserResponse("User with given username does not exist.");
 

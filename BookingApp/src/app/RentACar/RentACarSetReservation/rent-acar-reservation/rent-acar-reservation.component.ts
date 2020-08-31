@@ -60,12 +60,12 @@ export class RentACarReservationComponent implements OnInit {
     this.searchCarsForm = new FormGroup({
       carPlacePickUp: new FormControl('', [Validators.required, this.service.lettersValidator]),
       carPlaceReturn: new FormControl('', [Validators.required, this.service.lettersValidator]),
-      dateFrom: new FormControl('', [Validators.required, this.service.firstDateValidator]),
-      dateTo: new FormControl('', [Validators.required, this.service.secondDateValidator]),
+      modelFrom: new FormControl('', [Validators.required, this.service.firstDateValidator]),
+      modelTo: new FormControl('', [Validators.required, this.service.secondDateValidator]),
       carType: new FormControl('', Validators.required),
       carNumberOfPassengers: new FormControl('', Validators.required),
-      carPriceFrom: new FormControl('', this.service.numbersValidator),
-      carPriceTo: new FormControl('', this.service.numbersValidator)
+      carPriceFrom: new FormControl('', [this.service.numbersValidator, this.service.firstPriceValidator]),
+      carPriceTo: new FormControl('', [this.service.numbersValidator, this.service.secondPriceValidator])
     });
   }
   searchCars(){ 
@@ -78,10 +78,10 @@ export class RentACarReservationComponent implements OnInit {
     parameters.carType = this.searchCarsForm.value.carType; 
     parameters.priceFrom = this.searchCarsForm.value.carPriceFrom;
     parameters.priceTo = this.searchCarsForm.value.carPriceTo;
-    parameters.dateFrom = new Date(this.searchCarsForm.value.dateFrom.year,this.searchCarsForm.value.dateFrom.month -1,
-      this.searchCarsForm.value.dateFrom.day);
-    parameters.dateTo = new Date(this.searchCarsForm.value.dateTo.year,this.searchCarsForm.value.dateTo.month -1,
-      this.searchCarsForm.value.dateTo.day);
+    parameters.dateFrom = new Date(this.searchCarsForm.value.modelFrom.year,this.searchCarsForm.value.modelFrom.month -1,
+      this.searchCarsForm.value.modelFrom.day);
+    parameters.dateTo = new Date(this.searchCarsForm.value.modelTo.year,this.searchCarsForm.value.modelTo.month -1,
+      this.searchCarsForm.value.modelTo.day);
     
       this.carService.searchCarsForRent(parameters).subscribe(i =>{
         this.Cars = i;
@@ -100,11 +100,12 @@ export class RentACarReservationComponent implements OnInit {
   openCarDetailsModal(carId: number){
     this.CarReservationParam = new CarReservationParameters();
     
-    this.CarReservationParam.dateFrom = new Date(this.searchCarsForm.value.dateFrom.year,this.searchCarsForm.value.dateFrom.month - 1,
-      this.searchCarsForm.value.dateFrom.day+1);
-    this.CarReservationParam.dateTo = new Date(this.searchCarsForm.value.dateTo.year,this.searchCarsForm.value.dateTo.month -1,
-      this.searchCarsForm.value.dateTo.day+1);
+    this.CarReservationParam.dateFrom = new Date(this.searchCarsForm.value.modelFrom.year,this.searchCarsForm.value.modelFrom.month - 1,
+      this.searchCarsForm.value.modelFrom.day);
+    this.CarReservationParam.dateTo = new Date(this.searchCarsForm.value.modelTo.year,this.searchCarsForm.value.modelTo.month -1,
+      this.searchCarsForm.value.modelTo.day);
     this.CarReservationParam.carId = carId;
+    this.CarReservationParam.rentedDay = new Date();
     this.CarReservationParam.enterpriseId = this.id
     this.carService.createReservation(this.CarReservationParam).subscribe(i =>{
       const modalRef = this.modalService.open(RentACarReservationPreviewModalComponent);
@@ -112,7 +113,7 @@ export class RentACarReservationComponent implements OnInit {
 
       
       this.toaster.success("Your request has been successfully executed",'Reservation details',{
-        timeOut : 3000
+        timeOut : 2000
       })
 
       modalRef.componentInstance.item = this.CarReservation;

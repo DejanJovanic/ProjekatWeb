@@ -34,7 +34,7 @@ export class UserDatabaseService {
       this.users.push(temp);
 
     }
-    for(let i = 0; i < 6; i++){
+    /*for(let i = 0; i < 6; i++){
       let temp = new RentACarAdmin();
       temp.username = "rentACarAdmin" + i;
       temp.name = "name" + i;
@@ -44,6 +44,6 @@ export class UserDatabaseService {
       temp.RentACarEnterpriseId = i;
       this.users.push(temp);
       
-    }
+    }*/
   }
 }

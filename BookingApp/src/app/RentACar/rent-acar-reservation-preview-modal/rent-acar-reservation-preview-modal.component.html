@@ -19,10 +19,12 @@
         <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Number of seats: {{item.selectedCar.numberOfSeats}}</li>
         <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Fuel: {{item.selectedCar.fuelType}}</li>
         <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>The enterprise that rented car: {{item.selectedEnterprise.name}}</li>
+        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Reservation created on day: {{rentedDay}}</li>
         <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Car rented from date: {{dateFromm}}</li>
         <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Car rented to date: {{dateToo}}</li>
         <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Number of days: {{item.numberOfDays}}</li>
-        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Realized package: {{item.realizedPackage.name}}</li>
+        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Realized package: {{realizedPackage}}</li>
+        <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Achieve discount: {{discount}}</li>
         <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Original price: {{originalPrice}}$</li>
         <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Price with discount: {{item.price}}$</li>
         <hr>
@@ -52,7 +54,7 @@
 
         <div class="col">
             
-            <button id="confButton" type="button"  class="btn btn-outline-primary btn-rounded " ><i class="fas fa-confirm mr-1"></i> Confirm </button>
+            <button id="confButton" type="button" (click)="openConfirmationModal()"  class="btn btn-outline-primary btn-rounded " ><i class="fas fa-check mr-1"></i> Confirm </button>
         </div>
 
     </div>

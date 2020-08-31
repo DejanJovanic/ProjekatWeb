@@ -19,7 +19,7 @@ namespace BookingAppBackend.Model.RentACar
         public ICollection<EnterpriseRating> Rating { get; set; } = new List<EnterpriseRating>();
         public ICollection<Car> Cars { get; set; } = new List<Car>();
         public ICollection<SpecialOffer> SpecialOffers { get; set; } = new List<SpecialOffer>();
-        public ICollection<CarReservation> Reservations { get; set; } = new List<CarReservation>();
+       
         
     }
 }

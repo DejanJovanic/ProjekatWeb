@@ -19,7 +19,9 @@ namespace BookingAppBackend.Model.RentACar.Parameters
 
         [Required]
         public DateTime DiscountTo { get; set; }
-        public int Discount { get; set; }
+
+        [Required]
+        public string Discount { get; set; }
 
     }
 }

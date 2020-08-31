@@ -9,16 +9,32 @@ namespace BookingAppBackend.Model.RentACar
 {
     public class CarReservation
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+
+       [Required]
         public Car SelectedCar { get; set; }
+
+        [Required]
         public Enterprise SelectedEnterprise { get; set; }
+
+        [Required]
+        public DateTime RentedDay { get; set; }
+        [Required]
+
         public int NumberOfDays { get; set; }
+        [Required]
+
         public DateTime DateFrom { get; set; }
+
+        [Required]
         public DateTime DateTo { get; set; }
+
+        [Required]
         public int Price { get; set; }
+
+        [Required]
         public SpecialOffer RealizedPackage { get; set; }
+
+        [Required]
         public bool IsRated { get; set; }
     }
 }

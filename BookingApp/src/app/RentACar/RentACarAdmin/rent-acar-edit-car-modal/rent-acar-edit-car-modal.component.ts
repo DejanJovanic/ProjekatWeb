@@ -5,7 +5,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ValidationService } from '../../Services/ValidationService/validation.service';
 import { CarService } from '../../Services/CarService/car.service';
 import { ToastrService } from 'ngx-toastr';
-import { EditCarparameters } from 'src/app/Shared/Model/RentACars/Models/Parameters/EditCarParameters.model';
+import { EditCarParameters } from 'src/app/Shared/Model/RentACars/Models/Parameters/EditCarParameters.model';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-rent-acar-edit-car-modal',
@@ -19,7 +21,7 @@ export class RentACarEditCarModalComponent implements OnInit {
   return;
   @Input()
   item : Car
-  constructor(private toaster: ToastrService, private carService: CarService,private service: ValidationService, public activeModal : NgbActiveModal) { 
+  constructor(private routeService: Router, private toaster: ToastrService, private carService: CarService,private service: ValidationService, public activeModal : NgbActiveModal) { 
     const current = new Date();
     this.minDate = {
     year: current.getFullYear(),
@@ -50,7 +52,7 @@ export class RentACarEditCarModalComponent implements OnInit {
 
   editCar(){
     
-    var parameters = new EditCarparameters();
+    var parameters = new EditCarParameters();
     parameters.enterpriseId = this.item.enterpriseId;
     parameters.carId = this.item.id;
     parameters.brand = this.editCarForm.value.CarBrand;
@@ -62,15 +64,23 @@ export class RentACarEditCarModalComponent implements OnInit {
     parameters.transmissionType = this.editCarForm.value.CarTransmissionType;
     parameters.numberOfSeats = this.editCarForm.value.CarNumberOfSeats;
     parameters.price = this.editCarForm.value.CarPrice;
+    parameters.price = parameters.price.toString();
+    parameters.yearOfProduction = parameters.yearOfProduction.toString();
 
     this.carService.editCar(parameters).subscribe(i =>{
       this.return = i;
       
-      this.toaster.success("Edit car has been successfully executed",'Edit a car',{
-        timeOut : 3000
+      this.toaster.success("Edit operation has been successfully executed. You will be redirected to enterprise profile in 3 seconds.",'Edit a car',{
+        timeOut : 2000
       })
-    
+
+      setTimeout(() => {
+        this.routeService.navigate(['/EnterpriseProfile/', this.item.enterpriseId]);
+    }, 3000); 
+      this.activeModal.close();
     })
+    
+  
    
   }
 

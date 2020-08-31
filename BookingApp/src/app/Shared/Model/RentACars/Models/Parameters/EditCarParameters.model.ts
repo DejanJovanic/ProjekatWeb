@@ -1,4 +1,4 @@
-export class EditCarparameters{
+export class EditCarParameters{
     enterpriseId : number;
     carId: number;
     brand : string;

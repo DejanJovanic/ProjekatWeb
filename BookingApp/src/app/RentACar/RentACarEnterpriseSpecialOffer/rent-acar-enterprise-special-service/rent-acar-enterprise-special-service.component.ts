@@ -49,9 +49,9 @@ export class RentACarEnterpriseSpecialServiceComponent implements OnInit {
   }
 
 
-  openSpecialOfferAddModal(enterpriseId: number){
+  openSpecialOfferAddModal(){
     const modalRef = this.modalService.open(RentACarAddSpecialOfferModalComponent);
-    modalRef.componentInstance.item = enterpriseId;
+    modalRef.componentInstance.item = this.id;
   }
 
   openSpecialOfferDetails(specialOfferId: number){

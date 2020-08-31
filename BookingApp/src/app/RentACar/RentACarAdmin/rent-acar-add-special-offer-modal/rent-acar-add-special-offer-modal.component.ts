@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnterprise.model';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { Params, ActivatedRoute } from '@angular/router';
+import { Params, ActivatedRoute, Router } from '@angular/router';
 import { RentACarEnterpriseServiceService } from 'src/app/Shared/Services/rent-acar-enterprise-service.service';
 import { SpecialOffer } from 'src/app/Shared/Model/RentACars/SpecialOffer.model';
 import { ValidationService } from '../../Services/ValidationService/validation.service';
@@ -22,8 +22,8 @@ export class RentACarAddSpecialOfferModalComponent implements OnInit {
   
   offer;
    @Input()
-   id : number
-  constructor(private toaster: ToastrService,private service: ValidationService, public activeModal : NgbActiveModal, private specialOfferService: SpecialOfferService) { }
+   item : number
+  constructor(private routeService: Router, private toaster: ToastrService,private service: ValidationService, public activeModal : NgbActiveModal, private specialOfferService: SpecialOfferService) { }
 
   ngOnInit(): void {
    
@@ -45,16 +45,21 @@ export class RentACarAddSpecialOfferModalComponent implements OnInit {
   
     var parameters = new AddSpecialOfferParameters();
     parameters.name = this.addEnterpriseSpecialOffer.value.specialOfferName;
-    parameters.discountPercentage = this.addEnterpriseSpecialOffer.value.specialOfferPrice;
-    parameters.enterpriseId = this.id;
+    parameters.discount = this.addEnterpriseSpecialOffer.value.specialOfferPrice;
+    parameters.enterpriseId = this.item;
     parameters.description = this.addEnterpriseSpecialOffer.value.specialOfferDescription;
     parameters.numberOfDays = this.addEnterpriseSpecialOffer.value.specialOfferNumberOfDays;
    
     this.specialOfferService.addSpecialOffer(parameters).subscribe(i =>{
         this.offer = i;
-        this.toaster.success("Add special offer has been successfully executed",'Add a special offer',{
-          timeOut : 3000
+        this.toaster.success("Add operation has been successfully executed. You will be redirected to enterprise profile in 3 seconds.",'Add a special offer',{
+          timeOut : 2000
         })
+        setTimeout(() => {
+          this.routeService.navigate(['/EnterpriseProfile/', this.item]);
+      }, 3000);  
+        this.activeModal.close();
+        
     })
   }
 

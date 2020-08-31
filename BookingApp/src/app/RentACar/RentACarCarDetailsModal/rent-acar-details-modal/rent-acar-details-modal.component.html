@@ -46,18 +46,20 @@
 
             <div class="col">
                 <!--*ngIf="role ===  'RentACarAdmin'" bilo dole-->
-                <button   [disabled] = "disableButtons" type="button" (click)="openEditCarModal(item.id)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-edit mr-1"></i> Edit </button>
+                <button   [disabled] = "disableButtons" type="button" (click)="openEditCarModal()" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-edit mr-1"></i> Edit </button>
             </div>
 
             <div class="col">
                 <!--*ngIf="role ===  'RentACarAdmin'" bilo dole-->
-                <button  [disabled] = "disableButtons"type="button" (click)="openDeleteCarModal(item.id)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-trash mr-1"></i> Delete </button>
+                <button  [disabled] = "disableButtons"type="button" (click)="openDeleteCarModal()" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-trash mr-1"></i> Delete </button>
             </div>
 
             <div class="col">
                  <!--*ngIf="role ===  'RentACarAdmin'" bilo dole-->
-                <button   [disabled] = "disableButtons"type="button" (click)="openSetDiscountModal(item.id)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-percent mr-1"></i> Sale </button>
+                <button   [disabled] = "disableButtons"type="button" (click)="openSetDiscountModal()" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-percent mr-1"></i> Sale </button>
             </div>
+
+            
         </div>
 
         

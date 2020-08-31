@@ -5,6 +5,9 @@ import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnter
 import { Car } from 'src/app/Shared/Model/RentACars/Car.model';
 import { RentACarDetailsModalComponent } from '../../RentACarCarDetailsModal/rent-acar-details-modal/rent-acar-details-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CarService } from '../../Services/CarService/car.service';
+import { ToastrService } from 'ngx-toastr';
+import { RentACarDiscountDetailsComponent } from '../../rent-acar-discount-details/rent-acar-discount-details.component';
 
 @Component({
   selector: 'app-rent-acar-discounts',
@@ -17,31 +20,24 @@ export class RentACarDiscountsComponent implements OnInit {
   Enterprise: RentACarEnterprise;
   slides: any = [[]];
   carsOnDiscount: Car[] = [];
-
-  constructor(private routeService: Router, private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal) { }
+  Cars;
+  Car;
+  constructor(private carService: CarService, private toaster: ToastrService, private routeService: Router, private EnterpriseService: RentACarEnterpriseServiceService, private route: ActivatedRoute, private modalService : NgbModal) { }
 
   ngOnInit(): void{
     this.route.params.subscribe((params: Params) => {
       this.id = +params["id"];
-      this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.id);
      
-      setTimeout(() => {
-        this.routeService.navigate(['/EnterpriseProfile/', this.id]);
-    }, 5000);  //5s
-      
     });
 
-    var today = new Date();
+    this.carService.getAllCarsOnDiscount(this.id).subscribe(i =>{
+      this.Cars = i;
+      this.toaster.success("Your request has been successfully executed",'Cars on discount',{
+        timeOut : 2000
+      })
+      this.slides = this.chunk(this.Cars, 3);
+    })
     
-    var d1 = today.toDateString();
-   
-    for(let i: number = 0; i < this.Enterprise.EnterpriseCars.length; i++){
-      if((Date.parse(d1) >= Date.parse(this.Enterprise.EnterpriseCars[i].CarDiscountDateFrom)) && (Date.parse(d1) <= Date.parse(this.Enterprise.EnterpriseCars[i].CarDiscountDateTo)) ){
-       
-        this.carsOnDiscount.push(this.Enterprise.EnterpriseCars[i]);
-      }
-    }
-    this.slides = this.chunk(this.carsOnDiscount, 3);
   }
 
   
@@ -52,9 +48,17 @@ export class RentACarDiscountsComponent implements OnInit {
     }
     return R;
   }
-  openCarDetailsModal(carId: number){
-    const modalRef = this.modalService.open(RentACarDetailsModalComponent);
-    modalRef.componentInstance.item = this.EnterpriseService.getOneCar(carId);
+  openCarOnDiscountDetailsModal(carId: number){
+    this.carService.getOneCarOnDiscount(this.id, carId).subscribe(i =>{
+      const modalRef = this.modalService.open(RentACarDiscountDetailsComponent);
+      this.Car = i;
+      this.toaster.success("Your request has been successfully executed",'Car details',{
+        timeOut : 3000
+      })
+      this.Car.enterpriseId = this.id;
+      
+      modalRef.componentInstance.item = this.Car;
+    })
   }
 
 }

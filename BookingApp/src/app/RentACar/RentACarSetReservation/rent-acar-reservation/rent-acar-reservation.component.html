@@ -30,13 +30,13 @@
             <div class="col">
                 <!--<label for="dateFrom">Date from when you need the vehicle</label>!-->
                 <div class="input-group form-group">
-                        <input readonly [ngClass] ="{'is-invalid': searchCarsForm.get('dateFrom').touched && searchCarsForm.get('dateFrom').invalid}" placeholder="Date from when you need the car" id="dateFrom" class="form-control" [minDate]="minDate" 
-                        formControlName="dateFrom" ngbDatepicker #dateFrom="ngbDatepicker" >
+                        <input readonly [ngClass] ="{'is-invalid': searchCarsForm.get('modelFrom').touched && searchCarsForm.get('modelFrom').invalid}" placeholder="Date from when you need the car" id="dateFrom" class="form-control" [minDate]="minDate" 
+                        formControlName="modelFrom" ngbDatepicker #modelFrom="ngbDatepicker" >
                        
-                          <button class="btn btn-outline-primary calendar" (click)="dateFrom.toggle()" type="button"><i class="fas fa-calendar "></i></button>
-                          <div *ngIf="searchCarsForm.get('dateFrom').touched && searchCarsForm.get('dateFrom').invalid" class="invalid-feedback">
-                            <div *ngIf="searchCarsForm.get('dateFrom').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the car is required.</div>
-                            <div *ngIf="searchCarsForm.get('dateFrom').errors.isError" ><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the car must be less or equal with second selected date.</div>
+                          <button class="btn btn-outline-primary calendar" (click)="modelFrom.toggle()" type="button"><i class="fas fa-calendar "></i></button>
+                          <div *ngIf="searchCarsForm.get('modelFrom').touched && searchCarsForm.get('modelFrom').invalid" class="invalid-feedback">
+                            <div *ngIf="searchCarsForm.get('modelFrom').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the car is required.</div>
+                            <div *ngIf="searchCarsForm.get('modelFrom').errors.isError" ><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the car must be less or equal with second selected date.</div>
                             
                           </div>  
                      </div>
@@ -46,13 +46,13 @@
               <div class="col">
                 <!--<label for="dateTo">The date by which you need the vehicle</label>!-->
                 <div class="input-group form-group">
-                      <input readonly [ngClass] ="{'is-invalid': searchCarsForm.get('dateTo').touched && searchCarsForm.get('dateTo').invalid}" placeholder="The date by which you need the car" id = "dateTo" [minDate]="minDate" class="form-control" 
-                      formControlName="dateTo" ngbDatepicker #dateTo="ngbDatepicker">
+                      <input readonly [ngClass] ="{'is-invalid': searchCarsForm.get('modelTo').touched && searchCarsForm.get('modelTo').invalid}" placeholder="The date by which you need the car" id = "dateTo" [minDate]="minDate" class="form-control" 
+                      formControlName="modelTo" ngbDatepicker #modelTo="ngbDatepicker">
                      
-                        <button  class="btn btn-outline-primary calendar" (click)="dateTo.toggle()" type="button"><i class="fas fa-calendar"></i></button>
-                        <div *ngIf="searchCarsForm.get('dateTo').touched && searchCarsForm.get('dateTo').invalid" class="invalid-feedback">
-                          <div *ngIf="searchCarsForm.get('dateTo').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the car is required.</div>
-                          <div *ngIf="searchCarsForm.get('dateTo').errors.isError" ><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the car must be greater or equal with first selected date.</div>
+                        <button  class="btn btn-outline-primary calendar" (click)="modelTo.toggle()" type="button"><i class="fas fa-calendar"></i></button>
+                        <div *ngIf="searchCarsForm.get('modelTo').touched && searchCarsForm.get('modelTo').invalid" class="invalid-feedback">
+                          <div *ngIf="searchCarsForm.get('modelTo').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the car is required.</div>
+                          <div *ngIf="searchCarsForm.get('modelTo').errors.isError" ><i class="fas fa-times-circle" style="color: red;"></i> The date by which you need the car must be greater or equal with first selected date.</div>
                           
                         </div>  
                     </div>
@@ -100,21 +100,20 @@
           <div class="col">
             <!--<label for="priceFrom">Price from</label>!-->
               <input [ngClass] ="{'is-invalid': searchCarsForm.get('carPriceFrom').touched && searchCarsForm.get('carPriceFrom').invalid}" id="priceFrom"type="text" class="form-control" formControlName="carPriceFrom"  placeholder="Car price per day from">
-              <div class="invalid-feedback">
-                <div ><i class="fas fa-times-circle" style="color: red;"></i> Car price from can only contain numbers.</div>
-                
-                
+              <div *ngIf = "searchCarsForm.get('carPriceFrom').touched && searchCarsForm.get('carPriceFrom').invalid"class="invalid-feedback">
+                <div *ngIf = "searchCarsForm.get('carPriceFrom').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Price per day can only contain numbers.</div>
+                <div *ngIf = "searchCarsForm.get('carPriceFrom').errors.Error"><i class="fas fa-times-circle" style="color: red;"></i> First price must be less or equal with second price.</div>
               </div> 
             </div>
   
           <div class="col">
             <!--<label for="priceTo">Price to</label>!-->
               <input [ngClass] ="{'is-invalid': searchCarsForm.get('carPriceTo').touched && searchCarsForm.get('carPriceTo').invalid}" id="priceTo" type="text" class="form-control" formControlName="carPriceTo"  placeholder="Car price per day to">
-              <div class="invalid-feedback">
-                <div ><i class="fas fa-times-circle" style="color: red;"></i> Car price to can only contain numbers.</div>
+              <div *ngIf = "searchCarsForm.get('carPriceTo').touched && searchCarsForm.get('carPriceTo').invalid"class="invalid-feedback">
+                <div *ngIf = "searchCarsForm.get('carPriceTo').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Price per day can only contain numbers.</div>
+                <div *ngIf = "searchCarsForm.get('carPriceTo').errors.Error"><i class="fas fa-times-circle" style="color: red;"></i> Second price must be greater or equal with first price.</div>
                 
-                
-              </div> 
+              </div>
               </div>
         </div>
   

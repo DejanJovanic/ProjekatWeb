@@ -1,0 +1,60 @@
+
+
+  <div class="modal-body">
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h6 class="card-price text-center"><span class="period"><i class="fas fa-star"></i> Rate information <i class="fas fa-star"></i></span></h6>
+
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-price text-center"><span class="period">Rate {{name}} enterprise</span></h5>
+            <hr>
+                <ul class="fa-ul">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ul class="list-inline rating-list" 
+                                *ngFor="let star of stars" style="display: inline-block" >
+                                  <li (click)="countStar(star)"
+                                      [ngClass]="{'selected': (star <= selectedValue)}">
+                                    <i class="fa fa-star"></i>
+                                  </li> 
+                            </ul>
+                        </div>
+                      </div>
+                    <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Rate: {{selectedValue}}</li>
+                
+                </ul>
+                <hr>
+                <h5 class="card-price text-center"><span class="period">Rate "{{brand}} {{model}}" </span></h5>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <ul class="fa-ul">
+                        <ul class="list-inline rating-list" 
+                            *ngFor="let star of stars" style="display: inline-block" >
+                              <li (click)="countStar2(star)"
+                                  [ngClass]="{'selected': (star <= selectedValue2)}">
+                                <i class="fa fa-star"></i>
+                              </li> 
+                        </ul>
+                    </ul>
+                    </div>
+                  </div>
+                <ul class="fa-ul">
+                    <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span>Rate: {{selectedValue2}}</li>
+                
+                </ul>
+                <hr>
+                <div class="col">
+                    <button type="button" id="cancelButton" (click)="activeModal.close('Close click')" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-times mr-1"></i> Close </button>
+                </div>
+
+                <div class="col">
+                    <button type="button" id="confButton" (click)="confirmRate()" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-check mr-1"></i> Confirm </button>
+                </div>
+        </div>
+    </div>
+</div>
+

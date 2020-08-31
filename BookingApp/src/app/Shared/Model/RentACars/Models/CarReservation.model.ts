@@ -12,6 +12,7 @@ export class CarReservation{
     dateTo : Date;
     isRated : boolean;
     realizedPackage : SpecialOffer;
+    rentedDay: Date;
 
     constructor (){  }
  

@@ -27,13 +27,13 @@
         </div>
 
         <div class="col">
-       
-            <button *ngIf="role ===  'RentACarAdmin'" type="button" (click)="openEditBranchModal(item.id)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-edit mr-1"></i> Edit </button>
+        <!--*ngIf="role ===  'RentACarAdmin'"  dole-->
+            <button  type="button" (click)="openEditBranchModal()" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-edit mr-1"></i> Edit </button>
         </div>
 
         <div class="col">
-          
-            <button *ngIf="role ===  'RentACarAdmin'"  type="button" (click)="openDeleteBranchModal(item.id)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-trash mr-1"></i> Delete </button>
+            <!--*ngIf="role ===  'RentACarAdmin'"  dole-->
+            <button  type="button" (click)="openDeleteBranchModal()" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-trash mr-1"></i> Delete </button>
         </div>
 
         <div class="col">

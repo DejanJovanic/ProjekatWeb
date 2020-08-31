@@ -21,7 +21,7 @@ namespace BookingAppBackend.Model.RentACar
         public int NumberOfSeats { get; set; }
         public int Price { get; set; }
         public ICollection<CarRating> Ratings { get; set; } = new List<CarRating>();
-        public ICollection<CarReservation> Reservations { get; set; } = new List<CarReservation>();
+        public ICollection<ReservationCar> Reservations { get; set; } = new List<ReservationCar>();
         public ICollection<Discount> Discounts { get; set; } = new List<Discount>();
 
     }

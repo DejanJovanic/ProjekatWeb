@@ -21,6 +21,9 @@ namespace BookingAppBackend.Model.RentACar.Parameters
         [Required]
         public DateTime DateTo { get; set; }
 
+        [Required]
+        public DateTime RentedDay { get; set; }
+
        
     }
 }

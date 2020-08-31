@@ -16,7 +16,7 @@ namespace BookingAppBackend.Database.Contex
     public class BookingAppDbContext : IdentityDbContext<AuthentificationUser, AuthorizationRole, string>
     {
         public DbSet<Car> Cars { get; set; }
-        public DbSet<CarReservation> Reservations { get; set; }
+        public DbSet<ReservationCar> Reservations { get; set; }
         public DbSet<Enterprise> Enterprises { get; set; }
         public DbSet<SpecialOffer> SpecialOffers { get; set; }
         public DbSet<RentACarAdmin> RentACarAdmins { get; set; }

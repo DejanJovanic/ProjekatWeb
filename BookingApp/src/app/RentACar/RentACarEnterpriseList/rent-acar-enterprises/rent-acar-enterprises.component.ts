@@ -9,6 +9,8 @@ import { EnterpriseService } from '../../Services/EnterpriseService/enterprise.s
 import { ToastrService } from 'ngx-toastr';
 import { SearchEnterprisesParameters } from 'src/app/Shared/Model/RentACars/Models/Parameters/SearchEnterprisesParameters.model';
 import { SearchCarsForRentParameters } from 'src/app/Shared/Model/RentACars/Models/Parameters/SearchCarsForRentParameters.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RentACarAddEnterpriseModalComponent } from '../../RentACarAdmin/rent-acar-add-enterprise-modal/rent-acar-add-enterprise-modal.component';
 
 
 
@@ -30,15 +32,15 @@ export class RentACarEnterprisesComponent implements OnInit {
  
   datesBetween: Date[] = [];
   numberOfDays: number;
-
-  constructor(private toaster: ToastrService, private enterpriseService: EnterpriseService, private service: ValidationService, public datepipe: DatePipe) { 
+  role: string;
+  constructor(private modalService : NgbModal,private toaster: ToastrService, private enterpriseService: EnterpriseService, private service: ValidationService, public datepipe: DatePipe) { 
     const current = new Date();
     this.minDate = {
     year: current.getFullYear(),
     month: current.getMonth() + 1,
     day: current.getDate()
   };
-   
+  this.role = localStorage["Role"]
  
   }
  
@@ -111,6 +113,11 @@ export class RentACarEnterprisesComponent implements OnInit {
         }
         
       )
+  }
+
+  openEnterpriseAddModal(){
+    const modalRef = this.modalService.open(RentACarAddEnterpriseModalComponent);
+   
   }
 
 
