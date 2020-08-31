@@ -1,8 +1,11 @@
 ﻿using BookingAppBackend.Database.Interfaces;
 using BookingAppBackend.Model.Airlines;
 using BookingAppBackend.Model.Airlines.Parameters;
+using BookingAppBackend.Model.AuthentificationAndAuthorization;
 using BookingAppBackend.Model.Responses;
+using BookingAppBackend.Utils.EMailSender;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,13 +21,15 @@ namespace BookingAppBackend.Service.AirlineReservation
         IAirlineReservationRepository reservationRepo;
         IUnitOfWork unitOfWork;
         IFlightRepository flightRepo;
+        private UserManager<AuthentificationUser> manager;
 
-        public AirlineReservationService(IUserRepository userRepo, IAirlineReservationRepository reservationRepo, IUnitOfWork unitOfWork, IFlightRepository flightRepo)
+        public AirlineReservationService(IUserRepository userRepo, IAirlineReservationRepository reservationRepo, IUnitOfWork unitOfWork, IFlightRepository flightRepo, UserManager<AuthentificationUser> manager)
         {
             this.userRepo = userRepo;
             this.reservationRepo = reservationRepo;
             this.unitOfWork = unitOfWork;
             this.flightRepo = flightRepo;
+            this.manager = manager;
         }
 
         public async Task<AirlineReservationResponse> Add(ICollection<TicketParameter> tickets,bool ownerInvestingPoints)
@@ -108,6 +113,22 @@ namespace BookingAppBackend.Service.AirlineReservation
                 await unitOfWork.Commit();
 
             await unitOfWork.EndTransaction();
+            if (ret.Success)
+            {
+                var b = new EmailSender();
+                var emailOwner = await manager.FindByNameAsync(ret.Resource.SettingUser.Username);
+                foreach (var a in ret.Resource.AirlineTickets)
+                {
+                    if (!a.IsApproved)
+                    {
+
+                        var email = await manager.FindByNameAsync(a.TicketOwner.Username);
+                        b.SendInvitationEMail(email.Email, ret.Resource.SettingUser.Username, a.Airline.Id, a.FlightId, a.Id);
+                    }
+                }
+                b.SendAirlineReservationEMail(emailOwner.Email, ret.Resource.AirlineTickets, ret.Resource.SettingUser);
+            }
+      
             return ret;
         }
 

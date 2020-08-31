@@ -57,7 +57,7 @@
                                             <h3 class="text-muted">
                                                 {{flight.numberOfStops}}
                                             </h3>
-                                            <button *ngIf="role != 'AirlineAdmin'" class="btn btn-link btn-lg mt-3" (click)="OpenModal()">{{flight.airline.name}}</button>
+                                            <button *ngIf="role != 'AirlineAdmin' && !flight.isFromFastFlight" class="btn btn-link btn-lg mt-3" (click)="OpenModal()">{{flight.airline.name}}</button>
 
                                         </div>
                                     </div>

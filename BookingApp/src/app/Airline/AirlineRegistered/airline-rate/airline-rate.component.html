@@ -1,1 +1,25 @@
-<p>airline-rate works!</p>
+<div class="modal-body">
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="form" (submit)="OnSubmit()" validatableForm>
+                <div class="form-row">
+                    <div class="col form-group">
+                        <label for="airline">Airline rating(1-5):</label>
+                        <input formValidation type="number" id="price" class="form-control"  formControlName="airlineRate"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col form-group">
+                        <label for="flight">Flight rating(1-5):</label>
+                        <input formValidation type="number" id="flight" class="form-control"  formControlName="flightRate"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col d-inline-flex flex-row">
+                        <button type="submit" [disabled]="form.invalid"  class="btn btn-primary mr-1">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

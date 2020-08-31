@@ -28,6 +28,7 @@ export class Flight{
     extras : Extra[]
     loadInCabin : number;
     isFromSearch : boolean
+    isFromFastFlight : boolean
     
     constructor(airline : AirlineCompany){
         this.airline = airline;

@@ -20,6 +20,8 @@ export class FastFlightService {
   public GetFastFlights(airlineId : number){
     this.network.getFastFlights(airlineId).subscribe(i =>{
       for(let a of i){
+        a.flight.airline = a.airline
+        a.flight.isFromFastFlight = true;
         a.flight.isFromSearch = false;
           if(a.flight.stopsLocations){
             a.flight.numberOfStops = a.flight.stopsLocations.length
@@ -41,7 +43,7 @@ export class FastFlightService {
     return this.network.GetFastFlightReservations().pipe(map(i =>{
       for(let a of i){
         a.flight.isFromSearch = false;
-        
+        a.flight.airline = a.airline
         if(a.flight.stopsLocations){
           a.flight.numberOfStops = a.flight.stopsLocations.length
         }

@@ -11,7 +11,7 @@ export class FastFlightPanelComponent implements OnInit {
 
   @Input()
   fastFlight : FastFlight
-
+  
   constructor() { }
 
   ngOnInit(): void {

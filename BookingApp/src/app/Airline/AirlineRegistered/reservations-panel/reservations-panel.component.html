@@ -8,9 +8,9 @@
                             <app-flight-panel  [flight]="reservation.flight"></app-flight-panel>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="card" *ngFor="let ticket of reservation.tickets">
+                    <div class="row" *ngFor="let ticket of reservation.tickets">
+                        <div class="col-md-12">
+                            <div class="card" >
                                 <div class="card-body">
                                     <div class="row" >
                                         <div class="col-md-9">

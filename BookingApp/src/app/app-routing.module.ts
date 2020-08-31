@@ -51,6 +51,7 @@ import { RentACarEnterpriseEarningsComponent } from './RentACar/RentACarAdmin/re
 import { RentACarRentedCarsInfoComponent } from './RentACar/RentACarAdmin/rent-acar-rented-cars-info/rent-acar-rented-cars-info.component';
 import { ValidateAccountComponent } from './Users/validate-account/validate-account.component';
 import { ReservationInvitesMainComponent } from './Airline/AirlineRegistered/reservation-invites-main/reservation-invites-main.component';
+import { LoginGuard } from './Airline/AirlineRegistered/login.guard';
 
 
 
@@ -76,7 +77,7 @@ const routes: Routes = [
     {path : 'FastFlights/:airlineId', component : FastFlightHolderComponent},
     {path : 'FastFlightConfirmation/:flightId/:fastFlightId', component : FastFlightConfirmationComponent,resolve:{details : SeatResolveService}},
     {path : 'AddSeats/:id', component: AddSeatsComponent,resolve:{details : SeatResolveService}},
-    {path : 'ManageInvitation/:airlineId/:flightId/:ticketId', component : ReservationConfirmationComponent,resolve:{details : SeatResolveService}},
+    {path : 'ManageInvitation/:airlineId/:flightId/:ticketId', component : ReservationConfirmationComponent,canActivate: [LoginGuard],resolve:{details : SeatResolveService}},
     {path : 'RemoveSeat/:id', component: RemoveSeatComponent,resolve:{details : SeatResolveService}},
     {path : 'DisableSeat/:id', component: DisableSeatComponent,resolve:{details : SeatResolveService}},
     {path : 'EnableSeat/:id', component: EnableSeatComponent,resolve:{details : SeatResolveService}},

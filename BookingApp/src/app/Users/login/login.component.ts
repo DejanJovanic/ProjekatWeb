@@ -15,11 +15,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  
+  returnUrl
   constructor(private service : UserLoginService, private router : Router, private activeRoute : ActivatedRoute) { }
 
   ngOnInit(): void {
    this.setForm();
+   this.returnUrl = this.activeRoute.snapshot.queryParams['returnUrl'] || '/main';
   }
 
   setForm(){
@@ -40,7 +41,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['RentACarEnterpriseAdmin']);
         }
         else{
-        this.router.navigate(['/main']);
+
+        this.router.navigateByUrl(this.returnUrl)
         }
       }
     },

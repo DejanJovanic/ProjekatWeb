@@ -8,6 +8,7 @@ import { Ticket } from 'src/app/Shared/Model/Airlines/Ticket.model';
 import { AirlineNetworkService } from '../../AirlineShared/Services/AirlineNetwork/airline-network.service';
 import { ReservationConfirmation } from 'src/app/Shared/Model/Airlines/ReservationConfirmation.model';
 import { Subscription } from 'rxjs';
+import { AirlineRateComponent } from '../airline-rate/airline-rate.component';
 
 @Component({
   selector: 'app-reservations-panel',
@@ -51,7 +52,9 @@ export class ReservationsPanelComponent implements OnInit,OnDestroy {
     })
   }
   public Rate(ticket : Ticket){
-    
+    let ref = this.modalService.open(AirlineRateComponent)
+    ref.componentInstance.airlineId = this.reservation.flight.airline.id;
+    ref.componentInstance.ticketId = ticket.id;
   }
 
 }

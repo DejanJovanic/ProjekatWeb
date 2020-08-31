@@ -26,15 +26,17 @@ namespace BookingAppBackend.Controllers
         public async Task<IActionResult> Rate(UserRate param)
         {
             var airline = context.Airlines.Include(i => i.Tickets).ThenInclude(i => i.Flight).ThenInclude(i => i.Ratings).Include(i => i.Ratings).FirstOrDefault(i => i.Id == param.AirlineId);
-            if(param.FlightRating > 5 || param.FlightRating < 0 || param.AirlineRating < 0 || param.AirlineRating < 0 )
+            if(param.FlightRating > 5 || param.FlightRating < 1 || param.AirlineRating < 1 || param.AirlineRating > 5 )
                 return BadRequest(new { Message = "Invalid rating" });
             if (airline != null)
             {
                 var ticket = airline.Tickets.FirstOrDefault(i => i.Id == param.TicketId);
-                if(ticket != null)
+                if(ticket != null && ticket.IsApproved)
                 {
+                    
                     ticket.Flight.Ratings.Add(new FlightRating() { DateTime = DateTime.Now, Rate = (float)param.FlightRating });
                     airline.Ratings.Add(new AirlineRating { Rate = (float)param.AirlineRating, DateTime = DateTime.Now });
+                    ticket.IsRated = true;
                     await context.SaveChangesAsync();
                     return Ok(true);
                 }

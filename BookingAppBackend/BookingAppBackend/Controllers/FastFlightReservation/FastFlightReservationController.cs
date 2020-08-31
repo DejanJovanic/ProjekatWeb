@@ -26,7 +26,7 @@ namespace BookingAppBackend.Controllers.FastFlightReservation
         }
 
         [HttpGet]
-        [Authorize("User")]
+        //[Authorize("User")]
         public async Task<IActionResult> GetFlights()
         {
             var ret = await service.Get(User.Identity.Name);
@@ -52,7 +52,7 @@ namespace BookingAppBackend.Controllers.FastFlightReservation
         }
 
         [HttpPost]
-        [Authorize("User")]
+
         public async Task<IActionResult> AddFlight(FastFlightReservationParameter param)
         {
             var ret = await service.Set(param.AirlineId, param.FastFlightId, User.Identity.Name, param.PaidExtras != null ? param.PaidExtras : new List<int>(), param.LoadWeight,param.PassportNumber);
@@ -81,7 +81,7 @@ namespace BookingAppBackend.Controllers.FastFlightReservation
         }
 
         [HttpDelete]
-        [Authorize("User")]
+
         public async Task<IActionResult> AddFlight(int airlineId,int fastFlightId)
         {
             var ret = await service.Cancel(airlineId, fastFlightId, User.Identity.Name);

@@ -4,8 +4,9 @@ import { FlightSearchService } from '../Services/FlightSearch/flight-search.serv
 import { Subscription } from 'rxjs';
 import { FlightSearchParams } from 'src/app/Shared/Model/Airlines/FlightSearchParams.model';
 import { FlightClass } from 'src/app/Shared/Model/Airlines/FlightClass.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn } from '@angular/forms';
 import { EmptyStringField } from '../../AirlineShared/Validators/EmptyStringField.validator';
+import { Name } from '../../AirlineShared/Validators/Name.validator';
 
 @Component({
   selector: 'app-airline-search',
@@ -28,7 +29,30 @@ import { EmptyStringField } from '../../AirlineShared/Validators/EmptyStringFiel
   ]
 })
 export class AirlineSearchComponent implements OnInit {
+  private startFinishDatesValidator : ValidatorFn = (fg: FormGroup) => {
+    const start = fg.get('startDate').value;
+    const end = fg.get('finishDate').value;
+  
+    let temp1 = new Date(start).getTime()
+    let temp2 = new Date(end).getTime() 
+    return temp1 <= temp2 ? null : {startEndDate : true};
+  }
+  private Date1Validator : ValidatorFn = (fg: FormGroup) => {
+    const start = fg.get('startDate').value;
 
+  
+    let temp1 = new Date(start).getTime()
+    let date = new Date().getTime()
+    return date <= temp1 ? null : {startDate : true};
+  }
+  private Date2Validator : ValidatorFn = (fg: FormGroup) => {
+    const start = fg.get('finishDate').value;
+
+  
+    let temp1 = new Date(start).getTime()
+    let date = new Date().getTime()
+    return date <= temp1 ? null : {finishDate : true};
+  }
   public searchForm : FormGroup
   private searchParams : FlightSearchParams
   @Output()
@@ -41,20 +65,18 @@ export class AirlineSearchComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if(localStorage.flightSearch)
-      this.searchParams = JSON.parse(localStorage.flightSearch)
-    else
+
       this.searchParams = null
 
     this.searchForm = this.builder.group({
-      startLocation : [this.searchParams? this.searchParams.startLocation : '',[Validators.required,Validators.pattern(/^[a-zA-Z- ]+?$/),EmptyStringField]],
-      endLocation : [this.searchParams? this.searchParams.endLocation : '',[Validators.required,Validators.pattern(/^[a-zA-Z- ]+?$/),EmptyStringField]],
+      startLocation : [this.searchParams? this.searchParams.startLocation : '',[Validators.required,Name,EmptyStringField]],
+      endLocation : [this.searchParams? this.searchParams.endLocation : '',[Validators.required,Name,EmptyStringField]],
       startDate : ['',Validators.required],
       finishDate : ['',Validators.required],
       isRoundTrip : [this.searchParams ? this.searchParams.isRoundTrip : false],
       isMultiCity : [this.searchParams ? this.searchParams.isMultiCity : false],
       class : [this.classes[0]],
-    })
+    },{validators:[this.startFinishDatesValidator,this.Date1Validator,this.Date2Validator]})
   }
 
   Submit(){
