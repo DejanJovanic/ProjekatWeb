@@ -19,7 +19,7 @@ namespace BookingAppBackend.Model.Airlines
         public ICollection<Airplane> Airplanes { get; set; } = new List<Airplane>();
         public ICollection<Flight> Flights { get; set; } = new List<Flight>();
         public ICollection<FastFlight> FastFlights { get; set; } = new List<FastFlight>();
-        public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+        public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
         public ICollection<AirlineRating> Ratings { get; set; } = new List<AirlineRating>();
 
     }

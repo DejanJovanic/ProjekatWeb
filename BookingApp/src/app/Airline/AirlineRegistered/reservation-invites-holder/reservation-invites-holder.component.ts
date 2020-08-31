@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { FlightReservation } from 'src/app/Shared/Model/Airlines/FlightReservation.model';
 import { UserCacheService } from 'src/app/Users/Services/UserCache/user-cache.service';
-import { filter, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-reservations-holder',
-  templateUrl: './reservations-holder.component.html',
-  styleUrls: ['./reservations-holder.component.css']
+  selector: 'app-reservation-invites-holder',
+  templateUrl: './reservation-invites-holder.component.html',
+  styleUrls: ['./reservation-invites-holder.component.css']
 })
-export class ReservationsHolderComponent implements OnInit {
+export class ReservationInvitesHolderComponent implements OnInit {
 
   public reservations : Observable<FlightReservation[]>
   constructor(private service : UserCacheService) {
@@ -17,7 +17,7 @@ export class ReservationsHolderComponent implements OnInit {
       let ret : FlightReservation[] = []
       if(i){
         for(let a of i){
-          if(a.tickets[0].isApproved){
+          if(!a.tickets[0].isApproved){
             ret.push(a);
           }
         }

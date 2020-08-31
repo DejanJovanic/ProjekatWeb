@@ -25,7 +25,7 @@ namespace BookingAppBackend.Database.Repository
         {
             return await context.Airlines
                 .Include(i => i.Address)
-                .Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight)
+                .Include(i => i.Tickets).ThenInclude(i => i.Flight)
                 .Include(i => i.FastFlights).ThenInclude(i => i.Flight)
                 .Include(i => i.FastFlights).ThenInclude(i => i.User)
                 .Include(i => i.Flights).ThenInclude(i=> i.Airplane).ThenInclude(i => i.DisabledSeats)
@@ -39,7 +39,7 @@ namespace BookingAppBackend.Database.Repository
         {
             return await context.Airlines
                 .Include(i => i.Ratings)
-                .Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight)
+                .Include(i => i.Tickets).ThenInclude(i => i.Flight)
                 .Include(i => i.FastFlights).ThenInclude(i => i.Flight)
                 .Include(i => i.FastFlights).ThenInclude(i => i.User)
                 .Include(i => i.Flights).ThenInclude(i => i.Ratings)
@@ -71,15 +71,13 @@ namespace BookingAppBackend.Database.Repository
                         flight.StartDateBack = a.StartDateBack;
                         flight.EndDateBack = a.EndDateBack;
                     }
-                    foreach(var b in airline.Reservations)
+                    foreach(var b in airline.Tickets)
                     {
-                        if (b.AirlineTickets.First().Flight.Id == a.Id)
+                        if (b.Flight.Id == a.Id)
                         {
-                            foreach(var c in b.AirlineTickets)
-                            {
-                                flight.Tickets.Add(new TicketDataResource { BookingDate = c.BookingDate, Price = c.Price });
-                            }
-
+      
+                            flight.Tickets.Add(new TicketDataResource { BookingDate = b.BookingDate, Price = b.Price });
+                            
                         }
                     }
                     foreach(var b in airline.FastFlights)
@@ -103,7 +101,7 @@ namespace BookingAppBackend.Database.Repository
 
         public async Task<Airline> GetAirlineWithFlight(int flightId)
         {
-            return await context.Airlines.Include(i => i.Reservations).ThenInclude(i => i.AirlineTickets).ThenInclude(i => i.Flight).Include(i => i.FastFlights).ThenInclude(i => i.Flight)
+            return await context.Airlines.Include(i => i.Tickets).ThenInclude(i => i.Flight).Include(i => i.FastFlights).ThenInclude(i => i.Flight)
                .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.DisabledSeats)
                .Include(i => i.Flights).ThenInclude(i => i.Airplane).ThenInclude(i => i.RemovedSeats)
                .FirstOrDefaultAsync(i => i.Flights.Count(j => j.Id == flightId) > 0);

@@ -117,6 +117,9 @@ import { RentACarAddRentACarAdminModalComponent } from './RentACar/RentACarAdmin
 import { RentACarEnterpriseEarningsComponent } from './RentACar/RentACarAdmin/rent-acar-enterprise-earnings/rent-acar-enterprise-earnings.component';
 import { RentACarRentedCarsInfoComponent } from './RentACar/RentACarAdmin/rent-acar-rented-cars-info/rent-acar-rented-cars-info.component';
 
+import { ValidateAccountComponent } from './Users/validate-account/validate-account.component';
+import { ReservationInvitesMainComponent } from './Airline/AirlineRegistered/reservation-invites-main/reservation-invites-main.component';
+import { ReservationInvitesHolderComponent } from './Airline/AirlineRegistered/reservation-invites-holder/reservation-invites-holder.component';
 
 
 
@@ -225,7 +228,10 @@ import { RentACarRentedCarsInfoComponent } from './RentACar/RentACarAdmin/rent-a
     RentACarAddEnterpriseModalComponent,
     RentACarAddRentACarAdminModalComponent,
     RentACarEnterpriseEarningsComponent,
-    RentACarRentedCarsInfoComponent
+    RentACarRentedCarsInfoComponent,
+    ValidateAccountComponent,
+    ReservationInvitesMainComponent,
+    ReservationInvitesHolderComponent
   ],
   imports: [
     

@@ -25,13 +25,24 @@ namespace BookingAppBackend.Service.Seat
         {
             try
             {
+                await unitOfWork.StartTransaction(Database.Repository.TransactionType.Serializible);
                 var temp = await repo.AddSeats(rowsTop, rowsBottom, columnsLeft, columnsRight, airlineId, flightId);
+                await unitOfWork.CompleteAsync();
+
                 if (temp.Success)
                 {
-                    await unitOfWork.CompleteAsync();
+                    await unitOfWork.Commit();
                 }
+                else
+                {
+                    await unitOfWork.Rollback();
+                }
+                await unitOfWork.EndTransaction();
 
+                if (temp.Success)
+                    await unitOfWork.CompleteAsync();
                 return temp;
+                
 
             }
             catch
@@ -43,9 +54,24 @@ namespace BookingAppBackend.Service.Seat
         {
             try
             {
+                await unitOfWork.StartTransaction(Database.Repository.TransactionType.Serializible);
                 var temp = await repo.DisableSeat(row, column, airlineId, flightId);
+                await unitOfWork.CompleteAsync();
 
+                if (temp.Success)
+                {
+                    await unitOfWork.Commit();
+                }
+                else
+                {
+                    await unitOfWork.Rollback();
+                }
+                await unitOfWork.EndTransaction();
+
+                if (temp.Success)
+                    await unitOfWork.CompleteAsync();
                 return temp;
+
 
             }
             catch
@@ -58,7 +84,20 @@ namespace BookingAppBackend.Service.Seat
         {
             try
             {
+                await unitOfWork.StartTransaction(Database.Repository.TransactionType.Serializible);
                 var temp = await repo.EnableSeat(row, column, airlineId, flightId);
+                await unitOfWork.CompleteAsync();
+
+                if (temp.Success)
+                {
+                    await unitOfWork.Commit();
+                }
+                else
+                {
+                    await unitOfWork.Rollback();
+                }
+                await unitOfWork.EndTransaction();
+             
                 if (temp.Success)
                     await unitOfWork.CompleteAsync();
                 return temp;
@@ -74,8 +113,20 @@ namespace BookingAppBackend.Service.Seat
         {
             try
             {
+                await unitOfWork.StartTransaction(Database.Repository.TransactionType.Serializible);
                 var temp = await repo.RemoveSeat(row, column, airlineId, flightId);
+                await unitOfWork.CompleteAsync();
 
+                if (temp.Success)
+                {
+                    await unitOfWork.Commit();
+                }
+                else
+                {
+                    await unitOfWork.Rollback(); 
+                }
+                await unitOfWork.EndTransaction();
+                   
                 return temp;
 
             }
@@ -107,13 +158,16 @@ namespace BookingAppBackend.Service.Seat
                         ret.DisabledSeats.Add(new Model.Airlines.Seat { Column = a.Column, Row = a.Row });
                     }
                     ret.TakenSeats = new List<Model.Airlines.Seat>();
-                    foreach(var b in temp.Reservations)
+
+                    foreach (var a in temp.Tickets)
                     {
-                        foreach (var a in b.AirlineTickets.Where(i => i.Flight.Id == flightId))
+                        if (a.Flight.Id == flight.Id)
                         {
                             ret.TakenSeats.Add(new Model.Airlines.Seat { Column = a.Column, Row = a.Row });
                         }
                     }
+                
+                    
                   
                     ret.SpecialSeats = new List<Model.Airlines.Seat>();
                     foreach(var a in temp.FastFlights.Where(i => i.Flight.Id == flightId))

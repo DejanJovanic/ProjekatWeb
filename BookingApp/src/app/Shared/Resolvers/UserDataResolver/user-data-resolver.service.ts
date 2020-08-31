@@ -11,14 +11,8 @@ export class UserDataResolverService implements Resolve<any> {
 
   constructor(private cacheService : UserCacheService, private networkService : UserNetworkService,private router : Router) { }
   resolve(route: import("@angular/router").ActivatedRouteSnapshot, state: import("@angular/router").RouterStateSnapshot) {
-    if(localStorage['token'] && !this.cacheService.currentUser)
       return this.networkService.GetUserDetails().pipe(tap(i =>{
-        if(i){
-          var temp = route.toString();
-        }
+        this.cacheService.currentUser = i;
       }))
-      
-   
-
   }
 }

@@ -49,6 +49,8 @@ import { RentACarBranchLocationOnMapComponent } from './RentACar/rent-acar-branc
 import { FlightDetailsComponent } from './Airline/AirlineShared/flight-details/flight-details.component';
 import { RentACarEnterpriseEarningsComponent } from './RentACar/RentACarAdmin/rent-acar-enterprise-earnings/rent-acar-enterprise-earnings.component';
 import { RentACarRentedCarsInfoComponent } from './RentACar/RentACarAdmin/rent-acar-rented-cars-info/rent-acar-rented-cars-info.component';
+import { ValidateAccountComponent } from './Users/validate-account/validate-account.component';
+import { ReservationInvitesMainComponent } from './Airline/AirlineRegistered/reservation-invites-main/reservation-invites-main.component';
 
 
 
@@ -60,14 +62,16 @@ const routes: Routes = [
       {path : 'AirlineAdmin', component : AirlineAdminMainComponent,resolve:{data : AirlineAdminDataResolverService}},
       {path : 'CompanyPreview', component: AirlineAdminCompanyPreviewComponent},
       {path : 'Reservations', component: ReservationsMainComponent},
+       {path : 'ReservationInvites', component: ReservationInvitesMainComponent},
       {path : 'Stats', component: AirlineDataComponent, resolve:{data : AirlineStatsResolverService},children:[
         {path : 'AirlineRatings', component: AirlineRatingsComponent},
         {path : 'AirlineTicketSale', component: AirlineTicketSaleComponent},
         {path : 'AirlineEarnings', component: AirlineEarningsComponent}
       ]}
     ]},
+    {path : 'AccountVerification', component : ValidateAccountComponent},
     {path : 'changePassword/:username', component : ChangePasswordComponent},
-    {path : 'UserPreview', component : UserPreviewComponent},
+    {path : 'UserPreview', component : UserPreviewComponent,resolve : {UserDataResolverService}},
     {path : 'UserDetailsEdit', component : UserDetailsEditComponent},
     {path : 'FastFlights/:airlineId', component : FastFlightHolderComponent},
     {path : 'FastFlightConfirmation/:flightId/:fastFlightId', component : FastFlightConfirmationComponent,resolve:{details : SeatResolveService}},

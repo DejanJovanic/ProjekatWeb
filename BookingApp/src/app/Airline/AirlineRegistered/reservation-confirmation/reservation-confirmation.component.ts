@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Extra } from 'src/app/Shared/Model/Airlines/Extra.model';
 import { FlightDetails } from 'src/app/Shared/Model/Airlines/FlightDetails.model';
@@ -10,6 +10,9 @@ import { AirlineNetworkService } from '../../AirlineShared/Services/AirlineNetwo
 import { UserCacheService } from 'src/app/Users/Services/UserCache/user-cache.service';
 import { switchMap } from 'rxjs/operators';
 import { UserNetworkService } from 'src/app/Users/Services/UserNetwork/user-network.service';
+import { BackgroundService } from 'src/app/Shared/Services/Background/background.service';
+import { Background } from 'src/app/Shared/Model/Common/Background.model';
+import { Passport } from '../../AirlineShared/Validators/Passport.validator';
 
 @Component({
   selector: 'app-reservation-confirmation',
@@ -31,9 +34,18 @@ export class ReservationConfirmationComponent implements OnInit,OnDestroy {
   subNetwork : Subscription
   public points : number
 
-  constructor(private userNetwork : UserNetworkService,private network : AirlineNetworkService,private builder : FormBuilder,private router : Router,private route : ActivatedRoute,private userService : UserCacheService) {
+  constructor(private background : BackgroundService,private userNetwork : UserNetworkService,private network : AirlineNetworkService,private builder : FormBuilder,private router : Router,private route : ActivatedRoute,private userService : UserCacheService) {
     this.points = userService.currentUser.points;
 
+  }
+  private luggageValidator : ValidatorFn = (fg: FormGroup) => {
+    const weigth = fg.get('luggageWeigth').value;
+    for(let a of this.details.luggageOptions){
+      if(a.from <= weigth && a.to >= weigth){
+        return null
+      }
+    }
+    return {notInRange : true}
   }
   ngOnDestroy(): void {
     if(this.obs) this.obs.unsubscribe();
@@ -42,6 +54,9 @@ export class ReservationConfirmationComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.background.SetBackgroud(Background.ReservationConfirmation);
+  });
     this.obs = this.route.data.subscribe((data : {details : FlightDetails}) =>{
       this.details = data.details;
       this.maxWeight = 0;
@@ -54,12 +69,11 @@ export class ReservationConfirmationComponent implements OnInit,OnDestroy {
       }
       this.form = this.builder.group({
         luggageWeigth:[0,[Validators.required,Validators.min(0),Validators.max(this.maxWeight)]],
-        passportNum:['',[Validators.required,Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/)]]
-      })
+        passportNum:['',[Validators.required,Passport]]
+      },{validators : this.luggageValidator})
       this.sub = this.form.get('luggageWeigth').valueChanges.subscribe(i =>{
-        if(i > this.maxWeight)
-          this.form.value.luggageWeigth = this.maxWeight
-        this.CalculatePrice()
+        if(i)
+          this.CalculatePrice()
       } );
     })
     

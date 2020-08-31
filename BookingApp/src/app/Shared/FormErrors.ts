@@ -5,8 +5,9 @@ import { InjectionToken } from '@angular/core';
 export const defaultErrors = {
   required: (error) => `This field is required`,
   minlength: ({ requiredLength, actualLength }) => `Expect ${requiredLength} but got ${actualLength}`,
+  maxlength: ({ requiredLength, actualLength }) => `Expect ${requiredLength} but got ${actualLength}`,
   min: ({min,actual}) => `Has to be >= ${min}`,
-  max: ({max,actual}) => `Has to be >= ${max}`,
+  max: ({max,actual}) => `Has to be <= ${max}`,
   emptyString : ({isEmpty}) => `Needs to have atleats one letter`,
   wholeNumber : ({isWholeNumber}) => `Only integers are allowed`,
   decimalNumber : ({isdecimalNumber}) => `Only decimal numbers are allowed`,

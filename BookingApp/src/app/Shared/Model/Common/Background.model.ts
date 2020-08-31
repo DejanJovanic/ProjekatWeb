@@ -4,5 +4,6 @@ export enum Background{
     AirlineAdminMain,
     AirlineMain,
     SeatReservation,
-    ReservationConfirmation
+    ReservationConfirmation,
+    UserRegistration
 }
