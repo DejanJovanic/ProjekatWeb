@@ -22,7 +22,7 @@ namespace BookingAppBackend.Controllers.RentACar
         }
 
         [HttpPost]
-       // [Authorize(Roles = "RentACarAdmin")]
+        [Authorize(Roles = "RentACarAdmin")]
         [Route("AddBranch")]
         public async Task<IActionResult> AddBranch(AddBranchParameters enterpriseBranch)
         {
@@ -39,7 +39,7 @@ namespace BookingAppBackend.Controllers.RentACar
         }
 
         [HttpDelete]
-        //[Authorize(Roles = "RentACarAdmin")]
+        [Authorize(Roles = "RentACarAdmin")]
         [Route("DeleteBranch")]
         public async Task<IActionResult> DeleteBranch(int enterpriseId, int branchId)
         {
@@ -56,7 +56,7 @@ namespace BookingAppBackend.Controllers.RentACar
         }
 
         [HttpPut]
-        //[Authorize(Roles = "RentACarAdmin")]
+        [Authorize(Roles = "RentACarAdmin")]
         [Route("EditBranch")]
         public async Task<IActionResult> EditBranch(EditBranchParameters enterpriseBranch)
         {

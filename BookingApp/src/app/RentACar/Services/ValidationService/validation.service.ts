@@ -236,7 +236,17 @@ export class ValidationService {
       return null;
     }
 
-    discountDetails(car : Car){
-      
+    passwordValidator2(control: AbstractControl){
+      if(control && control.value !== null || control.value !== undefined){
+        const regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$");
+  
+        if(!regex.test(control.value)){
+          return{
+            isError: true
+          };
+        }
+      }
+      return null;
+     
     }
 }

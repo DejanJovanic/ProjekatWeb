@@ -36,9 +36,13 @@ export class RentACarDiscountDetailsComponent implements OnInit {
   originalPrice: number;
   @Input()
   item : Car
+  role: string;
   constructor(private toaster : ToastrService, private carService : CarService, private service : ValidationService, public activeModal : NgbActiveModal, private modalService : NgbModal) { }
 
+
   ngOnInit(): void {
+    this.role = localStorage["Role"];
+
     this.CarReservationParam = new DiscountDetails();
     
     this.CarReservationParam.dateFrom = this.item.discounts[0].discountFrom;
@@ -48,6 +52,7 @@ export class RentACarDiscountDetailsComponent implements OnInit {
     this.CarReservationParam.rentedDay = new Date();
     this.CarReservationParam.enterpriseId = this.item.enterpriseId;
     this.CarReservationParam.percentage = this.item.discounts[0].discountPercentage;
+    this.CarReservationParam.username = localStorage["username"];
     this.carService.createReservationForCarOnDiscount(this.CarReservationParam).subscribe(i =>{
      
       this.CarReservation = i;

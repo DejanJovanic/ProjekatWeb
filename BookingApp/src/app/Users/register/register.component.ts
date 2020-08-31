@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
       phone: new FormControl('', [Validators.required, this.service.phoneValidator]),
       city: new FormControl('', [Validators.required, this.service.lettersValidator]),
       username: new FormControl('', [Validators.required, Validators.minLength(4)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      password: new FormControl('', [Validators.required,  Validators.minLength(8)]),
       repeatedPassword: new FormControl('', [Validators.required, this.service.passwordValidator])
   
     })

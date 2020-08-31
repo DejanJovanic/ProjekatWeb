@@ -15,13 +15,14 @@ namespace BookingAppBackend.Service.RentACar.Cars
         private IEnterpriseRepository repo2;
         private ISpecialOfferRepository repo3;
         private IUnitOfWork unitOfWork;
-
-        public CarService(IEnterpriseRepository ep, ICarRepository repo, ISpecialOfferRepository aaa, IUnitOfWork unitOfWork)
+        private IUserRepository repo5;
+        public CarService(IUserRepository repo1, IEnterpriseRepository ep, ICarRepository repo, ISpecialOfferRepository aaa, IUnitOfWork unitOfWork)
         {
             this.repo2 = ep;
             this.repo = repo;
             this.unitOfWork = unitOfWork;
             this.repo3 = aaa;
+            this.repo5 = repo1;
         }
         public async Task<Car> AddCar(AddCarParameters car)
         {
@@ -398,8 +399,19 @@ namespace BookingAppBackend.Service.RentACar.Cars
         {
             
             var car = await repo.GetOneCar(parameters.SelectedEnterprise.Id, parameters.SelectedCar.Id);
+            var user = await repo5.GetUserAsync(parameters.Username);
 
             var temp = new ReservationCar();
+            var temp2 = new UserCarReservation();
+
+            temp2.IsRated = parameters.IsRated;
+            temp2.NumberOfDays = parameters.NumberOfDays;
+            temp2.Price = parameters.Price;
+            temp2.RealizedPackage = parameters.RealizedPackage;
+            temp2.DateTo = parameters.DateTo;
+            temp2.DateFrom = parameters.DateFrom;
+            temp2.RentedDay = parameters.RentedDay;
+
             temp.IsRated = parameters.IsRated;
             temp.NumberOfDays = parameters.NumberOfDays;
             temp.Price = parameters.Price;
@@ -409,6 +421,7 @@ namespace BookingAppBackend.Service.RentACar.Cars
             temp.DateFrom = parameters.DateFrom;
             temp.RentedDay = parameters.RentedDay;
             car.Reservations.Add(temp);
+            user.CarReservations.Add(temp2);
             try
             {
                await unitOfWork.CompleteAsync();
@@ -469,6 +482,7 @@ namespace BookingAppBackend.Service.RentACar.Cars
 
             CarReservation retValue = new CarReservation();
             retValue.IsRated = false;
+            retValue.Username = paramss.Username;
             retValue.NumberOfDays = numberOfDays;
             retValue.SelectedCar = car;
             retValue.SelectedEnterprise = enterprise;

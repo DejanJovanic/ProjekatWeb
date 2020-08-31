@@ -29,7 +29,7 @@ export class RentACarDeleteCarModalComponent implements OnInit {
       })
       this.activeModal.close();
       setTimeout(() => {
-        this.routeService.navigate(['/EnterpriseProfile/', this.item.enterpriseId]);
+        this.routeService.navigate(['RentACarEnterpriseAdmin']);
     }, 3000);  
    
       

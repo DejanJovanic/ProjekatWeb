@@ -26,9 +26,14 @@ export class RentACarReservationPreviewModalComponent implements OnInit {
   animeArr=[];
   counter;
   isHalf = false;
+  role: string;
+  username: string;
   constructor(public activeModal : NgbActiveModal, private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    this.role = localStorage["Role"];
+    
+    this.item.username = localStorage["username"];
    this.originalPrice = this.item.numberOfDays * this.item.selectedCar.price;
    if(this.item.realizedPackage != null){
       this.realizedPackage = this.item.realizedPackage.name;

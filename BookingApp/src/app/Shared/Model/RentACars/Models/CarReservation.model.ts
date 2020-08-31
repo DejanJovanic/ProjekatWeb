@@ -13,6 +13,7 @@ export class CarReservation{
     isRated : boolean;
     realizedPackage : SpecialOffer;
     rentedDay: Date;
+    username: string;
 
     constructor (){  }
  

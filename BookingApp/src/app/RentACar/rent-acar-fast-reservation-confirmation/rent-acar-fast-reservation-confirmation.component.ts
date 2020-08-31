@@ -16,9 +16,11 @@ export class RentACarFastReservationConfirmationComponent implements OnInit {
   @Input()
   item: CarReservation
   return;
+  role: string;
   constructor(private routeService: Router, public activeModal : NgbActiveModal, private toaster: ToastrService, private carService: CarService) { }
 
   ngOnInit(): void {
+    this.role = localStorage["Role"];
   }
 
   setReservation(){

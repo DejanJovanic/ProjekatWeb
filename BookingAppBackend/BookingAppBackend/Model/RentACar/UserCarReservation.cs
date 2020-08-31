@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace BookingAppBackend.Model.RentACar
 {
-    public class CarReservation
+    public class UserCarReservation
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         [Required]
         public Car SelectedCar { get; set; }
@@ -36,7 +39,5 @@ namespace BookingAppBackend.Model.RentACar
 
         [Required]
         public bool IsRated { get; set; }
-        [Required]
-        public string Username { get; set; }
     }
 }

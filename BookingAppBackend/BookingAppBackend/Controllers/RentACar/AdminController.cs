@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookingAppBackend.Model.RentACar.Parameters;
 using BookingAppBackend.Model.Users;
 using BookingAppBackend.Service.RentACar.Admins;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +35,7 @@ namespace BookingAppBackend.Controllers.RentACar
 
         [HttpPost]
         [Route("AddRentAdmin")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> AddRentACarAdmin(RentACarAdminAddParameters parameters)
         {
             if (ModelState.IsValid)
@@ -45,6 +48,23 @@ namespace BookingAppBackend.Controllers.RentACar
             }
             else
                 return BadRequest(new { Message = "Invalid parameters supplied." });
+        }
+
+        [HttpPut]
+        [Route("EditProfile")]
+        [Authorize(Roles ="RentACarAdmin")]
+        public async Task<IActionResult> EditProfile(RentACarAdminEditProfile parameters)
+        {
+            if (ModelState.IsValid)
+            {
+                var temp = await adminService.EditProfile(parameters);
+                if (temp != null)
+                    return Ok(temp);
+                else
+                    return null;
+            }
+            else
+                return BadRequest(new { Message = "Invalid parameters supplied" });
         }
     }
 }

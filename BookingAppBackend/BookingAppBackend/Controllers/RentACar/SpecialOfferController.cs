@@ -22,7 +22,7 @@ namespace BookingAppBackend.Controllers.RentACar
         }
 
         [HttpPost]
-       // [Authorize(Roles ="RentACarAdmin")]
+        [Authorize(Roles ="RentACarAdmin")]
         [Route("AddSpecialOffer")]
         public async Task<IActionResult> AddSpecialOffer(AddSpecialOfferParameters specialOffer)
         {
@@ -39,7 +39,7 @@ namespace BookingAppBackend.Controllers.RentACar
         }
 
         [HttpDelete]
-        //[Authorize(Roles = "RentACarAdmin")]
+        [Authorize(Roles = "RentACarAdmin")]
         [Route("DeleteSpecialOffer")]
         public async Task<IActionResult> DeleteSpecialOffer(int enterpriseId, int specialOfferId)
         {
@@ -56,7 +56,7 @@ namespace BookingAppBackend.Controllers.RentACar
         }
 
         [HttpPut]
-        //[Authorize(Roles = "RentACarAdmin")]
+        [Authorize(Roles = "RentACarAdmin")]
         [Route("EditSpecialOffer")]
         public async Task<IActionResult> EditSpecialOffer(EditSpecialOfferParameters specialOffer)
         {
