@@ -1,4 +1,4 @@
-<div class="container-fluid" style="background : transparent !important">  
+<div class="container" style="background : transparent !important">  
     <div *ngIf="(flights | async) != null; else searchForItems" >
         <div *ngIf="(flights | async)?.length > 0; else nothingFound">
             <div class="row mb-3" style="background : transparent !important">

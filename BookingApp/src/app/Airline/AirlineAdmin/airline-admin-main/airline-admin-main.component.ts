@@ -16,22 +16,10 @@ import { BackgroundService } from 'src/app/Shared/Services/Background/background
 })
 export class AirlineAdminMainComponent implements OnInit {
 
-  constructor(private service : AirlineAdminDataService,private background : BackgroundService) { }
-  public filterSubject : Subject<FlightFilterParams> = new Subject<FlightFilterParams>();
+  constructor(private background : BackgroundService) { }
   ngOnInit(): void {
     setTimeout(() => {
       this.background.SetBackgroud(Background.AirlineAdminMain);
   });
-    if(localStorage["Role"] == "AirlineAdmin"){
-      if(localStorage["username"]){
-        this.service.GetAirlineData().subscribe(_ => {})
-      }
-    }
   }
-  onFlightFilter(event : FlightFilterParams){
-    localStorage.flightFilter = JSON.stringify(event);
-    this.filterSubject.next(event);
-  }
-
-
 }
