@@ -120,6 +120,7 @@ import { RentACarRentedCarsInfoComponent } from './RentACar/RentACarAdmin/rent-a
 import { ValidateAccountComponent } from './Users/validate-account/validate-account.component';
 import { ReservationInvitesMainComponent } from './Airline/AirlineRegistered/reservation-invites-main/reservation-invites-main.component';
 import { ReservationInvitesHolderComponent } from './Airline/AirlineRegistered/reservation-invites-holder/reservation-invites-holder.component';
+import { AirlineRateComponent } from './Airline/AirlineRegistered/airline-rate/airline-rate.component';
 
 
 
@@ -231,7 +232,8 @@ import { ReservationInvitesHolderComponent } from './Airline/AirlineRegistered/r
     RentACarRentedCarsInfoComponent,
     ValidateAccountComponent,
     ReservationInvitesMainComponent,
-    ReservationInvitesHolderComponent
+    ReservationInvitesHolderComponent,
+    AirlineRateComponent
   ],
   imports: [
     
