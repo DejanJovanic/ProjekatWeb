@@ -306,5 +306,19 @@ namespace BookingAppBackend.Service.RentACar.Enterprises
             return rating;
 
         }
+
+        public async Task<BookingAppBackend.Model.Users.User> GetReservations(string username)
+        {
+            try
+            {
+                var temp = await repo.GetReservations(username);
+
+                return temp;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

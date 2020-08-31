@@ -40,7 +40,7 @@ export class RentACarSetDiscountModalComponent implements OnInit {
     this.setDiscountForm = new FormGroup({
       DiscountFrom: new FormControl('', [Validators.required, this.service.firstDateValidator]),
       DiscountTo:new FormControl('', [Validators.required, this.service.secondDateValidator]),
-      DiscountPrice:new FormControl('', [Validators.required, this.service.numbersValidator])
+      DiscountPrice:new FormControl('', [Validators.required, this.service.numbersValidator, this.service.percentageValidator])
     })
   }
 

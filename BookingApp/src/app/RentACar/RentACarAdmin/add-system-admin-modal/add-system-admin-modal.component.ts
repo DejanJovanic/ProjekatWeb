@@ -1,26 +1,26 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EnterpriseService } from '../../Services/EnterpriseService/enterprise.service';
-import { ToastrService } from 'ngx-toastr';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { AdminAddParameters } from 'src/app/Shared/Model/Common/AdminAddParameters.model';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AdminServiceService } from '../../Services/AdminService/admin-service.service';
 import { ValidationService } from '../../Services/ValidationService/validation.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AdminServiceService } from '../../Services/AdminService/admin-service.service';
 import { RentACarAdminAddParameters } from 'src/app/Shared/Model/RentACars/Models/Parameters/RentACarAdminAddParameters.model';
 
 @Component({
-  selector: 'app-rent-acar-add-rent-acar-admin-modal',
-  templateUrl: './rent-acar-add-rent-acar-admin-modal.component.html',
-  styleUrls: ['./rent-acar-add-rent-acar-admin-modal.component.css']
+  selector: 'app-add-system-admin-modal',
+  templateUrl: './add-system-admin-modal.component.html',
+  styleUrls: ['./add-system-admin-modal.component.css']
 })
-export class RentACarAddRentACarAdminModalComponent implements OnInit {
+export class AddSystemAdminModalComponent implements OnInit {
 
   @Input()
   item:number;
   constructor(private routeService: Router, private toaster: ToastrService, private adminService: AdminServiceService,private service: ValidationService, public activeModal : NgbActiveModal) { }
 
   ret;
-  AddParameters: RentACarAdminAddParameters;
+  AddParameters: AdminAddParameters;
   registerForm : FormGroup;
   ngOnInit(): void {
     this.setForm();
@@ -43,9 +43,9 @@ export class RentACarAddRentACarAdminModalComponent implements OnInit {
     })
   }
   addAdmin(){
-    this.AddParameters = new RentACarAdminAddParameters();
+    this.AddParameters = new AdminAddParameters();
 
-    this.AddParameters.enterpriseId = this.item;
+
     this.AddParameters.name = this.registerForm.value.firstName;
     this.AddParameters.lastName = this.registerForm.value.lastName;
     this.AddParameters.eMail = this.registerForm.value.eMail;
@@ -54,18 +54,16 @@ export class RentACarAddRentACarAdminModalComponent implements OnInit {
     this.AddParameters.phoneNumber = this.registerForm.value.phone;
     this.AddParameters.username = this.registerForm.value.username;
 
-    this.adminService.addRentACarAdmin(this.AddParameters).subscribe(i=>{
+    this.adminService.addSystemAdmin(this.AddParameters).subscribe(i=>{
       this.ret = i;
 
-      this.toaster.success("Add operation been successfully executed.",'Add a admin',{
+      this.toaster.success("Add operation been successfully executed. ",'Add a system admin',{
         timeOut : 3000
       })
 
-      
+     
       this.activeModal.close();
     })
   }
-
-
 
 }

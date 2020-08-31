@@ -1,0 +1,37 @@
+
+
+<div class="modal-body" >
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+   
+     
+     
+  <div class="card">
+    <div class="card-body">
+        <form name="form" [formGroup] = "registerForm" (ngSubmit)="addDiscount()">
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-user-circle"></i> </span>
+                </div>
+                <input formControlName="discount" class="form-control" placeholder="Define a discount based on points" type="text"
+                [ngClass] ="{'is-invalid': registerForm.get('discount').touched && registerForm.get('discount').invalid}">
+                <div *ngIf = "registerForm.get('discount').touched && registerForm.get('discount').invalid" class="invalid-feedback">
+                    <div *ngIf = "registerForm.get('discount').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Discount is required.</div>
+                    <div *ngIf = "registerForm.get('discount').errors.isError"><i class="fas fa-times-circle" style="color: red;"></i> Discount can only contain numbers.</div>
+                    <div *ngIf = "registerForm.get('discount').errors.Errorr"><i class="fas fa-times-circle" style="color: red;"></i>Discount value can be between 0% and 100%.</div>
+                    
+                </div>
+            </div> <!-- form-group// -->
+
+
+                                           
+            <div class="form-group">
+                <button [disabled] = "!registerForm.valid" type="submit" class="btn btn-outline-primary btn-rounded float-right"><i class="fas fa-database"></i> Submit  </button>
+            </div> <!-- form-group// -->   
+        </form>
+    </div> 
+</div>
+
+  
+  

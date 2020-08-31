@@ -42,6 +42,7 @@ namespace BookingAppBackend.Controllers.UserGeneral
             {
                 try
                 {
+                    
                     var user = await userManager.FindByNameAsync(User.Identity.Name);
                     var email = await userManager.GetEmailAsync(user);
                     switch (response.Resource.Role)
@@ -58,6 +59,10 @@ namespace BookingAppBackend.Controllers.UserGeneral
                             var racr = mapper.Map<RentACarAdminResource>((BookingAppBackend.Model.Users.RentACarAdmin)response.Resource.Item);
                             racr.Email = email;
                             return Ok(new { User = racr });
+                        case "Admin":
+                            var adm = mapper.Map<AdminResource>((BookingAppBackend.Model.Users.Admin)response.Resource.Item);
+                            adm.Email = email;
+                            return Ok(new { User = adm });
                         default:
                             return StatusCode(500);
                     }

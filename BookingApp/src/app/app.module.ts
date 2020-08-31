@@ -122,6 +122,8 @@ import { ReservationInvitesMainComponent } from './Airline/AirlineRegistered/res
 import { ReservationInvitesHolderComponent } from './Airline/AirlineRegistered/reservation-invites-holder/reservation-invites-holder.component';
 import { RentACarAdminEditInfoComponent } from './RentACar/RentACarAdmin/rent-acar-admin-edit-info/rent-acar-admin-edit-info.component';
 import { RentACarAdminChangePassComponent } from './RentACar/RentACarAdmin/rent-acar-admin-change-pass/rent-acar-admin-change-pass.component';
+import { AdminDefineDiscountModalComponent } from './RentACar/RentACarAdmin/admin-define-discount-modal/admin-define-discount-modal.component';
+import { AddSystemAdminModalComponent } from './RentACar/RentACarAdmin/add-system-admin-modal/add-system-admin-modal.component';
 
 
 
@@ -235,7 +237,9 @@ import { RentACarAdminChangePassComponent } from './RentACar/RentACarAdmin/rent-
     ReservationInvitesMainComponent,
     ReservationInvitesHolderComponent,
     RentACarAdminEditInfoComponent,
-    RentACarAdminChangePassComponent
+    RentACarAdminChangePassComponent,
+    AdminDefineDiscountModalComponent,
+    AddSystemAdminModalComponent
   ],
   imports: [
     

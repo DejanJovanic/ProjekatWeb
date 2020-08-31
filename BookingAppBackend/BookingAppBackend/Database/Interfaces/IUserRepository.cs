@@ -11,6 +11,7 @@ namespace BookingAppBackend.Database.Interfaces
     public interface IUserRepository
     {
         Task<User> GetUserAsync(string username);
+
         Task<User> GetUserWithFastFlightsAsync(string username);
         Task<IEnumerable<User>> GetFriends(string username);
         Task<IEnumerable<User>> GetPendingRequests(string username);

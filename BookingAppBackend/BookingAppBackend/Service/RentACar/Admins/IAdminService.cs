@@ -1,4 +1,5 @@
-﻿using BookingAppBackend.Model.RentACar.Parameters;
+﻿using BookingAppBackend.Model.RentACar;
+using BookingAppBackend.Model.RentACar.Parameters;
 using BookingAppBackend.Model.Users;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,7 @@ namespace BookingAppBackend.Service.RentACar.Admins
         Task<RentACarAdmin> GetRentACarAdminAsync(string username);
         Task<RentACarAdmin> AddRentACarAdmin(RentACarAdminAddParameters admin);
         Task<RentACarAdmin> EditProfile(RentACarAdminEditProfile parameters);
+        Task<DiscountBasedOnPoints> AddDiscountBasedOnPoints(DiscountBasedOnPoints parameters);
+        Task<Admin> AddGeneralAdmin(AdminAddParameters parameters);
     }
 }
