@@ -22,7 +22,7 @@ export class AirlineDatabaseService {
       company.address.street = "street" + i
       company.address.streetNo = i.toString();
       company.address.zipCode = "" + i + (i+1) + (i+2)
-      company.grade = i;
+      //company.grade = i;
       let flight = new FlightDatabase(company);
       flight.id = i;
       flight.price = i + 100;

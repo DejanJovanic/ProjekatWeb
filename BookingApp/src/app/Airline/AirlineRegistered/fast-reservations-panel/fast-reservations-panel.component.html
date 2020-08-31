@@ -1,92 +1,101 @@
-<div class="card">
-    <div class="card-body">
-    
-        <div class="card">
-            <div class="card-body">
-                <p>
-                    <span> #{{fastFlight.flight.id}} From: {{fastFlight.flight.startLocation}} {{fastFlight.flight.startDate}} To: {{fastFlight.flight.endLocation}} {{fastFlight.flight.endDate}}</span> <button class="btn btn-primary" (click)="ShowCompanyInfo()">Show airline info</button>
-                    <span *ngIf="fastFlight.flight.isRoundTrip"> {{fastFlight.flight.endDateBack}} {{fastFlight.flight.startDateBack}}</span>
-                </p>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <div class="row" >
-                    <div class="col-md-9">
-                        
-                        <div class="row">     
-                            <div class="col-sm-3">
-                                <p>ID: </p>   
-                            </div>
-                            <div class="col-sm-2">
-                                <p>{{fastFlight.id}}</p>
-                            </div>
-                            <div class="col-sm-3">
-                                <p>Luggage(kg): </p> 
-                            </div>
-                            <div class="col-sm-4">
-                                <p>{{fastFlight.loadWeight}}</p>         
-                            </div>
-                        </div>
-                
-                        <div class="row">            
-                            <div class="col-sm-3">
-                                <p>Row: </p>
-                            </div>
-                            <div class="col-sm-2">
-                                <p>{{fastFlight.row}}</p>
-                            </div>
-                            <div class="col-sm-3">
-                                <p>Name: </p>    
-                            </div>
-                            <div class="col-sm-4" >
-                                <p>{{user.currentUser.name}}</p>
-                            </div>
-                        </div>
-                        <div class="row">      
-                            <div class="col-sm-3">
-                                <p>Column: </p>      
-                            </div>
-                            <div class="col-sm-2">
-                                <p>{{fastFlight.column}}</p>
-                            </div>
-                            <div class="col-sm-3">
-                                <p>Last Name: </p>      
-                            </div>
-                            <div class="col-sm-4" >
-                                <p>{{user.currentUser.lastName}}</p>  
-                            </div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <app-flight-panel  [flight]="fastFlight.flight"></app-flight-panel>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h4 class="h4">
-                                    Price:
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h3>
-                                    {{fastFlight.price}}
-                                </h3>   
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <button class="btn btn-danger" (click)="Cancel()" *ngIf=" checkIfTimeOk(fastFlight.flight.startDate)">
-                                    Cancel
-                                </button> 
-                                <button class="btn btn-info" (click)="Rate()" *ngIf="!fastFlight.isRated && !checkIfTimeOk(fastFlight.flight.startDate)">
-                                    Rate
-                                </button>     
-                            </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row" >
+                                        <div class="col-md-9">
+                                            
+                                            <div class="row">     
+                                                <div class="col-sm-3">
+                                                    <p>ID: </p>   
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>{{fastFlight.id}}</p>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <p>Luggage(kg): </p> 
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <p>{{fastFlight.loadWeight}}</p>         
+                                                </div>
+                                            </div>
+                                    
+                                            <div class="row">            
+                                                <div class="col-sm-3">
+                                                    <p>Row: </p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>{{fastFlight.row}}</p>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <p>Name: </p>    
+                                                </div>
+                                                <div class="col-sm-4" >
+                                                    <p>{{user.currentUser.name}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">      
+                                                <div class="col-sm-3">
+                                                    <p>Column: </p>      
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>{{fastFlight.column}}</p>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <p>Last Name: </p>      
+                                                </div>
+                                                <div class="col-sm-4" >
+                                                    <p>{{user.currentUser.lastName}}</p>  
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <h4 class="h4">
+                                                        Price:
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <h3>
+                                                        {{fastFlight.price}}
+                                                    </h3>   
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <button class="btn btn-danger" (click)="Cancel()" *ngIf=" checkIfTimeOk(fastFlight.flight.startDate)">
+                                                        Cancel
+                                                    </button> 
+                                                    <button class="btn btn-info" (click)="Rate()" *ngIf="!fastFlight.isRated && !checkIfTimeOk(fastFlight.flight.startDate)">
+                                                        Rate
+                                                    </button>     
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
                         </div>
                     </div>
+   
+                     
                 </div>
-            </div>
-        </div>    
+            </div> 
+        </div>
     </div>
-</div>   
+</div>
+  
 

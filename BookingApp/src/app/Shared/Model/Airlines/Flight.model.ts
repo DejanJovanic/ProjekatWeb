@@ -27,6 +27,7 @@ export class Flight{
     weightPricings : LoadWeigth[]
     extras : Extra[]
     loadInCabin : number;
+    isFromSearch : boolean
     
     constructor(airline : AirlineCompany){
         this.airline = airline;

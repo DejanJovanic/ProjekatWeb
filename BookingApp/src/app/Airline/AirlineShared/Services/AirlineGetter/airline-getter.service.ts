@@ -26,6 +26,7 @@ export class AirlineGetterService {
         for(let airline of i){
           if(airline.flights)
             for(let flight of airline.flights){
+              flight.isFromSearch = true;
               flights.push(flight);
           }
         }

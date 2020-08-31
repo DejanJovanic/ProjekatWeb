@@ -11,6 +11,7 @@ namespace BookingAppBackend.Model.Airlines.Resources
         public string Name { get; set; }
         public AirlineAddress Address { get; set; }
         public string Description { get; set; }
+        public double Rating { get; set; }
         public IEnumerable<string> Destinations { get; set; }
         public IEnumerable<Airplane> Airplanes { get; set; }
         public IEnumerable<Flight> Flights { get; set; }

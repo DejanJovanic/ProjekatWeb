@@ -41,6 +41,11 @@ namespace BookingAppBackend.Controllers.FlightReservation
                         var temp = new ReservationParameter();
                         temp.Flight = mapper.Map<FlightResource>(a.AirlineTickets.First().Flight);
                         temp.Airline = mapper.Map<AirlineResource>(a.AirlineTickets.First().Airline);
+ 
+                        if(a.AirlineTickets.First().Airline.Ratings.Count > 0)
+                            temp.Airline.Rating = a.AirlineTickets.First().Airline.Ratings.Sum(i => i.Rate) / a.AirlineTickets.First().Airline.Ratings.Count;
+                        else
+                            temp.Airline.Rating = 0;
                         temp.Tickets = mapper.Map<ICollection<TicketParameter>>(a.AirlineTickets);
                         foreach(var b in temp.Tickets)
                         {
@@ -48,6 +53,7 @@ namespace BookingAppBackend.Controllers.FlightReservation
                         }
                         res.Add(temp);
                     }
+
                     return Ok(res);
                 }
                 else

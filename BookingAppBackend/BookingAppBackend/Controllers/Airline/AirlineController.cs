@@ -32,8 +32,17 @@ namespace BookingAppBackend.Controllers.Airline
             if (!ModelState.IsValid)
                 return BadRequest(new { Message = "Invalid search parameters supplied" });
             var ret = await service.GetAirlines(param);
-            
-            return Ok(new { Airlines = mapper.Map<IEnumerable<AirlineResource>>(ret) }); 
+           
+            var temp = mapper.Map<IEnumerable<AirlineResource>>(ret);
+            foreach(var a in temp)
+            {
+                var b = ret.First(i => i.Id == a.Id);
+                if(b.Ratings.Count > 0)
+                    a.Rating = b.Ratings.Sum(i => i.Rate) / b.Ratings.Count;
+                else
+                    a.Rating = 0;
+            }
+            return Ok(new { Airlines = temp}); 
 
         }
 

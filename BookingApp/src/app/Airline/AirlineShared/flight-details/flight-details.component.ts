@@ -14,7 +14,7 @@ import { AirlineCacheService } from '../Services/AirlineCache/airline-cache.serv
 export class FlightDetailsComponent implements OnInit {
   private obs : Subscription;
   public flight : Flight
-  private details : FlightDetails
+  public details : FlightDetails
   public seats : Seats
   public isUser : boolean;
   constructor(private route : ActivatedRoute,private cache : AirlineCacheService) { }

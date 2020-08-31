@@ -30,7 +30,7 @@ namespace BookingAppBackend.Controllers.FastFlightReservation
         public async Task<IActionResult> GetFlights()
         {
             var ret = await service.Get(User.Identity.Name);
-            foreach(var a in ret)
+            foreach (var a in ret)
             {
                 foreach (var b in a.Flight.PaidExtras)
                     b.FastFlights = null;
@@ -39,7 +39,16 @@ namespace BookingAppBackend.Controllers.FastFlightReservation
                     b.FastFlight = null;
 
             }
-            return Ok(mapper.Map<IEnumerable<FastFlightResource>>(ret));
+            var temp = mapper.Map<IEnumerable<FastFlightResource>>(ret);
+            foreach (var a in temp)
+            {
+                var b = ret.First(i => i.Id == a.Id);
+                if (b.Airline.Ratings.Count > 0)
+                   a.Airline.Rating = b.Airline.Ratings.Sum(i => i.Rate) / b.Airline.Ratings.Count;
+                else
+                    a.Airline.Rating = 0;
+            }
+            return Ok(temp);
         }
 
         [HttpPost]
@@ -58,7 +67,14 @@ namespace BookingAppBackend.Controllers.FastFlightReservation
                     a.PaidExtra.Tickets = null;
                 }
                 ret.Resource.Flight.PaidExtras = null;
-                return Ok(mapper.Map<FastFlightResource>(ret.Resource));
+                var temp = mapper.Map<FastFlightResource>(ret);
+
+                    var b = ret.Resource;
+                if (b.Airline.Ratings.Count > 0)
+                    temp.Airline.Rating = b.Airline.Ratings.Sum(i => i.Rate) / b.Airline.Ratings.Count;
+                else
+                    temp.Airline.Rating = 0;
+                return Ok(temp);
             }       
             else
                 return BadRequest(new { Message = ret.Message });
@@ -80,7 +96,14 @@ namespace BookingAppBackend.Controllers.FastFlightReservation
                     a.PaidExtra.Tickets = null;
                 }
                 ret.Resource.Flight.PaidExtras = null;
-                return Ok(mapper.Map<FastFlightResource>(ret.Resource));
+                var temp = mapper.Map<FastFlightResource>(ret);
+    
+                    var b = ret.Resource;
+                if (b.Airline.Ratings.Count > 0)
+                    temp.Airline.Rating = b.Airline.Ratings.Sum(i => i.Rate) / b.Airline.Ratings.Count;
+                else
+                    temp.Airline.Rating = 0;
+                return Ok(temp);
             }
             else
                 return BadRequest(new { Message = ret.Message });

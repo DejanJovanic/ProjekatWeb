@@ -24,7 +24,13 @@ export class ReservationService {
         let reservations : FlightReservation[] = []
         for(let  a of items){
           let reservation = new FlightReservation()
-          
+          if(a.flight.stopsLocations){
+            a.flight.numberOfStops = a.flight.stopsLocations.length
+          }
+          else{
+            a.flight.numberOfStops = 0
+            a.flight.stopsLocations = []
+          }
           a.flight.airline = a.airline;
           reservation.flight = a.flight
           let tickets = []
@@ -45,6 +51,7 @@ export class ReservationService {
             temp.details.name = item.name;
             temp.details.lastName = item.lastName;
             temp.price = item.price
+            a.flight.isFromSearch = false;
             tickets.push(temp);
           }
           reservation.tickets = tickets;

@@ -1,94 +1,101 @@
-<div class="card">
-    <div class="card-body">
-    
-        <div class="card">
-            <div class="card-body">
-                <p>
-                    <span> #{{reservation.flight.id}} From: {{reservation.flight.startLocation}} {{reservation.flight.startDate}} To: {{reservation.flight.endLocation}} {{reservation.flight.endDate}}</span> <button class="btn btn-primary" (click)="ShowCompanyInfo()">Show airline info</button>
-                    <span *ngIf="reservation.flight.isRoundTrip"> {{reservation.flight.endDateBack}} {{reservation.flight.startDateBack}}</span>
-                </p>
-            </div>
-        </div>
-        <div class="card" *ngFor="let ticket of reservation.tickets">
-            <div class="card-body">
-                <div class="row" >
-                    <div class="col-md-9">
-                        
-                        <div class="row">     
-                            <div class="col-sm-3">
-                                <p>ID: </p>   
-                            </div>
-                            <div class="col-sm-2">
-                                <p>{{ticket.id}}</p>
-                            </div>
-                            <div class="col-sm-3">
-                                <p>Luggage(kg): </p> 
-                            </div>
-                            <div class="col-sm-4">
-                                <p>{{ticket.luggageWeigth}}</p>         
-                            </div>
-                        </div>
-                
-                        <div class="row">            
-                            <div class="col-sm-3">
-                                <p>Row: </p>
-                            </div>
-                            <div class="col-sm-2">
-                                <p>{{ticket.row}}</p>
-                            </div>
-                            <div class="col-sm-3">
-                                <p>Name: </p>    
-                            </div>
-                            <div class="col-sm-4" *ngIf="ticket.details">
-                                <p>{{ticket.details.name}}</p>
-                            </div>
-                        </div>
-                        <div class="row">      
-                            <div class="col-sm-3">
-                                <p>Column: </p>      
-                            </div>
-                            <div class="col-sm-2">
-                                <p>{{ticket.column}}</p>
-                            </div>
-                            <div class="col-sm-3">
-                                <p>Last Name: </p>      
-                            </div>
-                            <div class="col-sm-4" *ngIf="ticket.details">
-                                <p>{{ticket.details.lastName}}</p>  
-                            </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <app-flight-panel  [flight]="reservation.flight"></app-flight-panel>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h4 class="h4">
-                                    Price:
-                                </h4>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="card" *ngFor="let ticket of reservation.tickets">
+                                <div class="card-body">
+                                    <div class="row" >
+                                        <div class="col-md-9">
+                                            
+                                            <div class="row">     
+                                                <div class="col-sm-3">
+                                                    <p>ID: </p>   
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>{{ticket.id}}</p>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <p>Luggage(kg): </p> 
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <p>{{ticket.luggageWeigth}}</p>         
+                                                </div>
+                                            </div>
+                                    
+                                            <div class="row">            
+                                                <div class="col-sm-3">
+                                                    <p>Row: </p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>{{ticket.row}}</p>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <p>Name: </p>    
+                                                </div>
+                                                <div class="col-sm-4" *ngIf="ticket.details">
+                                                    <p>{{ticket.details.name}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">      
+                                                <div class="col-sm-3">
+                                                    <p>Column: </p>      
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>{{ticket.column}}</p>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <p>Last Name: </p>      
+                                                </div>
+                                                <div class="col-sm-4" *ngIf="ticket.details">
+                                                    <p>{{ticket.details.lastName}}</p>  
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <h4 class="h4">
+                                                        Price:
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <h3>
+                                                        {{ticket.price}}
+                                                    </h3>   
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <button class="btn btn-primary" *ngIf="!ticket.isApproved && checkIfTimeOk(reservation.flight.startDate)" (click)="Manage(ticket)" >
+                                                        Manage invitation
+                                                    </button> 
+                                                    <button class="btn btn-danger" (click)="Cancel(ticket)" *ngIf="ticket.isApproved && checkIfTimeOk(reservation.flight.startDate)">
+                                                        Cancel
+                                                    </button> 
+                                                    <button class="btn btn-info" (click)="Rate(ticket)" *ngIf="ticket.isApproved && !ticket.isRated && !checkIfTimeOk(reservation.flight.startDate)">
+                                                        Rate
+                                                    </button>     
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h3>
-                                    {{ticket.price}}
-                                </h3>   
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <button class="btn btn-primary" *ngIf="!ticket.isApproved && checkIfTimeOk(reservation.flight.startDate)" (click)="Manage(ticket)" >
-                                    Manage invitation
-                                </button> 
-                                <button class="btn btn-danger" (click)="Cancel(ticket)" *ngIf="ticket.isApproved && checkIfTimeOk(reservation.flight.startDate)">
-                                    Cancel
-                                </button> 
-                                <button class="btn btn-info" (click)="Rate(ticket)" *ngIf="ticket.isApproved && !ticket.isRated && !checkIfTimeOk(reservation.flight.startDate)">
-                                    Rate
-                                </button>     
-                            </div>
-                        </div>
-                    </div>
+            
                 </div>
-            </div>
-        </div>    
+            </div> 
+        </div>
     </div>
-</div>   
+</div>
+  
