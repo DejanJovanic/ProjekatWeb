@@ -1,5 +1,6 @@
 ﻿using BookingAppBackend.Database.Contex;
 using BookingAppBackend.Database.Interfaces.RentACar;
+using BookingAppBackend.Model.RentACar.Parameters;
 using BookingAppBackend.Model.Users;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -24,6 +25,22 @@ namespace BookingAppBackend.Database.Repository.RentACar
             {
                 context.RentACarAdmins.Add(admin);
                 return admin;
+            }
+            else
+                return null;
+        }
+
+        public async Task<RentACarAdmin> EditProfile(RentACarAdminEditProfile parameters)
+        {
+
+            var temp = await context.RentACarAdmins.FindAsync(parameters.Username);
+            if (temp != null)
+            {
+                temp.City = parameters.City;
+                temp.Name = parameters.FirstName;
+                temp.LastName = parameters.LastName;
+                temp.PhoneNumber = parameters.PhoneNumber;
+                return temp;
             }
             else
                 return null;

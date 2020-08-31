@@ -92,7 +92,7 @@
 							<input [ngClass] ="{'is-invalid': registerForm.get('password').touched && registerForm.get('password').invalid}" formControlName="password"  class="form-control" placeholder="Create password" type="password">
 							<div *ngIf="registerForm.get('password').touched && registerForm.get('password').invalid" class="invalid-feedback">
 								<div *ngIf="registerForm.get('password').errors.required" ><i class="fas fa-times-circle" style="color: red;"></i> Password is required.</div>
-								<div *ngIf="registerForm.get('password').errors.minlength"><i class="fas fa-times-circle" style="color: red;"></i> Password must be at least 8 characters long.</div>
+								<div *ngIf="registerForm.get('password').errors.minLength"><i class="fas fa-times-circle" style="color: red;"></i> Password must be at least 8 characters long.</div>
 							</div>
 
 						</div> <!-- form-group// -->

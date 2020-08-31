@@ -18,14 +18,19 @@ export class RentACarReservationConfirmationModalComponent implements OnInit {
   @Input()
   item: CarReservation
   return;
+  role: string;
+ 
   constructor(private routeService: Router, public activeModal : NgbActiveModal, private toaster: ToastrService, private carService: CarService) { }
 
   ngOnInit(): void {
+    this.role = localStorage["Role"];
+  
   }
 
   setReservation(){
     if(this.item.realizedPackage == null)
       this.item.realizedPackage = new SpecialOffer();
+    
       this.carService.setReservation(this.item).subscribe(i =>{
           this.return = i;
           this.toaster.success("Your reservation request has been successfully executed. You will be redirected to enterprise profile in 3 seconds.",'Create reservation',{

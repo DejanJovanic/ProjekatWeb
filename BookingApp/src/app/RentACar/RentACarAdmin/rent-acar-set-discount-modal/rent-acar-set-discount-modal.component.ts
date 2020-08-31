@@ -64,7 +64,7 @@ export class RentACarSetDiscountModalComponent implements OnInit {
       })
 
       setTimeout(() => {
-        this.routeService.navigate(['/EnterpriseProfile/', this.item.enterpriseId]);
+        this.routeService.navigate(['RentACarEnterpriseAdmin']);
     }, 3000); 
 
       this.activeModal.close();

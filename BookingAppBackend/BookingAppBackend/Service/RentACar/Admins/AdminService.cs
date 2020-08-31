@@ -1,6 +1,7 @@
 ﻿using BookingAppBackend.Database.Interfaces;
 using BookingAppBackend.Database.Interfaces.RentACar;
 using BookingAppBackend.Model.AuthentificationAndAuthorization;
+using BookingAppBackend.Model.RentACar.Parameters;
 using BookingAppBackend.Model.Users;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -66,7 +67,16 @@ namespace BookingAppBackend.Service.RentACar.Admins
              else
                  return null;
          }
-     
+
+        public async Task<RentACarAdmin> EditProfile(RentACarAdminEditProfile parameters)
+        {
+            var temp = await repo.EditProfile(parameters);
+            if (temp != null)
+                await unitOfWork.CompleteAsync();
+
+            return temp;
+        }
+
     }
 }
  

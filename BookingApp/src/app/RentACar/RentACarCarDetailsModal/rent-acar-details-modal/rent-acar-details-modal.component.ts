@@ -19,7 +19,7 @@ export class RentACarDetailsModalComponent implements OnInit {
   item : Car
   role: string;
   disableButtons: boolean = false;
- 
+  disableSale: boolean = false;
   constructor(public activeModal : NgbActiveModal, private modalService : NgbModal) { 
     this.role = localStorage["Role"]
   }
@@ -70,11 +70,12 @@ export class RentACarDetailsModalComponent implements OnInit {
 
     for(let i: number = 0; i < this.item.discounts.length; i++){
       var dateTo = new Date(this.item.discounts[i].discountTo);
-      if(today < dateTo){
-        this.disableButtons = true;
-        break;
+      if( today < dateTo){
+            this.disableSale = true;
+              break;
       }
     }
+
   }
 
  

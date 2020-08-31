@@ -5,5 +5,6 @@ export class DiscountDetails{
     dateTo : Date;
     rentedDay: Date;
     percentage: number;
+    username: string;
     constructor(){}
 }

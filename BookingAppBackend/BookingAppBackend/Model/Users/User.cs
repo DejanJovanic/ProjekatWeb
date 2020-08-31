@@ -1,4 +1,5 @@
 ﻿using BookingAppBackend.Model.Airlines;
+using BookingAppBackend.Model.RentACar;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace BookingAppBackend.Model.Users
         public ICollection<Friend> MyFriends { get; set; } = new List<Friend>();
         public ICollection<PendingRequest> MyPendingRequests { get; set; } = new List<PendingRequest>();
         public ICollection<UserReservation> MyReservations { get; set; } = new List<UserReservation>();
+        public ICollection<UserCarReservation> CarReservations { get; set; } = new List<UserCarReservation>();
         public User() { }
     }
 }

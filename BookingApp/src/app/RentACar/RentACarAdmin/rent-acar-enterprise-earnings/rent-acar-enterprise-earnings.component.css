@@ -1,0 +1,80 @@
+.bg-img{
+    min-height: 100vh;
+    width: 100%;
+    background: url('../../../../assets/RentACarEnterpriseBackground.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+label{
+    color: #fcfcfc;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.3vw;
+}
+input, select, textarea{
+    color: #fcfcfc;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.3vw;
+}
+
+textarea:focus, input:focus {
+    color: #fcfcfc;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.3vw;
+}
+
+input{
+    background-color: rgba(0, 0, 0, 0.733) !important;
+}
+
+
+::placeholder { 
+    color:white;
+    opacity: 1; 
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    
+}
+#searchButton{
+    float:right;
+}
+#resetButton{
+    float: right;
+}
+.card{
+    
+    background-color: rgba(0, 0, 0, 0.733) !important;
+    width: 250mm; 
+    padding: 5mm;
+}
+
+.d-flex{
+    margin-top:200px;
+    
+}
+
+ h4{
+    color: white;
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.2vw;
+}
+
+.my-1:hover {
+    padding-top: 1vw;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.my-1{
+    margin:auto;
+    height: 280px;
+    width: 400px;
+    background-color: rgba(0, 0, 0, 0.733) !important;
+}
+  

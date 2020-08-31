@@ -56,7 +56,7 @@ export class RentACarAddSpecialOfferModalComponent implements OnInit {
           timeOut : 2000
         })
         setTimeout(() => {
-          this.routeService.navigate(['/EnterpriseProfile/', this.item]);
+          this.routeService.navigate(['RentACarEnterpriseAdmin']);
       }, 3000);  
         this.activeModal.close();
         

@@ -9,7 +9,7 @@ export class CarReservationParameters{
     dateFrom : Date;
     dateTo : Date;
     rentedDay: Date;
-
+   
     constructor (){  }
  
 }

@@ -23,7 +23,7 @@ namespace BookingAppBackend.Controllers.RentACar
         }
 
         [HttpPut]
-        //[Authorize(Roles ="RentACarAdmin")]
+        [Authorize(Roles ="RentACarAdmin")]
         [Route("EditEnterpriseProfile")]
         public async Task<IActionResult> EditEnterpriseProfile(EditEnterpriseParameters enterprise)
         {
@@ -95,6 +95,7 @@ namespace BookingAppBackend.Controllers.RentACar
         }
 
         [HttpPost]
+        [Authorize(Roles ="User")]
         [Route("SetRating")]
         public async Task<IActionResult> SetRating(RatingParameters rating)
         {
@@ -110,8 +111,9 @@ namespace BookingAppBackend.Controllers.RentACar
                 return BadRequest(new { Message = "Invalid parameters supplied." });
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("AddEnterprise")]
-        [Authorize(Roles ="Admin")]
+       
         public async Task<IActionResult> AddEnterprise(EditEnterpriseParameters enterprise)
         {
             if (ModelState.IsValid)

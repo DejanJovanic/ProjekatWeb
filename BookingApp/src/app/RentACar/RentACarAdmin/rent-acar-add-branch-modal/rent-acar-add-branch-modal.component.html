@@ -49,7 +49,7 @@
             <!--<label for="street">Street</label>!-->
             <input placeholder="Branch street"  [ngClass] ="{'is-invalid': addBranchForm.get('branchStreet').touched && addBranchForm.get('branchStreet').invalid}" type="text" formControlName="branchStreet"  id = "street" class="form-control"> 
             <div  class="invalid-feedback">
-              <div *ngIf = "addBranchForm.get('branchStreet').errors.required"><i class="fas fa-times-circle" style="color: red;"></i> Branch street is required.</div>
+              <div><i class="fas fa-times-circle" style="color: red;"></i> Branch street is required.</div>
          
               
             </div> 

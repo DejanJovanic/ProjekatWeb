@@ -21,5 +21,8 @@ namespace BookingAppBackend.Model.RentACar.Parameters
 
         [Required]
         public int Percentage { get; set; }
+
+        [Required]
+        public string Username { get; set; }
     }
 }

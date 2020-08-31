@@ -5,16 +5,15 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
                         <li class="nav-item"><a title="Click to see our cars" class="nav-link" [routerLink]="['/EnterpriseCars/', id]" routerLinkActive="router-link-active">Cars</a></li>
-                       <!--*ngIf="role ===  'User'" ovo je bilo dole -->
-                        <li    class="nav-item"><a title="Click to rent a car" class="nav-link" [routerLink]="['/EnterpriseRentACar/', id]" routerLinkActive="router-link-active">Rent a car</a></li>
+                       <!--ovo je bilo dole -->
+                        <li *ngIf="role ===  'User'"    class="nav-item"><a title="Click to rent a car" class="nav-link" [routerLink]="['/EnterpriseRentACar/', id]" routerLinkActive="router-link-active">Rent a car</a></li>
                         <li class="nav-item"><a title="Click to see our special offers" class="nav-link" [routerLink]="['/EnterpriseSpecialOffers/', id]" routerLinkActive="router-link-active">Special offers</a></li>
-                        <!--*ngIf="role ===  'User'" ovo je bilo dole -->
-                        <li   class="nav-item"><a [routerLink]="['/EnterpriseDiscounts/', id]" routerLinkActive="router-link-active" title="Click to see our cars on discount" class="nav-link">Cars on discount</a></li>
+                        <!-- ovo je bilo dole -->
+                        <li  *ngIf="role ===  'User'" class="nav-item"><a [routerLink]="['/EnterpriseDiscounts/', id]" routerLinkActive="router-link-active" title="Click to see our cars on discount" class="nav-link">Cars on discount</a></li>
                         <li class="nav-item"><a title="Click to see our branches" class="nav-link" [routerLink]="['/EnterpriseBranches/', id]" routerLinkActive="router-link-active">Branches</a></li>
                         <li class="nav-item"><a  title="Click to see our location on map" class="nav-link" [routerLink]="['/EnterpriseLocation/', id]" routerLinkActive="router-link-active">Location on map</a></li>
                         <li *ngIf="role === 'Admin'" class="nav-item"><a  title="Click to add admin for this enterprise" class="nav-link" (click)="openAddAdminModal()" >Add admin for enterprise</a></li>
-                        <li  class="nav-item"><a  title="Click to add admin for this enterprise" class="nav-link" [routerLink]="['/EnterpriseEarnings/', id]" routerLinkActive="router-link-active" >Daily earnings</a></li>
-                        <li  class="nav-item"><a  title="Click to add admin for this enterprise" class="nav-link" [routerLink]="['/RentedCars/', id]" routerLinkActive="router-link-active" >Rented cars</a></li>
+                      
                     </ul>
                 </div>
             </div>
