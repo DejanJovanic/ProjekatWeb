@@ -29,6 +29,23 @@ namespace BookingAppBackend.Database.Repository.RentACar
 
         }
 
+        public async Task<Enterprise> AddEnterprise(EditEnterpriseParameters enterprise)
+        {
+
+            var enterprisee = new Enterprise();
+            enterprisee.Address = new EnterpriseAddress();
+            enterprisee.Name = enterprise.Name;
+            enterprisee.Description = enterprise.Description;
+            enterprisee.Address.City = enterprise.Address.City;
+            enterprisee.Address.Country = enterprise.Address.Country;
+            enterprisee.Address.Street = enterprise.Address.Street;
+            enterprisee.Address.StreetNo = enterprise.Address.StreetNo;
+            enterprisee.Address.ZipCode = enterprise.Address.ZipCode;
+
+            context.Enterprises.Add(enterprisee);
+            return enterprisee;
+        }
+
         public async Task<IEnumerable<Enterprise>> GetAllEnterprises()
         {
             return await context.Enterprises.ToListAsync();
@@ -45,7 +62,7 @@ namespace BookingAppBackend.Database.Repository.RentACar
 
         public async Task<Enterprise> GetOneEnterprise(int enterpriseId)
         {
-            return await context.Enterprises.Include(i=> i.Rating).Include(i => i.Address).FirstOrDefaultAsync(i => i.Id == enterpriseId);
+            return await context.Enterprises.Include(i=> i.Rating).Include(i => i.Address).Include(i => i.Cars).ThenInclude(i => i.Reservations).FirstOrDefaultAsync(i => i.Id == enterpriseId);
         }
 
         public async Task<Enterprise> GetCarsOfCompanyForRent(int enterpriseId)
@@ -55,7 +72,8 @@ namespace BookingAppBackend.Database.Repository.RentACar
 
         public async Task<Enterprise> GetCarsOnDiscount(int enterpriseId)
         {
-            return await context.Enterprises.Include(i => i.Cars).ThenInclude(i => i.Discounts).FirstOrDefaultAsync(i => i.Id == enterpriseId);
+            return await context.Enterprises.Include(i => i.Cars).ThenInclude(i => i.Discounts).Include(i => i.Cars).ThenInclude(i => i.Ratings).FirstOrDefaultAsync(i => i.Id == enterpriseId);
         }
+
     }
 }

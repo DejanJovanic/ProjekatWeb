@@ -24,14 +24,18 @@ export class RentACarBranchDetailsModalComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openEditBranchModal(branchId: number){
+  openEditBranchModal(){
     const modalRef = this.modalService.open(RentACarEditBranchModalComponent);
-    modalRef.componentInstance.item = this.EnterpriseService.getOneBranch(branchId);
+    modalRef.componentInstance.item = this.item;
+
+    this.activeModal.close();
   }
 
-  openDeleteBranchModal(branchId: number){
+  openDeleteBranchModal(){
     const modalRef = this.modalService.open(RentACarDeleteBranchModalComponent);
-    modalRef.componentInstance.item = this.EnterpriseService.getOneBranch(branchId);
+    modalRef.componentInstance.item = this.item;
+
+    this.activeModal.close();
   }
 
 }

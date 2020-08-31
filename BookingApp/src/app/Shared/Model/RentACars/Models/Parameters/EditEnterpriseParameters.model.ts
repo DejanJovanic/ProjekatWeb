@@ -6,5 +6,7 @@ export class EditEnterpriseParameters{
     description: string;
     address: EnterpriseAddress;
 
-    constructor(){}
+    constructor(){
+        this.address = new EnterpriseAddress();
+    }
 }

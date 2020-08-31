@@ -102,6 +102,7 @@ namespace BookingAppBackend
             {
                 config.AddPolicy(Policies.AirlineAdmin, Policies.AirlineAdminPolicy());
                 config.AddPolicy(Policies.User, Policies.UserPolicy());
+                config.AddPolicy(Policies.User, Policies.RentACarAdminPolicy());
             });
 
             //DI services

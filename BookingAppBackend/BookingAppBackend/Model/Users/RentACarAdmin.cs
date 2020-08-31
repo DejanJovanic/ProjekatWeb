@@ -8,12 +8,13 @@ namespace BookingAppBackend.Model.Users
 {
     public class RentACarAdmin
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Phone { get; set; }
-        public string City { get; set; }
         [Key]
         public string Username { get; set; }
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        public string City { get; set; }
+        public string PhoneNumber { get; set; }
+       
         public int EnterpriseId { get; set; }
         public RentACarAdmin() { }
     }

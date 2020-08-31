@@ -75,6 +75,7 @@
         </form>
     </div>
   </div>
+  <button *ngIf="role ===  'Admin'" (click) = "openEnterpriseAddModal()" type="button"  class="btn btn-outline-primary btn-rounded "><i class="fas fa-plus mr-1"></i> Add </button>
   <section class="pricing py-5">
   <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" [animation]="'fade'">
     <mdb-carousel-item class="d-flex justify-content-center" *ngFor="let item of slides; let i = index">

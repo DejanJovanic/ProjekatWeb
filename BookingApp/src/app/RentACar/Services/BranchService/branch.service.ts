@@ -12,13 +12,21 @@ export class BranchService {
   constructor(private client : HttpClient) { }
 
   //metoda za dodavanje nove filijale, koju poziva rentACarAdmin odredjene kompanije
-  addBranch(enterpriseBranch: AddBranchParameters){}
+  addBranch(enterpriseBranch: AddBranchParameters){
+    return this.client.post('http://localhost:50000/api/Branch/AddBranch', enterpriseBranch);
+  }
 
   //metoda za izmenu jedne filijale, koju poziva rentACarAdmin odredjene kompanije
-  editBranch(enterpriseBranch: EditBranchParameters){}
+  editBranch(enterpriseBranch: EditBranchParameters){
+    return this.client.put('http://localhost:50000/api/Branch/EditBranch', enterpriseBranch);
+  }
 
   //metoda za brisanje jedne filijale, koju poziva rentACarAdmin odredjene kompanije
-  deleteBranch(enterpriseId: number, branchId: number){}
+  deleteBranch(enterpriseId: number, branchId: number){
+    return this.client.delete('http://localhost:50000/api/Branch/DeleteBranch',{
+      params: new HttpParams().set('enterpriseId', enterpriseId.toString()).set('branchId', branchId.toString())
+    })
+  }
 
   //metoda za pribavljanje svih filijala odredjene rentACar kompanije
   getAllBranches(enterpriseId: number){

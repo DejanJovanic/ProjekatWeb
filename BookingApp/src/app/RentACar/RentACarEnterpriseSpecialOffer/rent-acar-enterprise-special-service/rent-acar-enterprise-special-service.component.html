@@ -1,7 +1,7 @@
 <div class="bg-img">
   <section class="pricing py-5">
     <!--*ngIf="role ===  'RentACarAdmin'"  bilo dole-->
-    <button (click) = "openSpecialOfferAddModal(id)" type="button"  class="btn btn-outline-primary btn-rounded "><i class="fas fa-plus mr-1"></i> Add </button>
+    <button (click) = "openSpecialOfferAddModal()" type="button"  class="btn btn-outline-primary btn-rounded "><i class="fas fa-plus mr-1"></i> Add </button>
           <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" [animation]="'fade'">
             <mdb-carousel-item class="d-flex justify-content-center" *ngFor="let item of slides; let i = index">
               <div class="col-md-4" *ngFor="let enterpriseOffer of item; let enterpriseIndex = index">

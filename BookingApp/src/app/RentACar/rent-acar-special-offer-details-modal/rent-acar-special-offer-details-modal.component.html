@@ -25,12 +25,12 @@
         </div>
         <div class="col">
              <!--*ngIf="role ===  'RentACarAdmin'"  ovo je bilo dole-->
-            <button (click) = "openSpecialOfferEditModal(item.id)" type="button" class="btn btn-outline-primary btn-rounded "><i class="fas fa-edit mr-1"></i> Edit </button>
+            <button (click) = "openSpecialOfferEditModal()" type="button" class="btn btn-outline-primary btn-rounded "><i class="fas fa-edit mr-1"></i> Edit </button>
           </div>
 
         <div class="col">
              <!--*ngIf="role ===  'RentACarAdmin'"  ovo je bilo dole-->
-            <button type="button" (click)="openDeleteSpecialOfferModal(item.id)" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-trash mr-1"></i> Delete </button>
+            <button type="button" (click)="openDeleteSpecialOfferModal()" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-trash mr-1"></i> Delete </button>
         </div>
     </div>
 

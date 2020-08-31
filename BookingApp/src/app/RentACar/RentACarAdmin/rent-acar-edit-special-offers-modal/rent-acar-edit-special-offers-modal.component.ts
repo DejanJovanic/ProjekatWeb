@@ -6,6 +6,7 @@ import { ValidationService } from '../../Services/ValidationService/validation.s
 import { EditSpecialOfferParameters } from 'src/app/Shared/Model/RentACars/Models/Parameters/EditSpecialOfferParameters.model';
 import { SpecialOfferService } from '../../Services/SpecialOfferService/special-offer.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-rent-acar-edit-special-offers-modal',
   templateUrl: './rent-acar-edit-special-offers-modal.component.html',
@@ -13,12 +14,12 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RentACarEditSpecialOffersModalComponent implements OnInit {
 
-  alert: boolean = false;
+
   editEnterpriseSpecialOffer: FormGroup;
   offer;
   @Input()
   item : SpecialOffer
-  constructor(private toaster: ToastrService,private specialOfferService: SpecialOfferService, private service: ValidationService, public activeModal : NgbActiveModal) { }
+  constructor(private routeService: Router, private toaster: ToastrService,private specialOfferService: SpecialOfferService, private service: ValidationService, public activeModal : NgbActiveModal) { }
 
   ngOnInit(): void {
     this.setForm();
@@ -38,17 +39,24 @@ export class RentACarEditSpecialOffersModalComponent implements OnInit {
    
     var parameters = new EditSpecialOfferParameters();
     parameters.name = this.editEnterpriseSpecialOffer.value.specialOfferName;
-    parameters.discountPercentage = this.editEnterpriseSpecialOffer.value.specialOfferPrice;
+    parameters.discount = this.editEnterpriseSpecialOffer.value.specialOfferPrice;
     parameters.enterpriseId = this.item.enterpriseId;
     parameters.specialOfferId = this.item.id;
     parameters.description = this.editEnterpriseSpecialOffer.value.specialOfferDescription;
     parameters.numberOfDays = this.editEnterpriseSpecialOffer.value.specialOfferNumberOfDays;
-   
-    this.specialOfferService.addSpecialOffer(parameters).subscribe(i =>{
+    parameters.numberOfDays = parameters.numberOfDays.toString();
+    parameters.discount = parameters.discount.toString();
+    console.log(parameters);
+    this.specialOfferService.editSpecialOffer(parameters).subscribe(i =>{
         this.offer = i;
-        this.toaster.success("Edit special offer has been successfully executed",'Edit special offer',{
-          timeOut : 3000
+        this.toaster.success("Edit operation has been successfully executed. You will be redirected to enterprise profile in 3 seconds.",'Edit special offer',{
+          timeOut : 2000
         })
+
+        setTimeout(() => {
+          this.routeService.navigate(['/EnterpriseProfile/', this.item.enterpriseId]);
+      }, 3000); 
+        this.activeModal.close();
     })
 
 

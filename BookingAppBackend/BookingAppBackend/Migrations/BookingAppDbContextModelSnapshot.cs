@@ -672,48 +672,6 @@ namespace BookingAppBackend.Migrations
                     b.ToTable("CarRating");
                 });
 
-            modelBuilder.Entity("BookingAppBackend.Model.RentACar.CarReservation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateFrom")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateTo")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsRated")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("NumberOfDays")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RealizedPackageId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SelectedCarId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SelectedEnterpriseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RealizedPackageId");
-
-                    b.HasIndex("SelectedCarId");
-
-                    b.HasIndex("SelectedEnterpriseId");
-
-                    b.ToTable("Reservations");
-                });
-
             modelBuilder.Entity("BookingAppBackend.Model.RentACar.Discount", b =>
                 {
                     b.Property<int>("Id")
@@ -845,6 +803,46 @@ namespace BookingAppBackend.Migrations
                     b.ToTable("EnterpriseRating");
                 });
 
+            modelBuilder.Entity("BookingAppBackend.Model.RentACar.ReservationCar", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateTo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRated")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("NumberOfDays")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RealizedPackageId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("RentedDay")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.HasIndex("RealizedPackageId");
+
+                    b.ToTable("Reservations");
+                });
+
             modelBuilder.Entity("BookingAppBackend.Model.RentACar.SpecialOffer", b =>
                 {
                     b.Property<int>("Id")
@@ -956,13 +954,13 @@ namespace BookingAppBackend.Migrations
                     b.Property<int>("EnterpriseId")
                         .HasColumnType("int");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Username");
@@ -1279,21 +1277,6 @@ namespace BookingAppBackend.Migrations
                         .HasForeignKey("CarId");
                 });
 
-            modelBuilder.Entity("BookingAppBackend.Model.RentACar.CarReservation", b =>
-                {
-                    b.HasOne("BookingAppBackend.Model.RentACar.SpecialOffer", "RealizedPackage")
-                        .WithMany()
-                        .HasForeignKey("RealizedPackageId");
-
-                    b.HasOne("BookingAppBackend.Model.RentACar.Car", "SelectedCar")
-                        .WithMany("Reservations")
-                        .HasForeignKey("SelectedCarId");
-
-                    b.HasOne("BookingAppBackend.Model.RentACar.Enterprise", "SelectedEnterprise")
-                        .WithMany("Reservations")
-                        .HasForeignKey("SelectedEnterpriseId");
-                });
-
             modelBuilder.Entity("BookingAppBackend.Model.RentACar.Discount", b =>
                 {
                     b.HasOne("BookingAppBackend.Model.RentACar.Car", null)
@@ -1320,6 +1303,17 @@ namespace BookingAppBackend.Migrations
                     b.HasOne("BookingAppBackend.Model.RentACar.Enterprise", null)
                         .WithMany("Rating")
                         .HasForeignKey("EnterpriseId");
+                });
+
+            modelBuilder.Entity("BookingAppBackend.Model.RentACar.ReservationCar", b =>
+                {
+                    b.HasOne("BookingAppBackend.Model.RentACar.Car", null)
+                        .WithMany("Reservations")
+                        .HasForeignKey("CarId");
+
+                    b.HasOne("BookingAppBackend.Model.RentACar.SpecialOffer", "RealizedPackage")
+                        .WithMany()
+                        .HasForeignKey("RealizedPackageId");
                 });
 
             modelBuilder.Entity("BookingAppBackend.Model.RentACar.SpecialOffer", b =>

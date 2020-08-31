@@ -58,10 +58,10 @@ export class RentACarEnterpriseAllCarsComponent implements OnInit {
       carTransmission: new FormControl(''),
       carFuel: new FormControl(''),
       carNumberOfSeats: new FormControl(''),
-      carYearOfProductionFrom: new FormControl('', [this.validationService.yearOfProductionValidator, this.validationService.numbersValidator]),
-      carYearOfProductionTo: new FormControl('', [this.validationService.yearOfProductionValidator, this.validationService.numbersValidator]),
-      carPriceFrom: new FormControl('', this.validationService.numbersValidator),
-      carPriceTo: new FormControl('', this.validationService.numbersValidator)
+      carYearOfProductionFrom: new FormControl('', [this.validationService.yearOfProductionValidator, this.validationService.numbersValidator, this.validationService.firstYearValidator]),
+      carYearOfProductionTo: new FormControl('', [this.validationService.yearOfProductionValidator, this.validationService.numbersValidator, this.validationService.secondYearValidator]),
+      carPriceFrom: new FormControl('', [this.validationService.numbersValidator, this.validationService.firstPriceValidator]),
+      carPriceTo: new FormControl('', [this.validationService.numbersValidator, this.validationService.secondPriceValidator])
       
     });
   }

@@ -47,9 +47,9 @@ export class RentACarBranchesComponent implements OnInit {
     return R;
   }
 
-  openBranchAddModal(enterpriseId: number){
+  openBranchAddModal(){
     const modalRef = this.modalService.open(RentACarAddBranchModalComponent);
-    //modalRef.componentInstance.item = this.EnterpriseService.getRentACarEnterprise(enterpriseId);
+    modalRef.componentInstance.item = this.id;
   }
 
   openBranchDetailsModal(branchId: number){
@@ -64,7 +64,7 @@ export class RentACarBranchesComponent implements OnInit {
       modalRef.componentInstance.item = this.OneBranch;
     })
    
-    //modalRef.componentInstance.item = this.EnterpriseService.getOneBranch(branchId);
+    
   }
 
 }

@@ -6,6 +6,7 @@ import { RentACarDeleteCarModalComponent } from '../../RentACarAdmin/rent-acar-d
 import { RentACarSetDiscountModalComponent } from '../../RentACarAdmin/rent-acar-set-discount-modal/rent-acar-set-discount-modal.component';
 
 import { Car } from 'src/app/Shared/Model/RentACars/Models/Car.model';
+import { RentACarStarRatingComponent } from '../../rent-acar-star-rating/rent-acar-star-rating.component';
 
 @Component({
   selector: 'app-rent-acar-details-modal',
@@ -18,7 +19,8 @@ export class RentACarDetailsModalComponent implements OnInit {
   item : Car
   role: string;
   disableButtons: boolean = false;
-  constructor(public activeModal : NgbActiveModal, private modalService : NgbModal,private EnterpriseService: RentACarEnterpriseServiceService) { 
+ 
+  constructor(public activeModal : NgbActiveModal, private modalService : NgbModal) { 
     this.role = localStorage["Role"]
   }
   CarRatingArr=[];
@@ -26,7 +28,7 @@ export class RentACarDetailsModalComponent implements OnInit {
   counter;
   isHalf = false;
   ngOnInit(): void {
-  
+   
     this.checkRentedDates();
     this.updateStars();
     this.getArrayValues(0);
@@ -54,30 +56,51 @@ export class RentACarDetailsModalComponent implements OnInit {
     }, 50);
   }
 
-  checkRentedDates(){
+  checkRentedDates(){ 
     var today = new Date();
-    
+   
     
     for(let i: number = 0; i < this.item.reservations.length; i++){
-      if((today.getTime() <= this.item.reservations[i].dateTo.getTime()) && (today.getTime() >= this.item.reservations[i].dateFrom.getTime())){
+      var dateTo = new Date(this.item.reservations[i].dateTo);
+      if( today < dateTo){
             this.disableButtons = true;
               break;
       }
     }
+
+    for(let i: number = 0; i < this.item.discounts.length; i++){
+      var dateTo = new Date(this.item.discounts[i].discountTo);
+      if(today < dateTo){
+        this.disableButtons = true;
+        break;
+      }
+    }
   }
 
-  openEditCarModal(carId: number){
+ 
+
+  openEditCarModal(){
     const modalRef = this.modalService.open(RentACarEditCarModalComponent);
     modalRef.componentInstance.item = this.item;
+    this.activeModal.close();
   }
 
-  openDeleteCarModal(carId: number){
+  openDeleteCarModal(){
     const modalRef = this.modalService.open(RentACarDeleteCarModalComponent);
     modalRef.componentInstance.item = this.item;
+
+    this.activeModal.close();
   }
 
-  openSetDiscountModal(carId: number){
+  openSetDiscountModal(){
     const modalRef = this.modalService.open(RentACarSetDiscountModalComponent);
     modalRef.componentInstance.item = this.item;
+    this.activeModal.close();
+  }
+
+  openRateModal(){
+    const modalRef = this.modalService.open(RentACarStarRatingComponent);
+    modalRef.componentInstance.item = this.item;
+    this.activeModal.close();
   }
 }

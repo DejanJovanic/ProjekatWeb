@@ -9,5 +9,6 @@ namespace BookingAppBackend.Service.RentACar.Admins
     public interface IAdminService
     {
         Task<RentACarAdmin> GetRentACarAdminAsync(string username);
+        Task<RentACarAdmin> AddRentACarAdmin(RentACarAdminAddParameters admin);
     }
 }

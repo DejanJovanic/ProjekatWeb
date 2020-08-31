@@ -23,7 +23,7 @@ namespace BookingAppBackend.Controllers.RentACar
         }
 
         [HttpPut]
-        [Authorize(Roles ="RentACarAdmin")]
+        //[Authorize(Roles ="RentACarAdmin")]
         [Route("EditEnterpriseProfile")]
         public async Task<IActionResult> EditEnterpriseProfile(EditEnterpriseParameters enterprise)
         {
@@ -93,5 +93,38 @@ namespace BookingAppBackend.Controllers.RentACar
             else
                 return BadRequest(new { Message = "Something went wrong. Please, try again later." });
         }
+
+        [HttpPost]
+        [Route("SetRating")]
+        public async Task<IActionResult> SetRating(RatingParameters rating)
+        {
+            if (ModelState.IsValid)
+            {
+                var temp = await enterpriseService.SetRating(rating);
+                if (temp != null)
+                    return Ok(temp);
+                else
+                    return BadRequest(new { Message = "Something went wrong. Please, try again later." });
+            }
+            else
+                return BadRequest(new { Message = "Invalid parameters supplied." });
+        }
+        [HttpPost]
+        [Route("AddEnterprise")]
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult> AddEnterprise(EditEnterpriseParameters enterprise)
+        {
+            if (ModelState.IsValid)
+            {
+                var temp = await enterpriseService.AddEnterprise(enterprise);
+                if (temp != null)
+                    return Ok(temp);
+                else
+                    return BadRequest(new { Message = "Something went wrong. Please, try again later." });
+            }
+            else
+                return BadRequest(new { Message = "Invalid parameters supplied." });
+        }
+
     }
 }

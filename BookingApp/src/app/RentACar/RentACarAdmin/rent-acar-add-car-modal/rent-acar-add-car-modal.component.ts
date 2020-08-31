@@ -7,6 +7,7 @@ import { Enterprise } from 'src/app/Shared/Model/RentACars/Models/Enterprise.mod
 import { AddCarParameters } from 'src/app/Shared/Model/RentACars/Models/Parameters/AddCarParameters.model';
 import { CarService } from '../../Services/CarService/car.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rent-acar-add-car-modal',
@@ -23,7 +24,7 @@ export class RentACarAddCarModalComponent implements OnInit {
   item : number
 
   
-  constructor(private toaster: ToastrService,private carService: CarService, public activeModal : NgbActiveModal, private service: ValidationService) {
+  constructor(private routeService: Router,private toaster: ToastrService,private carService: CarService, public activeModal : NgbActiveModal, private service: ValidationService) {
     const current = new Date();
     this.minDate = {
     year: current.getFullYear(),
@@ -68,14 +69,18 @@ export class RentACarAddCarModalComponent implements OnInit {
     parameters.transmissionType = this.addCarForm.value.CarTransmissionType;
     parameters.numberOfSeats = this.addCarForm.value.CarNumberOfSeats;
     parameters.price = this.addCarForm.value.CarPrice;
-    console.log(parameters);
+    
     this.carService.addCar(parameters).subscribe(i =>{
       this.return = i;
       
-      this.toaster.success("Add car has been successfully executed",'Add a car',{
-        timeOut : 3000
+      this.toaster.success("Add operation been successfully executed. You will be redirected to enterprise profile in 3 seconds.",'Add a car',{
+        timeOut : 2000
       })
-    
+
+      setTimeout(() => {
+        this.routeService.navigate(['/EnterpriseProfile/', this.item]);
+    }, 3000);  
+      this.activeModal.close();
     })
     
   }

@@ -7,6 +7,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 import { IUser } from 'src/app/Shared/Model/Common/IUser.model';
 import { AirlineAdmin } from 'src/app/Shared/Model/Common/AirlineAdmin.model';
+import { RentACarAdmin } from 'src/app/Shared/Model/RentACars/RentACarAdmin.model';
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +83,17 @@ export class UserNetworkService {
             admin.systemRole = "AirlineAdmin";
             admin.airlineID = i.user.airlineID;
             return admin;
+          case "RentACarAdmin":
+            let admin2 = new RentACarAdmin();
+            admin2.name = i.user.name;
+            admin2.lastName = i.user.lastName;
+            admin2.phoneNumber = i.user.phoneNumber;
+            admin2.city = i.user.city;
+            admin2.email = i.user.email;
+            admin2.username = i.user.username;
+            admin2.systemRole = "RentACarAdmin";
+            admin2.enterpriseId = i.user.enterpriseId;
+            return admin2;
           default:
             return null
         }

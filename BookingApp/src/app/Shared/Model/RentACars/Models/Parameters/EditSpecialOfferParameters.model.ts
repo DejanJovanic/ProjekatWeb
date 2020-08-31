@@ -2,7 +2,7 @@ export class EditSpecialOfferParameters{
     enterpriseId : number;
     specialOfferId: number;
     name : string;
-    discountPercentage : string;
+    discount : string;
     description : string;
     numberOfDays : string;
 

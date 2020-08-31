@@ -129,3 +129,6 @@ label{
 .pricing .text-muted {
     opacity: 1;
 }
+.card:hover {
+    cursor:pointer;
+}

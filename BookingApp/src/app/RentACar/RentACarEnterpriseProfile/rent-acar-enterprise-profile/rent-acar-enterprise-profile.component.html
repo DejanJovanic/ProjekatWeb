@@ -1,18 +1,20 @@
 
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container">
-                <div class="navbar-brand">{{Enterprise.name}}</div>
+                <div class="navbar-brand">{{name}}</div>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                        <li class="nav-item"><a title="Click to see our cars" class="nav-link" [routerLink]="['/EnterpriseCars/', Enterprise.id]" routerLinkActive="router-link-active">Cars</a></li>
+                        <li class="nav-item"><a title="Click to see our cars" class="nav-link" [routerLink]="['/EnterpriseCars/', id]" routerLinkActive="router-link-active">Cars</a></li>
                        <!--*ngIf="role ===  'User'" ovo je bilo dole -->
-                        <li    class="nav-item"><a title="Click to rent a car" class="nav-link" [routerLink]="['/EnterpriseRentACar/', Enterprise.id]" routerLinkActive="router-link-active">Rent a car</a></li>
-                        <li class="nav-item"><a title="Click to see our special offers" class="nav-link" [routerLink]="['/EnterpriseSpecialOffers/', Enterprise.id]" routerLinkActive="router-link-active">Special offers</a></li>
+                        <li    class="nav-item"><a title="Click to rent a car" class="nav-link" [routerLink]="['/EnterpriseRentACar/', id]" routerLinkActive="router-link-active">Rent a car</a></li>
+                        <li class="nav-item"><a title="Click to see our special offers" class="nav-link" [routerLink]="['/EnterpriseSpecialOffers/', id]" routerLinkActive="router-link-active">Special offers</a></li>
                         <!--*ngIf="role ===  'User'" ovo je bilo dole -->
-                        <li   class="nav-item"><a [routerLink]="['/EnterpriseDiscounts/', Enterprise.id]" routerLinkActive="router-link-active" title="Click to see our cars on discount" class="nav-link">Cars on discount</a></li>
-                        <li class="nav-item"><a title="Click to see our branches" class="nav-link" [routerLink]="['/EnterpriseBranches/', Enterprise.id]" routerLinkActive="router-link-active">Branches</a></li>
-                        <li class="nav-item"><a  title="Click to see our location on map" class="nav-link" [routerLink]="['/EnterpriseLocation/', Enterprise.id]" routerLinkActive="router-link-active">Location on map</a></li>
-                     
+                        <li   class="nav-item"><a [routerLink]="['/EnterpriseDiscounts/', id]" routerLinkActive="router-link-active" title="Click to see our cars on discount" class="nav-link">Cars on discount</a></li>
+                        <li class="nav-item"><a title="Click to see our branches" class="nav-link" [routerLink]="['/EnterpriseBranches/', id]" routerLinkActive="router-link-active">Branches</a></li>
+                        <li class="nav-item"><a  title="Click to see our location on map" class="nav-link" [routerLink]="['/EnterpriseLocation/', id]" routerLinkActive="router-link-active">Location on map</a></li>
+                        <li *ngIf="role === 'Admin'" class="nav-item"><a  title="Click to add admin for this enterprise" class="nav-link" (click)="openAddAdminModal()" >Add admin for enterprise</a></li>
+                        <li  class="nav-item"><a  title="Click to add admin for this enterprise" class="nav-link" [routerLink]="['/EnterpriseEarnings/', id]" routerLinkActive="router-link-active" >Daily earnings</a></li>
+                        <li  class="nav-item"><a  title="Click to add admin for this enterprise" class="nav-link" [routerLink]="['/RentedCars/', id]" routerLinkActive="router-link-active" >Rented cars</a></li>
                     </ul>
                 </div>
             </div>
@@ -23,12 +25,12 @@
             <div class="container h-100">
                 <div class="row h-100 align-items-center justify-content-center text-center">
                     <div class="col-lg-10 align-self-end">
-                        <h1 class="text-uppercase text-white font-weight-bold">Welcome to {{Enterprise.name}}!</h1>
+                        <h1 class="text-uppercase text-white font-weight-bold">Welcome to {{name}}!</h1>
                         <hr class="divider my-4" />
                     </div>
                     <div class="col-lg-8 align-self-baseline">
-                        <p class="text-white-75 font-weight-bold mb-5">{{Enterprise.description}}</p>
-                        <p class="text-white-75 font-weight-bold mb-5">Our address <i class="fas fa-angle-double-right"></i> {{Enterprise.address.street}} {{Enterprise.address.streetNo}}, {{Enterprise.address.zipCode}} {{Enterprise.address.city}}, {{Enterprise.address.country}} </p>
+                        <p class="text-white-75 font-weight-bold mb-5">{{description}}</p>
+                        <p class="text-white-75 font-weight-bold mb-5">Our address <i class="fas fa-angle-double-right"></i> {{address}} </p>
                         <p class="text-white-75 font-weight-bold mb-5">Our clients have evaluated the work of our company</p>
 
                         <div class="d-flex align-self-baseline justify-content-center">

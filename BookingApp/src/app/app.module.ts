@@ -108,6 +108,15 @@ import { RentACarBranchLocationOnMapComponent } from './RentACar/rent-acar-branc
 import { RentACarReservationPreviewModalComponent } from './RentACar/rent-acar-reservation-preview-modal/rent-acar-reservation-preview-modal.component';
 import { FlightDetailsComponent } from './Airline/AirlineShared/flight-details/flight-details.component';
 import { ResetPasswordComponent } from './Users/reset-password/reset-password.component';
+import { RentACarReservationConfirmationModalComponent } from './RentACar/rent-acar-reservation-confirmation-modal/rent-acar-reservation-confirmation-modal.component';
+import { RentACarStarRatingComponent } from './RentACar/rent-acar-star-rating/rent-acar-star-rating.component';
+import { RentACarDiscountDetailsComponent } from './RentACar/rent-acar-discount-details/rent-acar-discount-details.component';
+import { RentACarFastReservationConfirmationComponent } from './RentACar/rent-acar-fast-reservation-confirmation/rent-acar-fast-reservation-confirmation.component';
+import { RentACarAddEnterpriseModalComponent } from './RentACar/RentACarAdmin/rent-acar-add-enterprise-modal/rent-acar-add-enterprise-modal.component';
+import { RentACarAddRentACarAdminModalComponent } from './RentACar/RentACarAdmin/rent-acar-add-rent-acar-admin-modal/rent-acar-add-rent-acar-admin-modal.component';
+import { RentACarEnterpriseEarningsComponent } from './RentACar/RentACarAdmin/rent-acar-enterprise-earnings/rent-acar-enterprise-earnings.component';
+import { RentACarRentedCarsInfoComponent } from './RentACar/RentACarAdmin/rent-acar-rented-cars-info/rent-acar-rented-cars-info.component';
+
 import { ValidateAccountComponent } from './Users/validate-account/validate-account.component';
 import { ReservationInvitesMainComponent } from './Airline/AirlineRegistered/reservation-invites-main/reservation-invites-main.component';
 import { ReservationInvitesHolderComponent } from './Airline/AirlineRegistered/reservation-invites-holder/reservation-invites-holder.component';
@@ -212,6 +221,14 @@ import { ReservationInvitesHolderComponent } from './Airline/AirlineRegistered/r
     RentACarReservationPreviewModalComponent,
     FlightDetailsComponent,
     ResetPasswordComponent,
+    RentACarReservationConfirmationModalComponent,
+    RentACarStarRatingComponent,
+    RentACarDiscountDetailsComponent,
+    RentACarFastReservationConfirmationComponent,
+    RentACarAddEnterpriseModalComponent,
+    RentACarAddRentACarAdminModalComponent,
+    RentACarEnterpriseEarningsComponent,
+    RentACarRentedCarsInfoComponent,
     ValidateAccountComponent,
     ReservationInvitesMainComponent,
     ReservationInvitesHolderComponent

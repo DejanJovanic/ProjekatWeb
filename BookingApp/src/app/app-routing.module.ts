@@ -47,6 +47,8 @@ import { UserDataResolverService } from './Shared/Resolvers/UserDataResolver/use
 import { AirlineAdminDataResolverService } from './Airline/Resolvers/AirlineAdminDataResolver/airline-admin-data-resolver.service';
 import { RentACarBranchLocationOnMapComponent } from './RentACar/rent-acar-branch-location-on-map/rent-acar-branch-location-on-map.component';
 import { FlightDetailsComponent } from './Airline/AirlineShared/flight-details/flight-details.component';
+import { RentACarEnterpriseEarningsComponent } from './RentACar/RentACarAdmin/rent-acar-enterprise-earnings/rent-acar-enterprise-earnings.component';
+import { RentACarRentedCarsInfoComponent } from './RentACar/RentACarAdmin/rent-acar-rented-cars-info/rent-acar-rented-cars-info.component';
 import { ValidateAccountComponent } from './Users/validate-account/validate-account.component';
 import { ReservationInvitesMainComponent } from './Airline/AirlineRegistered/reservation-invites-main/reservation-invites-main.component';
 
@@ -96,7 +98,9 @@ const routes: Routes = [
     {path: 'EnterpriseDiscounts/:id', component: RentACarDiscountsComponent},
     {path: 'RentACarEnterpriseAdmin', component: RentACarAdminEnterpriseComponent},
     {path: 'CompanyEdit', component: CompanyEditComponent},
-    {path: 'EditFastReservationSeats/:id', component: EditFastReservationSeatsComponent, resolve:{details : SeatResolveService}}
+    {path: 'EditFastReservationSeats/:id', component: EditFastReservationSeatsComponent, resolve:{details : SeatResolveService}},
+    {path: 'EnterpriseEarnings/:id', component: RentACarEnterpriseEarningsComponent},
+    {path: 'RentedCars/:id', component: RentACarRentedCarsInfoComponent}
 
 ];
 

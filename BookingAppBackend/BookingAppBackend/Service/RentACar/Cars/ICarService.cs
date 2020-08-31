@@ -19,5 +19,9 @@ namespace BookingAppBackend.Service.RentACar.Cars
         Task<IEnumerable<Car>> GetCarsOnDiscount(int enterpriseId);
         Task<Car> SetCarOnDiscount(SetDiscountParameters sdp);
         Task<CarReservation> CreateReservation(ReservationParameters paramss);
+        Task<ReservationCar> SetReservation(CarReservation parameters);
+        Task<Car> GetOneCarOnDiscount(int enterpriseId, int carId);
+        Task<CarReservation> CreateReservationForCarOnDiscount(DiscountDetails paramss);
+        Task<ReservationCar> SetReservationForDiscount(CarReservation parameters);
     }
 }

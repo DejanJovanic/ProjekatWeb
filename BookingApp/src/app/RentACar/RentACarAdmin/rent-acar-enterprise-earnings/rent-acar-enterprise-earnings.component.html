@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form [formGroup]="form" (submit)="DrawDailyEarnings()" validatableForm>
+            <div class="form-row">           
+                    <div class="col-sm-3">
+                        <label for="showOptions" class="col-form-label">
+                            Date from:
+                        </label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input  formValidation type="date"  #focusable formControlName="startDate" />
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="showOptions" class="col-form-label">
+                            Date to:
+                        </label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input formValidation type="date" formControlName="endDate"/>
+                    </div>      
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <p class="text-danger form-text" *ngIf="form.errors?.dateMissmatch">
+                        Date from has to be earlier that date to
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <button class="btn btn-primary" [disabled]="form.invalid" type="submit">Draw earnings</button>
+                </div>
+            </div>
+
+        </form>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="earnings" style="height: 370px; width: 100%;"></div>
+        </div>
+    </div>
+</div>

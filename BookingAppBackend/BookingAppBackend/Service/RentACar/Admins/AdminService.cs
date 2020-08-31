@@ -18,9 +18,9 @@ namespace BookingAppBackend.Service.RentACar.Admins
         private UserManager<AuthentificationUser> manager;
 
 
-        public AdminService(IRentACarAdminRepository repo, IUnitOfWork unitOfWork)
+        public AdminService(IRentACarAdminRepository repo, IUnitOfWork unitOfWork, UserManager<AuthentificationUser> manager)
         {
-
+            this.manager = manager;
             this.repo = repo;
             this.unitOfWork = unitOfWork;
         }
@@ -29,7 +29,7 @@ namespace BookingAppBackend.Service.RentACar.Admins
             return await repo.GetRentACarAdminAsync(username);
         }
 
-        /*public async Task<AirlineAdminResponse> Add(AirlineAdminAdd admin)
+        public async Task<RentACarAdmin> AddRentACarAdmin(RentACarAdminAddParameters admin)
          {
              var newAdmin = new BookingAppBackend.Model.Users.RentACarAdmin();
              var user = new AuthentificationUser();
@@ -40,33 +40,33 @@ namespace BookingAppBackend.Service.RentACar.Admins
              newAdmin.LastName = admin.LastName;
              newAdmin.PhoneNumber = admin.PhoneNumber;
              newAdmin.City = admin.City;
-             newAdmin.EntrepriseId = admin.EntrepriseId;
+             newAdmin.EnterpriseId = admin.EnterpriseId;
              if (await manager.FindByNameAsync(admin.Username) == null)
              {
-
+        
                  var ok = await manager.CreateAsync(user, admin.Password);
                  if (ok.Succeeded)
                  {
                      ok = await manager.AddToRoleAsync(user, "RentACarAdmin");
                      if (ok.Succeeded)
                      {
-                         var temp = await repo.AddAirlineAdminAsync(newAdmin);
-                         if (temp.Success)
+                         var temp = await repo.AddRentACarAdmin(newAdmin);
+                         if (temp != null)
                              await unitOfWork.CompleteAsync();
 
                          return temp;
 
                      }
                      else
-                         return new AirlineAdminResponse(ok.Errors.First().Description);
+                         return null;
                  }
                  else
-                     return new AirlineAdminResponse(ok.Errors.First().Description);
+                     return null;
              }
              else
-                 return new AirlineAdminResponse("User with given username already exists");
+                 return null;
          }
-     }*/
+     
     }
 }
  

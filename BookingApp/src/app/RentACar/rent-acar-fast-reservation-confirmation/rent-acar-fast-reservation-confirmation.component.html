@@ -1,0 +1,34 @@
+<div class="modal-body">
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h6 class="card-price text-center"><span class="period"><i class="fas fa-check"></i> Reservation confirmation <i class="fas fa-check"></i></span></h6>
+
+<div class="card">
+    <div class="card-body">
+        
+        <hr>
+        <ul class="fa-ul">
+            <li><span class="fa-li"><i class="fas fa-angle-double-right"></i></span> Are you sure you want to rent the car "{{item.selectedCar.brand}} {{item.selectedCar.model}}" for {{item.price}}$?</li>
+
+    
+        
+            <hr>
+            <div class="row">
+                
+                <div class="col">
+                    <button type="button" id="yesButton" (click)="setReservation()" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-check mr-1"></i> Yes </button>
+                </div>
+                
+
+                <div class="col">
+                    <button  type="button" id="noButton" (click)="activeModal.close('Close click')" class="btn btn-outline-primary btn-rounded " ><i class="fas fa-times mr-1"></i> No </button>
+                </div>
+            </div>
+
+        
+        </ul>
+    
+    </div>
+</div>
+</div>

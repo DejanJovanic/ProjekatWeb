@@ -3,6 +3,11 @@ import { RentACarEnterprise } from 'src/app/Shared/Model/RentACars/RentACarEnter
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { ValidationService } from '../../Services/ValidationService/validation.service';
+import { Enterprise } from 'src/app/Shared/Model/RentACars/Models/Enterprise.model';
+import { EditEnterpriseParameters } from 'src/app/Shared/Model/RentACars/Models/Parameters/EditEnterpriseParameters.model';
+import { EnterpriseService } from '../../Services/EnterpriseService/enterprise.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-rent-acar-enterprise-edit-modal',
   templateUrl: './rent-acar-enterprise-edit-modal.component.html',
@@ -10,44 +15,57 @@ import { ValidationService } from '../../Services/ValidationService/validation.s
 })
 export class RentACarEnterpriseEditModalComponent implements OnInit {
   
-  alert: boolean = false;
+  Enterprise;
+  return;
   editEnterpriseInfoForm: FormGroup;
   @Input()
-  item : RentACarEnterprise
-  constructor(private service: ValidationService, public activeModal : NgbActiveModal) { }
+  item : Enterprise
+  constructor(private routeService: Router, private toaster: ToastrService,private enterpriseService: EnterpriseService, private service: ValidationService, public activeModal : NgbActiveModal) { }
 
   ngOnInit(): void {
     this.setForm();
+   
+    
   }
 
   setForm(){
    
     this.editEnterpriseInfoForm = new FormGroup({
-      enterpriseName: new FormControl(this.item.EnterpriseName, Validators.required),
-      enterpriseCountry: new FormControl(this.item.EnterpriseAddress.Country, [Validators.required, this.service.lettersValidator]),
-      enterpriseCity: new FormControl(this.item.EnterpriseAddress.City, [Validators.required, this.service.lettersValidator] ),
-      enterpriseStreet: new FormControl(this.item.EnterpriseAddress.Street, [Validators.required, this.service.lettersAndNumbers]),
-      enterpriseStreetNo: new FormControl(this.item.EnterpriseAddress.StreetNo, [Validators.required, this.service.lettersAndNumbers]),
-      enterpriseZipCode: new FormControl(this.item.EnterpriseAddress.ZipCode, [Validators.required, this.service.numbersValidator]),
-      enterpriseDescription: new FormControl(this.item.EnterpriseDescription, Validators.required)
+      enterpriseName: new FormControl(this.item.name, Validators.required),
+      enterpriseCountry: new FormControl(this.item.address.country, [Validators.required, this.service.lettersValidator]),
+      enterpriseCity: new FormControl(this.item.address.city, [Validators.required, this.service.lettersValidator] ),
+      enterpriseStreet: new FormControl(this.item.address.street, Validators.required),
+      enterpriseStreetNo: new FormControl(this.item.address.streetNo, [Validators.required, this.service.lettersAndNumbers]),
+      enterpriseZipCode: new FormControl(this.item.address.zipCode, [Validators.required, this.service.numbersValidator]),
+      enterpriseDescription: new FormControl(this.item.description, Validators.required)
     });
   }
 
   editProfile(){
     
-    this.item.EnterpriseName = this.editEnterpriseInfoForm.value.enterpriseName;
-    this.item.EnterpriseAddress.Country = this.editEnterpriseInfoForm.value.enterpriseCountry;
-    this.item.EnterpriseAddress.City = this.editEnterpriseInfoForm.value.enterpriseCity;
-    this.item.EnterpriseAddress.Street = this.editEnterpriseInfoForm.value.enterpriseStreet;
-    this.item.EnterpriseAddress.StreetNo = this.editEnterpriseInfoForm.value.enterpriseStreetNo;
-    this.item.EnterpriseAddress.ZipCode = this.editEnterpriseInfoForm.value.enterpriseZipCode;
-    this.item.EnterpriseDescription = this.editEnterpriseInfoForm.value.enterpriseDescription;
 
-    this.alert = true;
+    var parameters = new EditEnterpriseParameters();
+    
+    parameters.enterpriseId = this.item.id;
+    parameters.description = this.editEnterpriseInfoForm.value.enterpriseDescription;
+    parameters.name = this.editEnterpriseInfoForm.value.enterpriseName;
+    parameters.address.city = this.editEnterpriseInfoForm.value.enterpriseCity;
+    parameters.address.country =  this.editEnterpriseInfoForm.value.enterpriseCountry;
+    parameters.address.street = this.editEnterpriseInfoForm.value.enterpriseStreet;
+    parameters.address.streetNo =  this.editEnterpriseInfoForm.value.enterpriseStreetNo;
+    parameters.address.zipCode = this.editEnterpriseInfoForm.value.enterpriseZipCode;
+    
+    this.enterpriseService.editEnterpriseProfile(parameters).subscribe(i =>{
+      this.return = i;
+      this.toaster.success("Edit operation has been successfully executed.",'Edit profile',{
+        timeOut : 2000
+      })
+
+     
+      this.activeModal.close();
+    })
   }
 
-  closeAlert(){
-    this.alert= false;
-  }
+ 
 
 }

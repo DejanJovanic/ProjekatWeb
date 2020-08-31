@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
+import { Car } from 'src/app/Shared/Model/RentACars/Models/Car.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,80 @@ export class ValidationService {
 
   constructor() { }
 
+  firstYearValidator(control: AbstractControl){
+    if(control && control.value !== null || control.value !== undefined || control.value !== ''){
+      const year = control.value;
+      const yearTo = control.root.get('carYearOfProductionTo');
+
+      if(yearTo){
+       
+          const yearTo2 = yearTo.value;
+          if(parseInt(year) > parseInt(yearTo2)){
+            return{
+              Errorrr: true
+            };
+          }
+      }
+    }
+
+    return null;
+  }
+
+  secondYearValidator(control: AbstractControl){
+    if(control && control.value !== null || control.value !== undefined || control.value !== ''){
+      const yearTo = control.value;
+      const yearFrom = control.root.get('carYearOfProductionFrom');
+
+      if(yearFrom){
+          const yearFrom2 = yearFrom.value;
+          
+          if(parseInt(yearTo) < parseInt(yearFrom2)){
+            return{
+              Errorrr: true
+            };
+          }
+      }
+    }
+
+    return null;
+  }
+    firstPriceValidator(control: AbstractControl){
+      if(control && control.value !== null || control.value !== undefined || control.value !== ''){
+        const price = control.value;
+        const priceTo = control.root.get('carPriceTo');
+
+        if(priceTo){
+         
+            const price2 = priceTo.value;
+            if(parseInt(price) > parseInt(price2)){
+              return{
+                Error: true
+              };
+            }
+        }
+      }
+
+      return null;
+    }
+
+    secondPriceValidator(control: AbstractControl){
+      if(control && control.value !== null || control.value !== undefined || control.value !== ''){
+        const price = control.value;
+        const priceFrom = control.root.get('carPriceFrom');
+
+        if(priceFrom){
+            const price2 = priceFrom.value;
+            
+            if(parseInt(price) < parseInt(price2)){
+              return{
+                Error: true
+              };
+            }
+        }
+      }
+
+      return null;
+    }
     secondDateValidator(control: AbstractControl){
       if(control && control.value !== null || control.value !== undefined || control.value !== ''){
         
@@ -159,5 +234,9 @@ export class ValidationService {
         }
       }
       return null;
+    }
+
+    discountDetails(car : Car){
+      
     }
 }

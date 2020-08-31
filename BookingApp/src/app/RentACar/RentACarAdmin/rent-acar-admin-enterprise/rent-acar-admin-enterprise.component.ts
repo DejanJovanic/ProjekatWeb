@@ -7,6 +7,8 @@ import { UserNetworkService } from 'src/app/Users/Services/UserNetwork/user-netw
 import { Router } from '@angular/router';
 import { RentACarEnterpriseEditModalComponent } from '../rent-acar-enterprise-edit-modal/rent-acar-enterprise-edit-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AdminServiceService } from '../../Services/AdminService/admin-service.service';
+import { EnterpriseService } from '../../Services/EnterpriseService/enterprise.service';
 
 @Component({
   selector: 'app-rent-acar-admin-enterprise',
@@ -17,10 +19,10 @@ export class RentACarAdminEnterpriseComponent implements OnInit {
   EnterpriseRatingArr=[];
   animeArr=[];
   isHalf = false;
-  address: string;
-  Admin: RentACarAdmin
-  Enterprise: RentACarEnterprise
-  constructor(private modalService : NgbModal, private router : Router, private EnterpriseService: RentACarEnterpriseServiceService, private userNetwork: UserNetworkService, private user : UserCacheService) { 
+
+  Admin;
+  Enterprise;
+  constructor(private enterpriseService: EnterpriseService, private modalService : NgbModal, private router : Router, private adminService: AdminServiceService, private userNetwork: UserNetworkService, private user : UserCacheService) { 
 
     
   }
@@ -33,10 +35,24 @@ export class RentACarAdminEnterpriseComponent implements OnInit {
     this.Admin = this.user.currentUser as RentACarAdmin;
     }
     
-    this.Enterprise = this.EnterpriseService.getRentACarEnterprise(this.Admin.RentACarEnterpriseId);
-    this.address = this.Enterprise.EnterpriseAddress.Street + " " + this.Enterprise.EnterpriseAddress.StreetNo + ", " + this.Enterprise.EnterpriseAddress.ZipCode + " " + this.Enterprise.EnterpriseAddress.City + ", " + this.Enterprise.EnterpriseAddress.Country;
-    this.updateStars();
-    this.getArrayValues(0);
+    /*this.adminService.getRentACarAdminAsync(this.Admin.).subscribe(i =>{
+      this.Enterprise = i;
+     
+    this.rating = 0;
+    for(let j = 0; j < this.Enterprise.rating.length; j++){
+      this.rating = this.rating + this.Enterprise.rating[j].rating;
+    }
+
+    this.rating = Math.ceil(this.rating / this.Enterprise.rating.length);
+   
+      this.updateStars();
+      this.getArrayValues(0);
+      
+      this.toaster.success("Your request has been successfully executed",'Enterprise profile',{
+        timeOut : 3000
+      })
+    
+    })*/
   }
 
    updateStars() {
@@ -64,8 +80,17 @@ export class RentACarAdminEnterpriseComponent implements OnInit {
    
   }
 
-  openEnterpriseEditModal(id: number){
-    const modalRef = this.modalService.open(RentACarEnterpriseEditModalComponent);
-    modalRef.componentInstance.item = this.EnterpriseService.getRentACarEnterprise(id);
-  }
+  /*openEnterpriseEditModal(){
+    this.enterpriseService.getOneEnterprise(this.id).subscribe(i =>{
+      const modalRef = this.modalService.open(RentACarEnterpriseEditModalComponent);
+      this.Enterprise = i;
+      this.toaster.success("Your request has been successfully executed",'Edit profile',{
+        timeOut : 3000
+      })
+     
+      
+      modalRef.componentInstance.item = this.Enterprise2;
+    })
+  
+  }*/
 }
