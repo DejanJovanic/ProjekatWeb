@@ -19,6 +19,8 @@
         <div class="col d-inline-flex flex-row">
             <button class="btn btn-success mr-2" (click)="SetReservation()">Set reservation</button>
             <button class="btn btn-success mr-2" [disabled]="points <= 0" (click)="SetReservationPoints()">Set reservation using points(current points:{{points}})</button>
+            <button class="btn btn-success mr-2" (click)="SetReservationCar()">Set reservation with car</button>
+            <button class="btn btn-success mr-2" [disabled]="points <= 0" (click)="SetReservationPointsCar()">Set reservation with car using points(current points:{{points}})</button>
             <button class="btn btn-danger" (click)="Cancel()">Cancel</button>
         </div>
     </div>

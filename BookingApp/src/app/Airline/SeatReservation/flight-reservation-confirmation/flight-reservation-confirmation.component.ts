@@ -82,4 +82,31 @@ export class FlightReservationConfirmationComponent implements OnInit, OnDestroy
  
   }
 
+  SetReservationCar(){
+    this.bookingService.SetFlightReservation(this.service.reservation);
+    this.sub = this.bookingService.SendCurrentReservation().pipe(switchMap(_ => this.userNetwork.GetUserDetails())).subscribe(i =>{
+      sessionStorage.location = this.service.reservation.flight.endLocation
+       sessionStorage.date = JSON.stringify(this.service.reservation.flight.endDate)
+      this.service.reservation = null;
+      this.router.navigate(['/RentACarEnterprises']);
+      localStorage.removeItem("choosenFriends")
+      localStorage.removeItem("currentReservation")
+      sessionStorage.location = this.service.reservation.flight.endLocation
+      this.router.navigate(['']);
+    })
+ 
+  }
+
+  SetReservationPointsCar(){
+    this.bookingService.SetFlightReservation(this.service.reservation);
+    this.sub = this.bookingService.SendCurrentReservationPoints().pipe(switchMap(_ => this.userNetwork.GetUserDetails())).subscribe(i =>{
+      sessionStorage.location = this.service.reservation.flight.endLocation
+      sessionStorage.date = JSON.stringify(this.service.reservation.flight.endDate)
+      this.service.reservation = null;
+      this.router.navigate(['/RentACarEnterprises']);
+      localStorage.removeItem("choosenFriends")
+      localStorage.removeItem("currentReservation")
+    })
+  }
+
 }
